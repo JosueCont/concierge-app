@@ -2,6 +2,11 @@
   "expo": {
     "name": "hybridstoreUpmy",
     "slug": "hybridstoreUpmy",
+    "privacy": "public",
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,16 +16,20 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
+      "checkAutomatically": "ON_ERROR_RECOVERY",
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
+    "android": {
+      "versionCode": 1,
+      "package": "com.itnovare.upmy",
+      "useNextNotificationsApi": true
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "ios": {
+      "bundleIdentifier": "com.itnovare.upmy",
+      "supportsTablet": true
     }
   }
 }
