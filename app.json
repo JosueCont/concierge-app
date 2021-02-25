@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "hybridstoreUpmy",
-    "slug": "hybridstoreUpmy",
+    "name": "Staff Evolution",
+    "slug": "staffEvolution",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -16,7 +16,6 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "checkAutomatically": "ON_ERROR_RECOVERY",
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
@@ -24,12 +23,18 @@
     ],
     "android": {
       "versionCode": 1,
-      "package": "com.itnovare.upmy",
+      "package": "com.hiumanlab.staff",
       "useNextNotificationsApi": true
     },
     "ios": {
-      "bundleIdentifier": "com.itnovare.upmy",
+      "bundleIdentifier": "com.hiumanlab.staff",
       "supportsTablet": true
+    },
+    "extra": {
+      "URL_KHONNECT": "https://khonnect.hiumanlab.com/",
+      "KeySecret": "1LaNXFHqau-o8qH3BM7xBdZ9NPlQRCSyDWlcaWniLcQ",
+      "ClientId": "5fa42a1ca6f5f821bbe7fbea"
+
     }
   }
 }

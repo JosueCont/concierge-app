@@ -8,7 +8,9 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
     "@types/react-native-snap-carousel": "^3.8.2",
+    "axios": "^0.19.2",
     "currency-symbol-map": "^4.0.4",
     "expo": "~39.0.2",
     "expo-constants": "~9.2.0",
@@ -21,6 +23,7 @@
     "expo-notifications": "~0.7.2",
     "expo-permissions": "~9.3.0",
     "expo-status-bar": "~1.0.2",
+    "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.31",
     "native-base": "^2.13.14",
@@ -28,7 +31,10 @@
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
     "react-native-country-picker-modal": "^2.0.0",
+    "react-native-gesture-handler": "~1.8.0",
     "react-native-maps": "0.27.1",
+    "react-native-reanimated": "1.9.0",
+    "react-native-screens": "^2.11.0",
     "react-native-snap-carousel": "^4.0.0-beta.6",
     "react-native-star-rating": "^1.1.0",
     "react-native-web": "~0.13.12",
@@ -39,6 +45,7 @@
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-saga": "^1.1.1",
+    "redux-thunk": "^2.3.0",
     "sentry-expo": "^3.0.2",
     "socket.io-client": "^2.3.1"
   },
