@@ -8,5 +8,6 @@ export const Colors = {
     orangeLight: '#ffb548',
     pink: '#c027b9',
     red: '#c00c00',
-
+    bluetitle: '#1257A6',
+    bluelinks: '#0089E5',
 }

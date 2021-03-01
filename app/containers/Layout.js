@@ -12,10 +12,10 @@ const Layout = (props) => {
     console.log('Render layout')
 
     let [fontsLoaded] = useFonts({
-        'Linotte_Light': require('../../assets/fonts/Linotte-Light.ttf'),
-        'Linotte_Regular': require('../../assets/fonts/Linotte-Regular.ttf'),
-        'Linotte_Semibold': require('../../assets/fonts/Linotte-Semi-Bold.ttf'),
-        'Linotte_Bold': require('../../assets/fonts/Linotte-Bold.ttf'),
+        'Cabin-Regular': require('../../assets/fonts/Cabin-Regular.ttf'),
+        'Cabin-Medium': require('../../assets/fonts/Cabin-Medium.ttf'),
+        'Cabin-SemiBold': require('../../assets/fonts/Cabin-SemiBold.ttf'),
+        'Cabin-Bold': require('../../assets/fonts/Cabin-Bold.ttf'),
     });
 
 
