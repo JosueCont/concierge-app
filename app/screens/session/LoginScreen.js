@@ -49,8 +49,8 @@ const LoginScreen = (props) => {
     const [visibleHeight, setVisibleHeight] = useState(Dimensions.get('window').height);
     const [comp_no_imp, setComp_no_imp] = useState(Dimensions.get('window').height);
     const [comp_aux, setComp_aux] = useState(0);
-    const [justificante_login, setJustificante_login] = useState("center");
-    const [comp_aux_imagen, setComp_aux_imagen] = useState(Dimensions.get('window').width * .45);
+    const [justificante_login, setJustificante_login] = useState("flex-end");
+    const [comp_aux_imagen, setComp_aux_imagen] = useState(Dimensions.get('window').width * .50);
 
 
     useEffect(() => {
@@ -74,14 +74,14 @@ const LoginScreen = (props) => {
         LayoutAnimation.easeInEaseOut();
         setVisibleHeight(Dimensions.get('window').height);
         setComp_no_imp(Dimensions.get('window').height);
-        setJustificante_login("center")
+        setJustificante_login("flex-end")
         setComp_aux(0)
-        setComp_aux_imagen(Dimensions.get('window').width * .45)
+        setComp_aux_imagen(Dimensions.get('window').width * .50)
     };
 
 
     const _login=()=> {
-        /*let msgs = [];
+        let msgs = [];
         let error = false;
 
         if (email.trim() === "") {
@@ -99,33 +99,31 @@ const LoginScreen = (props) => {
         }
 
         if (error) {
-            alert(msgs)*/
-       /// }else {
+            alert(msgs)
+        }else {
             props.doLoginAction({
-                email: 'administrador@demo.com',
-                password: '1234567a'
+                email: email,
+                password: pass
             }).then(response=>{
                 if (!response.password_changed){
                     alert("cambiar contraseña")
                 }else {
                     alert("HomeScreen")
                 }})
-       /// }
+        }
     }
 
     return (
         <ImageBackground
             style={{flex: 1}}
-            source={{
-                uri: 'http://cdn.lowgif.com/full/35f7a89893c0e862-http-giphy-com-gifs-l41yprydt65qqgkcg-fullscreen.gif',
-            }}>
-            <View style={{
-                width: "100%",
-                height: "100%",
-                zIndex: 20
-            }}>
+            source={require('../../../assets/img/fondo-banner.png')}>
+        <View style={{
+            width: "100%",
+            height: "100%",
+            zIndex: 20
+        }}>
 
-                <View style={{height: Dimensions.get('window').height * .05}}/>
+            <View style={{height: Dimensions.get('window').height * .05}}/>
                 <TouchableOpacity
                     style={{
                         minWidth: 20,
@@ -135,127 +133,137 @@ const LoginScreen = (props) => {
                         marginLeft: 12,
                         justifyContent: 'center',
                         alignItems: 'center'
-                    }}>
+                    }}> 
                 </TouchableOpacity>
-
 
                 <View style={{}}>
                     <Image
                         resizeMode='contain'
                         style={{
                             top: comp_aux === 0 ? 100 : 0,
-                            backgroundColor: 'red',
+                            backgroundColor: 'transparent',
                             height: comp_aux_imagen,
                             width: comp_aux_imagen,
-                            alignItems: 'center',
+                            alignItems: "center",
                             alignSelf: "center",
-                            borderRadius: 10,
+                            marginBottom: comp_aux === 0 ? 10 : 30,
                         }}
-                        source={{
-                            uri: "https://s3-eu-west-1.amazonaws.com/xavitristancho/react-native.png"
-                        }}
+                        source= {require('../../../assets/img/logo-staff.png')}
                     />
                 </View>
 
                 <View style={{height: comp_aux * .05}}/>
 
-                <View
-                    style={{
-                        height: Dimensions.get('window').height * .7,
-                        marginHorizontal: Dimensions.get('window').width * .02,
-                        alignItems: "center",
-                        justifyContent: justificante_login,
-                        paddingHorizontal: 10,
-                    }}
-                >
-
-                    <View style={{
-                        backgroundColor:'white',borderRadius:10,
-                        padding:20,
-                        width:Dimensions.get('window').height * .40,alignItems:'center'}}>
-
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Correo electrónico"
-                        placeholderTextColor="lightgray"
-                        autoCapitalize="none"
-                        onChangeText={(text) => setEmail(text)}
-                        value={email}
-                        keyboardType="email-address"
-                        underlineColorAndroid={'transparent'}
-                    />
-
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Contraseña"
-                        placeholderTextColor="lightgray"
-                        secureTextEntry={true}
-                        onChangeText={(text) => setPass(text)}
-                        value={pass}
-                        password={true}
-                        autoCapitalize="none"
-                        underlineColorAndroid={'transparent'}
-                    />
-
-
-                    <View style={{flexDirection: 'row'}}>
-                        <View style={{flex: 1, marginTop: 5}}>
-                            {
-                                !props.user.fetching ?
-                                    <Button
-                                        mensaje="INICIAR SESIÓN"
-                                        onPress={() => _login()}
-                                    />
-                                    :
-                                    <ActivityIndicator size="small" color="white"/>
-
-                            }
-
-                        </View>
-                    </View>
-
-                    <View style={{flexDirection: 'row'}}>
-                        {/*<View style={{flex: 1,marginTop:5}}>
-
-                        <Button
-                            onPress={()=>{alert("xdss")}}
-                            mensaje="REGISTRARME"
-                        />
-                    </View>*/}
-                    </View>
-                    <TouchableOpacity
-                        onPress={() => {
-                            alert("Construcción")
-                            // props.navigation.navigate('recoverPasswordScreen')
+                    <View
+                        style={{
+                            height: Dimensions.get('window').height * .7,
+                            marginHorizontal: Dimensions.get('window').width * .02,
+                            alignItems: "center",
+                            marginTop: -50,
+                            justifyContent: justificante_login,
+                            paddingHorizontal: 10,
                         }}
                     >
-                        <Text style={{color: "black", marginTop: 16, marginBottom: 16,}}>
-                            OLVIDÉ MI CONTRASEÑA
+
+                        <View style={{
+                            backgroundColor:'white',borderRadius:40,
+                            padding:30,
+                            width:Dimensions.get('window').height * .44,alignItems:'center'}}>
+                        <Text style={{
+                            fontFamily: 'Cabin-Bold',
+                            fontSize: 30,
+                            marginTop: 20,
+                            marginBottom: 20,
+                            textAlign: 'center',
+                            color: Colors.bluetitle,
+                        }}>
+                            Iniciar sesión
                         </Text>
-                    </TouchableOpacity>
 
-                    </View>
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Correo electrónico"
+                            placeholderTextColor= {Colors.bluetitle}
+                            autoCapitalize="none"
+                            onChangeText={(text) => setEmail(text)}
+                            value={email}
+                            keyboardType="email-address"
+                            underlineColorAndroid={'transparent'}
+                        />
+
+
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Contraseña"
+                            placeholderTextColor= {Colors.bluetitle}
+                            secureTextEntry={true}
+                            onChangeText={(text) => setPass(text)}
+                            value={pass}
+                            password={true}
+                            autoCapitalize="none"
+                            underlineColorAndroid={'transparent'}
+                        />
+                        
+                        <TouchableOpacity
+                            onPress={() => {
+                                props.navigation.navigate('RecoverPasswordScreen')
+                            }}
+                        >
+                            <Text style={{ color: Colors.bluelinks, fontSize: 14, marginTop: 10, marginBottom: 0, }}>
+                                Recuperar contraseña
+                            </Text>
+                        </TouchableOpacity>
+
+                        <View style={{flexDirection: 'row', width:'90%',}}>
+                            <View style={{flex: 1, marginTop: 5,}}>
+                                {
+                                    !props.user.fetching ?
+                                        <Button
+                                            mensaje="Entrar"
+                                            onPress={() => _login()}
+                                            colorBackground = {Colors.bluelinks}
+                                        />
+                                        :
+                                        <ActivityIndicator size="small" color="white"/>
+
+                                }
+
+                            </View>
+                        </View>
+
+                        <View style={{flexDirection: 'row'}}>
+                            {/*<View style={{flex: 1,marginTop:5}}>
+
+                            <Button
+                                onPress={()=>{alert("xdss")}}
+                                mensaje="REGISTRARME"
+                            />
+                        </View>*/}
+                        </View>
+                        
                 </View>
-
             </View>
+
+        </View>
         </ImageBackground>
     )
 }
 const styles = StyleSheet.create({
         input: {
-            marginTop: 8,
-            marginBottom: 8,
+            fontFamily: 'Cabin-Regular',
+            fontSize: 16,
+            marginTop: 10,
+            marginBottom: 15,
             alignItems: 'center',
+            textAlign: 'center',
             paddingHorizontal: 15,
-            width: "100%",
+            width: "90%",
             height: 44,
             color: "black",
-            borderColor: "rgba(0,0,0,.5)",
+            borderColor: Colors.bluelinks,
             borderWidth: 1,
             backgroundColor: "white",
-            borderRadius: 7
+            borderRadius: 8,
         },
     }
 );
