@@ -35,6 +35,7 @@ export const HomeStack = createStackNavigator({
 const HomeHybridStore = createStackNavigator(
     {
         Home: HomeUserScreen,
+
     },
     {
         headerMode: 'none',
@@ -44,6 +45,7 @@ const HomeHybridStore = createStackNavigator(
 const MyAccountStack = createStackNavigator(
     {
         Account: MyAccountScreen,
+        changePassword:PasswordScreen,
     },
     {
         headerMode: 'none',
@@ -67,7 +69,7 @@ export const AppNavigatorLoggedIn = createStackNavigator(
                 headerShown: false
             }
         },
-        Profile: {
+        ProfileScreen: {
             screen: MyAccountStack,
             navigationOptions: {
                 headerShown: false

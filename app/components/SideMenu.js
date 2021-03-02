@@ -46,7 +46,7 @@ const SideMenu = (props) => {
 
                             <View>
                                 <TouchableOpacity
-                                    onPress={() => props.navigation.navigate('Profile')}
+                                    onPress={() => props.navigation.navigate('ProfileScreen')}
                                 >
                                     <Text style={{fontSize: 22, color: 'white', marginTop: 9}}>
                                         Nombre del perfil
