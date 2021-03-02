@@ -1,13 +1,22 @@
 import {View, ScrollView, StatusBar } from "react-native";
 import React from "react";
-import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
-import ToolbarNoLogin from "../../components/ToolbarComponent/ToolbarNoLogin";
+import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
 
-const RecoverPasswordScreen =(props)=>{
+
+const MyAccountScreen =(props)=>{
 
     const actionReturn=()=>{
-       props.navigation.goBack()
+    alert("hola")        
+    ///  props.navigation.navigate('Main')
     }
+    
+     const navigateToScreen = (route) => () => {
+        const navigateAction = NavigationActions.navigate({
+            routeName: route
+        });
+        props.navigation.dispatch(navigateAction);
+    };
+
     return(
         <View style={{
             height: '100%',
@@ -22,7 +31,7 @@ const RecoverPasswordScreen =(props)=>{
         <View style={{ height: '100%', width: '100%', zIndex: 2, position: 'absolute'}}>
 
             {/* Toolbar componenet para mostar el datos del usuario*/}
-                <ToolbarNoLogin clicAction={actionReturn} nameToolbar={"Mi Cuenta"} type={2}/>
+                <ToolbarGeneric clicAction={actionReturn} nameToolbar={"Mi Cuentaa"} type={1}/>
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -36,4 +45,4 @@ const RecoverPasswordScreen =(props)=>{
         </View>
     )
 }
-export default RecoverPasswordScreen;
+export default MyAccountScreen

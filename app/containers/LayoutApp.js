@@ -5,6 +5,7 @@ import LoginScreen from "../screens/session/LoginScreen";
 import RecoverPasswordScreen from "../screens/session/RecoverPasswordScreen";
 import HomeUserScreen from "../screens/HomeUserScreen";
 import SideMenu from "../components/SideMenu";
+import MyAccountScreen from '../screens/MyAccountScreen';
 
 
 const LoginStack = createStackNavigator({
@@ -40,6 +41,15 @@ const HomeHybridStore = createStackNavigator(
     }
 );
 
+const MyAccountStack = createStackNavigator(
+    {
+        Account: MyAccountScreen,
+    },
+    {
+        headerMode: 'none',
+    }
+);
+
 const DrawerStack = createDrawerNavigator({
         'Reservar': HomeHybridStore,
     },
@@ -57,7 +67,12 @@ export const AppNavigatorLoggedIn = createStackNavigator(
                 headerShown: false
             }
         },
-
+        Profile: {
+            screen: MyAccountStack,
+            navigationOptions: {
+                headerShown: false
+            }
+        }
     },
     {
         initialRouteName: 'Main',

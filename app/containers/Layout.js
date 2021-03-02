@@ -21,7 +21,7 @@ const Layout = (props) => {
 
     if (fontsLoaded) {
         return (
-            props.user.loggedIn ?
+            !props.user.loggedIn ?
             <AppNavigatorLoggedInA/>
                 :
             <AppContainer/>

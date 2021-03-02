@@ -5,6 +5,7 @@ import {
     Keyboard,
     Text,
     StyleSheet,
+    ScrollView,
     LayoutAnimation,
     TextInput,
     ActivityIndicator,
@@ -117,7 +118,7 @@ const LoginScreen = (props) => {
         <ImageBackground
             style={{flex: 1}}
             source={require('../../../assets/img/fondo-banner.png')}>
-        <View style={{
+        <ScrollView style={{
             width: "100%",
             height: "100%",
             zIndex: 20
@@ -244,7 +245,7 @@ const LoginScreen = (props) => {
                 </View>
             </View>
 
-        </View>
+        </ScrollView>
         </ImageBackground>
     )
 }
