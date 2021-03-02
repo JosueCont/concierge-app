@@ -4,8 +4,7 @@ import {darkerHex} from "../../utils/utils";
 import {Colors} from "../../utils/colors";
 
 const Button = (props) => {
-
-    const [colorBackground, setColorBackground] = useState(darkerHex(Colors.purple, 1.5))
+    const [colorBackground, setColorBackground] = useState(darkerHex(Colors.bluelinks, 1.5))
     const [colorTexto, setColorTexto] = useState(Colors.white)
     const [mensaje, setMensaje] = useState(props.mensaje)
     const [tam_texto, setTam_texto] = useState(15)
@@ -16,7 +15,7 @@ const Button = (props) => {
         if (props.mensaje) setMensaje(props.mensaje);
         if (props.tam_texto) setTam_texto(props.tam_texto);
 
-        if (!!props.app && !props.colorBackground) setColorBackground(darkerHex(Colors.purple, 1.5))
+        if (!!props.app && !props.colorBackground) setColorBackground(darkerHex(Colors.bluelinks, 1.5))
 
 
     }, [])
@@ -36,7 +35,8 @@ const Button = (props) => {
             style={[styles.button, {
                 backgroundColor: props.disabled ? "gray" : colorBackground,
                 borderWidth: 0,
-                borderColor: "white"
+                borderColor: "white",
+                padding: 20,
             }]}
             onPress={props.onPress}
             disabled={props.disabled}
