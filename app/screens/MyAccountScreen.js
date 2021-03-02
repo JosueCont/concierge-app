@@ -31,7 +31,7 @@ const MyAccountScreen =(props)=>{
         <View style={{ height: '100%', width: '100%', zIndex: 2, position: 'absolute'}}>
 
             {/* Toolbar componenet para mostar el datos del usuario*/}
-                <ToolbarGeneric clicAction={actionReturn} nameToolbar={"Mi Cuenta"} type={1}/>
+                <ToolbarGeneric clicAction={actionReturn} nameToolbar={"Mi Cuentaa"} type={1}/>
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}

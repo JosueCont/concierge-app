@@ -24,7 +24,7 @@ const ToolbarGeneric = (props) => {
                                         <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                                             <Ionicons name="ios-arrow-back" size={30} color={Colors.bluetitle}/>
                                             
-                                            <Text style={{marginLeft:20,color: Colors.bluelinks, fontSize: 14}}>{props.nameToolbar}dd</Text>
+                                            <Text style={{marginLeft:20,color: Colors.bluelinks, fontSize: 14}}>{props.nameToolbar}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
