@@ -5,10 +5,14 @@ import LoginScreen from "../screens/session/LoginScreen";
 import RecoverPasswordScreen from "../screens/session/RecoverPasswordScreen";
 import HomeUserScreen from "../screens/HomeUserScreen";
 import SideMenu from "../components/SideMenu";
+import MyAccountScreen from '../screens/MyAccountScreen';
+import ChangePasswordFirstTime from '../screens/session/ChangePasswordFirstTime';
 
 
 const LoginStack = createStackNavigator({
     LoginScreen: LoginScreen,
+    ChangePasswordFirstTime: ChangePasswordFirstTime,
+ 
     RecoverPasswordScreen: RecoverPasswordScreen,
 }, {
     headerMode: 'none',
@@ -34,6 +38,17 @@ export const HomeStack = createStackNavigator({
 const HomeHybridStore = createStackNavigator(
     {
         Home: HomeUserScreen,
+
+    },
+    {
+        headerMode: 'none',
+    }
+);
+
+const MyAccountStack = createStackNavigator(
+    {
+        Account: MyAccountScreen,
+        //changePassword:PasswordScreen,
     },
     {
         headerMode: 'none',
@@ -57,7 +72,12 @@ export const AppNavigatorLoggedIn = createStackNavigator(
                 headerShown: false
             }
         },
-
+        ProfileScreen: {
+            screen: MyAccountStack,
+            navigationOptions: {
+                headerShown: false
+            }
+        }
     },
     {
         initialRouteName: 'Main',

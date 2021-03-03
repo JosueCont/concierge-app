@@ -5,6 +5,7 @@ import {
     Keyboard,
     Text,
     StyleSheet,
+    ScrollView,
     LayoutAnimation,
     TextInput,
     ActivityIndicator,
@@ -18,6 +19,9 @@ import {AntDesign} from '@expo/vector-icons';
 import {darkerHex, emailRegEx} from '../../utils/utils'
 import Button from "../../components/Buttons/Button";
 import {Colors} from "../../utils/colors";
+import styled from "styled-components/native";
+import { Video } from 'expo-av';
+import * as Animatable from 'react-native-animatable';
 
 
 const LoginScreen = (props) => {
@@ -26,6 +30,9 @@ const LoginScreen = (props) => {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [alertContent, setAlertContent] = useState("");
+    const [changeView, setChangeView] = useState(false);
+    const [play, setPlay] = useState(true);
+
 
 
     const resetStack = () => {
@@ -68,6 +75,8 @@ const LoginScreen = (props) => {
         setJustificante_login("flex-start")
         setComp_aux(Dimensions.get('window').height)
         setComp_aux_imagen(Dimensions.get('window').width * .3)
+        setChangeView(true)
+        setPlay(false)
     };
 
     const keyboardWillHide = (e) => {
@@ -77,6 +86,9 @@ const LoginScreen = (props) => {
         setJustificante_login("flex-end")
         setComp_aux(0)
         setComp_aux_imagen(Dimensions.get('window').width * .50)
+        setChangeView(false)
+        setPlay(false)
+
     };
 
 
@@ -114,14 +126,47 @@ const LoginScreen = (props) => {
     }
 
     return (
-        <ImageBackground
-            style={{flex: 1}}
-            source={require('../../../assets/img/fondo-banner.png')}>
-        <View style={{
-            width: "100%",
-            height: "100%",
-            zIndex: 20
-        }}>
+        <View>
+            {
+
+            !changeView?
+            <Video
+                    source={require('../../../assets/video/LoginConcierge.mp4')}
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={true}
+                    resizeMode="cover"
+                    shouldPlay={play}
+                    isLooping={false}
+                    style={{height: '100%',
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        alignItems: "stretch",
+                         bottom: 0,
+                         right: 0}}
+                    />
+                    :
+                    
+
+                    <Image
+                    source={require('../../../assets/img/fondo-banner.png')}
+                    style={{height: '100%',
+                    width:'100%',
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                   resizeMode:'cover',
+                     bottom: 0,
+                     right: 0}}
+                />
+
+            }
+          
+
+   
+     
+        <Wrapper>
 
             <View style={{height: Dimensions.get('window').height * .05}}/>
                 <TouchableOpacity
@@ -136,25 +181,42 @@ const LoginScreen = (props) => {
                     }}> 
                 </TouchableOpacity>
 
-                <View style={{}}>
-                    <Image
-                        resizeMode='contain'
-                        style={{
-                            top: comp_aux === 0 ? 100 : 0,
+                <View style={{ top: comp_aux === 0 ? 100 : 0,
                             backgroundColor: 'transparent',
                             height: comp_aux_imagen,
                             width: comp_aux_imagen,
                             alignItems: "center",
                             alignSelf: "center",
-                            marginBottom: comp_aux === 0 ? 10 : 30,
-                        }}
-                        source= {require('../../../assets/img/logo-staff.png')}
-                    />
-                </View>
+                            marginBottom: comp_aux === 0 ? 10 : 30,}}>
+                                {
+                                    !play&&
+                                   <Image
+                                    resizeMode='contain'
+                                    style={{
+                                        top: comp_aux === 0 ? 10 : 0,
+                                        backgroundColor: 'transparent',
+                                        height: comp_aux_imagen,
+                                        width: comp_aux_imagen,
+                                        alignItems: "center",
+                                        alignSelf: "center",
+                                        marginBottom: comp_aux === 0 ? 10 : 30,
+                                    }}
+                                    source= {require('../../../assets/img/logo-staff.png')}
+                                />  
+                            
+                
+                                }
+                               
+                                </View>
+                    
+                  
 
                 <View style={{height: comp_aux * .05}}/>
 
-                    <View
+                    <Animatable.View
+                        animation="fadeInUp"
+                        iterationCount={1} 
+                        delay={5000}
                         style={{
                             height: Dimensions.get('window').height * .7,
                             marginHorizontal: Dimensions.get('window').width * .02,
@@ -242,12 +304,22 @@ const LoginScreen = (props) => {
                         </View>
                         
                 </View>
-            </View>
+            </Animatable.View>
 
+        </Wrapper>
+       
         </View>
-        </ImageBackground>
+
     )
 }
+
+export const Wrapper = styled.View`
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  flex-direction: column;
+`;
+
 const styles = StyleSheet.create({
         input: {
             fontFamily: 'Cabin-Regular',
