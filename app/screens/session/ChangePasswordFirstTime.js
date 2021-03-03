@@ -15,6 +15,7 @@ import ToolbarNoLogin from "../../components/ToolbarComponent/ToolbarNoLogin";
 import { Colors } from "../../utils/colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { connect } from "react-redux";
+import { relativeTimeRounding } from "moment";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -118,6 +119,23 @@ const ChangePasswordFirstTime = (props) => {
               </Text>
             </View>
             <View style={styles.ctnPart2}>
+              <View
+                style={{
+                  width: "100%",
+                  position: "absolute",
+                  top: -4,
+                  textAlign: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: Colors.bluetitle,
+                    width: 80,
+                    height: 4,
+                  }}
+                ></View>
+              </View>
               <View style={styles.ctnForm}>
                 <TextInput
                   style={styles.input}
