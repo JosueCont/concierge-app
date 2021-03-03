@@ -67,8 +67,7 @@ const LoginScreen = (props) => {
     Dimensions.get("window").width * 0.5
   );
   const [modalCustom, setModalCustom] = useState(false);
-  const [typeMessageCustomModal, setTypeMessageCustomModal] = useState(false);
-  const [titleCustomModal, setTitleCustomModal] = useState("");
+  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
 
   const viewModalCustom = () => {
@@ -129,13 +128,12 @@ const LoginScreen = (props) => {
     props
       .doLoginAction({
         email: "administrador@demo.com",
-        password: "1234567a",
+        password: "1234567",
       })
       .then((response) => {
         if (response.status && response.status != 200) {
-          setTypeMessageCustomModal(true);
-          setTitleCustomModal("¡Error!");
           setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+          setIconSourceCustomModal("../../../assets/img/icono_ok.png");
           setModalCustom(true);
         } else {
           if (!response.password_changed) {
@@ -326,9 +324,8 @@ const LoginScreen = (props) => {
       <ModalLoading visible={props.user.fetching} />
       <ModalCustom
         visible={modalCustom}
-        title={titleCustomModal}
         text={messageCustomModal}
-        isError={typeMessageCustomModal}
+        iconSource = {iconSourceCustomModal}
         setVisible={() => viewModalCustom(true)}
       />
     </>

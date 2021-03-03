@@ -8,61 +8,45 @@ import { Button, Text } from "native-base";
 import { Colors } from "../../utils/colors";
 const { width, height } = Dimensions.get("window");
 
-const ModalCustom = ({
-  visible,
-  setVisible,
-  title = "¡Error!",
-  text,
-  isError = true,
-}) => {
+const ModalCustom = ({ visible, setVisible, iconSource, text }) => {
   return (
     <View style={styles.centeredView}>
       <Modal animationType="slide" transparent={true} visible={visible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <View
-              style={{
-                flex: 1,
-                alignItems: "center",
-                justifyContent: "center",
-                marginBottom: 80,
-              }}
-            >
-              {isError ? (
-                <Image
-                  //   source={iconError}
-                  style={{ position: "absolute", top: -100 }}
-                />
-              ) : (
-                <Image
-                  //   source={iconSuccess}
+          <View
+                style={{
+                  width: "100%",
+                  position: "absolute",
+                  top: 0,
+                  textAlign: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
                   style={{
-                    width: 171,
-                    height: 128,
-                    position: "absolute",
-                    top: -100,
+                    backgroundColor: Colors.bluetitle,
+                    width: 80,
+                    height: 4,
                   }}
-                />
-              )}
-            </View>
-            <Text style={styles.modalTitle}>{title}</Text>
-
+                ></View>
+              </View>
+            <Image
+              source={require("../../../assets/img/icono_ok.png")} style={styles.modalImg}
+            />
             <Text
-              style={[
-                styles.modalText,
-                { marginBottom: 30, fontFamily: "Cabin-Bold" },
-              ]}
+              style={
+                styles.modalText }
             >
               {text}
             </Text>
-
             <TouchableOpacity
-              style={styles.fbBtn}
+              style={styles.modalBtn}
               onPress={() => {
                 setVisible(false);
               }}
             >
-              <Text style={styles.fbText}>Cerrar</Text>
+              <Text style={styles.modalBtnText}>Cerrar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -78,27 +62,14 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
   },
-  fbBtn: {
-    backgroundColor: Colors.purple,
-    width: height / 3,
-    height: 40,
-    borderRadius: 10,
-    marginTop: 30,
-    paddingHorizontal: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-  },
-  fbText: {
-    color: Colors.white,
-    fontSize: 14,
-  },
   modalView: {
     margin: 20,
     width: "80%",
-    backgroundColor: Colors.orange,
+    backgroundColor: Colors.white,
     borderRadius: 20,
-    padding: 35,
+    paddingTop: 30,
+    paddingBottom: 50,
+    paddingHorizontal: 50,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -109,30 +80,31 @@ const styles = {
     shadowRadius: 3.84,
     elevation: 5,
   },
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 10,
-    //padding: 10,
-    //elevation: 2
-  },
-  textStyle: {
-    fontSize: 12,
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+  modalImg: {
+    width: 171,
+    height: 128,
+    resizeMode: "contain",
+    marginBottom: 20,
   },
   modalText: {
-    marginBottom: 15,
-    textAlign: "center",
     fontFamily: "Cabin-Regular",
-    color: Colors.purple,
-  },
-  modalTitle: {
-    marginBottom: 5,
     textAlign: "center",
-    fontFamily: "Cabin-Bold",
-    fontSize: 20,
-    color: Colors.purple,
+    color: Colors.bluetitle,
+    marginBottom: 20,
+  },
+  modalBtn: {
+    backgroundColor: Colors.bluetitle,
+    width: '100%',
+    height: 40,
+    borderRadius: 10,
+    paddingHorizontal: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+  },
+  modalBtnText: {
+    color: Colors.white,
+    fontSize: 14,
   },
 };
 
