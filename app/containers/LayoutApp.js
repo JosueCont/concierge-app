@@ -10,9 +10,8 @@ import ChangePasswordFirstTime from "../screens/session/ChangePasswordFirstTime"
 
 const LoginStack = createStackNavigator(
   {
-    LoginScreen: LoginScreen,
     ChangePasswordFirstTime: ChangePasswordFirstTime,
-
+    LoginScreen: LoginScreen,
     RecoverPasswordScreen: RecoverPasswordScreen,
   },
   {
