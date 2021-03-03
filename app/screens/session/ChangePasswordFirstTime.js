@@ -21,9 +21,10 @@ const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
 const ChangePasswordFirstTime = (props) => {
+  console.log("PROPS-->> ", props.user);
+
   const actionReturn = () => {
-    alert("hola");
-    //props.navigation.goBack();
+    props.navigation.navigate("LoginScreen");
   };
 
   return (
@@ -100,7 +101,7 @@ const ChangePasswordFirstTime = (props) => {
                     marginLeft: 5,
                   }}
                 >
-                  Gabriel
+                  {props.user.first_name}
                 </Text>
               </View>
               <Text
@@ -109,10 +110,11 @@ const ChangePasswordFirstTime = (props) => {
                   color: Colors.bluetitle,
                   fontSize: 18,
                   marginTop: 5,
+                  textAlign: "center",
+                  marginBottom: 10,
                 }}
               >
-                {" "}
-                Para ingresar debes cambiar tu contraseña{" "}
+                Para ingresar debes cambiar tu contraseña
               </Text>
             </View>
             <View style={styles.ctnPart2}>
