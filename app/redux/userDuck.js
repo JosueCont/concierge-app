@@ -190,23 +190,3 @@ export let updateProfile = (dataProfile) => {
     }
   };
 };
-
-export let changePasswordFirstLogin = (password) => {
-  return async () => {
-    try {
-      let response = await axios.post(
-        Constants.manifest.extra.URL_KHONNECT + "/password/change/direct/",
-        password,
-        {
-          headers: {
-            "client-id": Constants.manifest.extra.ClientId,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      return response;
-    } catch (e) {
-      console.log(e.response);
-    }
-  };
-};
