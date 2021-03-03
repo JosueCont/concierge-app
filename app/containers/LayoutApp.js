@@ -1,86 +1,89 @@
-import React from 'react'
-import {createStackNavigator} from "react-navigation-stack";
-import {createDrawerNavigator} from "react-navigation-drawer";
+import React from "react";
+import { createStackNavigator } from "react-navigation-stack";
+import { createDrawerNavigator } from "react-navigation-drawer";
 import LoginScreen from "../screens/session/LoginScreen";
 import RecoverPasswordScreen from "../screens/session/RecoverPasswordScreen";
 import HomeUserScreen from "../screens/HomeUserScreen";
 import SideMenu from "../components/SideMenu";
-import MyAccountScreen from '../screens/MyAccountScreen';
-import ChangePasswordFirstTime from '../screens/session/ChangePasswordFirstTime';
+import MyAccountScreen from "../screens/MyAccountScreen";
+import ChangePasswordFirstTime from "../screens/session/ChangePasswordFirstTime";
 
-
-const LoginStack = createStackNavigator({
+const LoginStack = createStackNavigator(
+  {
     ChangePasswordFirstTime: ChangePasswordFirstTime,
     LoginScreen: LoginScreen,
     RecoverPasswordScreen: RecoverPasswordScreen,
-}, {
-    headerMode: 'none',
-});
+  },
+  {
+    headerMode: "none",
+  }
+);
 
-export const HomeStack = createStackNavigator({
-        MyLogin: {
-            screen: LoginStack,
-            navigationOptions: {
-                headerShown: false
-            }
-        },
+export const HomeStack = createStackNavigator(
+  {
+    MyLogin: {
+      screen: LoginStack,
+      navigationOptions: {
+        headerShown: false,
+      },
     },
-    {
-        initialRouteName: 'MyLogin',
-        unmountInactiveRoutes: true,
-        navigationOptions: {
-            headerMode: null
-        }
-    }
+  },
+  {
+    initialRouteName: "MyLogin",
+    unmountInactiveRoutes: true,
+    navigationOptions: {
+      headerMode: null,
+    },
+  }
 );
 
 const HomeHybridStore = createStackNavigator(
-    {
-        Home: HomeUserScreen,
-
-    },
-    {
-        headerMode: 'none',
-    }
+  {
+    Home: HomeUserScreen,
+  },
+  {
+    headerMode: "none",
+  }
 );
 
 const MyAccountStack = createStackNavigator(
-    {
-        Account: MyAccountScreen,
-        //changePassword:PasswordScreen,
-    },
-    {
-        headerMode: 'none',
-    }
+  {
+    Account: MyAccountScreen,
+    //changePassword:PasswordScreen,
+  },
+  {
+    headerMode: "none",
+  }
 );
 
-const DrawerStack = createDrawerNavigator({
-        'Reservar': HomeHybridStore,
-    },
-    {
-        contentComponent: props => <SideMenu {...props}/>,
-        overlayColor: '#282f2f75'
-    }
+const DrawerStack = createDrawerNavigator(
+  {
+    Reservar: HomeHybridStore,
+  },
+  {
+    contentComponent: (props) => <SideMenu {...props} />,
+    overlayColor: "#282f2f75",
+  }
 );
 
 export const AppNavigatorLoggedIn = createStackNavigator(
-    {
-        Main: {
-            screen: DrawerStack,
-            navigationOptions: {
-                headerShown: false
-            }
-        },
-        ProfileScreen: {
-            screen: MyAccountStack,
-            navigationOptions: {
-                headerShown: false
-            }
-        }
+  {
+    Main: {
+      screen: DrawerStack,
+      navigationOptions: {
+        headerShown: false,
+      },
     },
-    {
-        initialRouteName: 'Main',
-        headerMode: "screen",
-        unmountInactiveRoutes: true,
-    }
+    ProfileScreen: {
+      screen: MyAccountStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+  },
+  {
+    initialRouteName: "Main",
+    headerMode: "screen",
+    unmountInactiveRoutes: true,
+  }
 );
