@@ -21,7 +21,11 @@ import { AntDesign } from "@expo/vector-icons";
 import { darkerHex, emailRegEx } from "../../utils/utils";
 import Button from "../../components/Buttons/Button";
 import { Colors } from "../../utils/colors";
+import styled from "styled-components/native";
+import { Video } from "expo-av";
+import * as Animatable from "react-native-animatable";
 import ModalLoading from "../../components/modal/loading";
+import ModalCustom from "../../components/modal/ModalCustom";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
@@ -29,6 +33,8 @@ const LoginScreen = (props) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [alertContent, setAlertContent] = useState("");
+  const [changeView, setChangeView] = useState(false);
+  const [play, setPlay] = useState(true);
 
   const resetStack = () => {
     navigation.dispatch(
@@ -60,6 +66,14 @@ const LoginScreen = (props) => {
   const [comp_aux_imagen, setComp_aux_imagen] = useState(
     Dimensions.get("window").width * 0.5
   );
+  const [modalCustom, setModalCustom] = useState(false);
+  const [typeMessageCustomModal, setTypeMessageCustomModal] = useState(false);
+  const [titleCustomModal, setTitleCustomModal] = useState("");
+  const [messageCustomModal, setMessageCustomModal] = useState("");
+
+  const viewModalCustom = () => {
+    modalCustom ? setModalCustom(false) : setModalCustom(true);
+  };
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", keyboardWillShow);
@@ -76,6 +90,8 @@ const LoginScreen = (props) => {
     setJustificante_login("flex-start");
     setComp_aux(Dimensions.get("window").height);
     setComp_aux_imagen(Dimensions.get("window").width * 0.3);
+    setChangeView(true);
+    setPlay(false);
   };
 
   const keyboardWillHide = (e) => {
@@ -85,24 +101,26 @@ const LoginScreen = (props) => {
     setJustificante_login("flex-end");
     setComp_aux(0);
     setComp_aux_imagen(Dimensions.get("window").width * 0.5);
+    setChangeView(false);
+    setPlay(false);
   };
 
   const _login = () => {
-    let msgs = [];
-    let error = false;
+    // let msgs = [];
+    // let error = false;
 
     // if (email.trim() === "") {
     //   error = true;
-    //   msgs.push("· Falta tu correo");
+    //   msgs.push("-Ingresa una direccion de correo");
     // } else {
     //   if (!emailRegEx.test(email)) {
     //     error = true;
-    //     msgs.push("· Correo inválido");
+    //     msgs.push("Agregue una direccion de correo valida");
     //   }
     // }
     // if (pass.trim() === "") {
     //   error = true;
-    //   msgs.push("· Falta tu contraseña");
+    //   msgs.push("\n-Ingresa tu contraseña");
     // }
 
     // if (error) {
@@ -114,44 +132,76 @@ const LoginScreen = (props) => {
         password: "1234567a",
       })
       .then((response) => {
-        console.log("Response login-->>> ", response);
-        if (!response.password_changed) {
-          // alert("cambiar contraseña");
+        if (response.status && response.status != 200) {
+          setTypeMessageCustomModal(true);
+          setTitleCustomModal("¡Error!");
+          setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+          setModalCustom(true);
         } else {
-          // alert("HomeScreen");
+          if (!response.password_changed) {
+            props.navigation.navigate("ChangePasswordFirstTime");
+          }
         }
       });
     // }
   };
 
   return (
-    <ImageBackground
-      style={{ flex: 1 }}
-      source={require("../../../assets/img/fondo-banner.png")}
-    >
-      <ScrollView
-        style={{
-          width: "100%",
-          height: "100%",
-          zIndex: 20,
-        }}
+    <>
+      <ImageBackground
+        source={require("../../../assets/img/fondo_logon_noicon.png")}
+        style={{ resizeMode: "cover" }}
       >
-        <View style={{ height: Dimensions.get("window").height * 0.05 }} />
-        <TouchableOpacity
-          style={{
-            minWidth: 20,
-            width: 35,
-            minHeight: 20,
-            height: 35,
-            marginLeft: 12,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        ></TouchableOpacity>
-
-        <View style={{}}>
+        {!changeView ? (
+          <Video
+            source={require("../../../assets/video/LoginConcierge.mp4")}
+            rate={1.0}
+            volume={1.0}
+            isMuted={true}
+            resizeMode="cover"
+            shouldPlay={play}
+            isLooping={false}
+            style={{
+              height: "100%",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              alignItems: "stretch",
+              bottom: 0,
+              right: 0,
+            }}
+          />
+        ) : (
           <Image
-            resizeMode="contain"
+            source={require("../../../assets/img/fondo-banner.png")}
+            style={{
+              height: "100%",
+              width: "100%",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              resizeMode: "cover",
+              bottom: 0,
+              right: 0,
+            }}
+          />
+        )}
+
+        <Wrapper>
+          <View style={{ height: Dimensions.get("window").height * 0.05 }} />
+          <TouchableOpacity
+            style={{
+              minWidth: 20,
+              width: 35,
+              minHeight: 20,
+              height: 35,
+              marginLeft: 12,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          ></TouchableOpacity>
+
+          <View
             style={{
               top: comp_aux === 0 ? 100 : 0,
               backgroundColor: "transparent",
@@ -161,113 +211,137 @@ const LoginScreen = (props) => {
               alignSelf: "center",
               marginBottom: comp_aux === 0 ? 10 : 30,
             }}
-            source={require("../../../assets/img/logo-staff.png")}
-          />
-        </View>
+          >
+            {!play && (
+              <Image
+                resizeMode="contain"
+                style={{
+                  top: comp_aux === 0 ? 10 : 0,
+                  backgroundColor: "transparent",
+                  height: comp_aux_imagen,
+                  width: comp_aux_imagen,
+                  alignItems: "center",
+                  alignSelf: "center",
+                  marginBottom: comp_aux === 0 ? 10 : 30,
+                }}
+                source={require("../../../assets/img/logo-staff.png")}
+              />
+            )}
+          </View>
 
-        <View style={{ height: comp_aux * 0.05 }} />
+          <View style={{ height: comp_aux * 0.05 }} />
 
-        <View
-          style={{
-            height: Dimensions.get("window").height * 0.7,
-            marginHorizontal: Dimensions.get("window").width * 0.02,
-            alignItems: "center",
-            marginTop: -50,
-            justifyContent: justificante_login,
-            paddingHorizontal: 10,
-          }}
-        >
-          <View
+          <Animatable.View
+            animation="fadeInUp"
+            iterationCount={1}
+            delay={5000}
             style={{
-              backgroundColor: "white",
-              borderRadius: 40,
-              padding: 30,
-              width: Dimensions.get("window").height * 0.44,
+              height: Dimensions.get("window").height * 0.7,
+              marginHorizontal: Dimensions.get("window").width * 0.02,
               alignItems: "center",
+              marginTop: -50,
+              justifyContent: justificante_login,
+              paddingHorizontal: 10,
             }}
           >
-            <Text
+            <View
               style={{
-                fontFamily: "Cabin-Bold",
-                fontSize: 30,
-                marginTop: 20,
-                marginBottom: 20,
-                textAlign: "center",
-                color: Colors.bluetitle,
-              }}
-            >
-              Iniciar sesión
-            </Text>
-
-            <TextInput
-              style={styles.input}
-              placeholder="Correo electrónico"
-              placeholderTextColor={Colors.bluetitle}
-              autoCapitalize="none"
-              onChangeText={(text) => setEmail(text)}
-              value={email}
-              keyboardType="email-address"
-              underlineColorAndroid={"transparent"}
-            />
-
-            <TextInput
-              style={styles.input}
-              placeholder="Contraseña"
-              placeholderTextColor={Colors.bluetitle}
-              secureTextEntry={true}
-              onChangeText={(text) => setPass(text)}
-              value={pass}
-              password={true}
-              autoCapitalize="none"
-              underlineColorAndroid={"transparent"}
-            />
-
-            <TouchableOpacity
-              onPress={() => {
-                props.navigation.navigate("RecoverPasswordScreen");
+                backgroundColor: "white",
+                borderRadius: 40,
+                padding: 30,
+                width: Dimensions.get("window").height * 0.44,
+                alignItems: "center",
               }}
             >
               <Text
                 style={{
-                  color: Colors.bluelinks,
-                  fontSize: 14,
-                  marginTop: 10,
-                  marginBottom: 0,
+                  fontFamily: "Cabin-Bold",
+                  fontSize: 30,
+                  marginTop: 20,
+                  marginBottom: 20,
+                  textAlign: "center",
+                  color: Colors.bluetitle,
                 }}
               >
-                Recuperar contraseña
+                Iniciar sesión
               </Text>
-            </TouchableOpacity>
 
-            <View style={{ flexDirection: "row", width: "90%" }}>
-              <View style={{ flex: 1, marginTop: 5 }}>
-                {!props.user.fetching ? (
-                  <Button
-                    mensaje="Entrar"
-                    onPress={() => _login()}
-                    colorBackground={Colors.bluelinks}
-                  />
-                ) : (
-                  <ActivityIndicator size="small" color="white" />
-                )}
+              <TextInput
+                style={styles.input}
+                placeholder="Correo electrónico"
+                placeholderTextColor={Colors.bluetitle}
+                autoCapitalize="none"
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                keyboardType="email-address"
+                underlineColorAndroid={"transparent"}
+              />
+
+              <TextInput
+                style={styles.input}
+                placeholder="Contraseña"
+                placeholderTextColor={Colors.bluetitle}
+                secureTextEntry={true}
+                onChangeText={(text) => setPass(text)}
+                value={pass}
+                password={true}
+                autoCapitalize="none"
+                underlineColorAndroid={"transparent"}
+              />
+
+              <TouchableOpacity
+                onPress={() => {
+                  props.navigation.navigate("RecoverPasswordScreen");
+                }}
+              >
+                <Text
+                  style={{
+                    color: Colors.bluelinks,
+                    fontSize: 14,
+                    marginTop: 10,
+                    marginBottom: 0,
+                  }}
+                >
+                  Recuperar contraseña
+                </Text>
+              </TouchableOpacity>
+
+              <View style={{ flexDirection: "row", width: "90%" }}>
+                <View style={{ flex: 1, marginTop: 5 }}>
+                  {!props.user.fetching ? (
+                    <Button
+                      mensaje="Entrar"
+                      onPress={() => _login()}
+                      colorBackground={Colors.bluelinks}
+                    />
+                  ) : (
+                    <ActivityIndicator size="small" color="white" />
+                  )}
+                </View>
               </View>
             </View>
-
-            <View style={{ flexDirection: "row" }}>
-              {/*<View style={{flex: 1,marginTop:5}}>
-
-                            <Button
-                                onPress={()=>{alert("xdss")}}
-                                mensaje="REGISTRARME"
-                            />
-                        </View>*/}
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    </ImageBackground>
+          </Animatable.View>
+        </Wrapper>
+      </ImageBackground>
+      <ModalLoading visible={props.user.fetching} />
+      <ModalCustom
+        visible={modalCustom}
+        title={titleCustomModal}
+        text={messageCustomModal}
+        isError={typeMessageCustomModal}
+        setVisible={() => viewModalCustom(true)}
+      />
+    </>
   );
 };
+
+export const Wrapper = styled.View`
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  flex-direction: column;
+`;
+
 const styles = StyleSheet.create({
   input: {
     fontFamily: "Cabin-Regular",

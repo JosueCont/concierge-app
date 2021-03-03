@@ -22,7 +22,7 @@ const RecoverPasswordScreen =(props)=>{
         <View style={{ height: '100%', width: '100%', zIndex: 2, position: 'absolute'}}>
 
             {/* Toolbar componenet para mostar el datos del usuario*/}
-                <ToolbarNoLogin clicAction={actionReturn} nameToolbar={"Mi Cuenta"} type={2}/>
+                <ToolbarNoLogin clickAction={actionReturn} nameToolbar={"Mi Cuenta"} type={2}/>
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}

@@ -23,6 +23,7 @@ const LOG_OUT = "LOG_OUT";
 
 const USER_PROFILE = "USER_PROFILE";
 const USER_PROFILE_SUCCESS = "USER_PROFILE_SUCCESS";
+const TEMPORAL_LOGIN = "TEMPORAL_LOGIN";
 
 /***
  *REDUCE
@@ -58,6 +59,8 @@ export default userReducer = (state = initialData, action) => {
         loggedIn: false,
         error: action.payload,
       };
+    case TEMPORAL_LOGIN:
+      return { ...state, fetching: false, ...action.payload };
     default:
       return state;
   }
@@ -126,17 +129,18 @@ export let doLoginAction = (credential) => {
       );
 
       let convertResponse = jwt_decode(response.data.token);
-      convertResponse.password_changed = true;
+
       if (convertResponse.password_changed) {
         dispatch({
           type: LOGIN_SUCCESS,
           payload: convertResponse,
         });
         saveStore(convertResponse);
+      } else {
+        dispatch({ type: TEMPORAL_LOGIN, payload: convertResponse });
       }
       return convertResponse;
     } catch (err) {
-      console.log(err);
       dispatch({ type: LOGIN_ERROR_SERVER, payload: err.response });
       return err.response;
     }

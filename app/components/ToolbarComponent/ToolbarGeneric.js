@@ -13,160 +13,89 @@ const ToolbarGeneric = (props) => {
                     <View style={{alignItems: 'center', width: '100%'}}>
                         <View style={{
                             flexDirection: 'row',
-                            justifyContent: 'space-between',
                             alignItems: 'center',
                             width: '90%',
-                            height: '100%',
-                            marginTop: 20,
+                            marginTop: 30,
                         }}>
                             <TouchableOpacity
-                                style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}
+                                style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}
                                 onPress={() => {
                                     props.clickAction()
                                 }}>
-                                <Ionicons name="ios-arrow-back" size={30} color={Colors.bluetitle} onPress={() => {
-                                    props.clicAction()
-                                }}/>
+                                <Ionicons name="ios-arrow-back" size={30} color={Colors.bluetitle}/>
                                 <Text style={{
-                                    marginLeft: 0,
+                                    marginLeft: 10,
                                     color: Colors.bluelinks,
                                     fontSize: 14
                                 }}>{props.nameToolbar}</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity>
+                            <TouchableOpacity style={{ flex: 1, alignItems: 'center', }}>
                                 <Image source={require('../../../assets/img/staff_evolution.png')}
                                        resizeMode={'contain'} style={{height: 60, width: 60}}/>
                             </TouchableOpacity>
-                            <TouchableOpacity
+                            <TouchableOpacity 
                                 onPress={() => {
-                                    alert("dd")
+                                    props.clickAction()
                                 }}
                                 style={{
-                                    borderColor: Colors.bluelinks,
-                                    borderWidth: 4,
-                                    borderRadius: 50,
-                                    overflow: 'hidden',
+                                    flex: 1,
+                                    alignItems: "flex-end",
                                 }}>
-                                <Image source={require('../../../assets/img/perfil.png')} resizeMode={'contain'}
-                                       style={{height: 60, width: 60,}}/>
+                                    <Image source={require('../../../assets/img/perfil.png')} 
+                                        style={{height: 60, width: 60,                 borderColor: Colors.bluelinks,
+                                        borderWidth: 4,
+                                        borderRadius: 50,
+                                        overflow: 'hidden',}}/>
                             </TouchableOpacity>
                         </View>
                     </View>
                 )
-                break;
+            break;
 
             case 2:
                 return (
                     <View style={{alignItems: 'center', width: '100%'}}>
                         <View style={{
                             flexDirection: 'row',
-                            justifyContent: 'space-between',
                             alignItems: 'center',
                             width: '90%',
-                            height: '100%',
-                            marginTop: 20,
+                            marginTop: 30,
                         }}>
                             <TouchableOpacity
-                                style={{
-                                    width: '20%',
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}
+                                style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}
                                 onPress={() => {
-                                    //acción para  regresar, abrir nueva vista.
                                     props.clickAction()
                                 }}>
-                                <Entypo name="menu" size={30} color={Colors.bluetitle} onPress={() => {
-                                    props.clickAction()
-                                }}/>
+                                <Entypo name="menu" size={30} color={Colors.bluetitle} />
                                 <Text style={{
                                     marginLeft: 5,
                                     color: Colors.bluelinks,
                                     fontSize: 14
                                 }}>{props.nameToolbar}</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={{width: '20%'}}>
+                            <TouchableOpacity style={{ flex: 1, alignItems: 'center', }}>
                                 <Image source={require('../../../assets/img/staff_evolution.png')}
                                        resizeMode={'contain'} style={{height: 60, width: 60}}/>
                             </TouchableOpacity>
-                            <TouchableOpacity
-                                style={{width: '20%'}}
+                            <TouchableOpacity 
                                 onPress={() => {
-                                    alert("dd")
+                                    props.clickAction()
+                                }}
+                                style={{
+                                    flex: 1,
+                                    alignItems: "flex-end",
                                 }}>
-                                <View style={{
-                                    borderColor: Colors.bluelinks,
-                                    borderWidth: 4,
-                                    borderRadius: 50,
-
-                                }}>
-                                    <Image source={require('../../../assets/img/perfil.png')} resizeMode={'contain'}
-                                           style={{height: 50, width: 40}}/>
-                                </View>
-
+                                    <Image source={require('../../../assets/img/perfil.png')} 
+                                        style={{height: 60, width: 60,                 borderColor: Colors.bluelinks,
+                                        borderWidth: 4,
+                                        borderRadius: 50,
+                                        overflow: 'hidden',}}/>
                             </TouchableOpacity>
                         </View>
                     </View>
                 )
-                break;
+            break;
 
-            case 3:
-                return (
-                    <View style={{alignItems: 'center', width: '100%'}}>
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            width: '90%',
-                            top: 20,
-                        }}>
-                            <View style={{}}>
-                                <TouchableOpacity onPress={() => {
-
-                                }}>
-                                    <View
-                                        style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                                        <Ionicons name="ios-arrow-back" size={30} color={Colors.bluetitle}/>
-                                        <Text style={{
-                                            marginLeft: 20,
-                                            color: Colors.bluelinks,
-                                            fontSize: 14
-                                        }}>{props.nameToolbar}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{
-                                flex: 1,
-                                alignItems: 'center',
-                                position: 'absolute',
-                                left: 0,
-                                right: 0,
-                                margin: 'auto',
-                                zIndex: 2,
-                            }}>
-                                <TouchableOpacity>
-                                    <Image source={require('../../../assets/img/staff_evolution.png')}
-                                           resizeMode={'contain'} style={{height: 60, width: 60}}/>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{}}>
-                                <TouchableOpacity style={{
-                                    borderColor: Colors.bluelinks,
-                                    borderWidth: 4,
-                                    borderRadius: 50,
-                                    overflow: 'hidden',
-                                }}>
-                                    <Image source={require('../../../assets/img/perfil.png')} resizeMode={'contain'}
-                                           style={{height: 60, width: 60,}}/>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                )
-                break;
-
-                break;
             default:
                 return (
                     <View style={{
@@ -183,7 +112,7 @@ const ToolbarGeneric = (props) => {
     }
     return (
         <View style={{
-            height: '18%',
+            height: '16%',
             width: '100%',
             justifyContent: 'center',
             alignItems: 'center',

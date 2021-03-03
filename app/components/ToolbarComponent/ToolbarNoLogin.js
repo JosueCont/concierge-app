@@ -39,7 +39,7 @@ const ToolbarGeneric = (props) => {
                         }}>
                             <View style={{}}>
                                 <TouchableOpacity onPress={()=>{
-                                    props.navigation.goBack()
+                                    props.clickAction()
                                 }}>
                                     <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                                         <Ionicons name="ios-arrow-back" size={30} color={Colors.bluetitle}/>

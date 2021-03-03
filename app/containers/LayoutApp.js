@@ -6,10 +6,13 @@ import RecoverPasswordScreen from "../screens/session/RecoverPasswordScreen";
 import HomeUserScreen from "../screens/HomeUserScreen";
 import SideMenu from "../components/SideMenu";
 import MyAccountScreen from "../screens/MyAccountScreen";
+import ChangePasswordFirstTime from "../screens/session/ChangePasswordFirstTime";
 
 const LoginStack = createStackNavigator(
   {
     LoginScreen: LoginScreen,
+    ChangePasswordFirstTime: ChangePasswordFirstTime,
+
     RecoverPasswordScreen: RecoverPasswordScreen,
   },
   {
@@ -47,6 +50,7 @@ const HomeHybridStore = createStackNavigator(
 const MyAccountStack = createStackNavigator(
   {
     Account: MyAccountScreen,
+    //changePassword:PasswordScreen,
   },
   {
     headerMode: "none",
