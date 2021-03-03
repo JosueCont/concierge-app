@@ -4,8 +4,8 @@ import {HomeStack,AppNavigatorLoggedIn} from '../containers/LayoutApp'
 import {useFonts} from 'expo-font';
 import {Text} from "react-native";
 import {connect} from "react-redux";
-const AppContainer = createAppContainer(HomeStack);
-const AppNavigatorLoggedInA = createAppContainer(AppNavigatorLoggedIn);
+const AppContainerLogin = createAppContainer(HomeStack);
+const AppNavigatorHome = createAppContainer(AppNavigatorLoggedIn);
 
 
 const Layout = (props) => {
@@ -22,9 +22,9 @@ const Layout = (props) => {
     if (fontsLoaded) {
         return (
             props.user.loggedIn ?
-            <AppNavigatorLoggedInA/>
+            <AppNavigatorHome/>
                 :
-            <AppContainer/>
+            <AppContainerLogin/>
         );
     } else {
         return (

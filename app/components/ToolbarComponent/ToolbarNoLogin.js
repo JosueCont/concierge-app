@@ -28,33 +28,39 @@ const ToolbarGeneric = (props) => {
                 break;  
 
                 case 2:
-                return(
-                    <View style={{alignItems:'center',width: '100%'}}>
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'flex-start',
-                            alignItems: 'center', 
-                            width: '90%',
-                            top:20, 
-                        }}>
-                            <View style={{}}>
-                                <TouchableOpacity onPress={()=>{
-                                    props.clickAction()
+                    return (
+                        <View style={{alignItems: 'center', width: '100%'}}>
+                            <View style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                width: '90%',
+                                marginTop: 30,
+                            }}>
+                                <TouchableOpacity
+                                    style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}
+                                    onPress={() => {
+                                        props.clickAction()
+                                    }}>
+                                    <Ionicons name="ios-arrow-back" size={30} color={Colors.bluetitle}/>
+                                    <Text style={{
+                                        marginLeft: 10,
+                                        color: Colors.bluelinks,
+                                        fontSize: 14
+                                    }}>{props.nameToolbar}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ flex: 1, alignItems: 'center', }}>
+                                    <Image source={require('../../../assets/img/staff_evolution.png')}
+                                           resizeMode={'contain'} style={{height: 60, width: 60}}/>
+                                </TouchableOpacity>
+                                <View 
+                                style={{
+                                    flex: 1,
+                                    alignItems: "flex-end",
                                 }}>
-                                    <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                                        <Ionicons name="ios-arrow-back" size={30} color={Colors.bluetitle}/>
-                                        <Text style={{marginLeft:20,color: Colors.bluelinks, fontSize: 14}}>{props.nameToolbar}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{flex: 1,alignItems:'center', position: 'absolute', left: 0, right: 0,  margin: 'auto', zIndex: 2, }}>
-                                <TouchableOpacity>
-                                    <Image source={require('../../../assets/img/staff_evolution.png')} resizeMode={'contain'} style={{height: 60, width: 60}}/>
-                                </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
-                    </View> 
-                )
+                    )
                 break;  
                 
                 default:
@@ -71,7 +77,7 @@ const ToolbarGeneric = (props) => {
     }
     return (
         <View style={{
-            height: '18%',
+            height: '16%',
             width: '100%',
             justifyContent: 'center',
             alignItems: 'center',
