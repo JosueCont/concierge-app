@@ -34,64 +34,6 @@ const EmailSentScreen = (props) => {
     props.navigation.navigate("LoginScreen");
   };
 
-  const changePasswordFirstLogin = (data) => {
-    axios
-      .post(
-        Constants.manifest.extra.URL_KHONNECT + "/password/change/direct/",
-        data,
-        {
-          headers: {
-            "client-id": Constants.manifest.extra.ClientId,
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((response) => {
-        if (response) {
-          setMessageCustomModal("Las contraseñas no coinciden");
-          setIconSourceCustomModal(1);
-          setModalCustom(true);
-        }
-      })
-      .catch((error) => {
-        console.log(error.response);
-        setMessageCustomModal("Ocurrio un error, intente de nuevo.");
-        setIconSourceCustomModal(1);
-        setModalCustom(true);
-      });
-  };
-
-  const changePassword = () => {
-    let data = {
-      old_password: oldPass,
-      new_password: newPass,
-      user_id: props.user.user_id,
-    };
-    if (
-      oldPass.trim() === "" ||
-      newPass.trim() === "" ||
-      newPassTwo.trim() === ""
-    ) {
-      setMessageCustomModal("Llene todos los campos");
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-      return;
-    }
-    if (newPass === newPassTwo) {
-      changePasswordFirstLogin(data);
-      console.log("DATA-->>> ", data);
-    } else {
-      console.log("DiFERENTES-->>> ", data);
-      setMessageCustomModal("Las contraseñas no coinciden");
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-    }
-  };
-
-  const viewModalCustom = () => {
-    modalCustom ? setModalCustom(false) : setModalCustom(true);
-  };
-
   return (
     <View
       style={{
@@ -116,7 +58,7 @@ const EmailSentScreen = (props) => {
           style={{
             position: "relative",
             minHeight: windowHeight + statusHeight,
-            height: '100%',
+            height: "100%",
           }}
         >
           {/* Toolbar componenet para mostar el datos del usuario*/}
@@ -183,7 +125,7 @@ const EmailSentScreen = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => changePassword()}
+                  onPress={() => actionReturn()}
                 >
                   <Text style={{ color: Colors.white, fontSize: 16 }}>
                     Regresar

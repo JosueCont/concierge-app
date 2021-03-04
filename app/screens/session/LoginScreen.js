@@ -110,7 +110,7 @@ const LoginScreen = (props) => {
       })
       .then((response) => {
         if (response.status && response.status != 200) {
-          setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+          setMessageCustomModal("El usuario y la contraseña no coinciden.");
           setIconSourceCustomModal(2);
           setModalCustom(true);
         } else {

@@ -17,27 +17,29 @@ import { connect } from "react-redux";
 import Constants from "expo-constants";
 import ModalCustom from "../../components/modal/ModalCustom";
 import axios from "axios";
+import { darkerHex, emailRegEx } from "../../utils/utils";
+import ModalLoadingGlobal from "../../components/modal/loadingGlobal";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
 const RecoverPasswordScreen = (props) => {
-  const [oldPass, setOldPass] = useState("");
-  const [newPass, setNewPass] = useState("");
-  const [newPassTwo, setNewPassTwo] = useState("");
+  const [email, setEmail] = useState("");
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const actionReturn = () => {
-    props.navigation.navigate("LoginScreen");
+    props.navigation.navigate("EmailSentScreen");
   };
 
-  const changePasswordFirstLogin = (data) => {
+  const sendMailRecoveryPassword = (data) => {
+    setLoading(true);
     axios
       .post(
-        Constants.manifest.extra.URL_KHONNECT + "/password/change/direct/",
+        Constants.manifest.extra.URL_KHONNECT + "/password/reset/token/",
         data,
         {
           headers: {
@@ -47,45 +49,41 @@ const RecoverPasswordScreen = (props) => {
         }
       )
       .then((response) => {
-        if (response) {
-          setMessageCustomModal("Las contraseñas no coinciden");
-          setIconSourceCustomModal(1);
+        setLoading(false);
+        if (response.data.level == "error") {
+          setMessageCustomModal("No se encontro el usuario.");
+          setIconSourceCustomModal(2);
           setModalCustom(true);
+        } else if (response.data.level == "success") {
+          actionReturn();
         }
       })
       .catch((error) => {
-        console.log(error.response);
+        setLoading(false);
         setMessageCustomModal("Ocurrio un error, intente de nuevo.");
-        setIconSourceCustomModal(1);
+        setIconSourceCustomModal(2);
         setModalCustom(true);
       });
   };
 
-  const changePassword = () => {
+  const recoveryPassword = () => {
     let data = {
-      old_password: oldPass,
-      new_password: newPass,
-      user_id: props.user.user_id,
+      email: email,
+      send_via_email: true,
     };
-    if (
-      oldPass.trim() === "" ||
-      newPass.trim() === "" ||
-      newPassTwo.trim() === ""
-    ) {
-      setMessageCustomModal("Llene todos los campos");
+    if (email.trim() === "") {
+      setMessageCustomModal("Ingrese su correo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
       return;
     }
-    if (newPass === newPassTwo) {
-      changePasswordFirstLogin(data);
-      console.log("DATA-->>> ", data);
-    } else {
-      console.log("DiFERENTES-->>> ", data);
-      setMessageCustomModal("Las contraseñas no coinciden");
+    if (!emailRegEx.test(email)) {
+      setMessageCustomModal("Ingrese un correo valido.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
+      return;
     }
+    sendMailRecoveryPassword(data);
   };
 
   const viewModalCustom = () => {
@@ -194,19 +192,26 @@ const RecoverPasswordScreen = (props) => {
                   placeholderTextColor={Colors.bluetitle}
                   autoCapitalize="none"
                   underlineColorAndroid={"transparent"}
+                  onChangeText={(text) => setEmail(text)}
+                  value={email}
                 />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
                   <TouchableOpacity
                     style={{
                       backgroundColor: Colors.bluelinks,
                       height: 50,
-                      width: '48%',
+                      width: "48%",
                       borderRadius: 10,
                       marginTop: 20,
                       alignItems: "center",
                       justifyContent: "center",
                     }}
-                    onPress={() => changePassword()}
+                    onPress={() => recoveryPassword()}
                   >
                     <Text style={{ color: Colors.white, fontSize: 16 }}>
                       Enviar
@@ -216,13 +221,13 @@ const RecoverPasswordScreen = (props) => {
                     style={{
                       backgroundColor: Colors.bluetitle,
                       height: 50,
-                      width: '48%',
+                      width: "48%",
                       borderRadius: 10,
                       marginTop: 20,
                       alignItems: "center",
                       justifyContent: "center",
                     }}
-                    onPress={() => changePassword()}
+                    onPress={() => actionReturn()}
                   >
                     <Text style={{ color: Colors.white, fontSize: 16 }}>
                       Regresar
@@ -240,6 +245,7 @@ const RecoverPasswordScreen = (props) => {
         iconSource={iconSourceCustomModal}
         setVisible={() => viewModalCustom(true)}
       />
+      <ModalLoadingGlobal visible={loading} text="Enviando" />
     </View>
   );
 };
