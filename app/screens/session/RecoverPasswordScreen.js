@@ -145,7 +145,7 @@ const RecoverPasswordScreen = (props) => {
                   width: "92%",
                   backgroundColor: Colors.dark,
                   borderRadius: 40,
-                  paddingHorizontal: 80,
+                  paddingHorizontal: 20,
                   paddingVertical: 50,
                   top: "-15%",
                   zIndex: -1,

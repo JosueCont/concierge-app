@@ -65,7 +65,7 @@ const EmailSentScreen = (props) => {
           <ToolbarNoLogin
             clickAction={actionReturn}
             nameToolbar={"Mi Cuenta"}
-            type={1}
+            type={2}
           />
           <Image
             style={{
