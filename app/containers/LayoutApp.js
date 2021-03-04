@@ -7,15 +7,15 @@ import HomeUserScreen from "../screens/HomeUserScreen";
 import SideMenu from "../components/SideMenu";
 import MyAccountScreen from "../screens/MyAccountScreen";
 import ChangePasswordFirstTime from "../screens/session/ChangePasswordFirstTime";
-import ChangePasswordScreen from "../screens/session/ChangePasswordScreen"
-import EmailSentScreen from "../screens/session/EmailSentScreen"
+import ChangePasswordScreen from "../screens/session/ChangePasswordScreen";
+import EmailSentScreen from "../screens/session/EmailSentScreen";
 
 const LoginStack = createStackNavigator(
   {
-    EmailSentScreen: EmailSentScreen,
-    RecoverPasswordScreen: RecoverPasswordScreen,
-    ChangePasswordScreen: ChangePasswordScreen,
     LoginScreen: LoginScreen,
+    RecoverPasswordScreen: RecoverPasswordScreen,
+    EmailSentScreen: EmailSentScreen,
+    ChangePasswordScreen: ChangePasswordScreen,
     ChangePasswordFirstTime: ChangePasswordFirstTime,
   },
   {
