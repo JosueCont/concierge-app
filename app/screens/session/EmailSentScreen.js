@@ -10,7 +10,7 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
-import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
+import ToolbarNoLogin from "../../components/ToolbarComponent/ToolbarNoLogin";
 import { Colors } from "../../utils/colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { connect } from "react-redux";
@@ -120,10 +120,10 @@ const EmailSentScreen = (props) => {
           }}
         >
           {/* Toolbar componenet para mostar el datos del usuario*/}
-          <ToolbarGeneric
+          <ToolbarNoLogin
             clickAction={actionReturn}
             nameToolbar={"Mi Cuenta"}
-            type={1}
+            type={2}
           />
           <Image
             style={{

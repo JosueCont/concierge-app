@@ -203,7 +203,7 @@ const ChangePasswordFirstTime = (props) => {
               <View style={styles.ctnForm}>
                 <TextInput
                   style={styles.input}
-                  placeholder="Contraseña Actual"
+                  placeholder="Contraseña actual"
                   placeholderTextColor={Colors.bluetitle}
                   secureTextEntry={true}
                   password={true}
@@ -214,7 +214,7 @@ const ChangePasswordFirstTime = (props) => {
                 />
                 <TextInput
                   style={styles.input}
-                  placeholder="Nueva Contraseña"
+                  placeholder="Nueva contraseña"
                   placeholderTextColor={Colors.bluetitle}
                   secureTextEntry={true}
                   password={true}
@@ -225,7 +225,7 @@ const ChangePasswordFirstTime = (props) => {
                 />
                 <TextInput
                   style={styles.input}
-                  placeholder="Confirmar Contraseña"
+                  placeholder="Confirmar contraseña"
                   placeholderTextColor={Colors.bluetitle}
                   secureTextEntry={true}
                   password={true}

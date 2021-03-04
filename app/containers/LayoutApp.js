@@ -12,11 +12,11 @@ import EmailSentScreen from "../screens/session/EmailSentScreen"
 
 const LoginStack = createStackNavigator(
   {
-    EmailSentScreen: EmailSentScreen,
-    RecoverPasswordScreen: RecoverPasswordScreen,
-    ChangePasswordScreen: ChangePasswordScreen,
     LoginScreen: LoginScreen,
+    EmailSentScreen: EmailSentScreen,
     ChangePasswordFirstTime: ChangePasswordFirstTime,
+    ChangePasswordScreen: ChangePasswordScreen,
+    RecoverPasswordScreen: RecoverPasswordScreen,
   },
   {
     headerMode: "none",
