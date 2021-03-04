@@ -203,7 +203,7 @@ const ChangePasswordFirstTime = (props) => {
               <View style={styles.ctnForm}>
                 <TextInput
                   style={styles.input}
-                  placeholder="Nueva Contraseña"
+                  placeholder="Contraseña Actual"
                   placeholderTextColor={Colors.bluetitle}
                   secureTextEntry={true}
                   password={true}

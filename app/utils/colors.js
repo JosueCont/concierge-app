@@ -10,4 +10,5 @@ export const Colors = {
     red: '#c00c00',
     bluetitle: '#1257A6',
     bluelinks: '#0089E5',
+    dark: '#191919',
 }
