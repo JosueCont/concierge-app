@@ -24,15 +24,12 @@ import { Colors } from "../../utils/colors";
 import styled from "styled-components/native";
 import { Video } from "expo-av";
 import * as Animatable from "react-native-animatable";
-import ModalLoading from "../../components/modal/loading";
+import ModalLoadingLogin from "../../components/modal/loadingLogin";
 import ModalCustom from "../../components/modal/ModalCustom";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-
-  const [modalVisible, setModalVisible] = useState(false);
-  const [alertContent, setAlertContent] = useState("");
   const [changeView, setChangeView] = useState(false);
   const [play, setPlay] = useState(true);
 
@@ -51,9 +48,6 @@ const LoginScreen = (props) => {
   /***
    *Modal para cuando responde un servicio
    ***/
-  const [modalUser, setModalUser] = useState(false);
-  const [titleM, setTitleM] = useState("");
-  const [descM, setDescM] = useState("");
 
   const [visibleHeight, setVisibleHeight] = useState(
     Dimensions.get("window").height
@@ -67,9 +61,9 @@ const LoginScreen = (props) => {
     Dimensions.get("window").width * 0.5
   );
   const [modalCustom, setModalCustom] = useState(false);
-  const [typeMessageCustomModal, setTypeMessageCustomModal] = useState(false);
-  const [titleCustomModal, setTitleCustomModal] = useState("");
+  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const viewModalCustom = () => {
     modalCustom ? setModalCustom(false) : setModalCustom(true);
@@ -78,9 +72,6 @@ const LoginScreen = (props) => {
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", keyboardWillShow);
     Keyboard.addListener("keyboardDidHide", keyboardWillHide);
-    if (props.user.loggedIn) {
-      resetStack();
-    }
   }, [props.user.fetching]);
 
   const keyboardWillShow = (e) => {
@@ -106,46 +97,39 @@ const LoginScreen = (props) => {
   };
 
   const _login = () => {
-    // let msgs = [];
-    // let error = false;
-
-    // if (email.trim() === "") {
-    //   error = true;
-    //   msgs.push("-Ingresa una direccion de correo");
-    // } else {
-    //   if (!emailRegEx.test(email)) {
-    //     error = true;
-    //     msgs.push("Agregue una direccion de correo valida");
-    //   }
-    // }
-    // if (pass.trim() === "") {
-    //   error = true;
-    //   msgs.push("\n-Ingresa tu contraseña");
-    // }
-
-    // if (error) {
-    //   alert(msgs);
-    // } else {
+    if (email.trim() === "" || pass.trim() === "") {
+      setMessageCustomModal("Llene todos los campos");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      return;
+    }
     props
       .doLoginAction({
-        email: "administrador@demo.com",
-        password: "1234567a",
+        email: email,
+        password: pass,
       })
       .then((response) => {
         if (response.status && response.status != 200) {
-          setTypeMessageCustomModal(true);
-          setTitleCustomModal("¡Error!");
           setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+          setIconSourceCustomModal(2);
           setModalCustom(true);
         } else {
           if (!response.password_changed) {
             props.navigation.navigate("ChangePasswordFirstTime");
+          } else {
+            setLoading(false);
           }
         }
       });
-    // }
   };
 
+  useEffect(() => {
+    if (props.user.fetching) {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [props.user.fetching]);
   return (
     <>
       <ImageBackground
@@ -323,12 +307,11 @@ const LoginScreen = (props) => {
           </Animatable.View>
         </Wrapper>
       </ImageBackground>
-      <ModalLoading visible={props.user.fetching} />
+      <ModalLoadingLogin visible={loading} />
       <ModalCustom
         visible={modalCustom}
-        title={titleCustomModal}
         text={messageCustomModal}
-        isError={typeMessageCustomModal}
+        iconSource={iconSourceCustomModal}
         setVisible={() => viewModalCustom(true)}
       />
     </>

@@ -10,12 +10,13 @@ import {
   StyleSheet,
 } from "react-native";
 import React, { useState } from "react";
-import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import ToolbarNoLogin from "../../components/ToolbarComponent/ToolbarNoLogin";
 import { Colors } from "../../utils/colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { connect } from "react-redux";
 import Constants from "expo-constants";
+import ModalCustom from "../../components/modal/ModalCustom";
+import axios from "axios";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -25,29 +26,39 @@ const ChangePasswordFirstTime = (props) => {
   const [oldPass, setOldPass] = useState("");
   const [newPass, setNewPass] = useState("");
   const [newPassTwo, setNewPassTwo] = useState("");
+  const [modalCustom, setModalCustom] = useState(false);
+  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
+  const [messageCustomModal, setMessageCustomModal] = useState("");
 
   const actionReturn = () => {
     props.navigation.navigate("LoginScreen");
   };
 
-  const changePasswordFirstLogin = (password) => {
-    return async () => {
-      try {
-        let response = await axios.post(
-          Constants.manifest.extra.URL_KHONNECT + "/password/change/direct/",
-          password,
-          {
-            headers: {
-              "client-id": Constants.manifest.extra.ClientId,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        return response;
-      } catch (e) {
-        console.log(e.response);
-      }
-    };
+  const changePasswordFirstLogin = (data) => {
+    axios
+      .post(
+        Constants.manifest.extra.URL_KHONNECT + "/password/change/direct/",
+        data,
+        {
+          headers: {
+            "client-id": Constants.manifest.extra.ClientId,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        if (response) {
+          setMessageCustomModal("Las contraseñas no coinciden");
+          setIconSourceCustomModal(1);
+          setModalCustom(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+        setIconSourceCustomModal(1);
+        setModalCustom(true);
+      });
   };
 
   const changePassword = () => {
@@ -56,9 +67,29 @@ const ChangePasswordFirstTime = (props) => {
       new_password: newPass,
       user_id: props.user.user_id,
     };
-    if (newPass === newPassTwo)
-      // changePasswordFirstLogin(data);
+    if (
+      oldPass.trim() === "" ||
+      newPass.trim() === "" ||
+      newPassTwo.trim() === ""
+    ) {
+      setMessageCustomModal("Llene todos los campos");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      return;
+    }
+    if (newPass === newPassTwo) {
+      changePasswordFirstLogin(data);
       console.log("DATA-->>> ", data);
+    } else {
+      console.log("DiFERENTES-->>> ", data);
+      setMessageCustomModal("Las contraseñas no coinciden");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+    }
+  };
+
+  const viewModalCustom = () => {
+    modalCustom ? setModalCustom(false) : setModalCustom(true);
   };
 
   return (
@@ -152,6 +183,23 @@ const ChangePasswordFirstTime = (props) => {
               </Text>
             </View>
             <View style={styles.ctnPart2}>
+              <View
+                style={{
+                  width: "100%",
+                  position: "absolute",
+                  top: -4,
+                  textAlign: "center",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: Colors.bluetitle,
+                    width: 80,
+                    height: 4,
+                  }}
+                ></View>
+              </View>
               <View style={styles.ctnForm}>
                 <TextInput
                   style={styles.input}
@@ -207,6 +255,12 @@ const ChangePasswordFirstTime = (props) => {
           </View>
         </KeyboardAwareScrollView>
       </ScrollView>
+      <ModalCustom
+        visible={modalCustom}
+        text={messageCustomModal}
+        iconSource={iconSourceCustomModal}
+        setVisible={() => viewModalCustom(true)}
+      />
     </View>
   );
 };

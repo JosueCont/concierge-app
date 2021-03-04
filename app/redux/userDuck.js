@@ -11,6 +11,7 @@ const initialData = {
   loggedIn: false,
   fetching: false,
   error: "",
+  userProfile: "",
 };
 
 const LOGIN = "LOGIN";
@@ -136,6 +137,7 @@ export let doLoginAction = (credential) => {
           payload: convertResponse,
         });
         saveStore(convertResponse);
+        getProfile(convertResponse);
       } else {
         dispatch({ type: TEMPORAL_LOGIN, payload: convertResponse });
       }
@@ -161,10 +163,10 @@ export let logOutAction = () => {
 };
 
 //función para  obtener el perfil de usuario.
-export let getProfile = (user_id) => {
+export let getProfile = (user) => {
   return async (dispatch, getState) => {
     try {
-      let response = await ApiApp.getUserProfile(user_id);
+      let response = await ApiApp.getUserProfile(user.user_id);
       dispatch({
         type: USER_PROFILE_SUCCESS,
         payload: response.data.user.userprofile,
