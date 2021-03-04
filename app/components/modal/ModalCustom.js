@@ -9,37 +9,34 @@ import { Colors } from "../../utils/colors";
 const { width, height } = Dimensions.get("window");
 
 const ModalCustom = ({ visible, setVisible, iconSource, text }) => {
+  let sourceIcon = require("../../../assets/icon.png");
+  if (iconSource === 1)
+    sourceIcon = require("../../../assets/img/icono_ok.png");
+  if (iconSource === 2) sourceIcon = require("../../../assets/favicon.png");
   return (
     <View style={styles.centeredView}>
-      <Modal animationType="slide" transparent={true} visible={visible}>
+      <Modal animationType="fade" transparent={true} visible={visible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-          <View
-                style={{
-                  width: "100%",
-                  position: "absolute",
-                  top: 0,
-                  textAlign: "center",
-                  alignItems: "center",
-                }}
-              >
-                <View
-                  style={{
-                    backgroundColor: Colors.bluetitle,
-                    width: 80,
-                    height: 4,
-                  }}
-                ></View>
-              </View>
-            <Image
-              source={require("../../../assets/img/icono_ok.png")} style={styles.modalImg}
-            />
-            <Text
-              style={
-                styles.modalText }
+            <View
+              style={{
+                width: "100%",
+                position: "absolute",
+                top: 0,
+                textAlign: "center",
+                alignItems: "center",
+              }}
             >
-              {text}
-            </Text>
+              <View
+                style={{
+                  backgroundColor: Colors.bluetitle,
+                  width: 80,
+                  height: 4,
+                }}
+              ></View>
+            </View>
+            <Image source={sourceIcon} style={styles.modalImg} />
+            <Text style={styles.modalText}>{text}</Text>
             <TouchableOpacity
               style={styles.modalBtn}
               onPress={() => {
@@ -94,7 +91,7 @@ const styles = {
   },
   modalBtn: {
     backgroundColor: Colors.bluetitle,
-    width: '100%',
+    width: "100%",
     height: 40,
     borderRadius: 10,
     paddingHorizontal: 20,

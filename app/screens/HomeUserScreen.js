@@ -1,20 +1,18 @@
 import { View } from "react-native";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import ModalLoading from "../components/modal/loading";
+import ModalLoadingLogin from "../components/modal/loadingLogin";
 
 const HomeUserScreen = (props) => {
   useEffect(() => {
     // alert(props.user.loggedIn);
   }, []);
-  return (
-    <>{!props.user.fetching && <ModalLoading visile={props.user.fetching} />}</>
-  );
+  return <></>;
 };
 
 const mapState = (state) => {
   return {
-    user: state.user,
+    user: state.user.userProfile,
   };
 };
 export default connect(mapState)(HomeUserScreen);

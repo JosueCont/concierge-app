@@ -9,23 +9,87 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import React from "react";
-import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
+import React, { useState } from "react";
 import ToolbarNoLogin from "../../components/ToolbarComponent/ToolbarNoLogin";
 import { Colors } from "../../utils/colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { connect } from "react-redux";
-import { relativeTimeRounding } from "moment";
+import Constants from "expo-constants";
+import ModalCustom from "../../components/modal/ModalCustom";
+import axios from "axios";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
 const ChangePasswordFirstTime = (props) => {
-  console.log("PROPS-->> ", props.user);
+  const [oldPass, setOldPass] = useState("");
+  const [newPass, setNewPass] = useState("");
+  const [newPassTwo, setNewPassTwo] = useState("");
+  const [modalCustom, setModalCustom] = useState(false);
+  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
+  const [messageCustomModal, setMessageCustomModal] = useState("");
 
   const actionReturn = () => {
     props.navigation.navigate("LoginScreen");
+  };
+
+  const changePasswordFirstLogin = (data) => {
+    axios
+      .post(
+        Constants.manifest.extra.URL_KHONNECT + "/password/change/direct/",
+        data,
+        {
+          headers: {
+            "client-id": Constants.manifest.extra.ClientId,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        if (response) {
+          setMessageCustomModal("Las contraseñas no coinciden");
+          setIconSourceCustomModal(1);
+          setModalCustom(true);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response);
+        setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+        setIconSourceCustomModal(1);
+        setModalCustom(true);
+      });
+  };
+
+  const changePassword = () => {
+    let data = {
+      old_password: oldPass,
+      new_password: newPass,
+      user_id: props.user.user_id,
+    };
+    if (
+      oldPass.trim() === "" ||
+      newPass.trim() === "" ||
+      newPassTwo.trim() === ""
+    ) {
+      setMessageCustomModal("Llene todos los campos");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      return;
+    }
+    if (newPass === newPassTwo) {
+      changePasswordFirstLogin(data);
+      console.log("DATA-->>> ", data);
+    } else {
+      console.log("DiFERENTES-->>> ", data);
+      setMessageCustomModal("Las contraseñas no coinciden");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+    }
+  };
+
+  const viewModalCustom = () => {
+    modalCustom ? setModalCustom(false) : setModalCustom(true);
   };
 
   return (
@@ -141,19 +205,34 @@ const ChangePasswordFirstTime = (props) => {
                   style={styles.input}
                   placeholder="Nueva Contraseña"
                   placeholderTextColor={Colors.bluetitle}
-                  secureTextEntry={false}
+                  secureTextEntry={true}
                   password={true}
                   autoCapitalize="none"
                   underlineColorAndroid={"transparent"}
+                  onChangeText={(text) => setOldPass(text)}
+                  value={oldPass}
+                />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Nueva Contraseña"
+                  placeholderTextColor={Colors.bluetitle}
+                  secureTextEntry={true}
+                  password={true}
+                  autoCapitalize="none"
+                  underlineColorAndroid={"transparent"}
+                  onChangeText={(text) => setNewPass(text)}
+                  value={newPass}
                 />
                 <TextInput
                   style={styles.input}
                   placeholder="Confirmar Contraseña"
                   placeholderTextColor={Colors.bluetitle}
-                  secureTextEntry={false}
+                  secureTextEntry={true}
                   password={true}
                   autoCapitalize="none"
                   underlineColorAndroid={"transparent"}
+                  onChangeText={(text) => setNewPassTwo(text)}
+                  value={newPassTwo}
                 />
 
                 <TouchableOpacity
@@ -165,6 +244,7 @@ const ChangePasswordFirstTime = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+                  onPress={() => changePassword()}
                 >
                   <Text style={{ color: Colors.white, fontSize: 16 }}>
                     Cambiar Contraseña
@@ -175,6 +255,12 @@ const ChangePasswordFirstTime = (props) => {
           </View>
         </KeyboardAwareScrollView>
       </ScrollView>
+      <ModalCustom
+        visible={modalCustom}
+        text={messageCustomModal}
+        iconSource={iconSourceCustomModal}
+        setVisible={() => viewModalCustom(true)}
+      />
     </View>
   );
 };

@@ -11,10 +11,10 @@ import { Colors } from "../../utils/colors";
 const { width, height } = Dimensions.get("window");
 import { connect } from "react-redux";
 
-const ModalLoading = (props) => {
+const ModalLoadingGlobal = (props) => {
   return (
     <View>
-      <Modal transparent={true} visible={props.visible}>
+      <Modal transparent={true} visible={props.user.fetching ? true : false}>
         <View style={styles.centeredView}>
           <Image
             style={{ width: 100, height: 100 }}
@@ -41,4 +41,4 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState)(ModalLoading);
+export default connect(mapState)(ModalLoadingGlobal);
