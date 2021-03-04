@@ -1,27 +1,18 @@
-import React, { useState } from "react";
-import {
-  Modal,
-  View,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-  Text,
-} from "react-native";
-import { Colors } from "../../utils/colors";
-const { width, height } = Dimensions.get("window");
+import React from "react";
+import { Modal, View, Image, Text } from "react-native";
 import { connect } from "react-redux";
 
 const ModalLoadingGlobal = (props) => {
   return (
     <View>
-      <Modal transparent={true} visible={props.user.fetching ? true : false}>
+      <Modal transparent={true} visible={props.visible}>
         <View style={styles.centeredView}>
           <Image
             style={{ width: 100, height: 100 }}
             fullScreen
             source={require("../../../assets/Login_concierge.gif")}
           />
-          <Text style={{ color: "#fff" }}>Cargando...</Text>
+          <Text style={{ color: "#fff" }}>{props.text}...</Text>
         </View>
       </Modal>
     </View>

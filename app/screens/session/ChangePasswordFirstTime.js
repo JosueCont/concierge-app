@@ -47,17 +47,28 @@ const ChangePasswordFirstTime = (props) => {
         }
       )
       .then((response) => {
-        if (response) {
-          setMessageCustomModal("Las contraseñas no coinciden");
+        if (response.data.level == "error") {
+          setMessageCustomModal("Ocurrio un error, intente de nuevo.");
           setIconSourceCustomModal(1);
           setModalCustom(true);
+        } else if (response.data.level == "success") {
+          setMessageCustomModal("Actualizado correctamente.");
+          setIconSourceCustomModal(1);
+          setModalCustom(true);
+          actionReturn();
         }
       })
       .catch((error) => {
-        console.log(error.response);
-        setMessageCustomModal("Ocurrio un error, intente de nuevo.");
-        setIconSourceCustomModal(1);
-        setModalCustom(true);
+        console.log(error.response.data.level);
+        if (error.response.data.level == "error") {
+          setMessageCustomModal("Contraseña actual incorrecta.");
+          setIconSourceCustomModal(2);
+          setModalCustom(true);
+        } else {
+          setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+          setIconSourceCustomModal(2);
+          setModalCustom(true);
+        }
       });
   };
 
@@ -79,9 +90,7 @@ const ChangePasswordFirstTime = (props) => {
     }
     if (newPass === newPassTwo) {
       changePasswordFirstLogin(data);
-      console.log("DATA-->>> ", data);
     } else {
-      console.log("DiFERENTES-->>> ", data);
       setMessageCustomModal("Las contraseñas no coinciden");
       setIconSourceCustomModal(2);
       setModalCustom(true);
