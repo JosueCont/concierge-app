@@ -10,8 +10,8 @@ const myArray = [
     id: 1,
     type: 2,
     open: false,
-    description: "Reunión administrtiva, vía meet en la siguiente liga: staffevolution.com/juntaadmin34",
-    image: "",
+    description: "Reunión administrtiva, vía meet en la siguiente liga:",
+    url: "staffevolution.com/juntaadmin34",
   },
   {
     id: 2,
@@ -26,8 +26,8 @@ const myArray = [
     id: 3,
     type: 2,
     open: true,
-    description: "Reunión administrtiva, vía meet en la siguiente liga: staffevolution.com/juntaadmin34",
-    image: "",
+    description: "Reunión administrtiva, vía meet en la siguiente liga:",
+    url: "staffevolution.com/juntaadmin34",
   },
   {
     id: 4,

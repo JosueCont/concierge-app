@@ -44,7 +44,10 @@ const ComponentCards = (props) => {
                     borderRadius: 8,
                   }}
                 >
-                  <Image source={require("../../../assets/img/icono_noticia.png")} style={{ width:25, height: 25}}></Image>
+                  <Image
+                    source={require("../../../assets/img/icono_noticia.png")}
+                    style={{ width: 25, height: 25 }}
+                  ></Image>
                   <Text
                     style={{
                       marginLeft: 10,
@@ -58,13 +61,37 @@ const ComponentCards = (props) => {
                 </View>
               </ImageBackground>
             </View>
-            <View style={{ marginTop: 20, paddingHorizontal: 10, }}>
-              <Text style={{ marginBottom: 5, color: Colors.bluetitle, fontSize: 20, fontFamily: "Cabin-Bold", }}> {item.name} </Text>
-              <Text style={{ marginBottom: 20, color: Colors.bluetitle, fontSize: 18, fontFamily: "Cabin-Regular", }}> {item.description} </Text>
+            <View style={{ marginTop: 20, paddingHorizontal: 10 }}>
+              <Text
+                style={{
+                  marginBottom: 5,
+                  color: Colors.bluetitle,
+                  fontSize: 20,
+                  fontFamily: "Cabin-Bold",
+                }}
+              >
+                {" "}
+                {item.name}{" "}
+              </Text>
+              <Text
+                style={{
+                  marginBottom: 20,
+                  color: Colors.bluetitle,
+                  fontSize: 18,
+                  fontFamily: "Cabin-Regular",
+                }}
+              >
+                {item.description}
+              </Text>
             </View>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity style={[item.open ? styles.reminderOpen : styles.reminderClose, styles.reminder ]}>
+          <TouchableOpacity
+            style={[
+              item.open ? styles.reminderOpen : styles.reminderClose,
+              styles.reminder,
+            ]}
+          >
             <View
               style={{
                 backgroundColor: Colors.bluetitle,
@@ -79,9 +106,15 @@ const ComponentCards = (props) => {
               }}
             >
               {item.open ? (
-               <Image source={require("../../../assets/img/icono_recordatorio_azul.png")} style={{ width:25, height: 25}}></Image>
+                <Image
+                  source={require("../../../assets/img/icono_recordatorio_azul.png")}
+                  style={{ width: 25, height: 25 }}
+                ></Image>
               ) : (
-                <Image source={require("../../../assets/img/icono_recordatorio_rojo.png")} style={{ width:25, height: 25}}></Image>
+                <Image
+                  source={require("../../../assets/img/icono_recordatorio_rojo.png")}
+                  style={{ width: 25, height: 25 }}
+                ></Image>
               )}
               <Text
                 style={{
@@ -94,8 +127,32 @@ const ComponentCards = (props) => {
                 Recordatorio
               </Text>
             </View>
-            <View style={{ marginTop: 10, marginBottom: 10, paddingHorizontal: 30, }}>
-              <Text style={[item.open ? styles.textoOpen : styles.textoClose, styles.textReminder ]}> {item.description} </Text>
+            <View
+              style={{
+                marginTop: 10,
+                marginBottom: 10,
+                paddingHorizontal: 30,
+                marginBottom: 20,
+              }}
+            >
+              <Text
+                style={[
+                  item.open ? styles.textoOpen : styles.textoClose,
+                  styles.textReminder,
+                ]}
+              >
+                {item.description}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontFamily: "Cabin-Regular",
+                  color: "#08B9FF",
+                }}
+                onPress={() => Linking.openURL("http://google.com")}
+              >
+                {item.url}
+              </Text>
             </View>
           </TouchableOpacity>
         )}
@@ -144,8 +201,9 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   textReminder: {
-    marginBottom: 20, fontSize: 18, fontFamily: "Cabin-Regular",
-  }
+    fontSize: 18,
+    fontFamily: "Cabin-Regular",
+  },
 });
 
 export default ComponentCards;
