@@ -3,33 +3,42 @@ import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import ComponentCards from "../components/ComponentCards/ComponentCard";
-
+import { Colors } from "../utils/colors";
 
 const myArray = [
-{
-  id: 1,
-  name: 'Noticia 1',
-  type: 1,
-  description: 'Las relaciones de línea y staff son importantes como modo de vida organizacional, ya que las relaciones de autoridad entre los miembros de una organización afectan necesariamente a la operación de la empresa.',
-  image: 'https://us.123rf.com/450wm/alhovik/alhovik1709/alhovik170900031/86481591-antecedentes-de-las-noticias-de-%C3%BAltima-hora-world-global-tv-news-banner-design.jpg?ver=6',
-},
   {
-      id: 2,
-      name: 'Recordatorio',
-      type: 2,
-      open: false,
-      description: 'texto',
-      image: '',
+    id: 1,
+    type: 2,
+    open: false,
+    description: "Reunión administrtiva, vía meet en la siguiente liga: staffevolution.com/juntaadmin34",
+    image: "",
   },
   {
-      id: 3,
-      name: 'Recordatorio',
-      type: 2,
-      open: true,
-      description: 'texto',
-      image: '',
-  }
-]
+    id: 2,
+    name: "Noticia 1",
+    type: 1,
+    description:
+      "Las relaciones de línea y staff son importantes como modo de vida organizacional, ya que las relaciones de autoridad entre los miembros de una organización afectan necesariamente a la operación de la empresa.",
+    image:
+      "https://images.pexels.com/photos/3944463/pexels-photo-3944463.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  },
+  {
+    id: 3,
+    type: 2,
+    open: true,
+    description: "Reunión administrtiva, vía meet en la siguiente liga: staffevolution.com/juntaadmin34",
+    image: "",
+  },
+  {
+    id: 4,
+    name: "Noticia 2",
+    type: 1,
+    description:
+      "Las relaciones de línea y staff son importantes como modo de vida organizacional, ya que las relaciones de autoridad entre los miembros de una organización afectan necesariamente a la operación de la empresa.",
+    image:
+      "https://images.pexels.com/photos/3933958/pexels-photo-3933958.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+  },
+];
 
 const HomeUserScreen = (props) => {
   const clickAction = () => {
@@ -50,19 +59,56 @@ const HomeUserScreen = (props) => {
         translucent={true}
       />
       {/* Toolbar componenet para mostar el datos del usuario*/}
-      <ToolbarGeneric
-        clickAction={clickAction}
-        nameToolbar={"Mi Cuenta"}
-        type={2}
-      />
+      <ToolbarGeneric clickAction={clickAction} nameToolbar={"Menú"} type={2} />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
           zIndex: 0,
+          backgroundColor: Colors.bluebg,
+          paddingHorizontal: 22,
         }}
       >
-       <ComponentCards cards={myArray}/>
+        <View style={{ alignItems: "center", }}>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "Cabin-Regular",
+                color: Colors.bluetitle,
+                fontSize: 28,
+              }}
+            >
+              Hola
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Cabin-Bold",
+                color: Colors.bluetitle,
+                fontSize: 28,
+                marginLeft: 5,
+              }}
+            >
+              Gabriel
+            </Text>
+          </View>
+          <Text
+            style={{
+              fontFamily: "Cabin-Regular",
+              color: Colors.bluetitle,
+              fontSize: 30,
+              textAlign: "center",
+            }}
+          >
+            Te mantenemos informado
+          </Text>
+        </View>
+        <ComponentCards cards={myArray}/>
       </ScrollView>
     </View>
   );
