@@ -18,12 +18,13 @@ const ToolbarGeneric = (props) => {
                             marginTop: 30,
                         }}>
                             <TouchableOpacity
-                                style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}
+                                style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}
                                 onPress={() => {
                                     props.clickAction()
                                 }}>
                                 <Ionicons name="ios-arrow-back" size={30} color={Colors.bluetitle}/>
                                 <Text style={{
+                                    fontFamily: "Cabin-Medium",
                                     marginLeft: 10,
                                     color: Colors.bluelinks,
                                     fontSize: 14
@@ -42,7 +43,8 @@ const ToolbarGeneric = (props) => {
                                     alignItems: "flex-end",
                                 }}>
                                     <Image source={require('../../../assets/img/perfil.png')} 
-                                        style={{height: 60, width: 60,                 borderColor: Colors.bluelinks,
+                                        style={{height: 60, width: 60,                 
+                                        borderColor: Colors.bluelinks,
                                         borderWidth: 4,
                                         borderRadius: 50,
                                         overflow: 'hidden',}}/>
@@ -62,12 +64,13 @@ const ToolbarGeneric = (props) => {
                             marginTop: 30,
                         }}>
                             <TouchableOpacity
-                                style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}
+                                style={{flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}
                                 onPress={() => {
                                     props.clickAction()
                                 }}>
                                 <Entypo name="menu" size={30} color={Colors.bluetitle} />
                                 <Text style={{
+                                    fontFamily: "Cabin-Medium",
                                     marginLeft: 5,
                                     color: Colors.bluelinks,
                                     fontSize: 14
