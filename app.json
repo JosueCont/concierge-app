@@ -24,7 +24,8 @@
     "android": {
       "versionCode": 1,
       "package": "com.hiumanlab.staff",
-      "useNextNotificationsApi": true
+      "useNextNotificationsApi": true,
+      "permissions": ["CAMERA_ROLL"]
     },
     "ios": {
       "bundleIdentifier": "com.hiumanlab.staff",

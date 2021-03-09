@@ -246,6 +246,7 @@ const ChangePasswordFirstTime = (props) => {
 
                 <TouchableOpacity
                   style={{
+                    fontFamily: "Cabin-Regular",
                     backgroundColor: Colors.bluelinks,
                     height: 50,
                     borderRadius: 10,

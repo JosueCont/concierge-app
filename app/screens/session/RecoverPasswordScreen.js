@@ -203,6 +203,7 @@ const RecoverPasswordScreen = (props) => {
                 >
                   <TouchableOpacity
                     style={{
+                      fontFamily: "Cabin-Regular",
                       backgroundColor: Colors.bluelinks,
                       height: 50,
                       width: "48%",
@@ -219,6 +220,7 @@ const RecoverPasswordScreen = (props) => {
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={{
+                      fontFamily: "Cabin-Regular",
                       backgroundColor: Colors.bluetitle,
                       height: 50,
                       width: "48%",

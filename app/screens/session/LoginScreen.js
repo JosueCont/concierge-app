@@ -281,6 +281,7 @@ const LoginScreen = (props) => {
               >
                 <Text
                   style={{
+                    fontFamily: "Cabin-Regular",
                     color: Colors.bluelinks,
                     fontSize: 14,
                     marginTop: 10,

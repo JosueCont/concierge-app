@@ -9,6 +9,7 @@ import MyAccountScreen from "../screens/MyAccountScreen";
 import ChangePasswordFirstTime from "../screens/session/ChangePasswordFirstTime";
 import ChangePasswordScreen from "../screens/session/ChangePasswordScreen";
 import EmailSentScreen from "../screens/session/EmailSentScreen";
+import NewScreen from "../screens/NewScreen";
 
 const LoginStack = createStackNavigator(
   {
@@ -19,6 +20,8 @@ const LoginStack = createStackNavigator(
     ChangePasswordFirstTime: ChangePasswordFirstTime,
     ChangePasswordScreen: ChangePasswordScreen,
     RecoverPasswordScreen: RecoverPasswordScreen,
+
+    NewScreen: NewScreen,
   },
   {
     headerMode: "none",
