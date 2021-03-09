@@ -8,8 +8,6 @@ const AppContainerLogin = createAppContainer(HomeStack);
 const AppNavigatorHome = createAppContainer(AppNavigatorLoggedIn);
 
 const Layout = (props) => {
-  console.log("Render layout");
-
   let [fontsLoaded] = useFonts({
     "Cabin-Regular": require("../../assets/fonts/Cabin-Regular.ttf"),
     "Cabin-Medium": require("../../assets/fonts/Cabin-Medium.ttf"),

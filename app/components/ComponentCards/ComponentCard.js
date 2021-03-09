@@ -9,23 +9,109 @@ import {
   StatusBar,
   ImageBackground,
   useColorScheme,
+  useWindowDimensions,
 } from "react-native";
 import React from "react";
 import { Colors } from "../../utils/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import HTML from "react-native-render-html";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const ComponentCards = (props) => {
+  const witHtml = useWindowDimensions().width;
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.item}>
-        {item.type === 1 ? (
-          <TouchableOpacity onPress={()=> props.navigation.navigate("NewScreen")}>
+        {item.category === 1 ? (
+          <TouchableOpacity
+            style={[
+              item.open ? styles.reminderOpen : styles.reminderClose,
+              styles.reminder,
+            ]}
+          >
+            <View
+              style={{
+                backgroundColor: Colors.bluetitle,
+                width: 170,
+                height: 48,
+                marginTop: 15,
+                marginLeft: 10,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 10,
+                borderRadius: 8,
+              }}
+            >
+              {item.open ? (
+                <Image
+                  source={require("../../../assets/img/icono_recordatorio_azul.png")}
+                  style={{ width: 25, height: 25 }}
+                ></Image>
+              ) : (
+                <Image
+                  source={require("../../../assets/img/icono_recordatorio_rojo.png")}
+                  style={{ width: 25, height: 25 }}
+                ></Image>
+              )}
+              <Text
+                style={{
+                  marginLeft: 10,
+                  fontFamily: "Cabin-Bold",
+                  color: Colors.white,
+                  fontSize: 18,
+                }}
+              >
+                Aviso
+              </Text>
+            </View>
+            <View
+              style={{
+                marginTop: 10,
+                marginBottom: 10,
+                paddingHorizontal: 30,
+                marginBottom: 20,
+              }}
+            >
+              {/* <Text
+                style={[
+                  item.open ? styles.textoOpen : styles.textoClose,
+                  styles.textReminder,
+                ]}
+              > */}
+              <HTML
+                source={{ html: item.message }}
+                contentWidth={witHtml}
+                onLinkPress={(event, href) => {
+                  Linking.openURL(href);
+                }}
+              />
+              {/* </Text> */}
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontFamily: "Cabin-Regular",
+                  color: "#08B9FF",
+                }}
+                onPress={() => Linking.openURL("http://google.com")}
+              >
+                {item.url}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity>
             <View style={{ borderRadius: 10, overflow: "hidden" }}>
               <ImageBackground
-                source={{ uri: item.image }}
+                source={{
+                  uri:
+                    item.files[0] != undefined &&
+                    item.files[0] != null &&
+                    item.files[0] != ""
+                      ? item.files[0].file
+                      : "",
+                }}
                 style={{
                   width: "100%",
                   height: windowWidth / 2.2,
@@ -71,88 +157,18 @@ const ComponentCards = (props) => {
                 }}
               >
                 {" "}
-                {item.name}{" "}
+                {item.title}{" "}
               </Text>
-              <Text
+              {/* <Text
                 style={{
                   marginBottom: 20,
                   color: Colors.bluetitle,
                   fontSize: 18,
                   fontFamily: "Cabin-Regular",
                 }}
-              >
-                {item.description}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            style={[
-              item.open ? styles.reminderOpen : styles.reminderClose,
-              styles.reminder,
-            ]}
-          >
-            <View
-              style={{
-                backgroundColor: Colors.bluetitle,
-                width: 170,
-                height: 48,
-                marginTop: 15,
-                marginLeft: 10,
-                flexDirection: "row",
-                alignItems: "center",
-                paddingLeft: 10,
-                borderRadius: 8,
-              }}
-            >
-              {item.open ? (
-                <Image
-                  source={require("../../../assets/img/icono_recordatorio_azul.png")}
-                  style={{ width: 25, height: 25 }}
-                ></Image>
-              ) : (
-                <Image
-                  source={require("../../../assets/img/icono_recordatorio_rojo.png")}
-                  style={{ width: 25, height: 25 }}
-                ></Image>
-              )}
-              <Text
-                style={{
-                  marginLeft: 10,
-                  fontFamily: "Cabin-Bold",
-                  color: Colors.white,
-                  fontSize: 18,
-                }}
-              >
-                Recordatorio
-              </Text>
-            </View>
-            <View
-              style={{
-                marginTop: 10,
-                marginBottom: 10,
-                paddingHorizontal: 30,
-                marginBottom: 20,
-              }}
-            >
-              <Text
-                style={[
-                  item.open ? styles.textoOpen : styles.textoClose,
-                  styles.textReminder,
-                ]}
-              >
-                {item.description}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontFamily: "Cabin-Regular",
-                  color: "#08B9FF",
-                }}
-                onPress={() => Linking.openURL("http://google.com")}
-              >
-                {item.url}
-              </Text>
+              > */}
+              <HTML source={{ html: item.message }} />
+              {/* </Text> */}
             </View>
           </TouchableOpacity>
         )}

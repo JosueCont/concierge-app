@@ -15,7 +15,6 @@ class ApiApp {
   };
 
   static getUserProfile = (data) => {
-    console.log("DATA ApiApp-->>> ", data);
     return ApiApp.ApisType("/person/person/save_person_jwt/", "post", data);
   };
 
@@ -30,11 +29,8 @@ class ApiApp {
     return ApiApp.ApisType(`/rest-auth/password/change/`, "post", data);
   };
 
-  static getCategories = () => {
-    return ApiApp.ApisType(
-      "/business/api/category/?is_active=true&is_deleted=false",
-      "get"
-    );
+  static getComunication = () => {
+    return ApiApp.ApisType("/noticenter/notification/", "get");
   };
 
   static getCouponsByCategory = (id, latitude, longitude) => {

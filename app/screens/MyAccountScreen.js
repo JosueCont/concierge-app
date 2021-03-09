@@ -27,28 +27,31 @@ const MyAccountScreen = (props) => {
   };
 
   const changeAvatar = async () => {
-    const resultPermissions = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    const resultPermissionsCamera = resultPermissions.permissions.cameraRoll.status;
+    const resultPermissions = await Permissions.askAsync(
+      Permissions.CAMERA_ROLL
+    );
+    const resultPermissionsCamera =
+      resultPermissions.permissions.cameraRoll.status;
 
-    if( resultPermissions === "denied"){
+    if (resultPermissions === "denied") {
       console.log("permisos denegados");
-    }else {
+    } else {
       const result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
         aspect: [4, 3],
       });
       //console.log(result);
-      if(result.cancelled){
+      if (result.cancelled) {
         console.log("Se cancelo la selección de imagenes");
-      }else {
+      } else {
         uploadImage(result.uri);
       }
     }
   };
 
   const uploadImage = (uri) => {
-    console.log(uri)
-  }
+    console.log(uri);
+  };
 
   return (
     <View
