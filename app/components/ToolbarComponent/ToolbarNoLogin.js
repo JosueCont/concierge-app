@@ -43,6 +43,7 @@ const ToolbarGeneric = (props) => {
                                     }}>
                                     <Ionicons name="ios-arrow-back" size={30} color={Colors.bluetitle}/>
                                     <Text style={{
+                                        fontFamily: "Cabin-Medium",
                                         marginLeft: 10,
                                         color: Colors.bluelinks,
                                         fontSize: 14
