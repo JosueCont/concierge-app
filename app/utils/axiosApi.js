@@ -21,6 +21,7 @@ APIKit.interceptors.request.use(async function (config) {
   } catch (e) {
     console.log("Error->", e.error);
   }
+
   return config;
 });
 

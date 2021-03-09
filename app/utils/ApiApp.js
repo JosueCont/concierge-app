@@ -15,11 +15,8 @@ class ApiApp {
   };
 
   static getUserProfile = (data) => {
-    return ApiApp.ApisType(
-      `/person/person/person_for_khonnectid/`,
-      "post",
-      data
-    );
+    console.log("DATA ApiApp-->>> ", data);
+    return ApiApp.ApisType("/person/person/save_person_jwt/", "post", data);
   };
 
   static updateProfile = (data) => {
