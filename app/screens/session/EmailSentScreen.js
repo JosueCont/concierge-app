@@ -117,6 +117,7 @@ const EmailSentScreen = (props) => {
               <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
                   style={{
+                    fontFamily: "Cabin-Regular",
                     backgroundColor: Colors.bluetitle,
                     height: 50,
                     width: "48%",
