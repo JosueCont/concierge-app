@@ -8,9 +8,7 @@ const MyAccountScreen = (props) => {
     props.navigation.navigate("HomeUserScreen");
   };
 
-  useEffect(() => {
-    console.log("PROFILE-->>> ", props.user);
-  }, [props.user]);
+  useEffect(() => {}, [props.user]);
 
   return (
     <View

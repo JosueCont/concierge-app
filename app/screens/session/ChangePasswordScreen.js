@@ -79,9 +79,7 @@ const ChangePasswordScreen = (props) => {
     }
     if (newPass === newPassTwo) {
       changePasswordFirstLogin(data);
-      console.log("DATA-->>> ", data);
     } else {
-      console.log("DiFERENTES-->>> ", data);
       setMessageCustomModal("Las contraseñas no coinciden");
       setIconSourceCustomModal(2);
       setModalCustom(true);

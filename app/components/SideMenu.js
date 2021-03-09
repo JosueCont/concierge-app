@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationActions } from "react-navigation";
 import {
   Dimensions,
@@ -62,7 +62,7 @@ const SideMenu = (props) => {
                 marginTop: 9,
               }}
             >
-              Nombre del perfil
+              {props.user && props.user.first_name}
             </Text>
             <Text
               style={{
@@ -73,12 +73,12 @@ const SideMenu = (props) => {
                 opacity: 0.7,
               }}
             >
-              correo del perfil
+              {props.user && props.user.email}
             </Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity
-          style={{ position: "absolute", bottom: -40, right: 15, zIndex: 5, }}
+          style={{ position: "absolute", bottom: -40, right: 15, zIndex: 5 }}
         >
           <Image
             source={require("../../assets/img/icono_regresar.png")}
@@ -93,7 +93,10 @@ const SideMenu = (props) => {
             style={styles.navSectionStyle}
             onPress={navigateToScreen("Home")}
           >
-            <Image source={require("../../assets/img/icono_calendario.png")} style={{ width: 25, height: 25, resizeMode: 'contain' }}></Image>
+            <Image
+              source={require("../../assets/img/icono_calendario.png")}
+              style={{ width: 25, height: 25, resizeMode: "contain" }}
+            ></Image>
             <Text style={styles.navItemStyle}>Calendario</Text>
           </TouchableOpacity>
 
@@ -101,7 +104,10 @@ const SideMenu = (props) => {
             style={styles.navSectionStyle}
             onPress={navigateToScreen("Home")}
           >
-            <Image source={require("../../assets/img/icono_calendario.png")} style={{ width: 25, height: 25, resizeMode: 'contain' }}></Image>
+            <Image
+              source={require("../../assets/img/icono_calendario.png")}
+              style={{ width: 25, height: 25, resizeMode: "contain" }}
+            ></Image>
             <Text style={styles.navItemStyle}>Recursos humanos</Text>
           </TouchableOpacity>
 
@@ -109,10 +115,15 @@ const SideMenu = (props) => {
           <TouchableOpacity
             style={styles.navSectionStyle}
             onPress={() => {
-              Linking.openURL("https://www.musixmatch.com/es/letras/Paulo-Cuevas/Mi-Coraz%C3%B3n-Encantado-de-Dragon-Ball-GT");
+              Linking.openURL(
+                "https://www.musixmatch.com/es/letras/Paulo-Cuevas/Mi-Coraz%C3%B3n-Encantado-de-Dragon-Ball-GT"
+              );
             }}
           >
-            <Image source={require("../../assets/img/icono_nomina.png")} style={{ width: 25, height: 25, resizeMode: 'contain' }}></Image>
+            <Image
+              source={require("../../assets/img/icono_nomina.png")}
+              style={{ width: 25, height: 25, resizeMode: "contain" }}
+            ></Image>
             <Text style={styles.navItemStyle}>Aviso de privacidad</Text>
           </TouchableOpacity>
 
@@ -122,13 +133,36 @@ const SideMenu = (props) => {
               props.logOutAction();
             }}
           >
-            <Image source={require("../../assets/img/icono_cerrar_sesion.png")} style={{ width: 25, height: 25, resizeMode: 'contain' }}></Image>
+            <Image
+              source={require("../../assets/img/icono_cerrar_sesion.png")}
+              style={{ width: 25, height: 25, resizeMode: "contain" }}
+            ></Image>
             <Text style={styles.navItemStyle}>Cerrar sesión</Text>
           </TouchableOpacity>
-          <View style={{ alignItems: 'center', width: '100%', height: 200, marginTop: 50, }}>
-            <Image source={require("../../assets/img/imagen_menu.png")} style={{ width: '80%', height: '100%', resizeMode: 'contain', }}></Image>
+          <View
+            style={{
+              alignItems: "center",
+              width: "100%",
+              height: 200,
+              marginTop: 50,
+            }}
+          >
+            <Image
+              source={require("../../assets/img/imagen_menu.png")}
+              style={{ width: "80%", height: "100%", resizeMode: "contain" }}
+            ></Image>
           </View>
-          <Text style={{ marginTop: 30, fontFamily: 'Cabin-Regular', fontSize: 16, textAlign: 'center', color: Colors.bluetitle, }}>Versión: 1.0.2</Text>
+          <Text
+            style={{
+              marginTop: 30,
+              fontFamily: "Cabin-Regular",
+              fontSize: 16,
+              textAlign: "center",
+              color: Colors.bluetitle,
+            }}
+          >
+            Versión: 1.0.2
+          </Text>
         </View>
       </ScrollView>
     </View>
@@ -140,8 +174,8 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.bluelinks,
     borderBottomWidth: 1,
     paddingVertical: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   navItemStyle: {
     fontFamily: "Cabin-Regular",
@@ -152,7 +186,7 @@ const styles = StyleSheet.create({
 });
 
 const mapState = (state) => {
-  return { state };
+  return { user: state.user };
 };
 
 export default connect(mapState, { logOutAction })(SideMenu);

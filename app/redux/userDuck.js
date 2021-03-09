@@ -136,8 +136,8 @@ export let doLoginAction = (credential) => {
           type: LOGIN_SUCCESS,
           payload: convertResponse,
         });
-        saveStore(convertResponse);
         dispatch(getProfile(convertResponse));
+        saveStore(convertResponse);
       } else {
         dispatch({ type: TEMPORAL_LOGIN, payload: convertResponse });
       }
@@ -174,8 +174,10 @@ export let getProfile = (user) => {
         type: USER_PROFILE_SUCCESS,
         payload: response.data,
       });
+      return response.data;
     } catch (err) {
       console.log(err.response.data);
+      return "Error";
     }
   };
 };
