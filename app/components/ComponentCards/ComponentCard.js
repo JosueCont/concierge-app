@@ -22,7 +22,7 @@ const ComponentCards = (props) => {
     return (
       <View style={styles.item}>
         {item.type === 1 ? (
-          <TouchableOpacity>
+          <TouchableOpacity onPress={()=> props.navigation.navigate("NewScreen")}>
             <View style={{ borderRadius: 10, overflow: "hidden" }}>
               <ImageBackground
                 source={{ uri: item.image }}
