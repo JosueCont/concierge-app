@@ -11,7 +11,7 @@ const initialData = {
   loggedIn: false,
   fetching: false,
   error: "",
-  userProfile: "",
+  userProfile: null,
 };
 
 const LOGIN = "LOGIN";
@@ -50,7 +50,7 @@ export default userReducer = (state = initialData, action) => {
         error: action.payload,
       };
     case USER_PROFILE_SUCCESS:
-      return { ...state, user_profile: action.payload };
+      return { ...state, userProfile: action.payload };
     case LOGIN_SUCCESS:
       return { ...state, fetching: false, loggedIn: true, ...action.payload };
     case LOG_OUT:
@@ -137,7 +137,7 @@ export let doLoginAction = (credential) => {
           payload: convertResponse,
         });
         saveStore(convertResponse);
-        getProfile(convertResponse);
+        dispatch(getProfile(convertResponse));
       } else {
         dispatch({ type: TEMPORAL_LOGIN, payload: convertResponse });
       }
@@ -166,10 +166,13 @@ export let logOutAction = () => {
 export let getProfile = (user) => {
   return async (dispatch, getState) => {
     try {
-      let response = await ApiApp.getUserProfile(user.user_id);
+      let response = await ApiApp.getUserProfile({
+        khonnect_id: user.user_id,
+        jwt: user,
+      });
       dispatch({
         type: USER_PROFILE_SUCCESS,
-        payload: response.data.user.userprofile,
+        payload: response.data,
       });
     } catch (err) {
       console.log(err.response.data);

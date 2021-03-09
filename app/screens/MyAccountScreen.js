@@ -23,7 +23,7 @@ const statusHeight = StatusBar.currentHeight;
 
 const MyAccountScreen = (props) => {
   const clickAction = () => {
-    props.navigation.navigate("Main");
+    props.navigation.navigate("HomeUserScreen");
   };
 
   const changeAvatar = async () => {

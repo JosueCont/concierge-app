@@ -126,7 +126,7 @@ const EmailSentScreen = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => actionReturn()}
+                  onPress={() => props.navigation.navigate("LoginScreen")}
                 >
                   <Text style={{ color: Colors.white, fontSize: 16 }}>
                     Regresar
