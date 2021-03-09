@@ -1,37 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, ScrollView, Text, StatusBar } from "react-native";
 import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
-
-const myArray = [
-    {
-        id: 1,
-        name: 'Noticia 1',
-        type: 1,
-        description: 'Las relaciones de línea y staff son importantes como modo de vida organizacional, ya que las relaciones de autoridad entre los miembros de una organización afectan necesariamente a la operación de la empresa.',
-        image: '',
-    },
-    {
-        id: 2,
-        name: 'Recordatorio',
-        type: 2,
-        open: false,
-        description: 'texto',
-        image: '',
-    },
-    {
-        id: 3,
-        name: 'Recordatorio',
-        type: 2,
-        open: true,
-        description: 'texto',
-        image: '',
-    }
-]
+import { connect } from "react-redux";
 
 const MyAccountScreen = (props) => {
   const clickAction = () => {
-    props.navigation.navigate("Main");
+    props.navigation.navigate("HomeUserScreen");
   };
+
+  useEffect(() => {
+    console.log("PROFILE-->>> ", props.user);
+  }, [props.user]);
 
   return (
     <View
@@ -58,9 +37,14 @@ const MyAccountScreen = (props) => {
           zIndex: 0,
         }}
       >
-        <Text>HOLAA</Text>
+        <Text>{props.user.email}</Text>
       </ScrollView>
     </View>
   );
 };
-export default MyAccountScreen;
+
+const mapState = (state) => {
+  return { user: state.user };
+};
+
+export default connect(mapState)(MyAccountScreen);

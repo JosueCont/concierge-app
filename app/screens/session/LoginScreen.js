@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Image,
+  Platform,
   ImageBackground,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
@@ -218,7 +219,7 @@ const LoginScreen = (props) => {
           <Animatable.View
             animation="fadeInUp"
             iterationCount={1}
-            delay={5000}
+            delay={Platform.OS === "ios" ? 6000 : 5000}
             style={{
               height: Dimensions.get("window").height * 0.7,
               marginHorizontal: Dimensions.get("window").width * 0.02,
@@ -295,6 +296,7 @@ const LoginScreen = (props) => {
                   {!props.user.fetching ? (
                     <Button
                       mensaje="Entrar"
+                      style={{ color: "white" }}
                       onPress={() => _login()}
                       colorBackground={Colors.bluelinks}
                     />
