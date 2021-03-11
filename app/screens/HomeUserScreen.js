@@ -2,7 +2,7 @@ import { View, ScrollView, Text, StatusBar } from "react-native";
 import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import ComponentCards from "../components/ComponentCards/ComponentCard";
+import ComunicationCard from "../components/ComponentCards/ComunicationCard";
 import { Colors } from "../utils/colors";
 import ApiApp from "../utils/ApiApp";
 import LoadingGlobal from "../components/modal/loadingGlobal";
@@ -102,7 +102,7 @@ const HomeUserScreen = (props) => {
             Te mantenemos informado
           </Text>
         </View>
-        <ComponentCards cards={comunications} />
+        <ComunicationCard cards={comunications} />
       </ScrollView>
       <LoadingGlobal visible={modalLoading} text={"Cargando"} />
     </View>
