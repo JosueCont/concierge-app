@@ -13,8 +13,7 @@ const HomeUserScreen = (props) => {
   const [modalLoading, setModalLoading] = useState(true);
 
   const clickAction = () => {
-    // alert("hola");
-    props.navigation.navigate("Main");
+    props.navigation.toggleDrawer();
   };
 
   useEffect(() => {

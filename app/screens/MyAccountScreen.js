@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   ScrollView,
@@ -15,15 +15,34 @@ import { Colors } from "../utils/colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
-import { askAsync } from "expo-permissions";
+import { connect } from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
 const MyAccountScreen = (props) => {
+  const [photo, setPhoto] = useState(null);
+  const [name, setName] = useState("");
+  const [mLastName, setMLastName] = useState("");
+  const [fLastName, setFLastName] = useState("");
+
+  useEffect(() => {
+    console.log("PROPS ACC-->> ", props.user);
+    if (props.user && props.user.userProfile)
+      props.user.userProfile.photo
+        ? setPhoto({
+            uri: props.user.userProfile.photo,
+          })
+        : setPhoto(require("../../assets/img/profile-default.png"));
+    setName(props.user.userProfile.first_name);
+    setFLastName(props.user.userProfile.flast_name);
+    setMLastName(props.user.userProfile.mlast_name);
+  }, []);
+
   const clickAction = () => {
-    props.navigation.navigate("HomeUserScreen");
+    console.log("CLICK back");
+    props.navigation.navigate("HomeScreen");
   };
 
   const changeAvatar = async () => {
@@ -38,7 +57,7 @@ const MyAccountScreen = (props) => {
     } else {
       const result = await ImagePicker.launchImageLibraryAsync({
         allowsEditing: true,
-        aspect: [4, 3],
+        aspect: [4, 4],
       });
       //console.log(result);
       if (result.cancelled) {
@@ -50,7 +69,9 @@ const MyAccountScreen = (props) => {
   };
 
   const uploadImage = (uri) => {
-    console.log(uri);
+    setPhoto({
+      uri: uri,
+    });
   };
 
   return (
@@ -98,26 +119,23 @@ const MyAccountScreen = (props) => {
               }}
               source={require("../../assets/img/fondo_azul.png")}
             />
-            <TouchableOpacity
-              style={styles.ctnPart1}
-              onPress={() => {
-                changeAvatar();
-              }}
-            >
-              <Image
-                style={styles.imgPrincipal}
-                source={require("../../assets/img/perfil.png")}
-              />
+            <View style={styles.ctnPart1}>
+              <TouchableOpacity onPress={() => changeAvatar()}>
+                <Image style={styles.imgPrincipal} source={photo} />
+              </TouchableOpacity>
               <Text
                 style={{
                   fontFamily: "Cabin-Regular",
                   fontSize: 16,
                   color: Colors.bluelinks,
                 }}
+                onPress={() => {
+                  changeAvatar();
+                }}
               >
                 Actualizar foto
               </Text>
-            </TouchableOpacity>
+            </View>
             <View style={styles.ctnPart2}>
               <View
                 style={{
@@ -144,22 +162,25 @@ const MyAccountScreen = (props) => {
                   autoCapitalize="none"
                   keyboardType="default"
                   underlineColorAndroid={"transparent"}
+                  value={name}
                 />
                 <TextInput
                   style={styles.input}
-                  placeholder="Apellido(s)"
+                  placeholder="Apellido paterno"
                   placeholderTextColor={Colors.bluetitle}
                   autoCapitalize="none"
                   keyboardType="default"
                   underlineColorAndroid={"transparent"}
+                  value={fLastName}
                 />
                 <TextInput
                   style={styles.input}
-                  placeholder="Correo electrónico"
+                  placeholder="Apellido materno"
                   placeholderTextColor={Colors.bluetitle}
                   autoCapitalize="none"
                   keyboardType="email-address"
                   underlineColorAndroid={"transparent"}
+                  value={mLastName}
                 />
 
                 <View
@@ -280,4 +301,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MyAccountScreen;
+const mapState = (state) => {
+  return { user: state.user };
+};
+
+export default connect(mapState)(MyAccountScreen);

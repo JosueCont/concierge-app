@@ -72,9 +72,6 @@ const ToolbarGeneric = (props) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {
-                  props.clickAction();
-                }}
                 style={{
                   flex: 1,
                   alignItems: "flex-end",
@@ -139,9 +136,6 @@ const ToolbarGeneric = (props) => {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {
-                  props.clickAction();
-                }}
                 style={{
                   flex: 1,
                   alignItems: "flex-end",
