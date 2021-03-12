@@ -10,9 +10,19 @@ import ChangePasswordFirstTime from "../screens/session/ChangePasswordFirstTime"
 import ChangePasswordScreen from "../screens/session/ChangePasswordScreen";
 import EmailSentScreen from "../screens/session/EmailSentScreen";
 import NewScreen from "../screens/NewScreen";
+import PayrollScreen from "../screens/payroll/payrollScreen";
+import PayrollDetailScreen from "../screens/payroll/payrollDetailScreen";
+import CalendarScreen from "../screens/calendar/calendarScreen"
+import CalendarDetailScreen from "../screens/calendar/calendarDetailScreen"
 
 const LoginStack = createStackNavigator(
   {
+    CalendarDetailScreen: CalendarDetailScreen,
+    CalendarScreen: CalendarScreen,
+    PayrollScreen: PayrollScreen,
+    PayrollDetailScreen: PayrollDetailScreen,
+   
+    
     LoginScreen: LoginScreen,
     RecoverPasswordScreen: RecoverPasswordScreen,
     EmailSentScreen: EmailSentScreen,

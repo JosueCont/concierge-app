@@ -19,7 +19,7 @@ import HTML from "react-native-render-html";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
-const ComponentCards = (props) => {
+const ComunicationCard = (props) => {
   const witHtml = useWindowDimensions().width;
   const renderItem = ({ item, index }) => {
     return (
@@ -222,4 +222,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ComponentCards;
+export default ComunicationCard;

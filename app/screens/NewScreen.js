@@ -102,7 +102,7 @@ const NewScreen = (props) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Text style={{ color: Colors.white, fontSize: 16 }}>
+                  <Text style={{ fontFamily: 'Cabin-Regular', color: Colors.white, fontSize: 16 }}>
                     Regresar
                   </Text>
                 </TouchableOpacity>

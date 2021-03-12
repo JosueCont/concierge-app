@@ -33,7 +33,7 @@ const SideMenu = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <View
-        style={{ zIndex: 5, backgroundColor: Colors.bluetitle, padding: 16 }}
+        style={{ zIndex: 5, backgroundColor: Colors.bluetitle, padding: 16, alignItems: 'center', }}
       >
         <View
           style={{
