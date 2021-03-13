@@ -10,7 +10,6 @@ import {
 import { Colors } from "../../utils/colors";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import connect from "react-redux/lib/connect/connect";
-import { State } from "react-native-gesture-handler";
 
 const ToolbarGeneric = (props) => {
   const [photo, setPhoto] = useState(
@@ -24,30 +23,39 @@ const ToolbarGeneric = (props) => {
           })
         : setPhoto(require("../../../assets/img/profile-default.png"));
   }, [props.user]);
-  const typeToolbar = (type) => {
-    switch (type) {
-      case 1:
-        return (
-          <View style={{ alignItems: "center", width: "100%" }}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                width: "90%",
-                marginTop: 30,
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                }}
-                onPress={() => {
-                  props.clickAction();
-                }}
-              >
+
+  return (
+    <View
+      style={{
+        height: "16%",
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: Colors.white,
+      }}
+    >
+      <View style={{ alignItems: "center", width: "100%" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            width: "90%",
+            marginTop: 30,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              alignItems: "center",
+            }}
+            onPress={() => {
+              props.clickAction();
+            }}
+          >
+            {props.type == 1 && (
+              <>
                 <Ionicons
                   name="ios-arrow-back"
                   size={30}
@@ -63,62 +71,10 @@ const ToolbarGeneric = (props) => {
                 >
                   {props.nameToolbar}
                 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
-                <Image
-                  source={require("../../../assets/img/staff_evolution.png")}
-                  resizeMode={"contain"}
-                  style={{ height: 60, width: 60 }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  props.clickAction();
-                }}
-                style={{
-                  flex: 1,
-                  alignItems: "flex-end",
-                }}
-              >
-                <Image
-                  source={require("../../../assets/img/perfil.png")}
-                  style={{
-                    height: 60,
-                    width: 60,
-                    borderColor: Colors.bluelinks,
-                    borderWidth: 4,
-                    borderRadius: 50,
-                    overflow: "hidden",
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        );
-        break;
-
-      case 2:
-        return (
-          <View style={{ alignItems: "center", width: "100%" }}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                width: "90%",
-                marginTop: 30,
-              }}
-            >
-              <TouchableOpacity
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  justifyContent: "flex-start",
-                  alignItems: "center",
-                }}
-                onPress={() => {
-                  props.clickAction();
-                }}
-              >
+              </>
+            )}
+            {props.type == 2 && (
+              <>
                 <Entypo name="menu" size={30} color={Colors.bluetitle} />
                 <Text
                   style={{
@@ -130,65 +86,36 @@ const ToolbarGeneric = (props) => {
                 >
                   {props.nameToolbar}
                 </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
-                <Image
-                  source={require("../../../assets/img/staff_evolution.png")}
-                  resizeMode={"contain"}
-                  style={{ height: 60, width: 60 }}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  props.clickAction();
-                }}
-                style={{
-                  flex: 1,
-                  alignItems: "flex-end",
-                }}
-              >
-                <Image
-                  source={photo}
-                  style={{
-                    height: 60,
-                    width: 60,
-                    borderColor: Colors.bluelinks,
-                    borderWidth: 4,
-                    borderRadius: 50,
-                    overflow: "hidden",
-                  }}
-                />
-              </TouchableOpacity>
-            </View>
-          </View>
-        );
-        break;
-
-      default:
-        return (
-          <View
+              </>
+            )}
+          </TouchableOpacity>
+          <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
+            <Image
+              source={require("../../../assets/img/staff_evolution.png")}
+              resizeMode={"contain"}
+              style={{ height: 60, width: 60 }}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{
-              top: Platform.OS === "ios" ? -10 : 0,
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
+              flex: 1,
+              alignItems: "flex-end",
             }}
-          ></View>
-        );
-        break;
-    }
-  };
-  return (
-    <View
-      style={{
-        height: "16%",
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: Colors.white,
-      }}
-    >
-      {typeToolbar(props.type)}
+          >
+            <Image
+              source={photo}
+              style={{
+                height: 60,
+                width: 60,
+                borderColor: Colors.bluelinks,
+                borderWidth: 4,
+                borderRadius: 50,
+                overflow: "hidden",
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };

@@ -12,11 +12,17 @@ import EmailSentScreen from "../screens/session/EmailSentScreen";
 import NewScreen from "../screens/NewScreen";
 import PayrollScreen from "../screens/payroll/payrollScreen";
 import PayrollDetailScreen from "../screens/payroll/payrollDetailScreen";
-import CalendarScreen from "../screens/calendar/calendarScreen"
-import CalendarDetailScreen from "../screens/calendar/calendarDetailScreen"
+import CalendarScreen from "../screens/calendar/calendarScreen";
+import CalendarDetailScreen from "../screens/calendar/calendarDetailScreen";
+import HrScreen from "../screens/HrScreen";
+import vacationScreen from "../screens/vacation/vacationScreen"
+import permissionsScreen from "../screens/permissions/permissionsScreen"
 
 const LoginStack = createStackNavigator(
   {
+    vacationScreen: vacationScreen,
+    permissionsScreen: permissionsScreen,
+    HrScreen: HrScreen,
     CalendarDetailScreen: CalendarDetailScreen,
     CalendarScreen: CalendarScreen,
     PayrollScreen: PayrollScreen,
