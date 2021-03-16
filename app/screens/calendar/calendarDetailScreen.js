@@ -18,21 +18,26 @@ const myArray = [
   {
     id: 1,
     title: "Evento 1",
-    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh, euismod tincidunt",
+    description:
+      "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh, euismod tincidunt",
     time: "10:00 AM",
   },
   {
     id: 2,
     title: "Evento 2",
-    description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh, euismod tincidunt",
+    description:
+      "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh, euismod tincidunt",
     time: "10:00 AM",
   },
 ];
 
 const CalendarDetailScreen = (props) => {
   const clickAction = () => {
-    alert("hola");
-    props.navigation.navigate("Main");
+    props.navigation.goBack(null);
+  };
+
+  const clickProfile = () => {
+    props.navigation.navigate("ProfileScreen");
   };
 
   return (
@@ -52,6 +57,7 @@ const CalendarDetailScreen = (props) => {
         clickAction={clickAction}
         nameToolbar={"Calendario"}
         type={1}
+        clickProfile={clickProfile}
       />
 
       <ScrollView
@@ -75,7 +81,7 @@ const CalendarDetailScreen = (props) => {
             <AntDesign name="left" size={24} color="#47A8DE" />
           </TouchableOpacity>
 
-          <View style={{ alignItems: 'center', }}>
+          <View style={{ alignItems: "center" }}>
             <View
               style={{
                 backgroundColor: Colors.black,
@@ -98,9 +104,28 @@ const CalendarDetailScreen = (props) => {
                 16
               </Text>
             </View>
-            <View style={{ marginTop: 8, flexDirection: 'row', }}>
-                <Text style={{textAlign: 'center', fontFamily: "Cabin-Medium", fontSize: 16, color: Colors.bluetitle, }}>Febrero</Text>
-                <Text style={{textAlign: 'center', fontFamily: "Cabin-Medium", fontSize: 16, color: Colors.bluetitle, marginLeft: 5, }}>2021</Text>
+            <View style={{ marginTop: 8, flexDirection: "row" }}>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Cabin-Medium",
+                  fontSize: 16,
+                  color: Colors.bluetitle,
+                }}
+              >
+                Febrero
+              </Text>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontFamily: "Cabin-Medium",
+                  fontSize: 16,
+                  color: Colors.bluetitle,
+                  marginLeft: 5,
+                }}
+              >
+                2021
+              </Text>
             </View>
           </View>
 

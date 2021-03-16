@@ -19,11 +19,8 @@ class ApiApp {
   };
 
   static updateProfile = (data) => {
-    return ApiApp.ApisType(
-      `/security/api/update-user-information/`,
-      "post",
-      data
-    );
+    console.log("PERSON-->>> ", data);
+    // return ApiApp.ApisType(`/person/person/${data.id}/`, "post", data);
   };
   static updatePassword = (data) => {
     return ApiApp.ApisType(`/rest-auth/password/change/`, "post", data);

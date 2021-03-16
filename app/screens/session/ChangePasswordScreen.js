@@ -34,6 +34,10 @@ const ChangePasswordScreen = (props) => {
     props.navigation.navigate("LoginScreen");
   };
 
+  const clickProfile = () => {
+    props.navigation.navigate("ProfileScreen");
+  };
+
   const changePasswordFirstLogin = (data) => {
     axios
       .post(
@@ -122,6 +126,7 @@ const ChangePasswordScreen = (props) => {
               clickAction={actionReturn}
               nameToolbar={"Mi Cuenta"}
               type={1}
+              clickProfile={clickProfile}
             />
             <Image
               style={{

@@ -20,6 +20,10 @@ const NewScreen = (props) => {
     props.navigation.navigate("Main");
   };
 
+  const clickProfile = () => {
+    props.navigation.navigate("ProfileScreen");
+  };
+
   return (
     <View
       style={{
@@ -37,6 +41,7 @@ const NewScreen = (props) => {
         clickAction={clickAction}
         nameToolbar={"Noticias"}
         type={1}
+        clickProfile={clickProfile}
       />
 
       <ScrollView
@@ -76,19 +81,18 @@ const NewScreen = (props) => {
                 marginBottom: 30,
               }}
             ></Image>
-            <View style={{ paddingHorizontal: 10, }}>
+            <View style={{ paddingHorizontal: 10 }}>
               <Text style={styles.titleNew}> Noticia </Text>
               <Text style={styles.descNew}>
                 Las relaciones de línea y staff son importantes como modo de
                 vida organizacional, ya que las relaciones de autoridad entre
                 los miembros de una organización afectan necesariamente a la
-                operación de la empresa.  {"\n"} {"\n"}
-                Las funciones de línea son las que
-                tienen un impacto directo en el cumplimiento de los objetivos de
-                la empresa.  {"\n"} {"\n"}
-                Las funciones de staff son aquellas que contribuyen
-                a que el personal de línea trabaje con mayor eficacia a favor
-                del cumplimiento de tales objetivos.
+                operación de la empresa. {"\n"} {"\n"}
+                Las funciones de línea son las que tienen un impacto directo en
+                el cumplimiento de los objetivos de la empresa. {"\n"} {"\n"}
+                Las funciones de staff son aquellas que contribuyen a que el
+                personal de línea trabaje con mayor eficacia a favor del
+                cumplimiento de tales objetivos.
               </Text>
               <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
@@ -102,7 +106,13 @@ const NewScreen = (props) => {
                     justifyContent: "center",
                   }}
                 >
-                  <Text style={{ fontFamily: 'Cabin-Regular', color: Colors.white, fontSize: 16 }}>
+                  <Text
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      color: Colors.white,
+                      fontSize: 16,
+                    }}
+                  >
                     Regresar
                   </Text>
                 </TouchableOpacity>

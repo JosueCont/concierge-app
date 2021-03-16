@@ -95,8 +95,11 @@ const years = [
 
 const PayrollScreen = (props) => {
   const clickAction = () => {
-    alert("hola");
-    props.navigation.navigate("Main");
+    props.navigation.goBack(null);
+  };
+
+  const clickProfile = () => {
+    props.navigation.navigate("ProfileScreen");
   };
 
   return (
@@ -116,6 +119,7 @@ const PayrollScreen = (props) => {
         clickAction={clickAction}
         nameToolbar={"Mi Nómina"}
         type={1}
+        clickProfile={clickProfile}
       />
 
       <ScrollView
@@ -155,7 +159,9 @@ const PayrollScreen = (props) => {
               style={pickerSelectStyles}
               items={months}
               Icon={() => {
-                return <AntDesign name="down" size={24} color={Colors.bluetitle} />;
+                return (
+                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+                );
               }}
             />
           </View>
@@ -177,7 +183,9 @@ const PayrollScreen = (props) => {
               style={pickerSelectStyles}
               items={years}
               Icon={() => {
-                return <AntDesign name="down" size={24} color={Colors.bluetitle} />;
+                return (
+                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+                );
               }}
             />
           </View>
@@ -255,7 +263,7 @@ const pickerSelectStyles = StyleSheet.create({
     color: Colors.bluetitle,
   },
   iconContainer: {
-    top: '25%',
+    top: "25%",
     right: 15,
   },
   placeholder: {

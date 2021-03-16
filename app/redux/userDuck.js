@@ -182,11 +182,11 @@ export let getProfile = (user) => {
   };
 };
 
-//función perfil usuario.
 export let updateProfile = (dataProfile) => {
   return async (dispatch, getState) => {
     try {
       let response = await ApiApp.updateProfile(dataProfile);
+      console.log("UPDATE PROFILE-->>> ", response.data);
       dispatch({
         type: USER_PROFILE_SUCCESS,
         payload: response.data.user.userprofile,

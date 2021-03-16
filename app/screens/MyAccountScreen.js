@@ -16,6 +16,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { connect } from "react-redux";
+import { logOutAction } from "../redux/userDuck";
+import ModalCustom from "../components/modal/ModalCustom";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -26,23 +28,33 @@ const MyAccountScreen = (props) => {
   const [name, setName] = useState("");
   const [mLastName, setMLastName] = useState("");
   const [fLastName, setFLastName] = useState("");
+  const [person, setPerson] = useState({});
+  const [modalCustom, setModalCustom] = useState(false);
+  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
+  const [messageCustomModal, setMessageCustomModal] = useState("");
 
   useEffect(() => {
-    console.log("PROPS ACC-->> ", props.user);
-    if (props.user && props.user.userProfile)
+    if (props.user && props.user.userProfile) {
       props.user.userProfile.photo
         ? setPhoto({
             uri: props.user.userProfile.photo,
           })
         : setPhoto(require("../../assets/img/profile-default.png"));
-    setName(props.user.userProfile.first_name);
-    setFLastName(props.user.userProfile.flast_name);
-    setMLastName(props.user.userProfile.mlast_name);
+      setName(props.user.userProfile.first_name);
+      setFLastName(props.user.userProfile.flast_name);
+      setMLastName(props.user.userProfile.mlast_name);
+      setPerson(props.user.userProfile);
+    } else {
+      props.navigation.goBack(null);
+    }
   }, []);
 
+  const viewModalCustom = () => {
+    modalCustom ? setModalCustom(false) : setModalCustom(true);
+  };
+
   const clickAction = () => {
-    console.log("CLICK back");
-    props.navigation.navigate("HomeScreen");
+    props.navigation.goBack(null);
   };
 
   const changeAvatar = async () => {
@@ -59,10 +71,7 @@ const MyAccountScreen = (props) => {
         allowsEditing: true,
         aspect: [4, 4],
       });
-      //console.log(result);
-      if (result.cancelled) {
-        console.log("Se cancelo la selección de imagenes");
-      } else {
+      if (!result.cancelled) {
         uploadImage(result.uri);
       }
     }
@@ -72,6 +81,19 @@ const MyAccountScreen = (props) => {
     setPhoto({
       uri: uri,
     });
+  };
+
+  const updateName = () => {
+    if (name.trim() === "" || fLastName.trim() === "") {
+      setMessageCustomModal("Capture su nombre y primer apellido");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      return;
+    }
+    person.first_name = name;
+    person.flast_name = fLastName;
+    person.mlast_name = mLastName;
+    if (person != undefined) "updatePerson";
   };
 
   return (
@@ -162,6 +184,7 @@ const MyAccountScreen = (props) => {
                   autoCapitalize="none"
                   keyboardType="default"
                   underlineColorAndroid={"transparent"}
+                  onChange={(text) => setName(text)}
                   value={name}
                 />
                 <TextInput
@@ -171,6 +194,7 @@ const MyAccountScreen = (props) => {
                   autoCapitalize="none"
                   keyboardType="default"
                   underlineColorAndroid={"transparent"}
+                  onChangeText={(text) => setFLastName(text)}
                   value={fLastName}
                 />
                 <TextInput
@@ -180,6 +204,7 @@ const MyAccountScreen = (props) => {
                   autoCapitalize="none"
                   keyboardType="email-address"
                   underlineColorAndroid={"transparent"}
+                  onChangeText={(text) => setMLastName(text)}
                   value={mLastName}
                 />
 
@@ -192,22 +217,6 @@ const MyAccountScreen = (props) => {
                   <TouchableOpacity
                     style={{
                       fontFamily: "Cabin-Regular",
-                      backgroundColor: Colors.bluelinks,
-                      height: 45,
-                      width: "48%",
-                      borderRadius: 10,
-                      marginTop: 10,
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Text style={{ color: Colors.white, fontSize: 16 }}>
-                      Guardar
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={{
-                      fontFamily: "Cabin-Regular",
                       backgroundColor: Colors.bluetitle,
                       height: 45,
                       width: "48%",
@@ -216,6 +225,7 @@ const MyAccountScreen = (props) => {
                       alignItems: "center",
                       justifyContent: "center",
                     }}
+                    onPress={props.logOutAction}
                   >
                     <Text
                       style={{
@@ -225,6 +235,23 @@ const MyAccountScreen = (props) => {
                       }}
                     >
                       Cerrar Sesión
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      backgroundColor: Colors.bluelinks,
+                      height: 45,
+                      width: "48%",
+                      borderRadius: 10,
+                      marginTop: 10,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onPress={() => updateName()}
+                  >
+                    <Text style={{ color: Colors.white, fontSize: 16 }}>
+                      Guardar
                     </Text>
                   </TouchableOpacity>
                 </View>
@@ -252,6 +279,12 @@ const MyAccountScreen = (props) => {
           </View>
         </KeyboardAwareScrollView>
       </ScrollView>
+      <ModalCustom
+        visible={modalCustom}
+        text={messageCustomModal}
+        iconSource={iconSourceCustomModal}
+        setVisible={() => viewModalCustom(true)}
+      />
     </View>
   );
 };
@@ -305,4 +338,4 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState)(MyAccountScreen);
+export default connect(mapState, { logOutAction })(MyAccountScreen);

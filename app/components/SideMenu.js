@@ -33,7 +33,12 @@ const SideMenu = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <View
-        style={{ zIndex: 5, backgroundColor: Colors.bluetitle, padding: 16, alignItems: 'center', }}
+        style={{
+          zIndex: 5,
+          backgroundColor: Colors.bluetitle,
+          padding: 16,
+          alignItems: "center",
+        }}
       >
         <View
           style={{
@@ -52,7 +57,10 @@ const SideMenu = (props) => {
 
         <View>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("ProfileScreen")}
+            onPress={() => {
+              props.navigation.navigate("ProfileScreen"),
+                props.navigation.toggleDrawer();
+            }}
           >
             <Text
               style={{
@@ -91,7 +99,10 @@ const SideMenu = (props) => {
         <View style={{ padding: 20 }}>
           <TouchableOpacity
             style={styles.navSectionStyle}
-            onPress={navigateToScreen("Home")}
+            onPress={() => {
+              props.navigation.navigate("CalendarScreen"),
+                props.navigation.toggleDrawer();
+            }}
           >
             <Image
               source={require("../../assets/img/icono_calendario.png")}

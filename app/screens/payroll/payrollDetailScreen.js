@@ -21,6 +21,10 @@ const payrollDetailScreen = (props) => {
     props.navigation.navigate("Main");
   };
 
+  const clickProfile = () => {
+    props.navigation.navigate("ProfileScreen");
+  };
+
   return (
     <View
       style={{
@@ -39,6 +43,7 @@ const payrollDetailScreen = (props) => {
         clickAction={clickAction}
         nameToolbar={"Mi Nomina"}
         type={1}
+        clickProfile={clickProfile}
       />
 
       <ScrollView
@@ -113,7 +118,7 @@ const payrollDetailScreen = (props) => {
                 }}
               >
                 <Text style={{ color: Colors.bluetitle, fontSize: 14 }}>
-                 Descarga PDF
+                  Descarga PDF
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
