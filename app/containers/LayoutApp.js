@@ -26,10 +26,6 @@ const LoginStack = createStackNavigator(
     ChangePasswordFirstTime: ChangePasswordFirstTime,
     ChangePasswordScreen: ChangePasswordScreen,
     RecoverPasswordScreen: RecoverPasswordScreen,
-
-    vacationScreen: vacationScreen,
-    permissionsScreen: permissionsScreen,
-    HrScreen: HrScreen,
   },
   {
     headerMode: "none",
@@ -94,6 +90,17 @@ const PayrollStack = createStackNavigator(
   }
 );
 
+const HrStack = createStackNavigator(
+  {
+    HrScreen: HrScreen,
+    vacationScreen: vacationScreen,
+    permissionsScreen: permissionsScreen,
+  },
+  {
+    headerMode: "none",
+  }
+);
+
 const DrawerStack = createDrawerNavigator(
   {
     Home: HomeHybridStore,
@@ -120,6 +127,12 @@ export const AppNavigatorLoggedIn = createStackNavigator(
     },
     CalendarScreen: {
       screen: CalendarStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    HrScreen: {
+      screen: HrStack,
       navigationOptions: {
         headerShown: false,
       },

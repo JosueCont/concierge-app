@@ -106,8 +106,11 @@ const years = [
 
 const vacationScreen = (props) => {
   const clickAction = () => {
-    alert("hola");
-    props.navigation.navigate("Main");
+    props.navigation.goBack(null);
+  };
+
+  const clickProfile = () => {
+    props.navigation.navigate("ProfileScreen");
   };
 
   return (
@@ -127,6 +130,7 @@ const vacationScreen = (props) => {
         clickAction={clickAction}
         nameToolbar={"Vacaciones"}
         type={1}
+        clickProfile={clickProfile}
       />
 
       <ScrollView

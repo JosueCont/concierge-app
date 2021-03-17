@@ -17,25 +17,25 @@ const windowHeight = Dimensions.get("window").height;
 const PayrollCard = (props) => {
   const renderItem = ({ item, index }) => {
     return (
-      <View style={{marginTop: 10}}>
+      <View style={{ marginTop: 10 }}>
         <View
+          style={{
+            width: "100%",
+            position: "absolute",
+            top: -5,
+            textAlign: "center",
+            alignItems: "center",
+            zIndex: 2,
+          }}
+        >
+          <View
             style={{
-              width: "100%",
-              position: "absolute",
-              top: -5,
-              textAlign: "center",
-              alignItems: "center",
-              zIndex: 2,
+              backgroundColor: "#47A8DE",
+              width: 70,
+              height: 5,
             }}
-          >
-            <View
-              style={{
-                backgroundColor: "#47A8DE",
-                width: 70,
-                height: 5,
-              }}
-            ></View>
-          </View>
+          ></View>
+        </View>
         <View style={styles.item}>
           <View
             style={{
@@ -73,6 +73,11 @@ const PayrollCard = (props) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
+              onPress={() =>
+                props.props.navigation.navigate("PayrollDetailScreen", {
+                  item: item,
+                })
+              }
             >
               <Text
                 style={{
