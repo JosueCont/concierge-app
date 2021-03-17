@@ -74,12 +74,14 @@ const ComunicationCard = (props) => {
                 marginBottom: 20,
               }}
             >
-              {/* <Text
+              <Text
                 style={[
                   item.open ? styles.textoOpen : styles.textoClose,
                   styles.textReminder,
                 ]}
-              > */}
+              >
+                {item.title}
+              </Text>
               <HTML
                 source={{ html: item.message }}
                 contentWidth={witHtml}
@@ -87,7 +89,7 @@ const ComunicationCard = (props) => {
                   Linking.openURL(href);
                 }}
               />
-              {/* </Text> */}
+
               <Text
                 style={{
                   fontSize: 18,

@@ -80,8 +80,11 @@ const general = [
 
 const CalendarScreen = (props) => {
   const clickAction = () => {
-    alert("hola");
-    props.navigation.navigate("Main");
+    props.navigation.goBack(null);
+  };
+
+  const clickProfile = () => {
+    props.navigation.navigate("ProfileScreen");
   };
 
   return (
@@ -101,6 +104,7 @@ const CalendarScreen = (props) => {
         clickAction={clickAction}
         nameToolbar={"Calendario"}
         type={1}
+        clickProfile={clickProfile}
       />
 
       <ScrollView

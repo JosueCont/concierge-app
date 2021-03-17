@@ -15,29 +15,21 @@ import PayrollDetailScreen from "../screens/payroll/payrollDetailScreen";
 import CalendarScreen from "../screens/calendar/calendarScreen";
 import CalendarDetailScreen from "../screens/calendar/calendarDetailScreen";
 import HrScreen from "../screens/HrScreen";
-import vacationScreen from "../screens/vacation/vacationScreen"
-import permissionsScreen from "../screens/permissions/permissionsScreen"
+import vacationScreen from "../screens/vacation/vacationScreen";
+import permissionsScreen from "../screens/permissions/permissionsScreen";
 
 const LoginStack = createStackNavigator(
   {
-    vacationScreen: vacationScreen,
-    permissionsScreen: permissionsScreen,
-    HrScreen: HrScreen,
-    CalendarDetailScreen: CalendarDetailScreen,
-    CalendarScreen: CalendarScreen,
-    PayrollScreen: PayrollScreen,
-    PayrollDetailScreen: PayrollDetailScreen,
-   
-    
     LoginScreen: LoginScreen,
     RecoverPasswordScreen: RecoverPasswordScreen,
     EmailSentScreen: EmailSentScreen,
-    ChangePasswordScreen: ChangePasswordScreen,
     ChangePasswordFirstTime: ChangePasswordFirstTime,
     ChangePasswordScreen: ChangePasswordScreen,
     RecoverPasswordScreen: RecoverPasswordScreen,
 
-    NewScreen: NewScreen,
+    vacationScreen: vacationScreen,
+    permissionsScreen: permissionsScreen,
+    HrScreen: HrScreen,
   },
   {
     headerMode: "none",
@@ -65,6 +57,7 @@ export const HomeStack = createStackNavigator(
 const HomeHybridStore = createStackNavigator(
   {
     Home: HomeUserScreen,
+    NewScreen: NewScreen,
   },
   {
     headerMode: "none",
@@ -74,7 +67,27 @@ const HomeHybridStore = createStackNavigator(
 const MyAccountStack = createStackNavigator(
   {
     Account: MyAccountScreen,
-    //changePassword:PasswordScreen,
+    ChangePasswordScreen: ChangePasswordScreen,
+  },
+  {
+    headerMode: "none",
+  }
+);
+
+const CalendarStack = createStackNavigator(
+  {
+    CalendarScreen: CalendarScreen,
+    CalendarDetailScreen: CalendarDetailScreen,
+  },
+  {
+    headerMode: "none",
+  }
+);
+
+const PayrollStack = createStackNavigator(
+  {
+    PayrollScreen: PayrollScreen,
+    PayrollDetailScreen: PayrollDetailScreen,
   },
   {
     headerMode: "none",
@@ -83,7 +96,7 @@ const MyAccountStack = createStackNavigator(
 
 const DrawerStack = createDrawerNavigator(
   {
-    Reservar: HomeHybridStore,
+    Home: HomeHybridStore,
   },
   {
     contentComponent: (props) => <SideMenu {...props} />,
@@ -101,6 +114,18 @@ export const AppNavigatorLoggedIn = createStackNavigator(
     },
     ProfileScreen: {
       screen: MyAccountStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    CalendarScreen: {
+      screen: CalendarStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    PayrollScreen: {
+      screen: PayrollStack,
       navigationOptions: {
         headerShown: false,
       },

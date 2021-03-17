@@ -101,6 +101,7 @@ const ToolbarGeneric = (props) => {
               flex: 1,
               alignItems: "flex-end",
             }}
+            onPress={() => props.clickProfile()}
           >
             <Image
               source={photo}
