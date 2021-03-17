@@ -12,7 +12,8 @@ const ModalCustom = ({ visible, setVisible, iconSource, text }) => {
   let sourceIcon = require("../../../assets/icon.png");
   if (iconSource === 1)
     sourceIcon = require("../../../assets/img/icono_ok.png");
-  if (iconSource === 2) sourceIcon = require("../../../assets/img/error_icon.png");
+  if (iconSource === 2)
+    sourceIcon = require("../../../assets/img/error_icon.png");
   return (
     <View style={styles.centeredView}>
       <Modal animationType="fade" transparent={true} visible={visible}>
@@ -55,7 +56,7 @@ const ModalCustom = ({ visible, setVisible, iconSource, text }) => {
 const styles = {
   centeredView: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.53)",
+    backgroundColor: "rgba(0,0,0,0.7)",
     justifyContent: "center",
     alignItems: "center",
   },

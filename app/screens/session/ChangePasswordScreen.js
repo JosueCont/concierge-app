@@ -31,14 +31,14 @@ const ChangePasswordScreen = (props) => {
   const [messageCustomModal, setMessageCustomModal] = useState("");
 
   const actionReturn = () => {
-    props.navigation.navigate("LoginScreen");
+    props.navigation.goBack(null);
   };
 
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
 
-  const changePasswordFirstLogin = (data) => {
+  const changePasswordUser = (data) => {
     axios
       .post(
         Constants.manifest.extra.URL_KHONNECT + "/password/change/direct/",
@@ -51,17 +51,28 @@ const ChangePasswordScreen = (props) => {
         }
       )
       .then((response) => {
-        if (response) {
-          setMessageCustomModal("Las contraseñas no coinciden");
+        if (response.data.level == "error") {
+          setMessageCustomModal("Ocurrio un error, intente de nuevo.");
           setIconSourceCustomModal(1);
           setModalCustom(true);
+        } else if (response.data.level == "success") {
+          setMessageCustomModal("Actualizado correctamente.");
+          setIconSourceCustomModal(1);
+          setModalCustom(true);
+          actionReturn();
         }
       })
       .catch((error) => {
-        console.log(error.response);
-        setMessageCustomModal("Ocurrio un error, intente de nuevo.");
-        setIconSourceCustomModal(1);
-        setModalCustom(true);
+        console.log(error.response.data.level);
+        if (error.response.data.level == "error") {
+          setMessageCustomModal("Contraseña actual incorrecta.");
+          setIconSourceCustomModal(2);
+          setModalCustom(true);
+        } else {
+          setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+          setIconSourceCustomModal(2);
+          setModalCustom(true);
+        }
       });
   };
 
@@ -82,7 +93,7 @@ const ChangePasswordScreen = (props) => {
       return;
     }
     if (newPass === newPassTwo) {
-      changePasswordFirstLogin(data);
+      changePasswordUser(data);
     } else {
       setMessageCustomModal("Las contraseñas no coinciden");
       setIconSourceCustomModal(2);
@@ -208,6 +219,24 @@ const ChangePasswordScreen = (props) => {
                   <TouchableOpacity
                     style={{
                       fontFamily: "Cabin-Regular",
+                      backgroundColor: Colors.bluetitle,
+                      height: 50,
+                      width: "48%",
+                      borderRadius: 10,
+                      marginTop: 20,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onPress={() => actionReturn()}
+                  >
+                    <Text style={{ color: Colors.white, fontSize: 16 }}>
+                      Regresar
+                    </Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={{
+                      fontFamily: "Cabin-Regular",
                       backgroundColor: Colors.bluelinks,
                       height: 50,
                       width: "48%",
@@ -220,23 +249,6 @@ const ChangePasswordScreen = (props) => {
                   >
                     <Text style={{ color: Colors.white, fontSize: 16 }}>
                       Enviar
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={{
-                      fontFamily: "Cabin-Regular",
-                      backgroundColor: Colors.bluetitle,
-                      height: 50,
-                      width: "48%",
-                      borderRadius: 10,
-                      marginTop: 20,
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    onPress={() => changePassword()}
-                  >
-                    <Text style={{ color: Colors.white, fontSize: 16 }}>
-                      Regresar
                     </Text>
                   </TouchableOpacity>
                 </View>

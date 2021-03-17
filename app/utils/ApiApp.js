@@ -5,6 +5,9 @@ class ApiApp {
       case "post":
         return APIKit.post(url, params);
         break;
+      case "put":
+        return APIKit.put(url, params);
+        break;
       case "get":
         return APIKit.get(url);
         break;
@@ -19,9 +22,9 @@ class ApiApp {
   };
 
   static updateProfile = (data) => {
-    console.log("PERSON-->>> ", data);
-    // return ApiApp.ApisType(`/person/person/${data.id}/`, "post", data);
+    return ApiApp.ApisType(`/person/person/${data.id}/`, "put", data);
   };
+
   static updatePassword = (data) => {
     return ApiApp.ApisType(`/rest-auth/password/change/`, "post", data);
   };

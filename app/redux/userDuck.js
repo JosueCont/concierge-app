@@ -186,14 +186,14 @@ export let updateProfile = (dataProfile) => {
   return async (dispatch, getState) => {
     try {
       let response = await ApiApp.updateProfile(dataProfile);
-      console.log("UPDATE PROFILE-->>> ", response.data);
       dispatch({
         type: USER_PROFILE_SUCCESS,
-        payload: response.data.user.userprofile,
+        payload: response.data,
       });
       return response;
     } catch (e) {
-      console.log(e.response);
+      console.log(e);
+      return "Error";
     }
   };
 };

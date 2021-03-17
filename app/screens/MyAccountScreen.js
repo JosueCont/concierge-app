@@ -16,7 +16,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { connect } from "react-redux";
-import { logOutAction } from "../redux/userDuck";
+import { logOutAction, updateProfile } from "../redux/userDuck";
 import ModalCustom from "../components/modal/ModalCustom";
 
 const windowWidth = Dimensions.get("window").width;
@@ -93,7 +93,33 @@ const MyAccountScreen = (props) => {
     person.first_name = name;
     person.flast_name = fLastName;
     person.mlast_name = mLastName;
-    if (person != undefined) "updatePerson";
+    if (person != undefined) {
+      if (person.node) delete person["node"];
+      if (person.department) delete person["department"];
+      delete person["jwt_data"];
+      delete person["perms"];
+      delete person["photo"];
+      delete person["job"];
+      updatePerson(person);
+    }
+  };
+
+  const updatePerson = (data) => {
+    props.updateProfile(data).then((response) => {
+      if (response == "Error" || (response.status && response.status != 200)) {
+        setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+        setIconSourceCustomModal(2);
+        setModalCustom(true);
+      } else {
+        setMessageCustomModal("Tus datos se actualizaron correctamente.");
+        setIconSourceCustomModal(1);
+        setModalCustom(true);
+        setName(props.user.userProfile.first_name);
+        setFLastName(props.user.userProfile.flast_name);
+        setMLastName(props.user.userProfile.mlast_name);
+        setPerson(props.user.userProfile);
+      }
+    });
   };
 
   return (
@@ -338,4 +364,6 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState, { logOutAction })(MyAccountScreen);
+export default connect(mapState, { logOutAction, updateProfile })(
+  MyAccountScreen
+);
