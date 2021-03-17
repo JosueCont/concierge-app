@@ -33,8 +33,22 @@ const SideMenu = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <View
-        style={{ zIndex: 5, backgroundColor: Colors.bluetitle, padding: 16, alignItems: 'center', }}
+        style={{
+          zIndex: 5,
+          backgroundColor: Colors.bluetitle,
+          padding: 16,
+          alignItems: "center",
+        }}
       >
+        <TouchableOpacity
+          style={{ position: "absolute", bottom: 140, right: 15, zIndex: 5 }}
+        >
+          <Image
+            source={require("../../assets/img/icono_noticia.png")}
+            style={{ width: 25, height: 25, resizeMode: "contain" }}
+          ></Image>
+        </TouchableOpacity>
+
         <View
           style={{
             width: Dimensions.get("window").width * 0.2,
@@ -52,7 +66,10 @@ const SideMenu = (props) => {
 
         <View>
           <TouchableOpacity
-            onPress={() => props.navigation.navigate("ProfileScreen")}
+            onPress={() => {
+              props.navigation.navigate("ProfileScreen"),
+                props.navigation.toggleDrawer();
+            }}
           >
             <Text
               style={{
@@ -77,54 +94,63 @@ const SideMenu = (props) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={{ position: "absolute", bottom: -40, right: 15, zIndex: 5 }}
-        >
-          <Image
-            source={require("../../assets/img/icono_regresar.png")}
-            style={{ width: 25, height: 25, resizeMode: "contain" }}
-          ></Image>
-        </TouchableOpacity>
       </View>
 
       <ScrollView style={{ zIndex: 3, flex: 1 }}>
         <View style={{ padding: 20 }}>
           <TouchableOpacity
             style={styles.navSectionStyle}
-            onPress={navigateToScreen("Home")}
+            onPress={() => {
+              props.navigation.navigate("CalendarScreen"),
+                props.navigation.toggleDrawer();
+            }}
           >
             <Image
-              source={require("../../assets/img/icono_calendario.png")}
+              source={require("../../assets/img/calendar_icon_menu.png")}
               style={{ width: 25, height: 25, resizeMode: "contain" }}
             ></Image>
             <Text style={styles.navItemStyle}>Calendario</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity style={styles.navSectionStyle} onPress={() => {}}>
+            <Image
+              source={require("../../assets/img/icono_nomina.png")}
+              style={{ width: 25, height: 25, resizeMode: "contain" }}
+            ></Image>
+            <Text style={styles.navItemStyle}>Nómina</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.navSectionStyle}
             onPress={navigateToScreen("Home")}
           >
             <Image
-              source={require("../../assets/img/icono_calendario.png")}
+              source={require("../../assets/img/rh_icon_menu.png")}
               style={{ width: 25, height: 25, resizeMode: "contain" }}
             ></Image>
             <Text style={styles.navItemStyle}>Recursos humanos</Text>
           </TouchableOpacity>
 
-          {/* AVISO DE PRIVACIDAD*/}
           <TouchableOpacity
             style={styles.navSectionStyle}
-            onPress={() => {
-              Linking.openURL(
-                "https://www.musixmatch.com/es/letras/Paulo-Cuevas/Mi-Coraz%C3%B3n-Encantado-de-Dragon-Ball-GT"
-              );
-            }}
+            onPress={navigateToScreen("Home")}
           >
             <Image
-              source={require("../../assets/img/icono_nomina.png")}
+              source={require("../../assets/img/node_tree_icon_menu.png")}
               style={{ width: 25, height: 25, resizeMode: "contain" }}
             ></Image>
-            <Text style={styles.navItemStyle}>Aviso de privacidad</Text>
+            <Text style={styles.navItemStyle}>Organización</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.navSectionStyle}
+            onPress={navigateToScreen("Home")}
+          >
+            <Image
+              source={require("../../assets/img/campaign_icon_menu.png")}
+              style={{ width: 25, height: 25, resizeMode: "contain" }}
+            ></Image>
+            <Text style={styles.navItemStyle}>Notificaciones</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -161,7 +187,7 @@ const SideMenu = (props) => {
               color: Colors.bluetitle,
             }}
           >
-            Versión: 1.0.2
+            Versión: 1.0.0
           </Text>
         </View>
       </ScrollView>
@@ -173,7 +199,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderBottomColor: Colors.bluelinks,
     borderBottomWidth: 1,
-    paddingVertical: 18,
+    paddingVertical: 10,
     flexDirection: "row",
     alignItems: "center",
   },

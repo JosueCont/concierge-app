@@ -11,19 +11,30 @@ import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import ComunicationCard from "../../components/ComponentCards/PayrollCard";
+import RequestCard from "../../components/ComponentCards/RequestCard";
 import { Colors } from "../../utils/colors";
 
 const myArray = [
   {
     id: 1,
-    amount: "$15,000 MXN",
-    date: "31 Agosto 2020",
+    date: "15/Agosto/2021",
+    days: 2,
+    status: "Pendiente",
+    person: "",
   },
   {
     id: 2,
-    amount: "$15,000 MXN",
-    date: "15 Agosto 2020",
+    date: "03/Agosto/2021",
+    days: 1,
+    status: "Aprobada",
+    person: "Alex Dzul",
+  },
+  {
+    id: 3,
+    date: "14/Julio/2021",
+    days: 3,
+    status: "Rechazada",
+    person: "Alex Dzul",
   },
 ];
 
@@ -93,13 +104,10 @@ const years = [
   },
 ];
 
-const PayrollScreen = (props) => {
+const vacationScreen = (props) => {
   const clickAction = () => {
-    props.navigation.goBack(null);
-  };
-
-  const clickProfile = () => {
-    props.navigation.navigate("ProfileScreen");
+    alert("hola");
+    props.navigation.navigate("Main");
   };
 
   return (
@@ -117,9 +125,8 @@ const PayrollScreen = (props) => {
       {/* Toolbar componenet para mostar el datos del usuario*/}
       <ToolbarGeneric
         clickAction={clickAction}
-        nameToolbar={"Mi Nómina"}
+        nameToolbar={"Vacaciones"}
         type={1}
-        clickProfile={clickProfile}
       />
 
       <ScrollView
@@ -131,14 +138,51 @@ const PayrollScreen = (props) => {
         }}
       >
         <View
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 15 }}
+        >
+          <View style={{ alignItems: "center" }}>
+            <View
+              style={{
+                backgroundColor: Colors.white,
+                width: 70,
+                height: 70,
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                style={{
+                  fontFamily: "Cabin-Bold",
+                  color: "#006FCC",
+                  fontSize: 40,
+                }}
+              >
+                6
+              </Text>
+            </View>
+          </View>
+          <Text
+            style={{
+              fontFamily: "Cabin-Regular",
+              fontSize: 20,
+              color: Colors.bluetitle,
+              marginLeft: 20,
+            }}
+          >
+            Días disponibles
+          </Text>
+        </View>
+
+        <View
           style={{
-            backgroundColor: Colors.dark,
-            marginTop: 40,
+            backgroundColor: "#006FCC",
+            marginTop: 15,
             alignItems: "center",
             borderRadius: 20,
             paddingHorizontal: 35,
             paddingTop: 30,
-            paddingBottom: 30,
+            paddingBottom: 10,
           }}
         >
           <View
@@ -189,35 +233,51 @@ const PayrollScreen = (props) => {
               }}
             />
           </View>
-          <View style={{ alignItems: "center" }}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#47A8DE",
-                height: 50,
-                width: 160,
-                borderRadius: 10,
-                marginTop: 10,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontFamily: "Cabin-Regular",
-                  color: Colors.white,
-                  fontSize: 18,
-                }}
-              >
-                Buscar
-              </Text>
-            </TouchableOpacity>
-          </View>
         </View>
-        <ComunicationCard cards={myArray} />
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 15,
+            marginBottom: 10,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              fontFamily: "Cabin-Regular",
+              backgroundColor: Colors.bluelinks,
+              height: 50,
+              width: "48%",
+              borderRadius: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => recoveryPassword()}
+          >
+            <Text style={{ color: Colors.white, fontSize: 16 }}>Buscar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              fontFamily: "Cabin-Regular",
+              backgroundColor: Colors.bluetitle,
+              height: 50,
+              width: "48%",
+              borderRadius: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => actionReturn()}
+          >
+            <Text style={{ color: Colors.white, fontSize: 16 }}>Nueva</Text>
+          </TouchableOpacity>
+        </View>
+
+        <RequestCard cards={myArray} />
         <View style={{ alignItems: "center" }}>
           <TouchableOpacity
             style={{
-              backgroundColor: Colors.bluetitle,
+              backgroundColor: Colors.bluelinks,
               height: 50,
               width: "48%",
               borderRadius: 10,
@@ -272,4 +332,4 @@ const pickerSelectStyles = StyleSheet.create({
   },
 });
 
-export default PayrollScreen;
+export default vacationScreen;

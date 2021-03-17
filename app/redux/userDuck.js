@@ -176,24 +176,23 @@ export let getProfile = (user) => {
       });
       return response.data;
     } catch (err) {
-      console.log(err.response.data);
       return "Error";
     }
   };
 };
 
-//función perfil usuario.
 export let updateProfile = (dataProfile) => {
   return async (dispatch, getState) => {
     try {
       let response = await ApiApp.updateProfile(dataProfile);
       dispatch({
         type: USER_PROFILE_SUCCESS,
-        payload: response.data.user.userprofile,
+        payload: response.data,
       });
       return response;
     } catch (e) {
-      console.log(e.response);
+      console.log(e);
+      return "Error";
     }
   };
 };

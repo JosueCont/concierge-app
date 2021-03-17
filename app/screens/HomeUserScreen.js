@@ -16,6 +16,10 @@ const HomeUserScreen = (props) => {
     props.navigation.toggleDrawer();
   };
 
+  const clickProfile = () => {
+    props.navigation.navigate("ProfileScreen");
+  };
+
   useEffect(() => {
     props.getProfile(props.user).then((response) => {
       if (response.id) {
@@ -36,6 +40,7 @@ const HomeUserScreen = (props) => {
       setModalLoading(false);
     } catch (err) {
       console.log(err.response.data);
+      setModalLoading(false);
     }
   };
 
@@ -51,8 +56,12 @@ const HomeUserScreen = (props) => {
         backgroundColor="rgba(1,1,1,0)"
         translucent={true}
       />
-      {/* Toolbar componenet para mostar el datos del usuario*/}
-      <ToolbarGeneric clickAction={clickAction} nameToolbar={"Menú"} type={2} />
+      <ToolbarGeneric
+        clickAction={clickAction}
+        nameToolbar={"Menú"}
+        type={2}
+        clickProfile={clickProfile}
+      />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
