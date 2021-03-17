@@ -40,6 +40,7 @@ const HomeUserScreen = (props) => {
       setModalLoading(false);
     } catch (err) {
       console.log(err.response.data);
+      setModalLoading(false);
     }
   };
 

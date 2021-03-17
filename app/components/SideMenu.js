@@ -40,14 +40,14 @@ const SideMenu = (props) => {
           alignItems: "center",
         }}
       >
-        {/* <TouchableOpacity
+        <TouchableOpacity
           style={{ position: "absolute", bottom: 140, right: 15, zIndex: 5 }}
         >
           <Image
             source={require("../../assets/img/icono_noticia.png")}
             style={{ width: 25, height: 25, resizeMode: "contain" }}
           ></Image>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
         <View
           style={{
@@ -106,7 +106,7 @@ const SideMenu = (props) => {
             }}
           >
             <Image
-              source={require("../../assets/img/icono_calendario.png")}
+              source={require("../../assets/img/calendar_icon_menu.png")}
               style={{ width: 25, height: 25, resizeMode: "contain" }}
             ></Image>
             <Text style={styles.navItemStyle}>Calendario</Text>
@@ -136,7 +136,7 @@ const SideMenu = (props) => {
             onPress={navigateToScreen("Home")}
           >
             <Image
-              source={require("../../assets/img/tree_icon_menu.png")}
+              source={require("../../assets/img/node_tree_icon_menu.png")}
               style={{ width: 25, height: 25, resizeMode: "contain" }}
             ></Image>
             <Text style={styles.navItemStyle}>Organización</Text>

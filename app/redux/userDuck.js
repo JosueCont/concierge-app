@@ -176,7 +176,6 @@ export let getProfile = (user) => {
       });
       return response.data;
     } catch (err) {
-      console.log(err.response.data);
       return "Error";
     }
   };

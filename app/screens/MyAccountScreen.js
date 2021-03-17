@@ -16,8 +16,11 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import { connect } from "react-redux";
-import { logOutAction, updateProfile } from "../redux/userDuck";
+import { logOutAction, updateProfile, getProfile } from "../redux/userDuck";
 import ModalCustom from "../components/modal/ModalCustom";
+import * as mime from "react-native-mime-types";
+import LoadingGlobal from "../components/modal/loadingGlobal";
+import ApiApp from "../utils/ApiApp";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -32,6 +35,7 @@ const MyAccountScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
+  const [modalLoading, setModalLoading] = useState(false);
 
   useEffect(() => {
     if (props.user && props.user.userProfile) {
@@ -68,19 +72,62 @@ const MyAccountScreen = (props) => {
       console.log("permisos denegados");
     } else {
       const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Image,
         allowsEditing: true,
         aspect: [4, 4],
+        quality: 1,
       });
+      result.type = mime.lookup(result.uri.split("/").pop());
       if (!result.cancelled) {
-        uploadImage(result.uri);
+        setPhoto({
+          uri: result.uri,
+          name: result.uri.split("/").pop(),
+          type: result.type,
+        });
+        setModalLoading(true);
+        uploadImage({
+          uri: result.uri,
+          name: result.uri.split("/").pop(),
+          type: result.type,
+        });
       }
     }
   };
 
-  const uploadImage = (uri) => {
-    setPhoto({
-      uri: uri,
-    });
+  const modalError = () => {
+    setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+    setIconSourceCustomModal(2);
+    setModalCustom(true);
+    setModalLoading(false);
+  };
+
+  const modalSuccess = () => {
+    setMessageCustomModal("Tus datos se actualizaron correctamente.");
+    setIconSourceCustomModal(1);
+    setModalCustom(true);
+    setModalLoading(false);
+  };
+
+  const uploadImage = async (image) => {
+    try {
+      let data = new FormData();
+      data.append("id", props.user.userProfile.id);
+      data.append("photo", image);
+      let response = await ApiApp.updatePhoto(data);
+      setModalLoading(false);
+      props.getProfile(props.user).then((res) => {
+        if (res != "Error") {
+          modalSuccess();
+        } else {
+          modalError();
+        }
+      });
+    } catch (err) {
+      modalError();
+      setPhoto({
+        uri: props.user.userProfile.photo,
+      });
+    }
   };
 
   const updateName = () => {
@@ -108,12 +155,9 @@ const MyAccountScreen = (props) => {
     props.updateProfile(data).then((response) => {
       if (response == "Error" || (response.status && response.status != 200)) {
         setMessageCustomModal("Ocurrio un error, intente de nuevo.");
-        setIconSourceCustomModal(2);
-        setModalCustom(true);
+        modalError();
       } else {
-        setMessageCustomModal("Tus datos se actualizaron correctamente.");
-        setIconSourceCustomModal(1);
-        setModalCustom(true);
+        modalSuccess();
         setName(props.user.userProfile.first_name);
         setFLastName(props.user.userProfile.flast_name);
         setMLastName(props.user.userProfile.mlast_name);
@@ -311,6 +355,7 @@ const MyAccountScreen = (props) => {
         iconSource={iconSourceCustomModal}
         setVisible={() => viewModalCustom(true)}
       />
+      <LoadingGlobal visible={modalLoading} text={"Cargando"} />
     </View>
   );
 };
@@ -364,6 +409,6 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState, { logOutAction, updateProfile })(
+export default connect(mapState, { logOutAction, updateProfile, getProfile })(
   MyAccountScreen
 );
