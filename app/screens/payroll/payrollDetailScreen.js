@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   View,
   ScrollView,
@@ -18,12 +18,16 @@ const statusHeight = StatusBar.currentHeight;
 
 const payrollDetailScreen = (props) => {
   const clickAction = () => {
-    props.navigation.navigate("Main");
+    props.navigation.pop();
   };
 
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
+
+  useEffect(() => {
+    console.log("ITEM-->> ", props.navigation.getParam("item"));
+  }, []);
 
   return (
     <View

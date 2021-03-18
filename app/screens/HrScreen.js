@@ -21,9 +21,13 @@ const HrScreen = (props) => {
     props.navigation.navigate("Main");
   };
 
+  const clickProfile = () => {
+    props.navigation.navigate("ProfileScreen");
+  };
+
   function Mark() {
     return (
-        <View
+      <View
         style={{
           width: "100%",
           position: "absolute",
@@ -36,7 +40,7 @@ const HrScreen = (props) => {
         <View
           style={{
             backgroundColor: Colors.bluetitle,
-            width: windowWidth * .14,
+            width: windowWidth * 0.14,
             height: 5,
           }}
         ></View>
@@ -57,11 +61,12 @@ const HrScreen = (props) => {
         backgroundColor="rgba(1,1,1,0)"
         translucent={true}
       />
-      {/* Toolbar componenet para mostar el datos del usuario*/}
+
       <ToolbarGeneric
         clickAction={clickAction}
-        nameToolbar={"Mi Nomina"}
+        nameToolbar={"RH"}
         type={1}
+        clickProfile={clickProfile}
       />
 
       <ScrollView
@@ -76,16 +81,15 @@ const HrScreen = (props) => {
             marginTop: 30,
             flexDirection: "row",
             alignItems: "center",
-            paddingHorizontal: 20,
           }}
         >
           <Image
-            source={require("../../assets/img/rh_icon.png")}
+            source={require("../../assets/img/rh.png")}
             style={{
               width: 80,
               height: 80,
               resizeMode: "cover",
-              marginRight: 20,
+              marginRight: 5,
             }}
           ></Image>
           <View>
@@ -94,17 +98,17 @@ const HrScreen = (props) => {
                 fontFamily: "Cabin-Regular",
                 fontSize: 24,
                 color: Colors.bluetitle,
-                textAlign: 'left',
+                textAlign: "left",
               }}
             >
-              Solicita tu trámites 
+              Solicita tus trámites
             </Text>
             <Text
               style={{
                 fontFamily: "Cabin-Regular",
                 fontSize: 24,
                 color: Colors.bluetitle,
-                textAlign: 'left',
+                textAlign: "left",
               }}
             >
               {" "}
@@ -112,41 +116,61 @@ const HrScreen = (props) => {
             </Text>
           </View>
         </View>
-        
-        <View style={{ marginVertical: 40, }}>
-        <View style={styles.row}>
-            <TouchableOpacity style={styles.item}>
-                <Mark/>
-                <Image source={require("../../assets/img/vacaciones.png")} style={styles.image}></Image>
-                <Text style={styles.title}>Vacaciones</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-                <Mark/>
-                <Image source={require("../../assets/img/permisos.png")} style={styles.image}></Image>
-                <Text style={styles.title}>Permisos</Text>
-            </TouchableOpacity>
-        </View>
-        <View style={styles.row}>
-            <TouchableOpacity style={styles.item}>
-                <Mark/>
-                <Image source={require("../../assets/img/prestamo.png")} style={styles.image}></Image>
-                <Text style={styles.title}>Préstamo</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
-                <Mark/>
-                <Image source={require("../../assets/img/incapacidad.png")} style={styles.image}></Image>
-                <Text style={styles.title}>Incapacidad</Text>
-            </TouchableOpacity>
-        </View>
-        <View style={styles.row}>
-            <TouchableOpacity style={styles.item}>
-                <Mark/>
-                <Image source={require("../../assets/img/expediente.png")} style={styles.image}></Image>
-                <Text style={styles.title}>Expediente</Text>
-            </TouchableOpacity>
-        </View>
-        </View>
 
+        <View style={{ marginVertical: 40 }}>
+          <View style={styles.row}>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => props.navigation.navigate("vacationScreen")}
+            >
+              <Mark />
+              <Image
+                source={require("../../assets/img/vacaciones.png")}
+                style={styles.image}
+              ></Image>
+              <Text style={styles.title}>Vacaciones</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => props.navigation.navigate("permissionsScreen")}
+            >
+              <Mark />
+              <Image
+                source={require("../../assets/img/permisos.png")}
+                style={styles.image}
+              ></Image>
+              <Text style={styles.title}>Permisos</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.row}>
+            <TouchableOpacity style={styles.item}>
+              <Mark />
+              <Image
+                source={require("../../assets/img/prestamo.png")}
+                style={styles.image}
+              ></Image>
+              <Text style={styles.title}>Préstamo</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.item}>
+              <Mark />
+              <Image
+                source={require("../../assets/img/incapacidad.png")}
+                style={styles.image}
+              ></Image>
+              <Text style={styles.title}>Incapacidad</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.row}>
+            <TouchableOpacity style={styles.item}>
+              <Mark />
+              <Image
+                source={require("../../assets/img/expediente.png")}
+                style={styles.image}
+              ></Image>
+              <Text style={styles.title}>Expediente</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </ScrollView>
       <Image
         style={{
@@ -167,25 +191,25 @@ const HrScreen = (props) => {
 const styles = StyleSheet.create({
   row: {
     width: "100%",
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 25,
   },
-  item:{
-    width: windowWidth * .37,
-    height: windowWidth * .37,
+  item: {
+    width: windowWidth * 0.37,
+    height: windowWidth * 0.37,
     backgroundColor: Colors.white,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderRadius: 5,
   },
   image: {
-    width: 40, 
-    height: 40, 
-    resizeMode: 'contain',
+    width: 40,
+    height: 40,
+    resizeMode: "contain",
   },
   title: {
-    fontFamily: 'Cabin-Regular',
+    fontFamily: "Cabin-Regular",
     fontSize: 18,
     color: Colors.bluetitle,
     textAlign: "center",

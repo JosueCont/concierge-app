@@ -112,7 +112,13 @@ const SideMenu = (props) => {
             <Text style={styles.navItemStyle}>Calendario</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.navSectionStyle} onPress={() => {}}>
+          <TouchableOpacity
+            style={styles.navSectionStyle}
+            onPress={() => {
+              props.navigation.navigate("PayrollScreen"),
+                props.navigation.toggleDrawer();
+            }}
+          >
             <Image
               source={require("../../assets/img/icono_nomina.png")}
               style={{ width: 25, height: 25, resizeMode: "contain" }}
@@ -122,7 +128,10 @@ const SideMenu = (props) => {
 
           <TouchableOpacity
             style={styles.navSectionStyle}
-            onPress={navigateToScreen("Home")}
+            onPress={() => {
+              props.navigation.navigate("HrScreen");
+              props.navigation.toggleDrawer();
+            }}
           >
             <Image
               source={require("../../assets/img/rh_icon_menu.png")}

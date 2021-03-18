@@ -11,7 +11,7 @@ import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import ComunicationCard from "../../components/ComponentCards/PayrollCard";
+import PayrollCard from "../../components/ComponentCards/PayrollCard";
 import { Colors } from "../../utils/colors";
 
 const myArray = [
@@ -213,7 +213,7 @@ const PayrollScreen = (props) => {
             </TouchableOpacity>
           </View>
         </View>
-        <ComunicationCard cards={myArray} />
+        <PayrollCard cards={myArray} props={props} />
         <View style={{ alignItems: "center" }}>
           <TouchableOpacity
             style={{

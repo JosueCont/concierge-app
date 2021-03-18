@@ -254,7 +254,7 @@ const MyAccountScreen = (props) => {
                   autoCapitalize="none"
                   keyboardType="default"
                   underlineColorAndroid={"transparent"}
-                  onChange={(text) => setName(text)}
+                  onChangeText={(text) => setName(text)}
                   value={name}
                 />
                 <TextInput
