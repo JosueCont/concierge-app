@@ -39,19 +39,25 @@ const RequestCard = (props) => {
         <View style={styles.item}>
           <View style={{ marginRight: 20, width: "60%" }}>
             <Text style={styles.titleDate}>Fecha de solicitud</Text>
-            <Text style={styles.date}>{item.date}</Text>
+            <Text style={styles.date}>{item.timestamp.substring(0, 10)}</Text>
             <Text style={styles.titleStatus}>Estatus</Text>
             <View
               style={[
                 styles.ctnStatus,
-                item.status == "Aprobada"
+                item.status == 2
                   ? styles.statusAprobado
-                  : item.status == "Pendiente"
+                  : item.status == 1
                   ? styles.statusPendiente
                   : styles.statusRechazado,
               ]}
             >
-              <Text style={styles.status}>{item.status}</Text>
+              <Text style={styles.status}>
+                {item.status == 1
+                  ? "Pendiente"
+                  : item.status == 2
+                  ? "Aprobado"
+                  : "Rechazado"}
+              </Text>
             </View>
 
             {item.status == "Aprobada" ||
@@ -72,7 +78,7 @@ const RequestCard = (props) => {
             <View style={{ position: "absolute", top: 0 }}>
               <Text style={styles.titleDays}>Días solicitados</Text>
               <View style={styles.ctnDays}>
-                <Text style={styles.days}>{item.days}</Text>
+                <Text style={styles.days}>{item.days_requested}</Text>
               </View>
             </View>
 
@@ -87,9 +93,16 @@ const RequestCard = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        style={{
+          zIndex: 0,
+          backgroundColor: Colors.bluebg,
+          paddingHorizontal: 22,
+        }}
         data={props.cards}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
+        ListHeaderComponent={props.headerList}
+        ListFooterComponent={props.footerList}
       />
     </SafeAreaView>
   );
@@ -98,7 +111,7 @@ const RequestCard = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    // marginTop: 20,
   },
   item: {
     backgroundColor: Colors.white,

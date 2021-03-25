@@ -21,6 +21,7 @@ import ModalCustom from "../components/modal/ModalCustom";
 import * as mime from "react-native-mime-types";
 import LoadingGlobal from "../components/modal/LoadingGlobal";
 import ApiApp from "../utils/ApiApp";
+import CloseSession from "../components/modal/CloseSession";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -36,6 +37,7 @@ const MyAccountScreen = (props) => {
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
+  const [closeSession, setCloseSession] = useState(false);
 
   useEffect(() => {
     if (props.user && props.user.userProfile) {
@@ -164,6 +166,10 @@ const MyAccountScreen = (props) => {
         setPerson(props.user.userProfile);
       }
     });
+  };
+
+  const modalCloseSession = () => {
+    closeSession ? setCloseSession(false) : setCloseSession(true);
   };
 
   return (
@@ -295,7 +301,7 @@ const MyAccountScreen = (props) => {
                       alignItems: "center",
                       justifyContent: "center",
                     }}
-                    onPress={props.logOutAction}
+                    onPress={() => modalCloseSession()}
                   >
                     <Text
                       style={{
@@ -356,6 +362,10 @@ const MyAccountScreen = (props) => {
         setVisible={() => viewModalCustom(true)}
       />
       <LoadingGlobal visible={modalLoading} text={"Cargando"} />
+      <CloseSession
+        visible={closeSession}
+        setVisible={() => modalCloseSession()}
+      />
     </View>
   );
 };

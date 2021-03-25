@@ -47,6 +47,9 @@ class ApiApp {
       "get"
     );
   };
+  static getVacationRequest = (data) => {
+    return ApiApp.ApisType(`/person/vacation/${data}`, "get");
+  };
 }
 
 export default ApiApp;

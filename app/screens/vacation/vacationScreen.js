@@ -9,102 +9,99 @@ import {
 import RNPickerSelect from "react-native-picker-select";
 import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import RequestCard from "../../components/ComponentCards/RequestCard";
 import { Colors } from "../../utils/colors";
-
-const myArray = [
-  {
-    id: 1,
-    date: "15/Agosto/2021",
-    days: 2,
-    status: "Pendiente",
-    person: "",
-  },
-  {
-    id: 2,
-    date: "03/Agosto/2021",
-    days: 1,
-    status: "Aprobada",
-    person: "Alex Dzul",
-  },
-  {
-    id: 3,
-    date: "14/Julio/2021",
-    days: 3,
-    status: "Rechazada",
-    person: "Alex Dzul",
-  },
-];
-
-const months = [
-  {
-    label: "Enero",
-    value: "enero",
-  },
-  {
-    label: "Febrero",
-    value: "febrero",
-  },
-  {
-    label: "Marzo",
-    value: "marzo",
-  },
-  {
-    label: "Abril",
-    value: "abril",
-  },
-  {
-    label: "Mayo",
-    value: "mayo",
-  },
-  {
-    label: "Junio",
-    value: "junio",
-  },
-  {
-    label: "Julio",
-    value: "julio",
-  },
-  {
-    label: "Agosto",
-    value: "agosto",
-  },
-  {
-    label: "Septiembre",
-    value: "septiembre",
-  },
-  {
-    label: "Octubre",
-    value: "octubre",
-  },
-  {
-    label: "Noviembre",
-    value: "noviembre",
-  },
-  {
-    label: "Diciembre",
-    value: "diciembre",
-  },
-];
-
-const years = [
-  {
-    label: "2019",
-    value: "2019",
-  },
-  {
-    label: "2020",
-    value: "2020",
-  },
-  {
-    label: "2021",
-    value: "2021",
-  },
-];
+import LoadingGlobal from "../../components/modal/LoadingGlobal";
+import ModalCustom from "../../components/modal/ModalCustom";
+import ApiApp from "../../utils/ApiApp";
 
 const vacationScreen = (props) => {
+  const [modalCustom, setModalCustom] = useState(false);
+  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
+  const [messageCustomModal, setMessageCustomModal] = useState("");
+  const [modalLoading, setModalLoading] = useState(false);
+  const [vacations, setVacations] = useState([]);
+  const [monthVacation, setMonthVacation] = useState(0);
+  const [yearVacation, setYearVacation] = useState(0);
+  const months = [
+    {
+      label: "Enero",
+      value: 1,
+    },
+    {
+      label: "Febrero",
+      value: 2,
+    },
+    {
+      label: "Marzo",
+      value: 3,
+    },
+    {
+      label: "Abril",
+      value: 4,
+    },
+    {
+      label: "Mayo",
+      value: 5,
+    },
+    {
+      label: "Junio",
+      value: 6,
+    },
+    {
+      label: "Julio",
+      value: 7,
+    },
+    {
+      label: "Agosto",
+      value: 8,
+    },
+    {
+      label: "Septiembre",
+      value: 9,
+    },
+    {
+      label: "Octubre",
+      value: 10,
+    },
+    {
+      label: "Noviembre",
+      value: 11,
+    },
+    {
+      label: "Diciembre",
+      value: 12,
+    },
+  ];
+  const [years, setYears] = useState([]);
+  const year = new Date().getFullYear();
+  const month = new Date().getMonth();
+
+  useEffect(() => {
+    setYearVacation(year);
+    setMonthVacation(month);
+    if (props.user && props.user.userProfile) {
+      generateYear();
+      getVacationsRequest();
+      // console.log("PErson->> ", props.user.userProfile.Available_days_vacation);
+    } else {
+      props.navigation.goBack(null);
+    }
+  }, [props.user]);
+
+  const generateYear = () => {
+    let yearsArray = [];
+    let currentYear = new Date().getFullYear();
+    let startYear = currentYear - 10;
+    while (startYear < currentYear) {
+      startYear++;
+      yearsArray.push({ label: `${startYear}`, value: startYear });
+    }
+    setYears(yearsArray.reverse());
+  };
+
   const clickAction = () => {
     props.navigation.goBack(null);
   };
@@ -113,36 +110,53 @@ const vacationScreen = (props) => {
     props.navigation.navigate("ProfileScreen");
   };
 
-  return (
-    <View
-      style={{
-        height: "100%",
-        zIndex: 1,
-      }}
-    >
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="rgba(1,1,1,0)"
-        translucent={true}
-      />
-      {/* Toolbar componenet para mostar el datos del usuario*/}
-      <ToolbarGeneric
-        clickAction={clickAction}
-        nameToolbar={"Vacaciones"}
-        type={1}
-        clickProfile={clickProfile}
-      />
+  const viewModalCustom = () => {
+    modalCustom ? setModalCustom(false) : setModalCustom(true);
+  };
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{
-          zIndex: 0,
-          backgroundColor: Colors.bluebg,
-          paddingHorizontal: 22,
-        }}
-      >
+  const getVacationsRequest = async () => {
+    let filter = `?person__id=1937de8426be4cc59731d2cf8ec35c0f`;
+    // let filter = `?person__id=${props.user.userProfile.id}`;
+    try {
+      setModalLoading(true);
+      // if (monthVacation && yearVacation > 0)
+      //   filter = filter + `payment_date__month=${monthVacation}&`;
+      // else filter = filter + `payment_date__month=${month}&`;
+      // if (yearVacation && yearVacation > 0)
+      //   filter = filter + `payment_date__year=${yearVacation}`;
+      // else filter = filter + `payment_date__year=${year}`;
+      let response = await ApiApp.getVacationRequest(filter);
+      if (response.status == 200) {
+        if (
+          response.data.results != undefined &&
+          response.data.results.length > 0
+        ) {
+          setVacations(response.data.results);
+          setModalLoading(false);
+        } else {
+          setMessageCustomModal("No se encontraron resultados.");
+          setIconSourceCustomModal(3);
+          setModalCustom(true);
+          setModalLoading(false);
+        }
+      }
+    } catch (error) {
+      setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      setModalLoading(false);
+    }
+  };
+
+  const headerList = () => {
+    return (
+      <>
         <View
-          style={{ flexDirection: "row", alignItems: "center", marginTop: 15 }}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: 15,
+          }}
         >
           <View style={{ alignItems: "center" }}>
             <View
@@ -162,7 +176,7 @@ const vacationScreen = (props) => {
                   fontSize: 40,
                 }}
               >
-                6
+                {props.user.userProfile.Available_days_vacation}
               </Text>
             </View>
           </View>
@@ -201,7 +215,7 @@ const vacationScreen = (props) => {
               onValueChange={(value) => console.log(value)}
               placeholder={{
                 label: "Mes",
-                value: "null",
+                value: monthVacation,
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
@@ -225,7 +239,7 @@ const vacationScreen = (props) => {
               onValueChange={(value) => console.log(value)}
               placeholder={{
                 label: "Año",
-                value: "null",
+                value: yearVacation,
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
@@ -257,7 +271,7 @@ const vacationScreen = (props) => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => recoveryPassword()}
+            onPress={() => getVacationsRequest()}
           >
             <Text style={{ color: Colors.white, fontSize: 16 }}>Buscar</Text>
           </TouchableOpacity>
@@ -276,34 +290,88 @@ const vacationScreen = (props) => {
             <Text style={{ color: Colors.white, fontSize: 16 }}>Nueva</Text>
           </TouchableOpacity>
         </View>
+      </>
+    );
+  };
 
-        <RequestCard cards={myArray} />
-        <View style={{ alignItems: "center" }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: Colors.bluelinks,
-              height: 50,
-              width: "48%",
-              borderRadius: 10,
-              marginTop: 20,
-              marginBottom: 40,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text
+  const footerList = () => {
+    return (
+      <>
+        {vacations.length > 0 && (
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity
               style={{
-                fontFamily: "Cabin-Regular",
-                color: Colors.white,
-                fontSize: 16,
+                backgroundColor: Colors.bluelinks,
+                height: 50,
+                width: "48%",
+                borderRadius: 10,
+                marginTop: 20,
+                marginBottom: 40,
+                alignItems: "center",
+                justifyContent: "center",
               }}
+              onPress={() => props.navigation.goBack(null)}
             >
-              Regresar
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </View>
+              <Text
+                style={{
+                  fontFamily: "Cabin-Regular",
+                  color: Colors.white,
+                  fontSize: 16,
+                }}
+              >
+                Regresar
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </>
+    );
+  };
+
+  return (
+    <>
+      <View
+        style={{
+          height: "100%",
+          zIndex: 1,
+        }}
+      >
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor="rgba(1,1,1,0)"
+          translucent={true}
+        />
+        {/* Toolbar componenet para mostar el datos del usuario*/}
+        <ToolbarGeneric
+          clickAction={clickAction}
+          nameToolbar={"Vacaciones"}
+          type={1}
+          clickProfile={clickProfile}
+        />
+
+        {/* <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{
+            zIndex: 0,
+            backgroundColor: Colors.bluebg,
+            paddingHorizontal: 22,
+          }}
+        > */}
+        <RequestCard
+          cards={vacations}
+          headerList={headerList}
+          footerList={footerList}
+        />
+        {/* </ScrollView> */}
+      </View>
+      <ModalCustom
+        visible={modalCustom}
+        text={messageCustomModal}
+        iconSource={iconSourceCustomModal}
+        setVisible={() => viewModalCustom(true)}
+      />
+      <LoadingGlobal visible={modalLoading} text={"Cargando"} />
+    </>
   );
 };
 
@@ -336,4 +404,8 @@ const pickerSelectStyles = StyleSheet.create({
   },
 });
 
-export default vacationScreen;
+const mapState = (state) => {
+  return { user: state.user };
+};
+
+export default connect(mapState)(vacationScreen);

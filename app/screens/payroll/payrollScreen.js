@@ -136,7 +136,7 @@ const PayrollScreen = (props) => {
           setModalLoading(false);
         } else {
           setMessageCustomModal("No se encontraron resultados.");
-          setIconSourceCustomModal(2);
+          setIconSourceCustomModal(3);
           setModalCustom(true);
           setModalLoading(false);
         }
