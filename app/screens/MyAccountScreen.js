@@ -19,7 +19,7 @@ import { connect } from "react-redux";
 import { logOutAction, updateProfile, getProfile } from "../redux/userDuck";
 import ModalCustom from "../components/modal/ModalCustom";
 import * as mime from "react-native-mime-types";
-import LoadingGlobal from "../components/modal/loadingGlobal";
+import LoadingGlobal from "../components/modal/LoadingGlobal";
 import ApiApp from "../utils/ApiApp";
 
 const windowWidth = Dimensions.get("window").width;

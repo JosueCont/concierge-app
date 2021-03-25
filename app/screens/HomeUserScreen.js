@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import ComunicationCard from "../components/ComponentCards/ComunicationCard";
 import { Colors } from "../utils/colors";
 import ApiApp from "../utils/ApiApp";
-import LoadingGlobal from "../components/modal/loadingGlobal";
+import LoadingGlobal from "../components/modal/LoadingGlobal";
 import { getProfile, logOutAction } from "../redux/userDuck";
 
 const HomeUserScreen = (props) => {
@@ -96,7 +96,7 @@ const HomeUserScreen = (props) => {
                 marginLeft: 5,
               }}
             >
-              {props.user && props.user.first_name}
+              {props.user.userProfile && props.user.userProfile.first_name}
             </Text>
           </View>
           <Text

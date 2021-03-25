@@ -54,7 +54,7 @@ const PayrollCard = (props) => {
           <View style={{ marginRight: 20 }}>
             <Text style={styles.title}>Nomina</Text>
             <Text style={styles.amount}>{item.amount}</Text>
-            <Text style={styles.date}>{item.date}</Text>
+            <Text style={styles.date}>{item.payment_date}</Text>
           </View>
           <View
             style={{
@@ -75,7 +75,7 @@ const PayrollCard = (props) => {
               }}
               onPress={() =>
                 props.props.navigation.navigate("PayrollDetailScreen", {
-                  item: item,
+                  id: item.id,
                 })
               }
             >
@@ -98,7 +98,7 @@ const PayrollCard = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={props.cards}
+        data={props.vouchers}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />

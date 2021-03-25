@@ -18,7 +18,7 @@ import Constants from "expo-constants";
 import ModalCustom from "../../components/modal/ModalCustom";
 import axios from "axios";
 import { darkerHex, emailRegEx } from "../../utils/utils";
-import ModalLoadingGlobal from "../../components/modal/loadingGlobal";
+import ModalLoadingGlobal from "../../components/modal/LoadingGlobal";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

@@ -79,7 +79,7 @@ const SideMenu = (props) => {
                 marginTop: 9,
               }}
             >
-              {props.user && props.user.first_name}
+              {props.user.userProfile && props.user.userProfile.first_name}
             </Text>
             <Text
               style={{

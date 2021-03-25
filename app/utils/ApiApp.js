@@ -36,6 +36,17 @@ class ApiApp {
   static getComunication = () => {
     return ApiApp.ApisType("/noticenter/notification/", "get");
   };
+
+  static getPayrollVouchers = (data) => {
+    return ApiApp.ApisType(`/payroll/payroll-voucher/?${data}`, "get");
+  };
+
+  static getPayrollVoucherDetail = (data) => {
+    return ApiApp.ApisType(
+      `/payroll/payroll-voucher/${data}/detail_movements/`,
+      "get"
+    );
+  };
 }
 
 export default ApiApp;
