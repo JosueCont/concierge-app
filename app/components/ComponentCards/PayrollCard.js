@@ -54,7 +54,7 @@ const PayrollCard = (props) => {
           <View style={{ marginRight: 20 }}>
             <Text style={styles.title}>Nomina</Text>
             <Text style={styles.amount}>{item.amount}</Text>
-            <Text style={styles.date}>{item.date}</Text>
+            <Text style={styles.date}>{item.payment_date}</Text>
           </View>
           <View
             style={{
@@ -75,7 +75,7 @@ const PayrollCard = (props) => {
               }}
               onPress={() =>
                 props.props.navigation.navigate("PayrollDetailScreen", {
-                  item: item,
+                  id: item.id,
                 })
               }
             >
@@ -98,9 +98,15 @@ const PayrollCard = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={props.cards}
+        style={{
+          backgroundColor: Colors.bluebg,
+          paddingHorizontal: 22,
+        }}
+        data={props.vouchers}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
+        ListHeaderComponent={props.headerList}
+        ListFooterComponent={props.footerList}
       />
     </SafeAreaView>
   );
@@ -109,7 +115,7 @@ const PayrollCard = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    // marginTop: 20,
   },
   item: {
     backgroundColor: Colors.white,
