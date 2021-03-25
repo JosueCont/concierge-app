@@ -74,12 +74,10 @@ const payrollDetailScreen = (props) => {
     // movement_type 2 -->> Deduccion  usar -->> amount
     // movement_type 3 -->> otros pagos usar -->> employee_allowens
     // console.log("Array -->> ", detail);
-    console.log("Type -->> ", type);
     return (
       <>
         {detail.map((p) => {
           if (p.movement_type == type) {
-            console.log("Type mov-->>> ", p.movement_type);
             return (
               <>
                 <View style={styles.item}>
@@ -128,7 +126,7 @@ const payrollDetailScreen = (props) => {
           showsVerticalScrollIndicator={false}
           style={{
             zIndex: 0,
-            paddingHorizontal: "8%",
+            paddingHorizontal: 22,
           }}
         >
           <View style={styles.container}>
@@ -147,6 +145,7 @@ const payrollDetailScreen = (props) => {
                 style={{ width: 110, height: 110, resizeMode: "cover" }}
               ></Image>
             </View>
+
             <View style={{ marginTop: 80 }}>
               <Text style={styles.monto}>${voucher && voucher.amount}</Text>
               <Text style={styles.fecha}>

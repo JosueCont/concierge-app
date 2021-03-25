@@ -98,9 +98,15 @@ const PayrollCard = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        style={{
+          backgroundColor: Colors.bluebg,
+          paddingHorizontal: 22,
+        }}
         data={props.vouchers}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
+        ListHeaderComponent={props.headerList}
+        ListFooterComponent={props.footerList}
       />
     </SafeAreaView>
   );
@@ -109,7 +115,7 @@ const PayrollCard = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    // marginTop: 20,
   },
   item: {
     backgroundColor: Colors.white,

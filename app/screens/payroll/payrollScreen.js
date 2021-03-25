@@ -149,6 +149,137 @@ const PayrollScreen = (props) => {
     }
   };
 
+  const headerList = () => {
+    return (
+      <View
+        style={{
+          zIndex: 0,
+          backgroundColor: Colors.bluebg,
+        }}
+      >
+        <View
+          style={{
+            backgroundColor: Colors.dark,
+            marginTop: 40,
+            alignItems: "center",
+            borderRadius: 20,
+            paddingHorizontal: 35,
+            paddingTop: 30,
+            paddingBottom: 30,
+          }}
+        >
+          <View
+            style={{
+              width: "100%",
+              borderRadius: 10,
+              overflow: "hidden",
+              marginBottom: 20,
+            }}
+          >
+            <RNPickerSelect
+              onValueChange={(value) => setMonthVoucher(value)}
+              placeholder={{
+                label: "Mes",
+                value: "null",
+                color: Colors.bluelinks,
+              }}
+              style={pickerSelectStyles}
+              items={months}
+              value={monthVoucher}
+              Icon={() => {
+                return (
+                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+                );
+              }}
+            />
+          </View>
+          <View
+            style={{
+              width: "100%",
+              borderRadius: 10,
+              overflow: "hidden",
+              marginBottom: 20,
+            }}
+          >
+            <RNPickerSelect
+              onValueChange={(value) => setYearVoucher(value)}
+              placeholder={{
+                label: "Año",
+                value: yearVoucher,
+                color: Colors.bluelinks,
+              }}
+              value={yearVoucher}
+              style={pickerSelectStyles}
+              items={years}
+              Icon={() => {
+                return (
+                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+                );
+              }}
+            />
+          </View>
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#47A8DE",
+                height: 50,
+                width: 160,
+                borderRadius: 10,
+                marginTop: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => getPayrollVoucher()}
+            >
+              <Text
+                style={{
+                  fontFamily: "Cabin-Regular",
+                  color: Colors.white,
+                  fontSize: 18,
+                }}
+              >
+                Buscar
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  const footerList = () => {
+    return (
+      <View>
+        <View style={{ alignItems: "center" }}>
+          {vouchers.length > 0 && (
+            <TouchableOpacity
+              style={{
+                backgroundColor: Colors.bluetitle,
+                height: 50,
+                width: "48%",
+                borderRadius: 10,
+                marginTop: 20,
+                marginBottom: 40,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => clickAction()}
+            >
+              <Text
+                style={{
+                  fontFamily: "Cabin-Regular",
+                  color: Colors.white,
+                  fontSize: 16,
+                }}
+              >
+                Regresar
+              </Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
+    );
+  };
   return (
     <>
       <View
@@ -170,129 +301,22 @@ const PayrollScreen = (props) => {
           clickProfile={clickProfile}
         />
 
-        <ScrollView
+        {/* <ScrollView
           showsVerticalScrollIndicator={false}
           style={{
             zIndex: 0,
             backgroundColor: Colors.bluebg,
             paddingHorizontal: 22,
           }}
-        >
-          <View
-            style={{
-              backgroundColor: Colors.dark,
-              marginTop: 40,
-              alignItems: "center",
-              borderRadius: 20,
-              paddingHorizontal: 35,
-              paddingTop: 30,
-              paddingBottom: 30,
-            }}
-          >
-            <View
-              style={{
-                width: "100%",
-                borderRadius: 10,
-                overflow: "hidden",
-                marginBottom: 20,
-              }}
-            >
-              <RNPickerSelect
-                onValueChange={(value) => setMonthVoucher(value)}
-                placeholder={{
-                  label: "Mes",
-                  value: "null",
-                  color: Colors.bluelinks,
-                }}
-                style={pickerSelectStyles}
-                items={months}
-                value={monthVoucher}
-                Icon={() => {
-                  return (
-                    <AntDesign name="down" size={24} color={Colors.bluetitle} />
-                  );
-                }}
-              />
-            </View>
-            <View
-              style={{
-                width: "100%",
-                borderRadius: 10,
-                overflow: "hidden",
-                marginBottom: 20,
-              }}
-            >
-              <RNPickerSelect
-                onValueChange={(value) => setYearVoucher(value)}
-                placeholder={{
-                  label: "Año",
-                  value: yearVoucher,
-                  color: Colors.bluelinks,
-                }}
-                value={yearVoucher}
-                style={pickerSelectStyles}
-                items={years}
-                Icon={() => {
-                  return (
-                    <AntDesign name="down" size={24} color={Colors.bluetitle} />
-                  );
-                }}
-              />
-            </View>
-            <View style={{ alignItems: "center" }}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "#47A8DE",
-                  height: 50,
-                  width: 160,
-                  borderRadius: 10,
-                  marginTop: 10,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                onPress={() => getPayrollVoucher()}
-              >
-                <Text
-                  style={{
-                    fontFamily: "Cabin-Regular",
-                    color: Colors.white,
-                    fontSize: 18,
-                  }}
-                >
-                  Buscar
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <PayrollCard vouchers={vouchers} props={props} />
-          <View style={{ alignItems: "center" }}>
-            {vouchers.length > 0 && (
-              <TouchableOpacity
-                style={{
-                  backgroundColor: Colors.bluetitle,
-                  height: 50,
-                  width: "48%",
-                  borderRadius: 10,
-                  marginTop: 20,
-                  marginBottom: 40,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                onPress={() => clickAction()}
-              >
-                <Text
-                  style={{
-                    fontFamily: "Cabin-Regular",
-                    color: Colors.white,
-                    fontSize: 16,
-                  }}
-                >
-                  Regresar
-                </Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </ScrollView>
+        > */}
+
+        <PayrollCard
+          vouchers={vouchers}
+          props={props}
+          headerList={headerList}
+          footerList={footerList}
+        />
+        {/* </ScrollView> */}
       </View>
       <ModalCustom
         visible={modalCustom}

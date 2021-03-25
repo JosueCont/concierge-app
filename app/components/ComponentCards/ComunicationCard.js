@@ -180,9 +180,11 @@ const ComunicationCard = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        style={{ paddingHorizontal: 22, backgroundColor: Colors.bluebg }}
         data={props.cards}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
+        ListHeaderComponent={props.headerList}
       />
     </SafeAreaView>
   );
@@ -191,7 +193,7 @@ const ComunicationCard = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 20,
+    // marginTop: 20,
   },
   item: {
     backgroundColor: Colors.white,

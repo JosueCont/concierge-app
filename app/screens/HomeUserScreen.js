@@ -44,31 +44,13 @@ const HomeUserScreen = (props) => {
     }
   };
 
-  return (
-    <View
-      style={{
-        height: "100%",
-        zIndex: 1,
-      }}
-    >
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="rgba(1,1,1,0)"
-        translucent={true}
-      />
-      <ToolbarGeneric
-        clickAction={clickAction}
-        nameToolbar={"Menú"}
-        type={2}
-        clickProfile={clickProfile}
-      />
-
-      <ScrollView
-        showsVerticalScrollIndicator={false}
+  const headerList = () => {
+    return (
+      <View
         style={{
           zIndex: 0,
-          backgroundColor: Colors.bluebg,
           paddingHorizontal: 22,
+          marginBottom: 20,
         }}
       >
         <View style={{ alignItems: "center" }}>
@@ -110,8 +92,40 @@ const HomeUserScreen = (props) => {
             Te mantenemos informado
           </Text>
         </View>
-        <ComunicationCard cards={comunications} />
-      </ScrollView>
+      </View>
+    );
+  };
+
+  return (
+    <View
+      style={{
+        height: "100%",
+        zIndex: 1,
+      }}
+    >
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="rgba(1,1,1,0)"
+        translucent={true}
+      />
+      <ToolbarGeneric
+        clickAction={clickAction}
+        nameToolbar={"Menú"}
+        type={2}
+        clickProfile={clickProfile}
+      />
+
+      {/* <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          zIndex: 0,
+          backgroundColor: Colors.bluebg,
+          paddingHorizontal: 22,
+        }}
+      > */}
+
+      <ComunicationCard cards={comunications} headerList={headerList} />
+      {/* </ScrollView> */}
       <LoadingGlobal visible={modalLoading} text={"Cargando"} />
     </View>
   );
