@@ -24,7 +24,7 @@ const payrollDetailScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
-  const [modalLoading, setModalLoading] = useState(false);
+  const [modalLoading, setModalLoading] = useState(true);
   const [voucher, setVoucher] = useState({});
   const [detailVoucher, setDetailVoucher] = useState([]);
 
@@ -46,7 +46,7 @@ const payrollDetailScreen = (props) => {
     } else {
       props.navigation.goBack(null);
     }
-  }, []);
+  }, [props.navigation.getParam("id")]);
 
   const getDetail = async () => {
     try {
@@ -68,15 +68,22 @@ const payrollDetailScreen = (props) => {
     }
   };
 
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalLoading(false);
+    }, 1500);
+  };
+
   const ListPerceptionDeduction = ({ detail, type }) => {
     // detail_payroll_movements -->> lista para sacar percepciones
     // movement_type 1 -->> Percepcion usar -->> amount_excent y taxed_amount
     // movement_type 2 -->> Deduccion  usar -->> amount
     // movement_type 3 -->> otros pagos usar -->> employee_allowens
     // console.log("Array -->> ", detail);
+    if (type == 3) closeModal();
     return (
       <>
-        {detail.map((p) => {
+        {detail.map((p, i) => {
           if (p.movement_type == type) {
             return (
               <>
