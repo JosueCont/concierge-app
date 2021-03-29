@@ -120,17 +120,11 @@ const HomeUserScreen = (props) => {
         goHome={goHome}
       />
 
-      {/* <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{
-          zIndex: 0,
-          backgroundColor: Colors.bluebg,
-          paddingHorizontal: 22,
-        }}
-      > */}
-
-      <ComunicationCard cards={comunications} headerList={headerList} />
-      {/* </ScrollView> */}
+      <ComunicationCard
+        cards={comunications}
+        props={props}
+        headerList={headerList}
+      />
       <LoadingGlobal visible={modalLoading} text={"Cargando"} />
     </View>
   );

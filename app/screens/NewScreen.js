@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   TouchableOpacity,
@@ -11,13 +11,15 @@ import {
 } from "react-native";
 import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
 import { Colors } from "../utils/colors";
+import HTML from "react-native-render-html";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const NewScreen = (props) => {
+  const [item, setItem] = useState();
   const clickAction = () => {
-    props.navigation.navigate("Main");
+    props.navigation.goBack(null);
   };
 
   const goHome = () => {
@@ -77,7 +79,7 @@ const NewScreen = (props) => {
           </View>
           <View style={styles.container}>
             <Image
-              source={require("../../assets/img/imagen_noticia.png")}
+              source={{ uri: props.navigation.getParam("image") }}
               style={{
                 width: "100%",
                 height: windowWidth / 2.2,
@@ -88,17 +90,9 @@ const NewScreen = (props) => {
             ></Image>
             <View style={{ paddingHorizontal: 10 }}>
               <Text style={styles.titleNew}> Noticia </Text>
-              <Text style={styles.descNew}>
-                Las relaciones de línea y staff son importantes como modo de
-                vida organizacional, ya que las relaciones de autoridad entre
-                los miembros de una organización afectan necesariamente a la
-                operación de la empresa. {"\n"} {"\n"}
-                Las funciones de línea son las que tienen un impacto directo en
-                el cumplimiento de los objetivos de la empresa. {"\n"} {"\n"}
-                Las funciones de staff son aquellas que contribuyen a que el
-                personal de línea trabaje con mayor eficacia a favor del
-                cumplimiento de tales objetivos.
-              </Text>
+
+              <HTML source={{ html: props.navigation.getParam("text") }} />
+
               <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
                   style={{
@@ -110,6 +104,7 @@ const NewScreen = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+                  onPress={() => clickAction()}
                 >
                   <Text
                     style={{
