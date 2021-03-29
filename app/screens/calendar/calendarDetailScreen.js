@@ -36,6 +36,10 @@ const CalendarDetailScreen = (props) => {
     props.navigation.goBack(null);
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -52,12 +56,13 @@ const CalendarDetailScreen = (props) => {
         backgroundColor="rgba(1,1,1,0)"
         translucent={true}
       />
-      {/* Toolbar componenet para mostar el datos del usuario*/}
+
       <ToolbarGeneric
         clickAction={clickAction}
         nameToolbar={"Calendario"}
         type={1}
         clickProfile={clickProfile}
+        goHome={goHome}
       />
 
       <ScrollView

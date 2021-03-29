@@ -199,7 +199,6 @@ const MyAccountScreen = (props) => {
               height: windowHeight + statusHeight,
             }}
           >
-            {/* Toolbar componenet para mostar el datos del usuario*/}
             <ToolbarNoLogin
               clickAction={clickAction}
               nameToolbar={"Mi Cuenta"}

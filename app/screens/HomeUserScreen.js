@@ -16,6 +16,10 @@ const HomeUserScreen = (props) => {
     props.navigation.toggleDrawer();
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -113,6 +117,7 @@ const HomeUserScreen = (props) => {
         nameToolbar={"Menú"}
         type={2}
         clickProfile={clickProfile}
+        goHome={goHome}
       />
 
       {/* <ScrollView

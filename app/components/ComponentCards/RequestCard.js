@@ -7,14 +7,30 @@ import {
   Text,
   Image,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Colors } from "../../utils/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { connect } from "react-redux";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const RequestCard = (props) => {
+  const openViewDetail = (id) => {
+    if (props.type == "vacation")
+      props.props.navigation.navigate("VacationDetailScreen", {
+        id: id,
+      });
+    if (props.type == "permission")
+      props.props.navigation.navigate("VacationDetailScreen", {
+        id: id,
+      });
+    if (props.type == "incapacity")
+      props.props.navigation.navigate("VacationDetailScreen", {
+        id: id,
+      });
+  };
+
   const renderItem = ({ item, index }) => {
     return (
       <View style={{ marginTop: 10 }}>
@@ -82,7 +98,10 @@ const RequestCard = (props) => {
               </View>
             </View>
 
-            <TouchableOpacity style={styles.ctnBtn}>
+            <TouchableOpacity
+              style={styles.ctnBtn}
+              onPress={() => openViewDetail(item.id)}
+            >
               <Text style={styles.btn}>Ver detalle</Text>
             </TouchableOpacity>
           </View>
@@ -90,6 +109,7 @@ const RequestCard = (props) => {
       </View>
     );
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList

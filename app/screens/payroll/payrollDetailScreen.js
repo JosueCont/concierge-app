@@ -32,6 +32,10 @@ const payrollDetailScreen = (props) => {
     props.navigation.pop();
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -56,6 +60,8 @@ const payrollDetailScreen = (props) => {
       if (response.status == 200) {
         setDetailVoucher(response.data.detail_payroll_movements);
         setVoucher(response.data.payroll_voucher);
+      } else {
+        props.props.navigation.goBack(null);
       }
     } catch (error) {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
@@ -121,12 +127,13 @@ const payrollDetailScreen = (props) => {
           backgroundColor="rgba(1,1,1,0)"
           translucent={true}
         />
-        {/* Toolbar componenet para mostar el datos del usuario*/}
+
         <ToolbarGeneric
           clickAction={clickAction}
           nameToolbar={"Mi Nomina"}
           type={1}
           clickProfile={clickProfile}
+          goHome={goHome}
         />
 
         <ScrollView
@@ -234,7 +241,7 @@ const payrollDetailScreen = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => props.navigation.goBack(null)}
+                  onPress={() => clickAction()}
                 >
                   <Text style={{ color: Colors.white, fontSize: 14 }}>
                     Regresar

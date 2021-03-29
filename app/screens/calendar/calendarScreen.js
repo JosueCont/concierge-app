@@ -83,6 +83,10 @@ const CalendarScreen = (props) => {
     props.navigation.goBack(null);
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -99,12 +103,13 @@ const CalendarScreen = (props) => {
         backgroundColor="rgba(1,1,1,0)"
         translucent={true}
       />
-      {/* Toolbar componenet para mostar el datos del usuario*/}
+
       <ToolbarGeneric
         clickAction={clickAction}
         nameToolbar={"Calendario"}
         type={1}
         clickProfile={clickProfile}
+        goHome={goHome}
       />
 
       <ScrollView
@@ -224,7 +229,7 @@ const CalendarScreen = (props) => {
 
         <View style={{ alignItems: "center", marginBottom: 40 }}>
           <Image
-            source={require("../../../assets/img/imagen_calendario.png")}
+            source={require("../../../assets/img/imagen_search.png")}
             style={{
               width: windowWidth * 0.8,
               height: windowWidth * 0.7,

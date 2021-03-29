@@ -128,7 +128,6 @@ const ChangePasswordFirstTime = (props) => {
               height: windowHeight + statusHeight,
             }}
           >
-            {/* Toolbar componenet para mostar el datos del usuario*/}
             <ToolbarNoLogin
               clickAction={actionReturn}
               nameToolbar={"Mi Cuenta"}

@@ -20,6 +20,10 @@ const NewScreen = (props) => {
     props.navigation.navigate("Main");
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -36,12 +40,13 @@ const NewScreen = (props) => {
         backgroundColor="rgba(1,1,1,0)"
         translucent={true}
       />
-      {/* Toolbar componenet para mostar el datos del usuario*/}
+
       <ToolbarGeneric
         clickAction={clickAction}
         nameToolbar={"Noticias"}
         type={1}
         clickProfile={clickProfile}
+        goHome={goHome}
       />
 
       <ScrollView

@@ -89,7 +89,10 @@ const ToolbarGeneric = (props) => {
               </>
             )}
           </TouchableOpacity>
-          <TouchableOpacity style={{ flex: 1, alignItems: "center" }}>
+          <TouchableOpacity
+            style={{ flex: 1, alignItems: "center" }}
+            onPress={() => props.goHome()}
+          >
             <Image
               source={require("../../../assets/img/staff_evolution.png")}
               resizeMode={"contain"}

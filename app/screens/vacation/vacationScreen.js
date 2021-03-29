@@ -106,6 +106,10 @@ const vacationScreen = (props) => {
     props.navigation.goBack(null);
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -115,10 +119,11 @@ const vacationScreen = (props) => {
   };
 
   const getVacationsRequest = async () => {
-    let filter = `?person__id=1937de8426be4cc59731d2cf8ec35c0f`;
-    // let filter = `?person__id=${props.user.userProfile.id}`;
+    // let filter = `?person__id=1937de8426be4cc59731d2cf8ec35c0f`;
+    let filter = `?person__id=${props.user.userProfile.id}`;
     try {
       setModalLoading(true);
+      setVacations([]);
       // if (monthVacation && yearVacation > 0)
       //   filter = filter + `payment_date__month=${monthVacation}&`;
       // else filter = filter + `payment_date__month=${month}&`;
@@ -285,7 +290,7 @@ const vacationScreen = (props) => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => actionReturn()}
+            onPress={() => props.navigation.navigate("VacationRequestScreen")}
           >
             <Text style={{ color: Colors.white, fontSize: 16 }}>Nueva</Text>
           </TouchableOpacity>
@@ -341,12 +346,13 @@ const vacationScreen = (props) => {
           backgroundColor="rgba(1,1,1,0)"
           translucent={true}
         />
-        {/* Toolbar componenet para mostar el datos del usuario*/}
+
         <ToolbarGeneric
           clickAction={clickAction}
           nameToolbar={"Vacaciones"}
           type={1}
           clickProfile={clickProfile}
+          goHome={goHome}
         />
 
         {/* <ScrollView
@@ -358,9 +364,11 @@ const vacationScreen = (props) => {
           }}
         > */}
         <RequestCard
+          props={props}
           cards={vacations}
           headerList={headerList}
           footerList={footerList}
+          type={"vacation"}
         />
         {/* </ScrollView> */}
       </View>

@@ -34,6 +34,10 @@ const ChangePasswordScreen = (props) => {
     props.navigation.goBack(null);
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -132,12 +136,12 @@ const ChangePasswordScreen = (props) => {
               height: windowHeight + statusHeight,
             }}
           >
-            {/* Toolbar componenet para mostar el datos del usuario*/}
             <ToolbarGeneric
               clickAction={actionReturn}
               nameToolbar={"Mi Cuenta"}
               type={1}
               clickProfile={clickProfile}
+              goHome={goHome}
             />
             <Image
               style={{
