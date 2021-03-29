@@ -124,11 +124,6 @@ export let doLoginAction = (credential) => {
         }
       );
 
-      console.log(
-        "user:Redux",
-        jwt_decode(response.data.token).password_changed
-      );
-
       let convertResponse = jwt_decode(response.data.token);
 
       if (convertResponse.password_changed) {

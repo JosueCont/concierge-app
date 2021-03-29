@@ -109,6 +109,10 @@ const permissionsScreen = (props) => {
     props.navigation.pop();
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -130,6 +134,7 @@ const permissionsScreen = (props) => {
         nameToolbar={"Permisos"}
         type={1}
         clickProfile={clickProfile}
+        goHome={goHome}
       />
 
       <ScrollView

@@ -14,6 +14,10 @@ const ModalCustom = ({ visible, setVisible, iconSource, text }) => {
     sourceIcon = require("../../../assets/img/icono_ok.png");
   if (iconSource === 2)
     sourceIcon = require("../../../assets/img/error_icon.png");
+  if (iconSource === 3)
+    sourceIcon = require("../../../assets/img/imagen_search.png");
+  if (iconSource === 4)
+    sourceIcon = require("../../../assets/img/notification_send.png");
   return (
     <View style={styles.centeredView}>
       <Modal animationType="fade" transparent={true} visible={visible}>

@@ -96,6 +96,10 @@ const PayrollScreen = (props) => {
     props.navigation.goBack(null);
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -136,7 +140,7 @@ const PayrollScreen = (props) => {
           setModalLoading(false);
         } else {
           setMessageCustomModal("No se encontraron resultados.");
-          setIconSourceCustomModal(2);
+          setIconSourceCustomModal(3);
           setModalCustom(true);
           setModalLoading(false);
         }
@@ -293,12 +297,13 @@ const PayrollScreen = (props) => {
           backgroundColor="rgba(1,1,1,0)"
           translucent={true}
         />
-        {/* Toolbar componenet para mostar el datos del usuario*/}
+
         <ToolbarGeneric
           clickAction={clickAction}
           nameToolbar={"Mi Nómina"}
           type={1}
           clickProfile={clickProfile}
+          goHome={goHome}
         />
 
         {/* <ScrollView

@@ -61,7 +61,6 @@ const EmailSentScreen = (props) => {
             height: "100%",
           }}
         >
-          {/* Toolbar componenet para mostar el datos del usuario*/}
           <ToolbarNoLogin
             clickAction={actionReturn}
             nameToolbar={"Mi Cuenta"}

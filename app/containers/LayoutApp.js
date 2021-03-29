@@ -16,6 +16,8 @@ import CalendarScreen from "../screens/calendar/calendarScreen";
 import CalendarDetailScreen from "../screens/calendar/calendarDetailScreen";
 import HrScreen from "../screens/HrScreen";
 import vacationScreen from "../screens/vacation/vacationScreen";
+import VacationDetailScreen from "../screens/vacation/VacationDetailScreen";
+import VacationRequestScreen from "../screens/vacation/VacationRequestScreen";
 import permissionsScreen from "../screens/permissions/permissionsScreen";
 
 const LoginStack = createStackNavigator(
@@ -94,6 +96,8 @@ const HrStack = createStackNavigator(
   {
     HrScreen: HrScreen,
     vacationScreen: vacationScreen,
+    VacationDetailScreen: VacationDetailScreen,
+    VacationRequestScreen: VacationRequestScreen,
     permissionsScreen: permissionsScreen,
   },
   {

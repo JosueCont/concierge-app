@@ -47,6 +47,18 @@ class ApiApp {
       "get"
     );
   };
+
+  static getVacationRequest = (data) => {
+    return ApiApp.ApisType(`/person/vacation/${data}`, "get");
+  };
+
+  static getVacationDetail = (data) => {
+    return ApiApp.ApisType(`/person/vacation/${data}`, "get");
+  };
+
+  static vacationRequest = (data) => {
+    return ApiApp.ApisType(`/person/vacation/`, "post", data);
+  };
 }
 
 export default ApiApp;

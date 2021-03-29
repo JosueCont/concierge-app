@@ -21,6 +21,10 @@ const HrScreen = (props) => {
     props.navigation.navigate("Main");
   };
 
+  const goHome = () => {
+    props.navigation.navigate("Home");
+  };
+
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
   };
@@ -67,6 +71,7 @@ const HrScreen = (props) => {
         nameToolbar={"RH"}
         type={1}
         clickProfile={clickProfile}
+        goHome={goHome}
       />
 
       <ScrollView

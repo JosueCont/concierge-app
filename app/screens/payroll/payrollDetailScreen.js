@@ -24,12 +24,16 @@ const payrollDetailScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
-  const [modalLoading, setModalLoading] = useState(false);
+  const [modalLoading, setModalLoading] = useState(true);
   const [voucher, setVoucher] = useState({});
   const [detailVoucher, setDetailVoucher] = useState([]);
 
   const clickAction = () => {
     props.navigation.pop();
+  };
+
+  const goHome = () => {
+    props.navigation.navigate("Home");
   };
 
   const clickProfile = () => {
@@ -46,7 +50,7 @@ const payrollDetailScreen = (props) => {
     } else {
       props.navigation.goBack(null);
     }
-  }, []);
+  }, [props.navigation.getParam("id")]);
 
   const getDetail = async () => {
     try {
@@ -56,6 +60,8 @@ const payrollDetailScreen = (props) => {
       if (response.status == 200) {
         setDetailVoucher(response.data.detail_payroll_movements);
         setVoucher(response.data.payroll_voucher);
+      } else {
+        props.props.navigation.goBack(null);
       }
     } catch (error) {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
@@ -68,15 +74,22 @@ const payrollDetailScreen = (props) => {
     }
   };
 
+  const closeModal = () => {
+    setTimeout(() => {
+      setModalLoading(false);
+    }, 1500);
+  };
+
   const ListPerceptionDeduction = ({ detail, type }) => {
     // detail_payroll_movements -->> lista para sacar percepciones
     // movement_type 1 -->> Percepcion usar -->> amount_excent y taxed_amount
     // movement_type 2 -->> Deduccion  usar -->> amount
     // movement_type 3 -->> otros pagos usar -->> employee_allowens
     // console.log("Array -->> ", detail);
+    if (type == 3) closeModal();
     return (
       <>
-        {detail.map((p) => {
+        {detail.map((p, i) => {
           if (p.movement_type == type) {
             return (
               <>
@@ -114,12 +127,13 @@ const payrollDetailScreen = (props) => {
           backgroundColor="rgba(1,1,1,0)"
           translucent={true}
         />
-        {/* Toolbar componenet para mostar el datos del usuario*/}
+
         <ToolbarGeneric
           clickAction={clickAction}
           nameToolbar={"Mi Nomina"}
           type={1}
           clickProfile={clickProfile}
+          goHome={goHome}
         />
 
         <ScrollView
@@ -227,7 +241,7 @@ const payrollDetailScreen = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => props.navigation.goBack(null)}
+                  onPress={() => clickAction()}
                 >
                   <Text style={{ color: Colors.white, fontSize: 14 }}>
                     Regresar
