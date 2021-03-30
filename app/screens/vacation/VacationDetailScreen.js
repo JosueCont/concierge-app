@@ -315,57 +315,61 @@ const VacationDetailScreen = (props) => {
                   </Text>
                 </View>
               </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: 15,
-                }}
-              >
-                <View
-                  style={{
-                    alignItems: "flex-start",
-                    width: "100%",
-                  }}
-                >
-                  <Text
+              {vacation.comment != null && vacation.comment != "" && (
+                <>
+                  <View
                     style={{
-                      fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
-                      fontSize: 12,
-                      paddingBottom: 10,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginTop: 15,
                     }}
                   >
-                    Motivo :
-                  </Text>
-                </View>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                }}
-              >
-                <View
-                  style={{
-                    backgroundColor: Colors.bluebg,
-                    width: "100%",
-                    borderRadius: 10,
-                    padding: 10,
-                  }}
-                >
-                  <Text
+                    <View
+                      style={{
+                        alignItems: "flex-start",
+                        width: "100%",
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontFamily: "Cabin-Regular",
+                          color: Colors.bluetitle,
+                          fontSize: 12,
+                          paddingBottom: 10,
+                        }}
+                      >
+                        Motivo :
+                      </Text>
+                    </View>
+                  </View>
+                  <View
                     style={{
-                      fontFamily: "Cabin-Regular",
-                      color: "#006FCC",
-                      fontSize: 17,
-                      textAlign: "justify",
+                      flexDirection: "row",
+                      alignItems: "center",
                     }}
                   >
-                    {vacation.comment && vacation.comment}
-                  </Text>
-                </View>
-              </View>
+                    <View
+                      style={{
+                        backgroundColor: Colors.bluebg,
+                        width: "100%",
+                        borderRadius: 10,
+                        padding: 10,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          fontFamily: "Cabin-Regular",
+                          color: "#006FCC",
+                          fontSize: 17,
+                          textAlign: "justify",
+                        }}
+                      >
+                        {vacation.comment && vacation.comment}
+                      </Text>
+                    </View>
+                  </View>
+                </>
+              )}
 
               <TouchableOpacity
                 style={{

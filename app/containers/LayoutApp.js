@@ -18,7 +18,9 @@ import HrScreen from "../screens/HrScreen";
 import vacationScreen from "../screens/vacation/vacationScreen";
 import VacationDetailScreen from "../screens/vacation/VacationDetailScreen";
 import VacationRequestScreen from "../screens/vacation/VacationRequestScreen";
-import permissionsScreen from "../screens/permissions/permissionsScreen";
+import PermissionsScreen from "../screens/permissions/PermissionsScreen";
+import PermissionDetailScreen from "../screens/permissions/PermissionDetailScreen";
+import PermissionRequestScreen from "../screens/permissions/PermissionRequestScreen";
 
 const LoginStack = createStackNavigator(
   {
@@ -98,7 +100,9 @@ const HrStack = createStackNavigator(
     vacationScreen: vacationScreen,
     VacationDetailScreen: VacationDetailScreen,
     VacationRequestScreen: VacationRequestScreen,
-    permissionsScreen: permissionsScreen,
+    PermissionsScreen: PermissionsScreen,
+    PermissionDetailScreen: PermissionDetailScreen,
+    PermissionRequestScreen: PermissionRequestScreen,
   },
   {
     headerMode: "none",

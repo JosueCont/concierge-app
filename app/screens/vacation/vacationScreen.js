@@ -354,15 +354,6 @@ const vacationScreen = (props) => {
           clickProfile={clickProfile}
           goHome={goHome}
         />
-
-        {/* <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{
-            zIndex: 0,
-            backgroundColor: Colors.bluebg,
-            paddingHorizontal: 22,
-          }}
-        > */}
         <RequestCard
           props={props}
           cards={vacations}
@@ -370,7 +361,6 @@ const vacationScreen = (props) => {
           footerList={footerList}
           type={"vacation"}
         />
-        {/* </ScrollView> */}
       </View>
       <ModalCustom
         visible={modalCustom}
