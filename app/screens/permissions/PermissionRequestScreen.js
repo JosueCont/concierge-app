@@ -24,7 +24,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
-const VacationRequestScreen = (props) => {
+const PermissionRequestScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
@@ -34,6 +34,7 @@ const VacationRequestScreen = (props) => {
   const [textSelected, setTextSelected] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+  const [reason, setReason] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
 
   const clickAction = () => {
@@ -78,36 +79,29 @@ const VacationRequestScreen = (props) => {
   };
 
   const validateRequest = () => {
-    if (daysRequest <= 0) {
-      setMessageCustomModal("Los días solicitados no pueden ser cero.");
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-      return;
-    }
     if (
       departureDate != "" &&
       departureDate != undefined &&
       returnDate != "" &&
       returnDate != undefined
     ) {
-      const data = {
-        days_requested: daysRequest,
-        departure_date: departureDate,
-        return_date: returnDate,
-        khonnect_id: props.user.userProfile.khonnect_id,
-      };
       const out = moment(departureDate);
       const ret = moment(returnDate);
-      if (ret.diff(out, "days") === daysRequest) {
-        setModalLoading(true);
-        sendRequest(data);
-      } else {
-        setMessageCustomModal(
-          "Las fechas no coinciden con los dias solicitados."
-        );
+      const data = {
+        requested_days: ret.diff(out, "days"),
+        departure_date: departureDate,
+        return_date: returnDate,
+        person: props.user.userProfile.id,
+        reason: reason,
+      };
+      if (reason == "") {
+        setMessageCustomModal("Capture el motivo de su solicitud.");
         setIconSourceCustomModal(2);
         setModalCustom(true);
+        return;
       }
+      setModalLoading(true);
+      sendRequest(data);
     } else {
       setMessageCustomModal("Seleccione una fecha de salida y retorno");
       setIconSourceCustomModal(2);
@@ -117,7 +111,7 @@ const VacationRequestScreen = (props) => {
 
   const sendRequest = async (data) => {
     try {
-      const response = await ApiApp.vacationRequest(data);
+      const response = await ApiApp.permissionRequest(data);
       if (response.data && response.data.id) {
         setMessageCustomModal(
           "Hemos enviado la solicitud, pronto recibiras una notificación con la respuesta a la solicitud realizada."
@@ -164,7 +158,7 @@ const VacationRequestScreen = (props) => {
 
         <ToolbarGeneric
           clickAction={clickAction}
-          nameToolbar={"Vacaciones"}
+          nameToolbar={"Permisos"}
           type={1}
           clickProfile={clickProfile}
           goHome={goHome}
@@ -177,93 +171,6 @@ const VacationRequestScreen = (props) => {
             paddingHorizontal: 22,
           }}
         >
-          <View style={{ backgroundColor: Colors.bluebg }}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <View style={{ alignItems: "center", padding: 10 }}>
-                <View
-                  style={{
-                    backgroundColor: Colors.white,
-                    width: 80,
-                    height: 50,
-                    borderRadius: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "Cabin-Bold",
-                      color: "#006FCC",
-                      fontSize: 40,
-                    }}
-                  >
-                    {props.user.userProfile.Available_days_vacation}
-                  </Text>
-                </View>
-              </View>
-              <Text
-                style={{
-                  fontFamily: "Cabin-Regular",
-                  fontSize: 20,
-                  color: Colors.bluetitle,
-                  marginLeft: 20,
-                }}
-              >
-                Días disponibles
-              </Text>
-            </View>
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                backgroundColor: Colors.bluetitle,
-                borderRadius: 8,
-              }}
-            >
-              <View
-                style={{
-                  alignItems: "center",
-                  padding: 10,
-                }}
-              >
-                <View
-                  style={{
-                    width: 80,
-                    borderRadius: 10,
-                    overflow: "hidden",
-                  }}
-                >
-                  <RNPickerSelect
-                    onValueChange={(value) => setDaysRequest(value)}
-                    placeholder={{
-                      label: "Días",
-                      value: 0,
-                      color: Colors.bluelinks,
-                    }}
-                    style={pickerSelectStyles}
-                    items={days}
-                    value={daysRequest}
-                  />
-                </View>
-              </View>
-              <Text
-                style={{
-                  fontFamily: "Cabin-Regular",
-                  fontSize: 20,
-                  color: Colors.white,
-                  marginLeft: 20,
-                }}
-              >
-                Días solicitados
-              </Text>
-            </View>
-          </View>
           <View style={styles.container}>
             <View
               style={{
@@ -276,7 +183,7 @@ const VacationRequestScreen = (props) => {
               }}
             >
               <Image
-                source={require("../../../assets/img/hollidays.png")}
+                source={require("../../../assets/img/permissions.png")}
                 style={{ width: 110, height: 110, resizeMode: "cover" }}
               ></Image>
             </View>
@@ -303,11 +210,63 @@ const VacationRequestScreen = (props) => {
               >
                 {returnDate}
               </Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 15,
+                }}
+              >
+                <View
+                  style={{
+                    alignItems: "flex-start",
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      color: Colors.bluetitle,
+                      fontSize: 12,
+                      paddingBottom: 10,
+                    }}
+                  >
+                    Motivo :
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: "100%",
+                    // borderRadius: 10,
+                    // padding: 10,
+                  }}
+                >
+                  <TextInput
+                    style={styles.inputComment}
+                    placeholder="Motivo de la solicitud"
+                    placeholderTextColor={Colors.bluetitle}
+                    autoCapitalize="none"
+                    multiline
+                    maxLength={200}
+                    onChangeText={(text) => setReason(text)}
+                    value={reason}
+                  />
+                </View>
+              </View>
             </View>
             <View
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
+                marginTop: 20,
+                marginBottom: 20,
               }}
             >
               <TouchableOpacity
@@ -386,6 +345,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 30,
     marginTop: 80,
+    marginBottom: 30,
   },
   input: {
     fontFamily: "Cabin-Regular",
@@ -398,6 +358,19 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     textAlign: "center",
+  },
+  inputComment: {
+    fontFamily: "Cabin-Regular",
+    fontSize: 16,
+    color: Colors.bluetitle,
+    width: "100%",
+    height: 100,
+    borderColor: Colors.bluelinks,
+    borderWidth: 1,
+    marginBottom: 20,
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: Colors.bluebg,
   },
 });
 
@@ -435,4 +408,4 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState)(VacationRequestScreen);
+export default connect(mapState)(PermissionRequestScreen);

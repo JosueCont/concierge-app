@@ -17,9 +17,8 @@ import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
 import { generateYear, getmonths } from "../../utils/functions";
-import PermissionDetail from "./PermissionDetail";
 
-const permissionsScreen = (props) => {
+const PermissionsScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
@@ -275,11 +274,6 @@ const permissionsScreen = (props) => {
           type={"permission"}
         />
       </View>
-      <PermissionDetail
-        visible={modalDetail}
-        setVisible={() => viewModalDetail()}
-        detail={detailPermission}
-      />
       <ModalCustom
         visible={modalCustom}
         text={messageCustomModal}
@@ -324,4 +318,4 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState)(permissionsScreen);
+export default connect(mapState)(PermissionsScreen);

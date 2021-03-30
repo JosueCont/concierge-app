@@ -64,64 +64,59 @@ const ModalCalendar = ({
   }, [dateCurrent]);
 
   const clickDay = (day) => {
-    console.log("Date-->>> ", day);
     if (textSelected == "out") departureDate(day.dateString);
     if (textSelected == "return") returnDate(day.dateString);
     setVisible();
   };
 
   return (
-    <>
-      {dateCurrent != "" && (
+    <View style={styles.centeredView}>
+      <Modal animationType="fade" transparent={true} visible={visible}>
         <View style={styles.centeredView}>
-          <Modal animationType="fade" transparent={true} visible={visible}>
-            <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                <Calendar
-                  markingType={"custom"}
-                  // markedDates={{
-                  //   dateCurrent: {
-                  //     customStyles: {
-                  //       container: {
-                  //         backgroundColor: Colors.bluetitle,
-                  //         elevation: 2,
-                  //       },
-                  //       text: {
-                  //         color: Colors.white,
-                  //       },
-                  //     },
-                  //   },
-                  // }}
-                  monthFormat={"MMMM, yyyy"}
-                  theme={themeCalaendar}
-                  onDayPress={(day) => {
-                    clickDay(day);
-                  }}
-                />
-                <TouchableOpacity
-                  style={{
-                    fontFamily: "Cabin-Regular",
-                    backgroundColor: Colors.bluetitle,
-                    height: 50,
-                    width: "45%",
-                    borderRadius: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginRight: 5,
-                    margin: 10,
-                  }}
-                  onPress={() => setVisible()}
-                >
-                  <Text style={{ color: Colors.white, fontSize: 16 }}>
-                    Regresar
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Modal>
+          <View style={styles.modalView}>
+            <Calendar
+              markingType={"custom"}
+              // markedDates={{
+              //   dateCurrent: {
+              //     customStyles: {
+              //       container: {
+              //         backgroundColor: Colors.bluetitle,
+              //         elevation: 2,
+              //       },
+              //       text: {
+              //         color: Colors.white,
+              //       },
+              //     },
+              //   },
+              // }}
+              monthFormat={"MMMM, yyyy"}
+              theme={themeCalaendar}
+              onDayPress={(day) => {
+                clickDay(day);
+              }}
+            />
+            <TouchableOpacity
+              style={{
+                fontFamily: "Cabin-Regular",
+                backgroundColor: Colors.bluetitle,
+                height: 50,
+                width: "45%",
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                marginRight: 5,
+                margin: 10,
+              }}
+              onPress={() => setVisible()}
+            >
+              <Text style={{ color: Colors.white, fontSize: 16 }}>
+                Regresar
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      )}
-    </>
+      </Modal>
+    </View>
   );
 };
 

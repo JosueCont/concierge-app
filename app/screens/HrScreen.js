@@ -137,7 +137,7 @@ const HrScreen = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.item}
-              onPress={() => props.navigation.navigate("permissionsScreen")}
+              onPress={() => props.navigation.navigate("PermissionsScreen")}
             >
               <Mark />
               <Image

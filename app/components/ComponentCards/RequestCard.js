@@ -21,7 +21,10 @@ const RequestCard = (props) => {
       props.props.navigation.navigate("VacationDetailScreen", {
         id: item.id,
       });
-    if (props.type == "permission") props.clickDetail(item);
+    if (props.type == "permission")
+      props.props.navigation.navigate("PermissionDetailScreen", {
+        id: item.id,
+      });
     if (props.type == "incapacity")
       props.props.navigation.navigate("VacationDetailScreen", {
         id: item.id,
