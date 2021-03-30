@@ -59,6 +59,10 @@ class ApiApp {
   static vacationRequest = (data) => {
     return ApiApp.ApisType(`/person/vacation/`, "post", data);
   };
+
+  static getPermissionRequest = (data) => {
+    return ApiApp.ApisType(`/person/permit/${data}`, "get");
+  };
 }
 
 export default ApiApp;

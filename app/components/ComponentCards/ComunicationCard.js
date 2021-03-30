@@ -103,7 +103,19 @@ const ComunicationCard = (props) => {
             </View>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() =>
+              props.props.navigation.navigate("NewScreen", {
+                image:
+                  item.files[0] != undefined &&
+                  item.files[0] != null &&
+                  item.files[0] != ""
+                    ? item.files[0].file
+                    : "",
+                text: item.message,
+              })
+            }
+          >
             <View style={{ borderRadius: 10, overflow: "hidden" }}>
               <ImageBackground
                 source={{

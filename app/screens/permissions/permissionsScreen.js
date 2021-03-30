@@ -9,104 +9,47 @@ import {
 import RNPickerSelect from "react-native-picker-select";
 import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import RequestCard from "../../components/ComponentCards/RequestCard";
 import { Colors } from "../../utils/colors";
-
-const myArray = [
-  {
-    id: 1,
-    date: "15/Agosto/2021",
-    days: 2,
-    status: "Pendiente",
-    person: "",
-  },
-  {
-    id: 2,
-    date: "03/Agosto/2021",
-    days: 1,
-    status: "Aprobada",
-    person: "Alex Dzul",
-  },
-  {
-    id: 3,
-    date: "14/Julio/2021",
-    days: 3,
-    status: "Rechazada",
-    person: "Alex Dzul",
-  },
-];
-
-const months = [
-  {
-    label: "Enero",
-    value: "enero",
-  },
-  {
-    label: "Febrero",
-    value: "febrero",
-  },
-  {
-    label: "Marzo",
-    value: "marzo",
-  },
-  {
-    label: "Abril",
-    value: "abril",
-  },
-  {
-    label: "Mayo",
-    value: "mayo",
-  },
-  {
-    label: "Junio",
-    value: "junio",
-  },
-  {
-    label: "Julio",
-    value: "julio",
-  },
-  {
-    label: "Agosto",
-    value: "agosto",
-  },
-  {
-    label: "Septiembre",
-    value: "septiembre",
-  },
-  {
-    label: "Octubre",
-    value: "octubre",
-  },
-  {
-    label: "Noviembre",
-    value: "noviembre",
-  },
-  {
-    label: "Diciembre",
-    value: "diciembre",
-  },
-];
-
-const years = [
-  {
-    label: "2019",
-    value: "2019",
-  },
-  {
-    label: "2020",
-    value: "2020",
-  },
-  {
-    label: "2021",
-    value: "2021",
-  },
-];
+import LoadingGlobal from "../../components/modal/LoadingGlobal";
+import ModalCustom from "../../components/modal/ModalCustom";
+import ApiApp from "../../utils/ApiApp";
+import { generateYear, getmonths } from "../../utils/functions";
+import PermissionDetail from "./PermissionDetail";
 
 const permissionsScreen = (props) => {
+  const [modalCustom, setModalCustom] = useState(false);
+  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
+  const [messageCustomModal, setMessageCustomModal] = useState("");
+  const [modalLoading, setModalLoading] = useState(false);
+  const [permissions, setPermissions] = useState([]);
+  const [detailPermission, setDetailPermission] = useState({});
+  const [modalDetail, setModalDetail] = useState(false);
+  const [monthPermission, setMonthPermission] = useState(
+    new Date().toLocaleDateString().substring(0, 2)
+  );
+  const [yearPermission, setYearPermission] = useState(
+    new Date().getFullYear()
+  );
+  const months = getmonths();
+  const [years, setYears] = useState([]);
+
+  useEffect(() => {
+    if (props.user && props.user.userProfile) {
+      const mont = new Date().toLocaleDateString().substring(0, 2);
+      let data = months[mont - 1];
+      setMonthPermission(parseInt(data.value));
+      setYears(generateYear());
+      getPermissionsRequest();
+    } else {
+      props.navigation.goBack(null);
+    }
+  }, [props.user]);
+
   const clickAction = () => {
-    props.navigation.pop();
+    props.navigation.goBack(null);
   };
 
   const goHome = () => {
@@ -117,38 +60,58 @@ const permissionsScreen = (props) => {
     props.navigation.navigate("ProfileScreen");
   };
 
-  return (
-    <View
-      style={{
-        height: "100%",
-        zIndex: 1,
-      }}
-    >
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="rgba(1,1,1,0)"
-        translucent={true}
-      />
-      <ToolbarGeneric
-        clickAction={clickAction}
-        nameToolbar={"Permisos"}
-        type={1}
-        clickProfile={clickProfile}
-        goHome={goHome}
-      />
+  const viewModalCustom = () => {
+    modalCustom ? setModalCustom(false) : setModalCustom(true);
+  };
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{
-          zIndex: 0,
-          backgroundColor: Colors.bluebg,
-          paddingHorizontal: 22,
-        }}
-      >
+  const viewModalDetail = (item) => {
+    if (item && item != undefined)
+      setDetailPermission({ date: item.departure_date, status: item.status });
+    modalDetail ? setModalDetail(false) : setModalDetail(true);
+  };
+
+  const getPermissionsRequest = async () => {
+    // let filter = `?person__id=1937de8426be4cc59731d2cf8ec35c0f`;
+    let filter = `?person__id=${props.user.userProfile.id}&`;
+    try {
+      setModalLoading(true);
+      setPermissions([]);
+      if (monthPermission && monthPermission > 0)
+        filter = filter + `departure_date__month=${monthPermission}&`;
+      else filter = filter + `departure_date__month=${month}&`;
+      if (yearPermission && yearPermission > 0)
+        filter = filter + `departure_date__year=${yearPermission}`;
+      else filter = filter + `departure_date__year=${year}`;
+      let response = await ApiApp.getPermissionRequest(filter);
+      if (response.status == 200) {
+        if (
+          response.data.results != undefined &&
+          response.data.results.length > 0
+        ) {
+          setPermissions(response.data.results);
+          setModalLoading(false);
+        } else {
+          setMessageCustomModal("No se encontraron resultados.");
+          setIconSourceCustomModal(3);
+          setModalCustom(true);
+          setModalLoading(false);
+        }
+      }
+    } catch (error) {
+      setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      setModalLoading(false);
+    }
+  };
+
+  const headerList = () => {
+    return (
+      <>
         <View
           style={{
             backgroundColor: "#006FCC",
-            marginTop: 20,
+            marginTop: 15,
             alignItems: "center",
             borderRadius: 20,
             paddingHorizontal: 35,
@@ -165,10 +128,10 @@ const permissionsScreen = (props) => {
             }}
           >
             <RNPickerSelect
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => setMonthPermission(value)}
               placeholder={{
                 label: "Mes",
-                value: "null",
+                value: monthPermission,
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
@@ -189,10 +152,10 @@ const permissionsScreen = (props) => {
             }}
           >
             <RNPickerSelect
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => setYearPermission(value)}
               placeholder={{
                 label: "Año",
-                value: "null",
+                value: yearPermission,
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
@@ -224,7 +187,7 @@ const permissionsScreen = (props) => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => recoveryPassword()}
+            onPress={() => getPermissionsRequest()}
           >
             <Text style={{ color: Colors.white, fontSize: 16 }}>Buscar</Text>
           </TouchableOpacity>
@@ -238,39 +201,93 @@ const permissionsScreen = (props) => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => actionReturn()}
+            onPress={() => props.navigation.navigate("PermissionRequestScreen")}
           >
             <Text style={{ color: Colors.white, fontSize: 16 }}>Nueva</Text>
           </TouchableOpacity>
         </View>
+      </>
+    );
+  };
 
-        <RequestCard cards={myArray} />
-        <View style={{ alignItems: "center" }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: Colors.bluelinks,
-              height: 50,
-              width: "48%",
-              borderRadius: 10,
-              marginTop: 20,
-              marginBottom: 40,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Text
+  const footerList = () => {
+    return (
+      <>
+        {permissions.length > 0 && (
+          <View style={{ alignItems: "center" }}>
+            <TouchableOpacity
               style={{
-                fontFamily: "Cabin-Regular",
-                color: Colors.white,
-                fontSize: 16,
+                backgroundColor: Colors.bluelinks,
+                height: 50,
+                width: "48%",
+                borderRadius: 10,
+                marginTop: 20,
+                marginBottom: 40,
+                alignItems: "center",
+                justifyContent: "center",
               }}
+              onPress={() => props.navigation.goBack(null)}
             >
-              Regresar
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </View>
+              <Text
+                style={{
+                  fontFamily: "Cabin-Regular",
+                  color: Colors.white,
+                  fontSize: 16,
+                }}
+              >
+                Regresar
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </>
+    );
+  };
+
+  return (
+    <>
+      <View
+        style={{
+          height: "100%",
+          zIndex: 1,
+        }}
+      >
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor="rgba(1,1,1,0)"
+          translucent={true}
+        />
+
+        <ToolbarGeneric
+          clickAction={clickAction}
+          nameToolbar={"Permisos"}
+          type={1}
+          clickProfile={clickProfile}
+          goHome={goHome}
+        />
+
+        <RequestCard
+          props={props}
+          clickDetail={(item) => viewModalDetail(item)}
+          cards={permissions}
+          headerList={headerList}
+          footerList={footerList}
+          type={"permission"}
+        />
+      </View>
+      <PermissionDetail
+        visible={modalDetail}
+        setVisible={() => viewModalDetail()}
+        detail={detailPermission}
+      />
+      <ModalCustom
+        visible={modalCustom}
+        text={messageCustomModal}
+        iconSource={iconSourceCustomModal}
+        setVisible={() => viewModalCustom(true)}
+      />
+      <LoadingGlobal visible={modalLoading} text={"Cargando"} />
+    </>
   );
 };
 
@@ -303,4 +320,8 @@ const pickerSelectStyles = StyleSheet.create({
   },
 });
 
-export default permissionsScreen;
+const mapState = (state) => {
+  return { user: state.user };
+};
+
+export default connect(mapState)(permissionsScreen);
