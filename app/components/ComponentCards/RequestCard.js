@@ -16,18 +16,15 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const RequestCard = (props) => {
-  const openViewDetail = (id) => {
+  const openViewDetail = (item) => {
     if (props.type == "vacation")
       props.props.navigation.navigate("VacationDetailScreen", {
-        id: id,
+        id: item.id,
       });
-    if (props.type == "permission")
-      props.props.navigation.navigate("VacationDetailScreen", {
-        id: id,
-      });
+    if (props.type == "permission") props.clickDetail(item);
     if (props.type == "incapacity")
       props.props.navigation.navigate("VacationDetailScreen", {
-        id: id,
+        id: item.id,
       });
   };
 
@@ -55,7 +52,9 @@ const RequestCard = (props) => {
         <View style={styles.item}>
           <View style={{ marginRight: 20, width: "60%" }}>
             <Text style={styles.titleDate}>Fecha de solicitud</Text>
-            <Text style={styles.date}>{item.timestamp.substring(0, 10)}</Text>
+            <Text style={styles.date}>
+              {item.timestamp ? item.timestamp.substring(0, 10) : ""}
+            </Text>
             <Text style={styles.titleStatus}>Estatus</Text>
             <View
               style={[
@@ -94,13 +93,17 @@ const RequestCard = (props) => {
             <View style={{ position: "absolute", top: 0 }}>
               <Text style={styles.titleDays}>Días solicitados</Text>
               <View style={styles.ctnDays}>
-                <Text style={styles.days}>{item.days_requested}</Text>
+                <Text style={styles.days}>
+                  {item.days_requested
+                    ? item.days_requested
+                    : item.requested_days}
+                </Text>
               </View>
             </View>
 
             <TouchableOpacity
               style={styles.ctnBtn}
-              onPress={() => openViewDetail(item.id)}
+              onPress={() => openViewDetail(item)}
             >
               <Text style={styles.btn}>Ver detalle</Text>
             </TouchableOpacity>

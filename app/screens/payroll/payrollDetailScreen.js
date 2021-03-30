@@ -8,6 +8,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import { Colors } from "../../utils/colors";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
@@ -93,7 +94,7 @@ const payrollDetailScreen = (props) => {
           if (p.movement_type == type) {
             return (
               <>
-                <View style={styles.item}>
+                <View style={styles.item} key={i}>
                   <Text style={styles.concepto}>
                     {type == 3 ? p.payroll_movement.concept : p.concept}
                   </Text>
@@ -111,6 +112,10 @@ const payrollDetailScreen = (props) => {
         })}
       </>
     );
+  };
+
+  const openPdf = async () => {
+    await Linking.canOpenURL(voucher.pdf_url);
   };
 
   return (
@@ -207,6 +212,7 @@ const payrollDetailScreen = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+                  onPress={() => openPdf()}
                 >
                   <Text style={{ color: Colors.bluetitle, fontSize: 14 }}>
                     Descarga PDF

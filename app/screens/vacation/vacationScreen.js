@@ -23,8 +23,10 @@ const vacationScreen = (props) => {
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
   const [vacations, setVacations] = useState([]);
-  const [monthVacation, setMonthVacation] = useState(0);
-  const [yearVacation, setYearVacation] = useState(0);
+  const [monthVacation, setMonthVacation] = useState(
+    new Date().toLocaleDateString().substring(0, 2)
+  );
+  const [yearVacation, setYearVacation] = useState(new Date().getFullYear());
   const months = [
     {
       label: "Enero",
@@ -76,16 +78,14 @@ const vacationScreen = (props) => {
     },
   ];
   const [years, setYears] = useState([]);
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth();
 
   useEffect(() => {
-    setYearVacation(year);
-    setMonthVacation(month);
     if (props.user && props.user.userProfile) {
+      const mont = new Date().toLocaleDateString().substring(0, 2);
+      let data = months[mont - 1];
+      setMonthVacation(parseInt(data.value));
       generateYear();
       getVacationsRequest();
-      // console.log("PErson->> ", props.user.userProfile.Available_days_vacation);
     } else {
       props.navigation.goBack(null);
     }
@@ -120,16 +120,16 @@ const vacationScreen = (props) => {
 
   const getVacationsRequest = async () => {
     // let filter = `?person__id=1937de8426be4cc59731d2cf8ec35c0f`;
-    let filter = `?person__id=${props.user.userProfile.id}`;
+    let filter = `?person__id=${props.user.userProfile.id}&`;
     try {
       setModalLoading(true);
       setVacations([]);
-      // if (monthVacation && yearVacation > 0)
-      //   filter = filter + `payment_date__month=${monthVacation}&`;
-      // else filter = filter + `payment_date__month=${month}&`;
-      // if (yearVacation && yearVacation > 0)
-      //   filter = filter + `payment_date__year=${yearVacation}`;
-      // else filter = filter + `payment_date__year=${year}`;
+      if (monthVacation && monthVacation > 0)
+        filter = filter + `departure_date__month=${monthVacation}&`;
+      else filter = filter + `departure_date__month=${month}&`;
+      if (yearVacation && yearVacation > 0)
+        filter = filter + `departure_date__year=${yearVacation}`;
+      else filter = filter + `departure_date__year=${year}`;
       let response = await ApiApp.getVacationRequest(filter);
       if (response.status == 200) {
         if (
@@ -217,7 +217,7 @@ const vacationScreen = (props) => {
             }}
           >
             <RNPickerSelect
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => setMonthVacation(value)}
               placeholder={{
                 label: "Mes",
                 value: monthVacation,
@@ -241,7 +241,7 @@ const vacationScreen = (props) => {
             }}
           >
             <RNPickerSelect
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => setYearVacation(value)}
               placeholder={{
                 label: "Año",
                 value: yearVacation,
