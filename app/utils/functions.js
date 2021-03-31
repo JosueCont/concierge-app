@@ -61,3 +61,53 @@ export const getmonths = () => {
     },
   ];
 };
+
+export const monthNames = () => {
+  return [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+};
+
+export const monthNamesShort = () => {
+  return [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+};
+
+export const dayNames = () => {
+  return [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miercoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+  ];
+};
+
+export const dayNamesShort = () => {
+  return ["D", "L", "M", "M", "J", "V", "S"];
+};

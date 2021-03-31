@@ -175,7 +175,7 @@ const PayrollScreen = (props) => {
           <View
             style={{
               width: "100%",
-              borderRadius: 10,
+              // borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
@@ -190,6 +190,7 @@ const PayrollScreen = (props) => {
               style={pickerSelectStyles}
               items={months}
               value={monthVoucher}
+              useNativeAndroidPickerStyle={false}
               Icon={() => {
                 return (
                   <AntDesign name="down" size={24} color={Colors.bluetitle} />
@@ -200,7 +201,7 @@ const PayrollScreen = (props) => {
           <View
             style={{
               width: "100%",
-              borderRadius: 10,
+              // borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
@@ -215,6 +216,7 @@ const PayrollScreen = (props) => {
               value={yearVoucher}
               style={pickerSelectStyles}
               items={years}
+              useNativeAndroidPickerStyle={false}
               Icon={() => {
                 return (
                   <AntDesign name="down" size={24} color={Colors.bluetitle} />
@@ -341,7 +343,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   inputAndroid: {
@@ -350,7 +352,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   iconContainer: {

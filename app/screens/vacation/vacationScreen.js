@@ -211,7 +211,7 @@ const vacationScreen = (props) => {
           <View
             style={{
               width: "100%",
-              borderRadius: 10,
+              // borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
@@ -224,6 +224,7 @@ const vacationScreen = (props) => {
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
+              useNativeAndroidPickerStyle={false}
               items={months}
               Icon={() => {
                 return (
@@ -235,7 +236,7 @@ const vacationScreen = (props) => {
           <View
             style={{
               width: "100%",
-              borderRadius: 10,
+              // borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
@@ -248,6 +249,7 @@ const vacationScreen = (props) => {
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
+              useNativeAndroidPickerStyle={false}
               items={years}
               Icon={() => {
                 return (
@@ -380,7 +382,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   inputAndroid: {
@@ -389,7 +391,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   iconContainer: {

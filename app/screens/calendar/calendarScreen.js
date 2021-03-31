@@ -12,49 +12,22 @@ import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
 import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Colors } from "../../utils/colors";
+import {
+  dayNames,
+  dayNamesShort,
+  monthNames,
+  monthNamesShort,
+} from "../../utils/functions";
+import moment from "moment";
 
 LocaleConfig.locales["es"] = {
-  monthNames: [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ],
-  monthNamesShort: [
-    "Ene",
-    "Feb",
-    "Mar",
-    "Abr",
-    "May",
-    "Jun",
-    "Jul",
-    "Ago",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dic",
-  ],
-  dayNames: [
-    "Domingo",
-    "Lunes",
-    "Martes",
-    "Miercoles",
-    "Jueves",
-    "Viernes",
-    "Sábado",
-  ],
-  dayNamesShort: ["D", "L", "M", "M", "J", "V", "S"],
+  monthNames: monthNames(),
+  monthNamesShort: monthNamesShort(),
+  dayNames: dayNames(),
+  dayNamesShort: dayNamesShort(),
   today: "Hoy",
 };
 
@@ -63,22 +36,37 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
-const general = [
-  {
-    label: "Por departamento",
-    value: "departamento",
-  },
-  {
-    label: "Sucursal",
-    value: "sucursal",
-  },
-  {
-    label: "Mis eventos",
-    value: "eventos",
-  },
-];
-
 const CalendarScreen = (props) => {
+  const dateCurrent = moment().format("YYYY-MM-DD");
+  const toDay = {
+    [dateCurrent]: {
+      customStyles: {
+        container: {
+          backgroundColor: Colors.bluetitle,
+          elevation: 2,
+        },
+        text: {
+          color: Colors.white,
+        },
+      },
+    },
+  };
+
+  useEffect(() => {
+    console.log(toDay);
+  }, []);
+
+  const general = [
+    {
+      label: "Empresa",
+      value: "company",
+    },
+    {
+      label: "Mis eventos",
+      value: "eventos",
+    },
+  ];
+
   const clickAction = () => {
     props.navigation.goBack(null);
   };
@@ -156,7 +144,7 @@ const CalendarScreen = (props) => {
           <View
             style={{
               width: "100%",
-              borderRadius: 10,
+              // borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
@@ -164,11 +152,12 @@ const CalendarScreen = (props) => {
             <RNPickerSelect
               onValueChange={(value) => console.log(value)}
               placeholder={{
-                label: "Generales",
+                label: "Eventos",
                 value: "null",
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
+              useNativeAndroidPickerStyle={false}
               items={general}
               Icon={() => {
                 return (
@@ -187,44 +176,9 @@ const CalendarScreen = (props) => {
             fontFamily: "Cabin-Regular",
           }}
           markingType={"custom"}
-          markedDates={{
-            "2021-03-16": {
-              customStyles: {
-                container: {
-                  backgroundColor: Colors.bluetitle,
-                  elevation: 2,
-                },
-                text: {
-                  color: Colors.white,
-                },
-              },
-            },
-          }}
+          markedDates={toDay}
           monthFormat={"MMMM, yyyy"}
-          // Specify theme properties to override specific styles for calendar parts. Default = {}
-          theme={{
-            backgroundColor: "purple",
-            calendarBackground: Colors.white,
-            textSectionTitleColor: Colors.bluetitle,
-            textSectionTitleDisabledColor: Colors.bluetitle,
-            selectedDayBackgroundColor: "#00adf5",
-            selectedDayTextColor: "#ffffff",
-            todayTextColor: Colors.bluelinks,
-            dayTextColor: Colors.bluetitle,
-            textDisabledColor: "#d9e1e8",
-            dotColor: "#00adf5",
-            selectedDotColor: "#ffffff",
-            arrowColor: Colors.bluelinks,
-            disabledArrowColor: Colors.bluelinks,
-            monthTextColor: Colors.bluetitle,
-            indicatorColor: "blue",
-            textDayFontFamily: "Cabin-Regular",
-            textMonthFontFamily: "Cabin-Regular",
-            textDayHeaderFontFamily: "Cabin-Bold",
-            textDayFontSize: 16,
-            textMonthFontSize: 16,
-            textDayHeaderFontSize: 16,
-          }}
+          theme={themeConfig}
         />
 
         <View style={{ alignItems: "center", marginBottom: 40 }}>
@@ -242,12 +196,6 @@ const CalendarScreen = (props) => {
   );
 };
 
-const mapState = (state) => {
-  return {
-    user: state.user.userProfile,
-  };
-};
-
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     height: 45,
@@ -256,7 +204,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   inputAndroid: {
@@ -266,7 +214,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   iconContainer: {
@@ -279,4 +227,32 @@ const pickerSelectStyles = StyleSheet.create({
   },
 });
 
-export default CalendarScreen;
+const themeConfig = {
+  backgroundColor: "purple",
+  calendarBackground: Colors.white,
+  textSectionTitleColor: Colors.bluetitle,
+  textSectionTitleDisabledColor: Colors.bluetitle,
+  selectedDayBackgroundColor: "#00adf5",
+  selectedDayTextColor: "#ffffff",
+  todayTextColor: Colors.bluelinks,
+  dayTextColor: Colors.bluetitle,
+  textDisabledColor: "#d9e1e8",
+  dotColor: "#00adf5",
+  selectedDotColor: "#ffffff",
+  arrowColor: Colors.bluelinks,
+  disabledArrowColor: Colors.bluelinks,
+  monthTextColor: Colors.bluetitle,
+  indicatorColor: "blue",
+  textDayFontFamily: "Cabin-Regular",
+  textMonthFontFamily: "Cabin-Regular",
+  textDayHeaderFontFamily: "Cabin-Bold",
+  textDayFontSize: 16,
+  textMonthFontSize: 16,
+  textDayHeaderFontSize: 16,
+};
+
+const mapState = (state) => {
+  return { user: state.user };
+};
+
+export default connect(mapState)(CalendarScreen);
