@@ -79,6 +79,30 @@ export const monthNames = () => {
   ];
 };
 
+export const nameMonthSelected = (month) => {
+  const months = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+  ];
+  let name = "";
+  months.map((a, i) => {
+    if (month - 1 === i) {
+      name = a;
+    }
+  });
+  return name;
+};
+
 export const monthNamesShort = () => {
   return [
     "Ene",

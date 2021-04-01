@@ -70,7 +70,6 @@ const PermissionsScreen = (props) => {
   };
 
   const getPermissionsRequest = async () => {
-    // let filter = `?person__id=1937de8426be4cc59731d2cf8ec35c0f`;
     let filter = `?person__id=${props.user.userProfile.id}&`;
     try {
       setModalLoading(true);
@@ -121,7 +120,7 @@ const PermissionsScreen = (props) => {
           <View
             style={{
               width: "100%",
-              // borderRadius: 10,
+              borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
@@ -134,19 +133,19 @@ const PermissionsScreen = (props) => {
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
-              useNativeAndroidPickerStyle={false}
+              //useNativeAndroidPickerStyle={false}
               items={months}
-              Icon={() => {
-                return (
-                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-                );
-              }}
+              //Icon={() => {
+              //                return (
+              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+              //                );
+              //              }}
             />
           </View>
           <View
             style={{
               width: "100%",
-              // borderRadius: 10,
+              borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
@@ -159,13 +158,13 @@ const PermissionsScreen = (props) => {
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
-              useNativeAndroidPickerStyle={false}
+              //useNativeAndroidPickerStyle={false}
               items={years}
-              Icon={() => {
-                return (
-                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-                );
-              }}
+              //Icon={() => {
+              //                return (
+              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+              //                );
+              //              }}
             />
           </View>
         </View>

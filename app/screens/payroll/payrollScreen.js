@@ -175,7 +175,7 @@ const PayrollScreen = (props) => {
           <View
             style={{
               width: "100%",
-              // borderRadius: 10,
+              borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
@@ -190,18 +190,18 @@ const PayrollScreen = (props) => {
               style={pickerSelectStyles}
               items={months}
               value={monthVoucher}
-              useNativeAndroidPickerStyle={false}
-              Icon={() => {
-                return (
-                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-                );
-              }}
+              //useNativeAndroidPickerStyle={false}
+              //Icon={() => {
+              //                return (
+              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+              //                );
+              //              }}
             />
           </View>
           <View
             style={{
               width: "100%",
-              // borderRadius: 10,
+              borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
@@ -216,12 +216,12 @@ const PayrollScreen = (props) => {
               value={yearVoucher}
               style={pickerSelectStyles}
               items={years}
-              useNativeAndroidPickerStyle={false}
-              Icon={() => {
-                return (
-                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-                );
-              }}
+              //useNativeAndroidPickerStyle={false}
+              //Icon={() => {
+              //                return (
+              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+              //                );
+              //              }}
             />
           </View>
           <View style={{ alignItems: "center" }}>
@@ -308,22 +308,12 @@ const PayrollScreen = (props) => {
           goHome={goHome}
         />
 
-        {/* <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{
-            zIndex: 0,
-            backgroundColor: Colors.bluebg,
-            paddingHorizontal: 22,
-          }}
-        > */}
-
         <PayrollCard
           vouchers={vouchers}
           props={props}
           headerList={headerList}
           footerList={footerList}
         />
-        {/* </ScrollView> */}
       </View>
       <ModalCustom
         visible={modalCustom}

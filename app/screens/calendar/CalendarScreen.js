@@ -22,6 +22,9 @@ import {
   monthNamesShort,
 } from "../../utils/functions";
 import moment from "moment";
+import ApiApp from "../../utils/ApiApp";
+import ModalCustom from "../../components/modal/ModalCustom";
+import LoadingGlobal from "../../components/modal/LoadingGlobal";
 
 LocaleConfig.locales["es"] = {
   monthNames: monthNames(),
@@ -37,8 +40,13 @@ const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
 const CalendarScreen = (props) => {
+  const [modalCustom, setModalCustom] = useState(false);
+  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
+  const [messageCustomModal, setMessageCustomModal] = useState("");
+  const [modalLoading, setModalLoading] = useState(true);
   const dateCurrent = moment().format("YYYY-MM-DD");
-  const toDay = {
+
+  const [toDay, setToday] = useState({
     [dateCurrent]: {
       customStyles: {
         container: {
@@ -50,22 +58,22 @@ const CalendarScreen = (props) => {
         },
       },
     },
-  };
+  });
 
-  useEffect(() => {
-    console.log(toDay);
-  }, []);
-
-  const general = [
+  const selectTypeEvent = [
     {
       label: "Empresa",
-      value: "company",
+      value: "node__id",
     },
     {
       label: "Mis eventos",
-      value: "eventos",
+      value: "guests",
     },
   ];
+
+  useEffect(() => {
+    changeEvents("node__id");
+  }, []);
 
   const clickAction = () => {
     props.navigation.goBack(null);
@@ -77,6 +85,103 @@ const CalendarScreen = (props) => {
 
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
+  };
+
+  const viewModalCustom = () => {
+    modalCustom ? setModalCustom(false) : setModalCustom(true);
+  };
+
+  const changeEvents = async (type) => {
+    setModalLoading(true);
+    let typeFilter = "";
+    let id = "";
+    if (type == "guests") {
+      typeFilter = type;
+      id = props.user.userProfile.id;
+    }
+    if (type == "node__id") {
+      typeFilter = type;
+      id = props.user.userProfile.job[0].department.node.id;
+    }
+    let filter = `?${typeFilter}=${id}&date_year=${dateCurrent.substring(
+      0,
+      4
+    )}`;
+    getAllEvents(filter);
+  };
+
+  const getAllEvents = async (filter) => {
+    try {
+      let response = await ApiApp.getEvents(filter);
+      if (response.status == 200) {
+        if (
+          response.data.results != undefined &&
+          response.data.results.length > 0
+        ) {
+          const daysEvent = response.data.results;
+          createMarkedsDays(daysEvent);
+        } else {
+          setMessageCustomModal("No se encontraron resultados.");
+          setIconSourceCustomModal(3);
+          setModalCustom(true);
+          setModalLoading(false);
+        }
+      }
+    } catch (error) {
+      setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      setModalLoading(false);
+    }
+  };
+
+  const createMarkedsDays = (days) => {
+    let cont = 0;
+    let markedsDays = {};
+    days.map((a) => {
+      if (dateCurrent == a.date && cont == 0) {
+        cont = 1;
+        markedsDays[a.date] = {
+          marked: true,
+          dotColor: "red",
+          customStyles: {
+            container: {
+              backgroundColor: Colors.bluetitle,
+              elevation: 2,
+            },
+            text: {
+              color: Colors.white,
+            },
+          },
+        };
+      } else if (dateCurrent != a.date) {
+        markedsDays[a.date] = { marked: true, dotColor: "red" };
+      }
+    });
+    if (cont == 0)
+      markedsDays[dateCurrent] = {
+        marked: true,
+        dotColor: "red",
+        customStyles: {
+          container: {
+            backgroundColor: Colors.bluetitle,
+            elevation: 2,
+          },
+          text: {
+            color: Colors.white,
+          },
+        },
+      };
+    setToday(markedsDays);
+    setTimeout(() => {
+      setModalLoading(false);
+    }, 1000);
+  };
+
+  const openDetailDay = (date) => {
+    props.navigation.navigate("CalendarDetailScreen", {
+      dates: date.dateString,
+    });
   };
 
   return (
@@ -144,42 +249,44 @@ const CalendarScreen = (props) => {
           <View
             style={{
               width: "100%",
-              // borderRadius: 10,
+              borderRadius: 10,
               overflow: "hidden",
               marginBottom: 20,
             }}
           >
             <RNPickerSelect
-              onValueChange={(value) => console.log(value)}
+              onValueChange={(value) => changeEvents(value)}
               placeholder={{
                 label: "Eventos",
-                value: "null",
+                value: "node__id",
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
-              useNativeAndroidPickerStyle={false}
-              items={general}
-              Icon={() => {
-                return (
-                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-                );
-              }}
+              //useNativeAndroidPickerStyle={false}
+              items={selectTypeEvent}
+              //Icon={() => {
+              //                return (
+              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+              //                );
+              //              }}
             />
           </View>
         </View>
 
-        <Calendar
-          style={{
-            marginTop: 30,
-            borderRadius: 20,
-            overflow: "hidden",
-            fontFamily: "Cabin-Regular",
-          }}
-          markingType={"custom"}
-          markedDates={toDay}
-          monthFormat={"MMMM, yyyy"}
-          theme={themeConfig}
-        />
+        <View>
+          <Calendar
+            style={{
+              marginTop: 30,
+              borderRadius: 20,
+            }}
+            markingType={"custom"}
+            markedDates={toDay}
+            monthFormat={"MMMM, yyyy"}
+            theme={themeConfig}
+            hideExtraDays={false}
+            onDayPress={(value) => openDetailDay(value)}
+          />
+        </View>
 
         <View style={{ alignItems: "center", marginBottom: 40 }}>
           <Image
@@ -192,6 +299,13 @@ const CalendarScreen = (props) => {
           ></Image>
         </View>
       </ScrollView>
+      <ModalCustom
+        visible={modalCustom}
+        text={messageCustomModal}
+        iconSource={iconSourceCustomModal}
+        setVisible={() => viewModalCustom(true)}
+      />
+      <LoadingGlobal visible={modalLoading} text={"Cargando"} />
     </View>
   );
 };

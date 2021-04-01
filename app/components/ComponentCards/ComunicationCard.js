@@ -11,7 +11,7 @@ import {
   useColorScheme,
   useWindowDimensions,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Colors } from "../../utils/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import HTML from "react-native-render-html";
@@ -21,6 +21,17 @@ const windowHeight = Dimensions.get("window").height;
 
 const ComunicationCard = (props) => {
   const witHtml = useWindowDimensions().width;
+  const [refreshing, setRefreshing] = useState(false);
+
+  const refresh = () => {
+    setRefreshing(true);
+    props.refresh(false);
+  };
+
+  useEffect(() => {
+    setRefreshing(false);
+  }, [props.cards]);
+
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.item}>
@@ -196,6 +207,8 @@ const ComunicationCard = (props) => {
         data={props.cards}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
+        onRefresh={() => refresh()}
+        refreshing={refreshing}
         ListHeaderComponent={props.headerList}
       />
     </SafeAreaView>

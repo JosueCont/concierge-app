@@ -235,7 +235,7 @@ const VacationRequestScreen = (props) => {
                 <View
                   style={{
                     width: 80,
-                    // borderRadius: 10,
+                    borderRadius: 10,
                     overflow: "hidden",
                   }}
                 >
@@ -247,7 +247,7 @@ const VacationRequestScreen = (props) => {
                       color: Colors.bluelinks,
                     }}
                     style={pickerSelectStyles}
-                    useNativeAndroidPickerStyle={false}
+                    //useNativeAndroidPickerStyle={false}
                     items={days}
                     value={daysRequest}
                   />

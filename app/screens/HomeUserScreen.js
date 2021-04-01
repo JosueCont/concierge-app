@@ -124,6 +124,7 @@ const HomeUserScreen = (props) => {
         cards={comunications}
         props={props}
         headerList={headerList}
+        refresh={() => getComunication()}
       />
       <LoadingGlobal visible={modalLoading} text={"Cargando"} />
     </View>
