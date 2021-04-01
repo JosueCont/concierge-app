@@ -3,6 +3,7 @@ import { LocaleConfig } from "react-native-calendars";
 import React, { useEffect, useState } from "react";
 import { Colors } from "../../utils/colors";
 import { Modal, Text, View, TouchableOpacity } from "react-native";
+import moment from "moment";
 
 const ModalCalendar = ({
   visible,
@@ -11,11 +12,20 @@ const ModalCalendar = ({
   setVisible,
   textSelected,
 }) => {
-  const [dateCurrent, setDateCurrent] = useState("");
-  const dayCurrent = new Date().toLocaleDateString();
-  const month = new Date().toLocaleDateString();
-  const year = new Date().getUTCFullYear();
-  let currentDay = dayCurrent.split("/");
+  const dateCurrent = moment().format("YYYY-MM-DD");
+  const toDay = {
+    [dateCurrent]: {
+      customStyles: {
+        container: {
+          backgroundColor: Colors.bluetitle,
+          elevation: 2,
+        },
+        text: {
+          color: Colors.white,
+        },
+      },
+    },
+  };
 
   LocaleConfig.locales["es"] = {
     monthNames: [
@@ -59,10 +69,6 @@ const ModalCalendar = ({
     today: "Hoy",
   };
 
-  useEffect(() => {
-    setDateCurrent(year + "-" + currentDay[0] + "-" + currentDay[1]);
-  }, [dateCurrent]);
-
   const clickDay = (day) => {
     if (textSelected == "out") departureDate(day.dateString);
     if (textSelected == "return") returnDate(day.dateString);
@@ -76,19 +82,7 @@ const ModalCalendar = ({
           <View style={styles.modalView}>
             <Calendar
               markingType={"custom"}
-              // markedDates={{
-              //   dateCurrent: {
-              //     customStyles: {
-              //       container: {
-              //         backgroundColor: Colors.bluetitle,
-              //         elevation: 2,
-              //       },
-              //       text: {
-              //         color: Colors.white,
-              //       },
-              //     },
-              //   },
-              // }}
+              markedDates={toDay}
               monthFormat={"MMMM, yyyy"}
               theme={themeCalaendar}
               onDayPress={(day) => {

@@ -70,7 +70,6 @@ const PermissionsScreen = (props) => {
   };
 
   const getPermissionsRequest = async () => {
-    // let filter = `?person__id=1937de8426be4cc59731d2cf8ec35c0f`;
     let filter = `?person__id=${props.user.userProfile.id}&`;
     try {
       setModalLoading(true);
@@ -134,12 +133,13 @@ const PermissionsScreen = (props) => {
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
+              //useNativeAndroidPickerStyle={false}
               items={months}
-              Icon={() => {
-                return (
-                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-                );
-              }}
+              //Icon={() => {
+              //                return (
+              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+              //                );
+              //              }}
             />
           </View>
           <View
@@ -158,12 +158,13 @@ const PermissionsScreen = (props) => {
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
+              //useNativeAndroidPickerStyle={false}
               items={years}
-              Icon={() => {
-                return (
-                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-                );
-              }}
+              //Icon={() => {
+              //                return (
+              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
+              //                );
+              //              }}
             />
           </View>
         </View>
@@ -292,7 +293,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   inputAndroid: {
@@ -301,7 +302,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   iconContainer: {

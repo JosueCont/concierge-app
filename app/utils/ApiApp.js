@@ -71,6 +71,10 @@ class ApiApp {
   static permissionRequest = (data) => {
     return ApiApp.ApisType(`/person/permit/`, "post", data);
   };
+
+  static getEvents = (data) => {
+    return ApiApp.ApisType(`/person/event/${data}`, "get");
+  };
 }
 
 export default ApiApp;

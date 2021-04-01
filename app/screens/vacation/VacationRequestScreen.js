@@ -247,6 +247,7 @@ const VacationRequestScreen = (props) => {
                       color: Colors.bluelinks,
                     }}
                     style={pickerSelectStyles}
+                    //useNativeAndroidPickerStyle={false}
                     items={days}
                     value={daysRequest}
                   />
@@ -409,7 +410,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 17,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   inputAndroid: {
@@ -418,7 +419,7 @@ const pickerSelectStyles = StyleSheet.create({
     fontSize: 17,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     color: Colors.bluetitle,
   },
   iconContainer: {

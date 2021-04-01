@@ -179,7 +179,7 @@ const SideMenu = (props) => {
                 alignItems: "center",
                 width: "100%",
                 height: 200,
-                marginTop: 50,
+                marginTop: "5%",
               }}
             >
               <Image
@@ -189,7 +189,7 @@ const SideMenu = (props) => {
             </View>
             <Text
               style={{
-                marginTop: 30,
+                marginTop: "5%",
                 fontFamily: "Cabin-Regular",
                 fontSize: 16,
                 textAlign: "center",
