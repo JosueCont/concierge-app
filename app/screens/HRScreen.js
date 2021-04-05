@@ -10,13 +10,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Colors } from "../utils/colors";
-import ToolbarGeneric from "..//components/ToolbarComponent/ToolbarGeneric";
+import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
-const HrScreen = (props) => {
+const HRScreen = (props) => {
   const clickAction = () => {
     props.navigation.navigate("Main");
   };
@@ -116,7 +116,6 @@ const HrScreen = (props) => {
                 textAlign: "left",
               }}
             >
-              {" "}
               de manera fácil
             </Text>
           </View>
@@ -148,7 +147,10 @@ const HrScreen = (props) => {
             </TouchableOpacity>
           </View>
           <View style={styles.row}>
-            <TouchableOpacity style={styles.item}>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => props.navigation.navigate("LoanScreen")}
+            >
               <Mark />
               <Image
                 source={require("../../assets/img/prestamo.png")}
@@ -222,4 +224,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HrScreen;
+export default HRScreen;

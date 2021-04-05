@@ -14,13 +14,16 @@ import PayrollScreen from "../screens/payroll/payrollScreen";
 import PayrollDetailScreen from "../screens/payroll/payrollDetailScreen";
 import CalendarScreen from "../screens/calendar/CalendarScreen";
 import CalendarDetailScreen from "../screens/calendar/CalendarDetailScreen";
-import HrScreen from "../screens/HrScreen";
+import HRScreen from "../screens/HRScreen";
 import vacationScreen from "../screens/vacation/vacationScreen";
 import VacationDetailScreen from "../screens/vacation/VacationDetailScreen";
 import VacationRequestScreen from "../screens/vacation/VacationRequestScreen";
 import PermissionsScreen from "../screens/permissions/PermissionsScreen";
 import PermissionDetailScreen from "../screens/permissions/PermissionDetailScreen";
 import PermissionRequestScreen from "../screens/permissions/PermissionRequestScreen";
+import OrganizationScreen from "../screens/OrganizationScreen";
+import LoanSreen from "../screens/loan/LoanSreen";
+import LoanDetailScreen from "../screens/loan/LoanDetailScreen";
 
 const LoginStack = createStackNavigator(
   {
@@ -96,13 +99,16 @@ const PayrollStack = createStackNavigator(
 
 const HrStack = createStackNavigator(
   {
-    HrScreen: HrScreen,
+    HRScreen: HRScreen,
     vacationScreen: vacationScreen,
     VacationDetailScreen: VacationDetailScreen,
     VacationRequestScreen: VacationRequestScreen,
     PermissionsScreen: PermissionsScreen,
     PermissionDetailScreen: PermissionDetailScreen,
     PermissionRequestScreen: PermissionRequestScreen,
+    OrganizationScreen: OrganizationScreen,
+    LoanScreen: LoanSreen,
+    LoanDetailScreen: LoanDetailScreen,
   },
   {
     headerMode: "none",
@@ -139,7 +145,7 @@ export const AppNavigatorLoggedIn = createStackNavigator(
         headerShown: false,
       },
     },
-    HrScreen: {
+    HRScreen: {
       screen: HrStack,
       navigationOptions: {
         headerShown: false,

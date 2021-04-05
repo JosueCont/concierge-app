@@ -75,6 +75,14 @@ class ApiApp {
   static getEvents = (data) => {
     return ApiApp.ApisType(`/person/event/${data}`, "get");
   };
+
+  static getLoanRequest = (data) => {
+    return ApiApp.ApisType(`/payroll/loan/${data}`, "get");
+  };
+
+  static getLoanDetail = (data) => {
+    return ApiApp.ApisType(`/payroll/payment-plan/?loan__id=${data}`, "get");
+  };
 }
 
 export default ApiApp;

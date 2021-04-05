@@ -257,9 +257,8 @@ const CalendarScreen = (props) => {
             <RNPickerSelect
               onValueChange={(value) => changeEvents(value)}
               placeholder={{
-                label: "Eventos",
-                value: "node__id",
-                color: Colors.bluelinks,
+                label: "Selecciona",
+                color: Colors.bluetitle,
               }}
               style={pickerSelectStyles}
               //useNativeAndroidPickerStyle={false}

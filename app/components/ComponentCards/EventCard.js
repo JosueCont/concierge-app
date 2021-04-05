@@ -64,10 +64,7 @@ const EventCard = (props) => {
           </View>
           <View style={{ width: "65%", marginRight: 20 }}>
             <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.description}>
-              evento depruebaevento depruebaevento depruebaevento depruebaevento
-              depruebaevento depruebaevento depruebaevento deprueba
-            </Text>
+            <Text style={styles.description}>{item.description}</Text>
           </View>
         </View>
       </View>

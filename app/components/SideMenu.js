@@ -131,7 +131,7 @@ const SideMenu = (props) => {
             <TouchableOpacity
               style={styles.navSectionStyle}
               onPress={() => {
-                props.navigation.navigate("HrScreen");
+                props.navigation.navigate("HRScreen");
                 props.navigation.toggleDrawer();
               }}
             >
@@ -144,7 +144,10 @@ const SideMenu = (props) => {
 
             <TouchableOpacity
               style={styles.navSectionStyle}
-              onPress={navigateToScreen("Home")}
+              onPress={() => {
+                props.navigation.navigate("OrganizationScreen");
+                props.navigation.toggleDrawer();
+              }}
             >
               <Image
                 source={require("../../assets/img/node_tree_icon_menu.png")}
@@ -153,7 +156,7 @@ const SideMenu = (props) => {
               <Text style={styles.navItemStyle}>Organización</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.navSectionStyle}
               onPress={navigateToScreen("Home")}
             >
@@ -162,7 +165,7 @@ const SideMenu = (props) => {
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
               <Text style={styles.navItemStyle}>Notificaciones</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <TouchableOpacity
               style={styles.navSectionStyle}
