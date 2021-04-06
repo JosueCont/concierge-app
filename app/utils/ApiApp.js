@@ -91,6 +91,17 @@ class ApiApp {
   static loanRequest = (data) => {
     return ApiApp.ApisType(`/payroll/loan/`, "post", data);
   };
+
+  static getBanks = () => {
+    return ApiApp.ApisType(`/setup/banks/`, "get");
+  };
+
+  static getBankAccount = (data) => {
+    return ApiApp.ApisType(
+      `/person/person/${data}/bank_account_person/`,
+      "get"
+    );
+  };
 }
 
 export default ApiApp;

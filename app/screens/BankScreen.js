@@ -10,12 +10,12 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { Colors } from "../../utils/colors";
-import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
-import LoanCardDetail from "../../components/ComponentCards/LoanCardDetail";
-import ModalCustom from "../../components/modal/ModalCustom";
-import LoadingGlobal from "../../components/modal/LoadingGlobal";
-import ApiApp from "../../utils/ApiApp";
+import { Colors } from "../utils/colors";
+import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
+import LoanCardDetail from "../components/ComponentCards/LoanCardDetail";
+import ModalCustom from "../components/modal/ModalCustom";
+import LoadingGlobal from "../components/modal/LoadingGlobal";
+import ApiApp from "../utils/ApiApp";
 import RNPickerSelect from "react-native-picker-select";
 import { connect } from "react-redux";
 
@@ -23,35 +23,78 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
-const LoanRequestScreen = (props) => {
+const BankScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(true);
-  const [loanConfig, setLoanConfig] = useState({});
-  const [deadLine, setDeadLine] = useState([]);
-  const [amount, setAmount] = useState("");
-  const [term, setTerm] = useState(0);
-  const [period, setPeriod] = useState(0);
-  const [reason, setReason] = useState("");
-  const [amountPrefix, setAmountPrefix] = useState("");
-  const [payment, setPayment] = useState(0);
-  const [periodicit, setPeriodicit] = useState(0);
-  const periodicity = [
-    { label: "Semanal", value: 1 },
-    { label: "Catorcenal", value: 2 },
-    { label: "Quincenal", value: 3 },
-    { label: "Mensual", value: 4 },
+  const [years, setYears] = useState([]);
+  const [banks, setBanks] = useState([]);
+  const months = [
+    {
+      label: "01",
+      value: "1",
+    },
+    {
+      label: "02",
+      value: "2",
+    },
+    {
+      label: "03",
+      value: "3",
+    },
+    {
+      label: "04",
+      value: "4",
+    },
+    {
+      label: "05",
+      value: "5",
+    },
+    {
+      label: "06",
+      value: "6",
+    },
+    {
+      label: "07",
+      value: "7",
+    },
+    {
+      label: "08",
+      value: "8",
+    },
+    {
+      label: "09",
+      value: "9",
+    },
+    {
+      label: "10",
+      value: "10",
+    },
+    {
+      label: "11",
+      value: "11",
+    },
+    {
+      label: "12",
+      value: "12",
+    },
   ];
+  const [idAccount, setIdAccount] = useState(null);
+  const [accountNumber, setAccountNumber] = useState("");
+  const [interbankKey, setInterbankKey] = useState("");
+  const [bank, setBank] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expirationMonth, setExpirationMonth] = useState("");
+  const [expirationYear, setExpirationYear] = useState("");
 
   useEffect(() => {
-    getLoansConfig();
-  }, []);
-
-  useEffect(() => {
-    if (loanConfig.max_deadline) createDeadLine();
-  }, [loanConfig]);
-
+    if (props.user.userProfile.id) {
+      generateYear();
+      getBankAccount();
+      getBanks();
+    }
+  }, [props.user.userProfile.id]);
   const clickAction = () => {
     props.navigation.goBack(null);
   };
@@ -68,143 +111,70 @@ const LoanRequestScreen = (props) => {
     modalCustom ? setModalCustom(false) : setModalCustom(true);
   };
 
-  const getLoansConfig = async () => {
+  const generateYear = () => {
+    let yearsArray = [];
+    let currentYear = new Date().getFullYear();
+    let startYear = currentYear + 10;
+    while (currentYear < startYear) {
+      startYear--;
+      yearsArray.push({
+        label: `${startYear}`.substring(2, 4),
+        value: `${startYear}`.substring(2, 4),
+      });
+    }
+    setYears(yearsArray.reverse());
+  };
+
+  const getBanks = async () => {
     try {
-      let response = await ApiApp.getLoanConfig();
-      if (response.status == 200) {
-        if (response.data != undefined) {
-          setLoanConfig(response.data);
-          setModalLoading(false);
-        } else {
-          setMessageCustomModal("No se encontraron resultados.");
-          setIconSourceCustomModal(3);
-          setModalCustom(true);
-          setModalLoading(false);
-        }
-      }
-    } catch (error) {
-      setMessageCustomModal("Ocurrio un error, intente de nuevo.");
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-      setModalLoading(false);
-    }
-  };
-
-  const createDeadLine = () => {
-    let count = loanConfig.min_deadline - 1;
-    let line = [];
-    if (loanConfig.id && loanConfig.id != undefined)
-      while (count < loanConfig.max_deadline) {
-        count++;
-        line.push({ label: `${count}`, value: count });
-      }
-    setDeadLine(line);
-  };
-
-  const validateRequest = () => {
-    if (parseInt(amount) < loanConfig.min_amount) {
-      setMessageCustomModal(
-        `La cantidad a soliitar no puede ser menor a \n $ ${loanConfig.min_amount} MXN.`
-      );
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-    }
-    if (parseInt(amount) > loanConfig.max_amount) {
-      setMessageCustomModal(
-        `La cantidad a soliitar no puede ser mayor a \n $ ${loanConfig.max_amount} MXN.`
-      );
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-    }
-    if (amount == "") {
-      setMessageCustomModal("Capture la cantidad a solicitar.");
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-      return;
-    }
-    if (term == 0 || term == undefined || period == 0 || period == undefined) {
-      setMessageCustomModal("Seleccione un plazo y periodo.");
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-      return;
-    }
-    if (reason == 0 || reason == undefined) {
-      setMessageCustomModal("Ingrese un motivo de la solicitud.");
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-      return;
-    }
-    sendRequest();
-  };
-
-  const sendRequest = async () => {
-    let data = {
-      amount: amount,
-      deadline: term,
-      periodicity: period,
-      periodicity_amount: parseFloat(payment.toFixed(2)),
-      person: props.user.userProfile.id,
-      type: "EMP",
-      reason: reason,
-    };
-    try {
-      let response = await ApiApp.loanRequest(data);
-      if (response.data && response.data.id) {
-        setMessageCustomModal(
-          "Hemos enviado la solicitud, pronto recibiras una notificación con la respuesta a la solicitud realizada."
-        );
-        setIconSourceCustomModal(4);
-        setModalCustom(true);
+      let response = await ApiApp.getBanks();
+      if (response.data && response.data.results.length > 0) {
+        let banksArray = response.data.results.map((a) => {
+          return { label: a.name, value: a.id };
+        });
+        setBanks(banksArray);
         setModalLoading(false);
-        setTimeout(() => {
-          props.navigation.goBack(null);
-        }, 2000);
       } else {
         setMessageCustomModal("Ocurrio un error, intente de nuevo.");
         setIconSourceCustomModal(2);
         setModalCustom(true);
         setModalLoading(false);
+        clickAction();
       }
-
-      setModalLoading(false);
     } catch (error) {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
       setModalLoading(false);
-      setTimeout(() => {
+      clickAction();
+    }
+  };
+
+  const getBankAccount = async () => {
+    try {
+      let response = await ApiApp.getBankAccount(props.user.userProfile.id);
+      if (response.data && response.data.length > 0) {
+        setIdAccount(response.data[0].id);
+        setAccountNumber(response.data[0].account_number);
+        setInterbankKey(response.data[0].interbank_key);
+        setBank(response.data[0].bank.id);
+        setCardNumber(response.data[0].card_number);
+        setExpirationMonth(response.data[0].expiration_month);
+        setExpirationYear(response.data[0].expiration_year);
+      } else {
+        setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+        setIconSourceCustomModal(2);
+        setModalCustom(true);
         setModalLoading(false);
-      }, 1500);
+        clickAction();
+      }
+    } catch (error) {
+      setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      setModalLoading(false);
+      clickAction();
     }
-  };
-
-  const changeAmount = (data) => {
-    let money = 0;
-    setAmount(data);
-    if (amount != "" && data != 0) {
-      money = amount / data;
-      setPayment(money);
-    }
-  };
-
-  const currencyFormat = (num) => {
-    return "$" + num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-  };
-
-  const changeTerm = (data) => {
-    let money = 0;
-    setTerm(data);
-    if (amount != "" && data != 0) {
-      money = amount / data;
-      setPayment(parseFloat(money));
-    }
-  };
-
-  const changePeriod = (data) => {
-    setPeriod(data);
-    periodicity.map((a) => {
-      if (a.value == data) setPeriodicit(a.label);
-    });
   };
 
   return (
@@ -224,7 +194,7 @@ const LoanRequestScreen = (props) => {
 
         <ToolbarGeneric
           clickAction={clickAction}
-          nameToolbar={"RH"}
+          nameToolbar={"Banco"}
           type={1}
           clickProfile={clickProfile}
           goHome={goHome}
@@ -234,18 +204,19 @@ const LoanRequestScreen = (props) => {
           showsVerticalScrollIndicator={false}
           style={{
             zIndex: 0,
-            paddingHorizontal: "10%",
+            paddingHorizontal: "5%",
           }}
         >
           <View
             style={{
+              marginLeft: "10%",
               marginTop: "5%",
               flexDirection: "row",
               alignItems: "center",
             }}
           >
             <Image
-              source={require("../../../assets/img/lending_payment.png")}
+              source={require("../../assets/img/bank_data.png")}
               style={{
                 width: 80,
                 height: 80,
@@ -262,7 +233,7 @@ const LoanRequestScreen = (props) => {
                   textAlign: "left",
                 }}
               >
-                Solicita un préstamo
+                Mis datos bancarios
               </Text>
             </View>
           </View>
@@ -308,7 +279,7 @@ const LoanRequestScreen = (props) => {
                       paddingBottom: 10,
                     }}
                   >
-                    Cantidad solicitada
+                    Número de cuenta
                   </Text>
                 </View>
                 <View
@@ -318,16 +289,148 @@ const LoanRequestScreen = (props) => {
                   }}
                 >
                   <TextInput
-                    onChangeText={(text) => changeAmount(text)}
+                    onChangeText={(text) => setAccountNumber}
                     style={styles.input}
                     placeholderTextColor={Colors.bluetitle}
                     autoCapitalize="none"
                     underlineColorAndroid={"transparent"}
-                    value={amount}
+                    value={accountNumber}
                   />
                 </View>
               </View>
-
+              <View
+                style={{
+                  alignItems: "center",
+                  marginTop: 15,
+                  width: "100%",
+                }}
+              >
+                <View
+                  style={{
+                    alignItems: "flex-start",
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      color: Colors.bluetitle,
+                      fontSize: 12,
+                      paddingBottom: 10,
+                    }}
+                  >
+                    Clabe interbancaria
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: "100%",
+                    borderRadius: 10,
+                  }}
+                >
+                  <TextInput
+                    onChangeText={(text) => setInterbankKey}
+                    style={styles.input}
+                    placeholderTextColor={Colors.bluetitle}
+                    autoCapitalize="none"
+                    underlineColorAndroid={"transparent"}
+                    value={interbankKey}
+                  />
+                </View>
+              </View>
+              <View
+                style={{
+                  alignItems: "center",
+                  marginTop: 15,
+                  width: "100%",
+                }}
+              >
+                <View
+                  style={{
+                    alignItems: "flex-start",
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      color: Colors.bluetitle,
+                      fontSize: 12,
+                      paddingBottom: 10,
+                    }}
+                  >
+                    Banco
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: "100%",
+                    borderRadius: 10,
+                  }}
+                >
+                  <View
+                    style={{
+                      width: "100%",
+                      borderRadius: 10,
+                      padding: 3,
+                      borderColor: Colors.bluelinks,
+                      borderWidth: 1,
+                    }}
+                  >
+                    <RNPickerSelect
+                      onValueChange={(value) => setBank(value)}
+                      placeholder={{
+                        label: "Banco",
+                        value: bank,
+                        color: Colors.bluelinks,
+                      }}
+                      style={pickerSelectStyles}
+                      items={banks}
+                      value={bank}
+                    />
+                  </View>
+                </View>
+              </View>
+              <View
+                style={{
+                  alignItems: "center",
+                  marginTop: 15,
+                  width: "100%",
+                }}
+              >
+                <View
+                  style={{
+                    alignItems: "flex-start",
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      color: Colors.bluetitle,
+                      fontSize: 12,
+                      paddingBottom: 10,
+                    }}
+                  >
+                    Número de tarjeta
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: "100%",
+                    borderRadius: 10,
+                  }}
+                >
+                  <TextInput
+                    onChangeText={(text) => setCardNumber(text)}
+                    style={styles.input}
+                    placeholderTextColor={Colors.bluetitle}
+                    autoCapitalize="none"
+                    underlineColorAndroid={"transparent"}
+                    value={cardNumber}
+                  />
+                </View>
+              </View>
               <View
                 style={{
                   flexDirection: "row",
@@ -361,7 +464,7 @@ const LoanRequestScreen = (props) => {
                           paddingBottom: 10,
                         }}
                       >
-                        Plazo
+                        Mes de vencimiento
                       </Text>
                     </View>
                   </View>
@@ -381,14 +484,15 @@ const LoanRequestScreen = (props) => {
                       }}
                     >
                       <RNPickerSelect
-                        onValueChange={(value) => changeTerm(value)}
+                        onValueChange={(value) => setExpirationMonth(value)}
                         placeholder={{
-                          label: "Plazo",
-                          value: term,
+                          label: "Mes",
+                          value: expirationMonth,
                           color: Colors.bluelinks,
                         }}
                         style={pickerSelectStyles}
-                        items={deadLine}
+                        items={months}
+                        value={expirationMonth}
                       />
                     </View>
                   </View>
@@ -420,7 +524,7 @@ const LoanRequestScreen = (props) => {
                           paddingBottom: 10,
                         }}
                       >
-                        Periodicidad
+                        Año de vencimiento
                       </Text>
                     </View>
                   </View>
@@ -440,105 +544,18 @@ const LoanRequestScreen = (props) => {
                       }}
                     >
                       <RNPickerSelect
-                        onValueChange={(value) => changePeriod(value)}
+                        onValueChange={(value) => setExpirationYear(value)}
                         placeholder={{
-                          label: "Periodicidad",
-                          value: period,
+                          label: "Año",
+                          value: expirationYear,
                           color: Colors.bluelinks,
                         }}
                         style={pickerSelectStyles}
-                        items={periodicity}
+                        items={years}
+                        value={expirationMonth}
                       />
                     </View>
                   </View>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  width: "100%",
-                  alignItems: "center",
-                  marginTop: 15,
-                }}
-              >
-                <View
-                  style={{
-                    alignItems: "flex-start",
-                    width: "100%",
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
-                      fontSize: 12,
-                      paddingBottom: 10,
-                    }}
-                  >
-                    Pago {periodicit}
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: Colors.bluebg,
-                    width: "100%",
-                    borderRadius: 10,
-                    padding: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "Cabin-Regular",
-                      color: "#006FCC",
-                      fontSize: 17,
-                      textAlign: "center",
-                    }}
-                  >
-                    $ {payment.toFixed(2)} MXN
-                  </Text>
-                </View>
-              </View>
-
-              <View
-                style={{
-                  alignItems: "center",
-                  marginTop: 15,
-                  width: "100%",
-                }}
-              >
-                <View
-                  style={{
-                    alignItems: "flex-start",
-                    width: "100%",
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
-                      fontSize: 12,
-                      paddingBottom: 10,
-                    }}
-                  >
-                    Motivo :
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    width: "100%",
-                    borderRadius: 10,
-                  }}
-                >
-                  <TextInput
-                    onChangeText={(text) => setReason(text)}
-                    style={styles.inputComment}
-                    placeholder="Motivo de la solicitud"
-                    placeholderTextColor={Colors.bluetitle}
-                    autoCapitalize="none"
-                    multiline
-                    maxLength={200}
-                    value={reason}
-                  />
                 </View>
               </View>
 
@@ -559,7 +576,7 @@ const LoanRequestScreen = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => validateRequest()}
+                  onPress={() => {}}
                 >
                   <Text style={{ color: Colors.white, fontSize: 16 }}>
                     Enviar
@@ -591,7 +608,6 @@ const styles = StyleSheet.create({
   ctnForm: {
     width: "100%",
     backgroundColor: Colors.white,
-    paddingHorizontal: 1,
     paddingTop: 10,
     borderRadius: 10,
     marginBottom: "5%",
@@ -654,4 +670,4 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState)(LoanRequestScreen);
+export default connect(mapState)(BankScreen);
