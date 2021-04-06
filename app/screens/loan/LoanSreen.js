@@ -129,13 +129,7 @@ const LoanScreen = (props) => {
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
-              //useNativeAndroidPickerStyle={false}
               items={months}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
             />
           </View>
           <View
@@ -197,7 +191,7 @@ const LoanScreen = (props) => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onPress={() => props.navigation.navigate("PermissionRequestScreen")}
+            onPress={() => props.navigation.navigate("LoanRequestScreen")}
           >
             <Text style={{ color: Colors.white, fontSize: 16 }}>Nueva</Text>
           </TouchableOpacity>

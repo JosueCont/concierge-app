@@ -83,6 +83,14 @@ class ApiApp {
   static getLoanDetail = (data) => {
     return ApiApp.ApisType(`/payroll/payment-plan/?loan__id=${data}`, "get");
   };
+
+  static getLoanConfig = () => {
+    return ApiApp.ApisType(`/payroll/loan-config/1/`, "get");
+  };
+
+  static loanRequest = (data) => {
+    return ApiApp.ApisType(`/payroll/loan/`, "post", data);
+  };
 }
 
 export default ApiApp;

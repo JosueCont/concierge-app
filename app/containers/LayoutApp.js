@@ -24,6 +24,7 @@ import PermissionRequestScreen from "../screens/permissions/PermissionRequestScr
 import OrganizationScreen from "../screens/OrganizationScreen";
 import LoanSreen from "../screens/loan/LoanSreen";
 import LoanDetailScreen from "../screens/loan/LoanDetailScreen";
+import LoanRequestScreen from "../screens/loan/LoanRequestScreen";
 
 const LoginStack = createStackNavigator(
   {
@@ -109,6 +110,7 @@ const HrStack = createStackNavigator(
     OrganizationScreen: OrganizationScreen,
     LoanScreen: LoanSreen,
     LoanDetailScreen: LoanDetailScreen,
+    LoanRequestScreen: LoanRequestScreen,
   },
   {
     headerMode: "none",

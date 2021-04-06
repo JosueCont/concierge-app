@@ -25,7 +25,7 @@ const LoanDetailScreen = (props) => {
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
-  const [loansDetail, setLoansDetail] = useState([1, 2]);
+  const [loansDetail, setLoansDetail] = useState([]);
 
   const clickAction = () => {
     props.navigation.goBack(null);

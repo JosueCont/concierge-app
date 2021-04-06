@@ -1,27 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StatusBar,
   Text,
   View,
   TouchableOpacity,
   StyleSheet,
-  TextInput,
   SafeAreaView,
   FlatList,
 } from "react-native";
-import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import { Colors } from "../../utils/colors";
-import LoadingGlobal from "../../components/modal/LoadingGlobal";
-import ModalCustom from "../../components/modal/ModalCustom";
-import ApiApp from "../../utils/ApiApp";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const statusHeight = StatusBar.currentHeight;
 
 const LoanCard = (props) => {
   const clickDetail = (item) => {
@@ -31,6 +18,30 @@ const LoanCard = (props) => {
   };
 
   const renderItem = ({ item, index }) => {
+    let totalPaid = 0.0;
+    let lastPayment = "--/--/--";
+    let nextPayment = "--/--/--";
+    if (item.status == 2) {
+      item.payments.map((a) => {
+        if (a.is_paid) {
+          totalPaid = totalPaid + parseFloat(a.amount);
+          lastPayment = a.payment_date;
+        }
+      });
+      item.payments.map((a) => {
+        if (!a.is_paid) {
+          nextPayment = a.payment_date;
+          return;
+        }
+      });
+      totalPaid = totalPaid.toFixed(2);
+    } else {
+      totalPaid = "0.00";
+    }
+
+    if (item.status == 4) {
+    }
+
     return (
       <>
         <View style={styles.ctnForm}>
@@ -230,217 +241,129 @@ const LoanCard = (props) => {
               </View>
             </View>
 
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: "45%",
-                  marginRight: "5%",
-                }}
-              >
+            {(item.status == 2 || item.status == 4) && (
+              <>
                 <View
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
-                    marginTop: 15,
                   }}
                 >
                   <View
                     style={{
-                      alignItems: "flex-start",
-                      width: "100%",
+                      width: "45%",
+                      marginRight: "5%",
                     }}
                   >
-                    <Text
+                    <View
                       style={{
-                        fontFamily: "Cabin-Regular",
-                        color: Colors.bluetitle,
-                        fontSize: 12,
-                        paddingBottom: 10,
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginTop: 15,
                       }}
                     >
-                      Total abonado
-                    </Text>
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <View
-                    style={{
-                      backgroundColor: Colors.bluebg,
-                      width: "100%",
-                      borderRadius: 10,
-                      padding: 10,
-                    }}
-                  >
-                    <Text
+                      <View
+                        style={{
+                          alignItems: "flex-start",
+                          width: "100%",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: "Cabin-Regular",
+                            color: Colors.bluetitle,
+                            fontSize: 12,
+                            paddingBottom: 10,
+                          }}
+                        >
+                          Total abonado
+                        </Text>
+                      </View>
+                    </View>
+                    <View
                       style={{
-                        fontFamily: "Cabin-Regular",
-                        color: "#006FCC",
-                        fontSize: 17,
-                        textAlign: "justify",
-                      }}
-                    ></Text>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  width: "45%",
-                  marginLeft: "5%",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginTop: 15,
-                  }}
-                >
-                  <View
-                    style={{
-                      alignItems: "flex-start",
-                      width: "100%",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontFamily: "Cabin-Regular",
-                        color: Colors.bluetitle,
-                        fontSize: 12,
-                        paddingBottom: 10,
+                        flexDirection: "row",
+                        alignItems: "center",
                       }}
                     >
-                      Saldo
-                    </Text>
+                      <View
+                        style={{
+                          backgroundColor: Colors.bluebg,
+                          width: "100%",
+                          borderRadius: 10,
+                          padding: 10,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: "Cabin-Regular",
+                            color: "#006FCC",
+                            fontSize: 17,
+                            textAlign: "justify",
+                          }}
+                        >
+                          $ {totalPaid}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
                   <View
                     style={{
-                      backgroundColor: Colors.bluebg,
-                      width: "100%",
-                      borderRadius: 10,
-                      padding: 10,
+                      width: "45%",
+                      marginLeft: "5%",
                     }}
                   >
-                    <Text
+                    <View
                       style={{
-                        fontFamily: "Cabin-Regular",
-                        color: "#006FCC",
-                        fontSize: 17,
-                        textAlign: "justify",
-                      }}
-                    ></Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-              }}
-            >
-              <View
-                style={{
-                  width: "45%",
-                  marginRight: "5%",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginTop: 15,
-                  }}
-                >
-                  <View
-                    style={{
-                      alignItems: "flex-start",
-                      width: "100%",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontFamily: "Cabin-Regular",
-                        color: Colors.bluetitle,
-                        fontSize: 12,
-                        paddingBottom: 10,
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginTop: 15,
                       }}
                     >
-                      Último pago
-                    </Text>
-                  </View>
-                </View>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <View
-                    style={{
-                      backgroundColor: Colors.bluebg,
-                      width: "100%",
-                      borderRadius: 10,
-                      padding: 10,
-                    }}
-                  >
-                    <Text
+                      <View
+                        style={{
+                          alignItems: "flex-start",
+                          width: "100%",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: "Cabin-Regular",
+                            color: Colors.bluetitle,
+                            fontSize: 12,
+                            paddingBottom: 10,
+                          }}
+                        >
+                          Saldo
+                        </Text>
+                      </View>
+                    </View>
+                    <View
                       style={{
-                        fontFamily: "Cabin-Regular",
-                        color: "#006FCC",
-                        fontSize: 17,
-                        textAlign: "justify",
-                      }}
-                    ></Text>
-                  </View>
-                </View>
-              </View>
-              <View
-                style={{
-                  width: "45%",
-                  marginLeft: "5%",
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    marginTop: 15,
-                  }}
-                >
-                  <View
-                    style={{
-                      alignItems: "flex-start",
-                      width: "100%",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontFamily: "Cabin-Regular",
-                        color: Colors.bluetitle,
-                        fontSize: 12,
-                        paddingBottom: 10,
+                        flexDirection: "row",
+                        alignItems: "center",
                       }}
                     >
-                      Próximo pago
-                    </Text>
+                      <View
+                        style={{
+                          backgroundColor: Colors.bluebg,
+                          width: "100%",
+                          borderRadius: 10,
+                          padding: 10,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: "Cabin-Regular",
+                            color: "#006FCC",
+                            fontSize: 17,
+                            // textAlign: "justify",
+                          }}
+                        >
+                          $ {item.balance.toFixed(2)}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
                 </View>
                 <View
@@ -451,25 +374,123 @@ const LoanCard = (props) => {
                 >
                   <View
                     style={{
-                      backgroundColor: Colors.bluebg,
-                      width: "100%",
-                      borderRadius: 10,
-                      padding: 10,
+                      width: "45%",
+                      marginRight: "5%",
                     }}
                   >
-                    <Text
+                    <View
                       style={{
-                        fontFamily: "Cabin-Regular",
-                        color: "#006FCC",
-                        fontSize: 17,
-                        textAlign: "justify",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginTop: 15,
                       }}
-                    ></Text>
+                    >
+                      <View
+                        style={{
+                          alignItems: "flex-start",
+                          width: "100%",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: "Cabin-Regular",
+                            color: Colors.bluetitle,
+                            fontSize: 12,
+                            paddingBottom: 10,
+                          }}
+                        >
+                          Último pago
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <View
+                        style={{
+                          backgroundColor: Colors.bluebg,
+                          width: "100%",
+                          borderRadius: 10,
+                          padding: 10,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: "Cabin-Regular",
+                            color: "#006FCC",
+                            fontSize: 17,
+                            textAlign: "center",
+                          }}
+                        >
+                          {lastPayment}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                  <View
+                    style={{
+                      width: "45%",
+                      marginLeft: "5%",
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        marginTop: 15,
+                      }}
+                    >
+                      <View
+                        style={{
+                          alignItems: "flex-start",
+                          width: "100%",
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: "Cabin-Regular",
+                            color: Colors.bluetitle,
+                            fontSize: 12,
+                            paddingBottom: 10,
+                          }}
+                        >
+                          Próximo pago
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                      }}
+                    >
+                      <View
+                        style={{
+                          backgroundColor: Colors.bluebg,
+                          width: "100%",
+                          borderRadius: 10,
+                          padding: 10,
+                        }}
+                      >
+                        <Text
+                          style={{
+                            fontFamily: "Cabin-Regular",
+                            color: "#006FCC",
+                            fontSize: 17,
+                            textAlign: "center",
+                          }}
+                        >
+                          {nextPayment}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </View>
-
+              </>
+            )}
             {(item.status == 2 || item.status == 4) && (
               <TouchableOpacity
                 style={{
