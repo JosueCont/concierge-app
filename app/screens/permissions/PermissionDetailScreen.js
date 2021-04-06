@@ -53,7 +53,6 @@ const PermissionDetail = (props) => {
       setPermissionDetail([]);
       let response = await ApiApp.getPermissionDetail(data);
       if (response.status == 200) {
-        console.log("Response-> ", response.data);
         setPermissionDetail(response.data);
         setModalLoading(false);
       } else {
