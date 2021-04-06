@@ -25,6 +25,7 @@ import OrganizationScreen from "../screens/OrganizationScreen";
 import LoanSreen from "../screens/loan/LoanSreen";
 import LoanDetailScreen from "../screens/loan/LoanDetailScreen";
 import LoanRequestScreen from "../screens/loan/LoanRequestScreen";
+import BankScreen from "../screens/BankScreen";
 
 const LoginStack = createStackNavigator(
   {
@@ -117,6 +118,15 @@ const HrStack = createStackNavigator(
   }
 );
 
+const BankStack = createStackNavigator(
+  {
+    BankScreen: BankScreen,
+  },
+  {
+    headerMode: "none",
+  }
+);
+
 const DrawerStack = createDrawerNavigator(
   {
     Home: HomeHybridStore,
@@ -155,6 +165,12 @@ export const AppNavigatorLoggedIn = createStackNavigator(
     },
     PayrollScreen: {
       screen: PayrollStack,
+      navigationOptions: {
+        headerShown: false,
+      },
+    },
+    BankScreen: {
+      screen: BankStack,
       navigationOptions: {
         headerShown: false,
       },

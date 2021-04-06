@@ -21,7 +21,8 @@ const LoanCard = (props) => {
     let totalPaid = 0.0;
     let lastPayment = "--/--/--";
     let nextPayment = "--/--/--";
-    if (item.status == 2) {
+
+    if (item.status == 2 || item.status == 4) {
       item.payments.map((a) => {
         if (a.is_paid) {
           totalPaid = totalPaid + parseFloat(a.amount);
@@ -37,9 +38,6 @@ const LoanCard = (props) => {
       totalPaid = totalPaid.toFixed(2);
     } else {
       totalPaid = "0.00";
-    }
-
-    if (item.status == 4) {
     }
 
     return (

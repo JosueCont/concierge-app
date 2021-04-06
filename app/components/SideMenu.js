@@ -156,16 +156,19 @@ const SideMenu = (props) => {
               <Text style={styles.navItemStyle}>Organización</Text>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity
+            <TouchableOpacity
               style={styles.navSectionStyle}
-              onPress={navigateToScreen("Home")}
+              onPress={() => {
+                props.navigation.navigate("BankScreen");
+                props.navigation.toggleDrawer();
+              }}
             >
               <Image
-                source={require("../../assets/img/campaign_icon_menu.png")}
+                source={require("../../assets/img/prestamo.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
-              <Text style={styles.navItemStyle}>Notificaciones</Text>
-            </TouchableOpacity> */}
+              <Text style={styles.navItemStyle}>Cuentas bancarias</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.navSectionStyle}
