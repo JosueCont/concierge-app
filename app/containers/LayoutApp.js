@@ -29,6 +29,7 @@ import BankScreen from "../screens/BankScreen";
 import IncapacityScreen from "../screens/incapacity/IncapacityScreen";
 import IncapacityDetailScreen from "../screens/incapacity/IncapacityDetailScreen";
 import IncapacityRequestScreen from "../screens/incapacity/IncapacityRequestScreen";
+import ProceedingsScreen from "../screens/ProceedingsScreen";
 
 const LoginStack = createStackNavigator(
   {
@@ -118,6 +119,7 @@ const HrStack = createStackNavigator(
     IncapacityScreen: IncapacityScreen,
     IncapacityDetailScreen: IncapacityDetailScreen,
     IncapacityRequestScreen: IncapacityRequestScreen,
+    ProceedingsScreen: ProceedingsScreen,
   },
   {
     headerMode: "none",

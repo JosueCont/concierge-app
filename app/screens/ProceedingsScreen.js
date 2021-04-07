@@ -16,7 +16,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
-const HRScreen = (props) => {
+const ProceedingsScreen = (props) => {
   const clickAction = () => {
     props.navigation.navigate("Main");
   };
@@ -68,7 +68,7 @@ const HRScreen = (props) => {
 
       <ToolbarGeneric
         clickAction={clickAction}
-        nameToolbar={"RH"}
+        nameToolbar={"Expediente"}
         type={1}
         clickProfile={clickProfile}
         goHome={goHome}
@@ -101,22 +101,32 @@ const HRScreen = (props) => {
             <Text
               style={{
                 fontFamily: "Cabin-Regular",
-                fontSize: 24,
+                fontSize: 22,
                 color: Colors.bluetitle,
                 textAlign: "left",
               }}
             >
-              Solicita tus trámites
+              Descarga tu{" "}
             </Text>
             <Text
               style={{
                 fontFamily: "Cabin-Regular",
-                fontSize: 24,
+                fontSize: 22,
                 color: Colors.bluetitle,
                 textAlign: "left",
               }}
             >
-              de manera fácil
+              documentación para
+            </Text>
+            <Text
+              style={{
+                fontFamily: "Cabin-Regular",
+                fontSize: 22,
+                color: Colors.bluetitle,
+                textAlign: "left",
+              }}
+            >
+              cualquier trámite
             </Text>
           </View>
         </View>
@@ -129,58 +139,10 @@ const HRScreen = (props) => {
             >
               <Mark />
               <Image
-                source={require("../../assets/img/vacaciones.png")}
+                source={require("../../assets/img/rh_icon_menu.png")}
                 style={styles.image}
               ></Image>
-              <Text style={styles.title}>Vacaciones</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => props.navigation.navigate("PermissionsScreen")}
-            >
-              <Mark />
-              <Image
-                source={require("../../assets/img/permisos.png")}
-                style={styles.image}
-              ></Image>
-              <Text style={styles.title}>Permisos</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => props.navigation.navigate("LoanScreen")}
-            >
-              <Mark />
-              <Image
-                source={require("../../assets/img/prestamo.png")}
-                style={styles.image}
-              ></Image>
-              <Text style={styles.title}>Préstamo</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => props.navigation.navigate("IncapacityScreen")}
-            >
-              <Mark />
-              <Image
-                source={require("../../assets/img/incapacidad.png")}
-                style={styles.image}
-              ></Image>
-              <Text style={styles.title}>Incapacidad</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.row}>
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => props.navigation.navigate("ProceedingsScreen")}
-            >
-              <Mark />
-              <Image
-                source={require("../../assets/img/expediente.png")}
-                style={styles.image}
-              ></Image>
-              <Text style={styles.title}>Expediente</Text>
+              <Text style={styles.title}>INE/IFE</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -230,4 +192,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HRScreen;
+export default ProceedingsScreen;
