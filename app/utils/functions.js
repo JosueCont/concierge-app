@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const generateYear = () => {
   let yearsArray = [];
   let currentYear = new Date().getFullYear();
@@ -134,4 +136,31 @@ export const dayNames = () => {
 
 export const dayNamesShort = () => {
   return ["D", "L", "M", "M", "J", "V", "S"];
+};
+
+export const getNumberDays = (departure, returned) => {
+  let requestedDays = 0;
+  const out = moment(departure);
+  const ret = moment(returned);
+  requestedDays = ret.diff(out, "days");
+  const departureDate =
+    departure.substring(5, 7) +
+    "/" +
+    departure.substring(8, 10) +
+    "/" +
+    departure.substring(0, 4);
+  const dayNumber = new Date(departureDate).getDay();
+
+  let count = 0;
+  let countDay = 0;
+  let daysCounter = ret.diff(out, "days");
+  while (count < daysCounter) {
+    count++;
+    countDay = dayNumber + count;
+    if (requestedDays >= 3) {
+      if (countDay == 6 || countDay == 7) requestedDays = requestedDays - 1;
+    }
+  }
+
+  return requestedDays;
 };

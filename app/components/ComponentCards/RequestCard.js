@@ -10,10 +10,8 @@ import {
 import React, { useEffect } from "react";
 import { Colors } from "../../utils/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { connect } from "react-redux";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import moment from "moment";
+import { getNumberDays } from "../../utils/functions";
 
 const RequestCard = (props) => {
   const openViewDetail = (item) => {
@@ -26,12 +24,16 @@ const RequestCard = (props) => {
         id: item.id,
       });
     if (props.type == "incapacity")
-      props.props.navigation.navigate("VacationDetailScreen", {
+      props.props.navigation.navigate("IncapacityDetailScreen", {
         id: item.id,
       });
   };
 
   const renderItem = ({ item, index }) => {
+    let numberDay = 0;
+    if (item.departure_date && item.return_date) {
+      numberDay = getNumberDays(item.departure_date, item.return_date);
+    }
     return (
       <View style={{ marginTop: 10 }}>
         <View
@@ -99,7 +101,9 @@ const RequestCard = (props) => {
                 <Text style={styles.days}>
                   {item.days_requested
                     ? item.days_requested
-                    : item.requested_days}
+                    : item.requested_days
+                    ? item.requested_days
+                    : numberDay}
                 </Text>
               </View>
             </View>

@@ -133,20 +133,26 @@ const BankScreen = (props) => {
           return { label: a.name, value: a.id };
         });
         setBanks(banksArray);
-        setModalLoading(false);
+        setTimeout(() => {
+          setModalLoading(false);
+        }, 1500);
       } else {
         setMessageCustomModal("Ocurrio un error, intente de nuevo.");
         setIconSourceCustomModal(2);
         setModalCustom(true);
-        setModalLoading(false);
-        clickAction();
+        setTimeout(() => {
+          setModalLoading(false);
+          clickAction();
+        }, 1500);
       }
     } catch (error) {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
-      setModalLoading(false);
-      clickAction();
+      setTimeout(() => {
+        setModalLoading(false);
+        clickAction();
+      }, 1500);
     }
   };
 
@@ -165,15 +171,19 @@ const BankScreen = (props) => {
         setMessageCustomModal("Ocurrio un error, intente de nuevo.");
         setIconSourceCustomModal(2);
         setModalCustom(true);
-        setModalLoading(false);
-        clickAction();
+        setTimeout(() => {
+          setModalLoading(false);
+          clickAction();
+        }, 1500);
       }
     } catch (error) {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
-      setModalLoading(false);
-      clickAction();
+      setTimeout(() => {
+        setModalLoading(false);
+        clickAction();
+      }, 1500);
     }
   };
 

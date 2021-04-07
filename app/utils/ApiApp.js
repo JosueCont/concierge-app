@@ -102,6 +102,14 @@ class ApiApp {
       "get"
     );
   };
+
+  static getIncapacityRequest = (data) => {
+    return ApiApp.ApisType(`/person/incapacity/${data}`, "get");
+  };
+
+  static getIncapacityDetail = (data) => {
+    return ApiApp.ApisType(`/person/incapacity/${data}/`, "get");
+  };
 }
 
 export default ApiApp;

@@ -17,16 +17,14 @@ import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
 
-const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const statusHeight = StatusBar.currentHeight;
 
-const VacationDetailScreen = (props) => {
+const IncapacityDetailScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(true);
-  const [vacation, setVacation] = useState({});
+  const [incapacity, setIncapacity] = useState({});
 
   const clickAction = () => {
     props.navigation.goBack(null);
@@ -54,16 +52,19 @@ const VacationDetailScreen = (props) => {
 
   const getDetail = async () => {
     try {
-      let response = await ApiApp.getVacationDetail(
+      let response = await ApiApp.getIncapacityDetail(
         props.navigation.getParam("id")
       );
       if (response.status == 200) {
-        setVacation(response.data);
+        setIncapacity(response.data);
         setTimeout(() => {
           setModalLoading(false);
         }, 1500);
       } else {
-        props.props.navigation.goBack(null);
+        setTimeout(() => {
+          setModalLoading(false);
+          props.props.navigation.goBack(null);
+        }, 1500);
       }
     } catch (error) {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
@@ -91,7 +92,7 @@ const VacationDetailScreen = (props) => {
         />
         <ToolbarGeneric
           clickAction={clickAction}
-          nameToolbar={"Vacaciones"}
+          nameToolbar={"Incapacidades"}
           type={1}
           clickProfile={clickProfile}
           goHome={goHome}
@@ -146,232 +147,114 @@ const VacationDetailScreen = (props) => {
                 style={[
                   styles.ctnStatus,
                   ,
-                  vacation.status == 1
+                  incapacity.status == 1
                     ? styles.statusPendiente
-                    : vacation.status == 2
+                    : incapacity.status == 2
                     ? styles.statusAprobado
                     : styles.statusRechazado,
                 ]}
               >
                 <Text style={styles.status}>
-                  {vacation.status == 1
+                  {incapacity.status == 1
                     ? "Pendiente"
-                    : vacation.status == 2
+                    : incapacity.status == 2
                     ? "Aprobado"
                     : "Rechazado"}
                 </Text>
               </View>
 
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: 15,
-                  marginRight: "2%",
-                }}
-              >
-                <View style={{ alignItems: "center" }}>
-                  <View
-                    style={{
-                      backgroundColor: Colors.bluebg,
-                      width: 35,
-                      height: 35,
-                      borderRadius: 10,
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontFamily: "Cabin-Bold",
-                        color: "#006FCC",
-                        fontSize: 17,
-                      }}
-                    >
-                      {vacation.collaborator
-                        ? vacation.collaborator.Available_days_vacation
-                        : 0}
-                    </Text>
-                  </View>
-                </View>
+              <View style={{ width: "100%", marginTop: "5%" }}>
                 <Text
                   style={{
                     fontFamily: "Cabin-Regular",
-                    fontSize: 12,
                     color: Colors.bluetitle,
-                    marginLeft: 15,
+                    fontSize: 12,
                   }}
                 >
-                  Días disponibles
+                  Fecha de salida
                 </Text>
+              </View>
+              <View
+                style={{
+                  backgroundColor: Colors.bluebg,
+                  width: "100%",
+                  height: 50,
+                  borderRadius: 10,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontFamily: "Cabin-Bold",
+                    color: "#006FCC",
+                    fontSize: 20,
+                  }}
+                >
+                  {incapacity.departure_date ? incapacity.departure_date : ""}
+                </Text>
+              </View>
 
-                <View style={{ alignItems: "center", marginLeft: "12%" }}>
-                  <View
-                    style={{
-                      backgroundColor: Colors.bluebg,
-                      width: 35,
-                      height: 35,
-                      borderRadius: 10,
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Text
-                      style={{
-                        fontFamily: "Cabin-Bold",
-                        color: "#006FCC",
-                        fontSize: 17,
-                      }}
-                    >
-                      {vacation.days_requested ? vacation.days_requested : 0}
-                    </Text>
-                  </View>
-                </View>
+              <View style={{ width: "100%", marginTop: "5%" }}>
                 <Text
                   style={{
                     fontFamily: "Cabin-Regular",
-                    fontSize: 12,
                     color: Colors.bluetitle,
-                    marginLeft: 10,
+                    fontSize: 12,
                   }}
                 >
-                  Días solicitados
+                  Fecha de retorno
                 </Text>
               </View>
-
               <View
                 style={{
-                  flexDirection: "row",
+                  backgroundColor: Colors.bluebg,
+                  width: "100%",
+                  height: 50,
+                  borderRadius: 10,
                   alignItems: "center",
-                  marginTop: 15,
+                  justifyContent: "center",
                 }}
               >
-                <View style={{ alignItems: "center", width: "30%" }}>
-                  <Text
-                    style={{
-                      fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
-                      fontSize: 12,
-                    }}
-                  >
-                    Fecha de salida
-                  </Text>
-                </View>
-                <View
+                <Text
                   style={{
-                    backgroundColor: Colors.bluebg,
-                    width: "70%",
-                    height: 35,
-                    borderRadius: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
+                    fontFamily: "Cabin-Bold",
+                    color: "#006FCC",
+                    fontSize: 20,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontFamily: "Cabin-Bold",
-                      color: "#006FCC",
-                      fontSize: 17,
-                    }}
-                  >
-                    {vacation.departure_date ? vacation.departure_date : ""}
-                  </Text>
-                </View>
+                  {incapacity.return_date ? incapacity.return_date : ""}
+                </Text>
               </View>
-              <View
+              <View style={{ width: "100%", marginTop: "5%" }}>
+                <Text
+                  style={{
+                    fontFamily: "Cabin-Regular",
+                    color: Colors.bluetitle,
+                    fontSize: 12,
+                  }}
+                >
+                  Documento de Incapacidad
+                </Text>
+              </View>
+              <TouchableOpacity
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginTop: 15,
+                  flex: 1,
+                  alignItems: "flex-end",
+                  marginTop: "5%",
                 }}
+                onPress={() => {}}
               >
-                <View style={{ alignItems: "center", width: "30%" }}>
-                  <Text
-                    style={{
-                      fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
-                      fontSize: 12,
-                    }}
-                  >
-                    Fecha de retorno
-                  </Text>
-                </View>
-                <View
-                  style={{
-                    backgroundColor: Colors.bluebg,
-                    width: "70%",
-                    height: 35,
-                    borderRadius: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
+                <Image
+                  source={{
+                    uri: incapacity.document,
                   }}
-                >
-                  <Text
-                    style={{
-                      fontFamily: "Cabin-Bold",
-                      color: "#006FCC",
-                      fontSize: 17,
-                    }}
-                  >
-                    {vacation.return_date ? vacation.return_date : ""}
-                  </Text>
-                </View>
-              </View>
-              {vacation.comment != null && vacation.comment != "" && (
-                <>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      marginTop: 15,
-                    }}
-                  >
-                    <View
-                      style={{
-                        alignItems: "flex-start",
-                        width: "100%",
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontFamily: "Cabin-Regular",
-                          color: Colors.bluetitle,
-                          fontSize: 12,
-                          paddingBottom: 10,
-                        }}
-                      >
-                        Motivo :
-                      </Text>
-                    </View>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <View
-                      style={{
-                        backgroundColor: Colors.bluebg,
-                        width: "100%",
-                        borderRadius: 10,
-                        padding: 10,
-                      }}
-                    >
-                      <Text
-                        style={{
-                          fontFamily: "Cabin-Regular",
-                          color: "#006FCC",
-                          fontSize: 17,
-                          textAlign: "justify",
-                        }}
-                      >
-                        {vacation.comment && vacation.comment}
-                      </Text>
-                    </View>
-                  </View>
-                </>
-              )}
+                  style={{
+                    height: 300,
+                    width: 250,
+                  }}
+                />
+              </TouchableOpacity>
 
               <TouchableOpacity
                 style={{
@@ -470,4 +353,4 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState)(VacationDetailScreen);
+export default connect(mapState)(IncapacityDetailScreen);

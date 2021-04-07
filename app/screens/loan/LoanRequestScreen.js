@@ -74,7 +74,9 @@ const LoanRequestScreen = (props) => {
       if (response.status == 200) {
         if (response.data != undefined) {
           setLoanConfig(response.data);
-          setModalLoading(false);
+          setTimeout(() => {
+            setModalLoading(false);
+          }, 1500);
         } else {
           setMessageCustomModal("No se encontraron resultados.");
           setIconSourceCustomModal(3);
@@ -171,7 +173,6 @@ const LoanRequestScreen = (props) => {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
-      setModalLoading(false);
       setTimeout(() => {
         setModalLoading(false);
       }, 1500);
