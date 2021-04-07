@@ -14,11 +14,12 @@ import { connect } from "react-redux";
 import ModalCustom from "../../components/modal/ModalCustom";
 import { Colors } from "../../utils/colors";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
-import RNPickerSelect from "react-native-picker-select";
 import ModalCalendar from "../../components/modal/Calendar";
 import ApiApp from "../../utils/ApiApp";
-import moment from "moment";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
+import * as DocumentPicker from "expo-document-picker";
+import * as mime from "react-native-mime-types";
+import { AntDesign } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -33,6 +34,10 @@ const IncapacityRequestScreen = (props) => {
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
+  const [documentName, setDocumentName] = useState("false");
+  const [png, setPng] = useState(false);
+  const [document, setDocument] = useState(false);
+  const [file, setFile] = useState({});
 
   const clickAction = () => {
     props.navigation.goBack(null);
@@ -64,6 +69,31 @@ const IncapacityRequestScreen = (props) => {
     }
   }, [props.user]);
 
+  const chargerDocumnet = async () => {
+    setDocument(false);
+    setPng(false);
+    setFile({});
+    const result = await DocumentPicker.getDocumentAsync();
+    setDocumentName(result.name);
+    if (
+      result.name.search("png") != -1 ||
+      result.name.search("jpg") != -1 ||
+      result.name.search("jpeg") != -1
+    ) {
+      setPng(true);
+    } else {
+      setDocument(true);
+    }
+    result.type = mime.lookup(result.uri.split("/").pop());
+    if (result.cancelled != "cancel") {
+      setFile({
+        uri: result.uri,
+        name: result.uri.split("/").pop(),
+        type: result.type,
+      });
+    }
+  };
+
   const validateRequest = () => {
     if (
       departureDate != "" &&
@@ -71,10 +101,21 @@ const IncapacityRequestScreen = (props) => {
       returnDate != "" &&
       returnDate != undefined
     ) {
-      setModalLoading(true);
-      sendRequest(data);
+      if (file.uri) {
+        setModalLoading(true);
+        let data = new FormData();
+        data.append("departure_date", departureDate);
+        data.append("return_date", returnDate);
+        data.append("khonnect_id", props.user.userProfile.khonnect_id);
+        data.append("document", file);
+        sendRequest(data);
+      } else {
+        setMessageCustomModal("Debe cargar un documento.");
+        setIconSourceCustomModal(2);
+        setModalCustom(true);
+      }
     } else {
-      setMessageCustomModal("Seleccione una fecha de salida y retorno");
+      setMessageCustomModal("Seleccione una fecha de salida y retorno.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
     }
@@ -82,7 +123,7 @@ const IncapacityRequestScreen = (props) => {
 
   const sendRequest = async (data) => {
     try {
-      const response = await ApiApp.permissionRequest(data);
+      const response = await ApiApp.incapacityRequest(data);
       if (response.data && response.data.id) {
         setMessageCustomModal(
           "Hemos enviado la solicitud, pronto recibiras una notificación con la respuesta a la solicitud realizada."
@@ -204,26 +245,68 @@ const IncapacityRequestScreen = (props) => {
               </View>
               <View
                 style={{
-                  flexDirection: "row",
                   alignItems: "center",
                 }}
               >
                 <View
                   style={{
-                    width: "100%",
-                    // borderRadius: 10,
-                    // padding: 10,
+                    alignItems: "center",
                   }}
                 >
                   <Text
                     style={styles.input}
                     placeholderTextColor={Colors.bluetitle}
                     underlineColorAndroid={"transparent"}
-                    onPress={() => viewModalCalendar("out")}
+                    onPress={() => chargerDocumnet()}
                   >
-                    {departureDate}
+                    <AntDesign
+                      name="upload"
+                      size={24}
+                      color={Colors.bluelinks}
+                    />
                   </Text>
                 </View>
+              </View>
+              <View
+                style={{
+                  // flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                {png ? (
+                  <View style={styles.item}>
+                    <Image
+                      source={file}
+                      style={{
+                        height: 300,
+                        width: 250,
+                      }}
+                    />
+                  </View>
+                ) : (
+                  document && (
+                    <>
+                      <View style={styles.item}>
+                        <Image
+                          source={require("../../../assets/img/incapacidad.png")}
+                          style={{
+                            height: 100,
+                            width: 100,
+                          }}
+                        />
+                      </View>
+                      <Text
+                        style={{
+                          fontFamily: "Cabin-Regular",
+                          fontSize: 16,
+                          color: Colors.bluetitle,
+                        }}
+                      >
+                        {documentName}
+                      </Text>
+                    </>
+                  )
+                )}
               </View>
             </View>
             <View
@@ -336,6 +419,13 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 10,
     backgroundColor: Colors.bluebg,
+  },
+  item: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: Colors.bluelinks,
   },
 });
 

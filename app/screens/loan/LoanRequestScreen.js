@@ -27,7 +27,7 @@ const LoanRequestScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
-  const [modalLoading, setModalLoading] = useState(true);
+  const [modalLoading, setModalLoading] = useState(false);
   const [loanConfig, setLoanConfig] = useState({});
   const [deadLine, setDeadLine] = useState([]);
   const [amount, setAmount] = useState("");

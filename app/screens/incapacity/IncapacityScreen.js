@@ -126,11 +126,11 @@ const IncapacityScreen = (props) => {
       setModalLoading(true);
       setIncapacitys([]);
       if (monthIncapacity && monthIncapacity > 0)
-        filter = filter + `departure_date__month=${monthIncapacity}&`;
-      else filter = filter + `departure_date__month=${month}&`;
+        filter = filter + `timestamp__month=${monthIncapacity}&`;
+      else filter = filter + `timestamp__month=${month}&`;
       if (yearIncapacity && yearIncapacity > 0)
-        filter = filter + `departure_date__year=${yearIncapacity}`;
-      else filter = filter + `departure_date__year=${year}`;
+        filter = filter + `timestamp__year=${yearIncapacity}`;
+      else filter = filter + `timestamp__year=${year}`;
       let response = await ApiApp.getIncapacityRequest(filter);
       if (response.status == 200) {
         if (

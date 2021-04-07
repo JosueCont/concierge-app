@@ -254,7 +254,7 @@ const LoanScreen = (props) => {
 
         <ToolbarGeneric
           clickAction={clickAction}
-          nameToolbar={"Prestamos"}
+          nameToolbar={"Préstamos"}
           type={1}
           clickProfile={clickProfile}
           goHome={goHome}

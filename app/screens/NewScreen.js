@@ -87,9 +87,12 @@ const NewScreen = (props) => {
                 borderRadius: 20,
                 marginBottom: 30,
               }}
-            ></Image>
+            />
             <View style={{ paddingHorizontal: 10 }}>
               <Text style={styles.titleNew}> Noticia </Text>
+              <Text style={styles.subTitleNew}>
+                {props.navigation.getParam("title")}{" "}
+              </Text>
 
               <HTML source={{ html: props.navigation.getParam("text") }} />
 
@@ -138,6 +141,12 @@ const styles = StyleSheet.create({
   titleNew: {
     fontFamily: "Cabin-Bold",
     fontSize: 22,
+    color: Colors.bluetitle,
+    marginBottom: 20,
+  },
+  subTitleNew: {
+    fontFamily: "Cabin-Bold",
+    fontSize: 17,
     color: Colors.bluetitle,
     marginBottom: 20,
   },

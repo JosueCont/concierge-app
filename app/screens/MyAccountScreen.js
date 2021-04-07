@@ -311,7 +311,7 @@ const MyAccountScreen = (props) => {
                         fontSize: 16,
                       }}
                     >
-                      Cerrar Sesión
+                      Cerrar sesión
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity

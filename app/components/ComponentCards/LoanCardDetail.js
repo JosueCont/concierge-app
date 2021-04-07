@@ -105,7 +105,7 @@ const LoanCardDetail = (props) => {
                           paddingBottom: 10,
                         }}
                       >
-                        comprobante
+                        Comprobante
                       </Text>
                     </View>
 
