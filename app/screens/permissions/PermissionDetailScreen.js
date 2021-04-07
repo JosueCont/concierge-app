@@ -54,7 +54,9 @@ const PermissionDetail = (props) => {
       let response = await ApiApp.getPermissionDetail(data);
       if (response.status == 200) {
         setPermissionDetail(response.data);
-        setModalLoading(false);
+        setTimeout(() => {
+          setModalLoading(false);
+        }, 1500);
       } else {
         props.props.navigation.goBack(null);
       }
@@ -62,8 +64,8 @@ const PermissionDetail = (props) => {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
-      setModalLoading(false);
       setTimeout(() => {
+        setModalLoading(false);
         props.navigation.goBack(null);
       }, 1500);
     }

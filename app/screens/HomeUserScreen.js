@@ -41,10 +41,14 @@ const HomeUserScreen = (props) => {
     try {
       let response = await ApiApp.getComunication();
       setComunications(response.data.results);
-      setModalLoading(false);
+      setTimeout(() => {
+        setModalLoading(false);
+      }, 1500);
     } catch (err) {
       console.log(err.response.data);
-      setModalLoading(false);
+      setTimeout(() => {
+        setModalLoading(false);
+      }, 1500);
     }
   };
 

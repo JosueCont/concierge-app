@@ -26,6 +26,9 @@ import LoanSreen from "../screens/loan/LoanSreen";
 import LoanDetailScreen from "../screens/loan/LoanDetailScreen";
 import LoanRequestScreen from "../screens/loan/LoanRequestScreen";
 import BankScreen from "../screens/BankScreen";
+import IncapacityScreen from "../screens/incapacity/IncapacityScreen";
+import IncapacityDetailScreen from "../screens/incapacity/IncapacityDetailScreen";
+import IncapacityRequestScreen from "../screens/incapacity/IncapacityRequestScreen";
 
 const LoginStack = createStackNavigator(
   {
@@ -112,6 +115,9 @@ const HrStack = createStackNavigator(
     LoanScreen: LoanSreen,
     LoanDetailScreen: LoanDetailScreen,
     LoanRequestScreen: LoanRequestScreen,
+    IncapacityScreen: IncapacityScreen,
+    IncapacityDetailScreen: IncapacityDetailScreen,
+    IncapacityRequestScreen: IncapacityRequestScreen,
   },
   {
     headerMode: "none",

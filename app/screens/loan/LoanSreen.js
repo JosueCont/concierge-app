@@ -83,7 +83,9 @@ const LoanScreen = (props) => {
           response.data.results.length > 0
         ) {
           SetLoans(response.data.results);
-          setModalLoading(false);
+          setTimeout(() => {
+            setModalLoading(false);
+          }, 1500);
         } else {
           setMessageCustomModal("No se encontraron resultados.");
           setIconSourceCustomModal(3);
@@ -95,7 +97,9 @@ const LoanScreen = (props) => {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
-      setModalLoading(false);
+      setTimeout(() => {
+        setModalLoading(false);
+      }, 1500);
     }
   };
 

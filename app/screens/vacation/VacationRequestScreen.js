@@ -140,7 +140,6 @@ const VacationRequestScreen = (props) => {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
-      setModalLoading(false);
       setTimeout(() => {
         setModalLoading(false);
       }, 1500);

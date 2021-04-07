@@ -68,8 +68,8 @@ const payrollDetailScreen = (props) => {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
-      setModalLoading(false);
       setTimeout(() => {
+        setModalLoading(false);
         props.navigation.goBack(null);
       }, 1500);
     }

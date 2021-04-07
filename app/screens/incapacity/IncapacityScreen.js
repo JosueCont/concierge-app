@@ -11,20 +11,24 @@ import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import PayrollCard from "../../components/ComponentCards/PayrollCard";
+import RequestCard from "../../components/ComponentCards/RequestCard";
 import { Colors } from "../../utils/colors";
-import ApiApp from "../../utils/ApiApp";
-import ModalCustom from "../../components/modal/ModalCustom";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
+import ModalCustom from "../../components/modal/ModalCustom";
+import ApiApp from "../../utils/ApiApp";
 
-const PayrollScreen = (props) => {
+const IncapacityScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
-  const [vouchers, setVouchers] = useState([]);
-  const [monthVoucher, setMonthVoucher] = useState(0);
-  const [yearVoucher, setYearVoucher] = useState(0);
+  const [incapacitys, setIncapacitys] = useState([]);
+  const [monthIncapacity, setMonthIncapacity] = useState(
+    new Date().toLocaleDateString().substring(0, 2)
+  );
+  const [yearIncapacity, setYearIncapacity] = useState(
+    new Date().getFullYear()
+  );
   const months = [
     {
       label: "Enero",
@@ -76,23 +80,31 @@ const PayrollScreen = (props) => {
     },
   ];
   const [years, setYears] = useState([]);
-  const year = new Date().getFullYear();
-  const month = new Date().getMonth();
 
   useEffect(() => {
-    setYearVoucher(year);
-    setMonthVoucher(month);
     if (props.user && props.user.userProfile) {
+      const mont = new Date().toLocaleDateString().substring(0, 2);
+      let data = months[mont - 1];
+      setMonthIncapacity(parseInt(data.value));
       generateYear();
-      getPayrollVoucher();
+      getIncapacityRequest();
     } else {
       props.navigation.goBack(null);
     }
-  }, []);
+  }, [props.user]);
+
+  const generateYear = () => {
+    let yearsArray = [];
+    let currentYear = new Date().getFullYear();
+    let startYear = currentYear - 10;
+    while (startYear < currentYear) {
+      startYear++;
+      yearsArray.push({ label: `${startYear}`, value: startYear });
+    }
+    setYears(yearsArray.reverse());
+  };
 
   const clickAction = () => {
-    setVouchers(0);
-    setMonthVoucher(0);
     props.navigation.goBack(null);
   };
 
@@ -104,39 +116,28 @@ const PayrollScreen = (props) => {
     props.navigation.navigate("ProfileScreen");
   };
 
-  const generateYear = () => {
-    let yearsArray = [];
-    let currentYear = new Date().getFullYear();
-    let startYear = 1980;
-    while (startYear < currentYear) {
-      startYear++;
-      yearsArray.push({ label: `${startYear}`, value: startYear });
-    }
-    setYears(yearsArray.reverse());
-  };
-
   const viewModalCustom = () => {
     modalCustom ? setModalCustom(false) : setModalCustom(true);
   };
 
-  const getPayrollVoucher = async () => {
-    let filter = `person__id=${props.user.userProfile.id}&`;
+  const getIncapacityRequest = async () => {
+    let filter = `?person__id=${props.user.userProfile.id}&`;
     try {
       setModalLoading(true);
-      setVouchers([]);
-      if (monthVoucher && monthVoucher > 0)
-        filter = filter + `payment_date__month=${monthVoucher}&`;
-      else filter = filter + `payment_date__month=${month}&`;
-      if (yearVoucher && yearVoucher > 0)
-        filter = filter + `payment_date__year=${yearVoucher}`;
-      else filter = filter + `payment_date__year=${year}`;
-      let response = await ApiApp.getPayrollVouchers(filter);
+      setIncapacitys([]);
+      if (monthIncapacity && monthIncapacity > 0)
+        filter = filter + `departure_date__month=${monthIncapacity}&`;
+      else filter = filter + `departure_date__month=${month}&`;
+      if (yearIncapacity && yearIncapacity > 0)
+        filter = filter + `departure_date__year=${yearIncapacity}`;
+      else filter = filter + `departure_date__year=${year}`;
+      let response = await ApiApp.getIncapacityRequest(filter);
       if (response.status == 200) {
         if (
           response.data.results != undefined &&
           response.data.results.length > 0
         ) {
-          setVouchers(response.data.results);
+          setIncapacitys(response.data.results);
           setTimeout(() => {
             setModalLoading(false);
           }, 1500);
@@ -151,29 +152,22 @@ const PayrollScreen = (props) => {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
-      setTimeout(() => {
-        setModalLoading(false);
-      }, 1500);
+      setModalLoading(false);
     }
   };
 
   const headerList = () => {
     return (
-      <View
-        style={{
-          zIndex: 0,
-          backgroundColor: Colors.bluebg,
-        }}
-      >
+      <>
         <View
           style={{
-            backgroundColor: Colors.dark,
-            marginTop: 40,
+            backgroundColor: "#006FCC",
+            marginTop: 15,
             alignItems: "center",
             borderRadius: 20,
             paddingHorizontal: 35,
             paddingTop: 30,
-            paddingBottom: 30,
+            paddingBottom: 10,
           }}
         >
           <View
@@ -185,21 +179,14 @@ const PayrollScreen = (props) => {
             }}
           >
             <RNPickerSelect
-              onValueChange={(value) => setMonthVoucher(value)}
+              onValueChange={(value) => setMonthIncapacity(value)}
               placeholder={{
                 label: "Mes",
-                value: "null",
+                value: monthIncapacity,
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
               items={months}
-              value={monthVoucher}
-              //useNativeAndroidPickerStyle={false}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
             />
           </View>
           <View
@@ -211,60 +198,67 @@ const PayrollScreen = (props) => {
             }}
           >
             <RNPickerSelect
-              onValueChange={(value) => setYearVoucher(value)}
+              onValueChange={(value) => setYearIncapacity(value)}
               placeholder={{
                 label: "Año",
-                value: yearVoucher,
+                value: yearIncapacity,
                 color: Colors.bluelinks,
               }}
-              value={yearVoucher}
               style={pickerSelectStyles}
               items={years}
-              //useNativeAndroidPickerStyle={false}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
             />
           </View>
-          <View style={{ alignItems: "center" }}>
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#47A8DE",
-                height: 50,
-                width: 160,
-                borderRadius: 10,
-                marginTop: 10,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              onPress={() => getPayrollVoucher()}
-            >
-              <Text
-                style={{
-                  fontFamily: "Cabin-Regular",
-                  color: Colors.white,
-                  fontSize: 18,
-                }}
-              >
-                Buscar
-              </Text>
-            </TouchableOpacity>
-          </View>
         </View>
-      </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: 15,
+            marginBottom: 10,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              fontFamily: "Cabin-Regular",
+              backgroundColor: Colors.bluelinks,
+              height: 50,
+              width: "48%",
+              borderRadius: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => getIncapacityRequest()}
+          >
+            <Text style={{ color: Colors.white, fontSize: 16 }}>Buscar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              fontFamily: "Cabin-Regular",
+              backgroundColor: Colors.bluetitle,
+              height: 50,
+              width: "48%",
+              borderRadius: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            onPress={() => props.navigation.navigate("IncapacityRequestScreen")}
+          >
+            <Text style={{ color: Colors.white, fontSize: 16 }}>Nueva</Text>
+          </TouchableOpacity>
+        </View>
+      </>
     );
   };
 
   const footerList = () => {
     return (
-      <View>
-        <View style={{ alignItems: "center" }}>
-          {vouchers.length > 0 && (
+      <>
+        {incapacitys.length > 0 && (
+          <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={{
-                backgroundColor: Colors.bluetitle,
+                backgroundColor: Colors.bluelinks,
                 height: 50,
                 width: "48%",
                 borderRadius: 10,
@@ -273,7 +267,7 @@ const PayrollScreen = (props) => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              onPress={() => clickAction()}
+              onPress={() => props.navigation.goBack(null)}
             >
               <Text
                 style={{
@@ -285,11 +279,12 @@ const PayrollScreen = (props) => {
                 Regresar
               </Text>
             </TouchableOpacity>
-          )}
-        </View>
-      </View>
+          </View>
+        )}
+      </>
     );
   };
+
   return (
     <>
       <View
@@ -306,17 +301,17 @@ const PayrollScreen = (props) => {
 
         <ToolbarGeneric
           clickAction={clickAction}
-          nameToolbar={"Mi Nómina"}
+          nameToolbar={"Incapacidades"}
           type={1}
           clickProfile={clickProfile}
           goHome={goHome}
         />
-
-        <PayrollCard
-          vouchers={vouchers}
+        <RequestCard
           props={props}
+          cards={incapacitys}
           headerList={headerList}
           footerList={footerList}
+          type={"incapacity"}
         />
       </View>
       <ModalCustom
@@ -363,4 +358,4 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState)(PayrollScreen);
+export default connect(mapState)(IncapacityScreen);

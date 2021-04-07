@@ -158,7 +158,10 @@ const HRScreen = (props) => {
               ></Image>
               <Text style={styles.title}>Préstamo</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.item}>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => props.navigation.navigate("IncapacityScreen")}
+            >
               <Mark />
               <Image
                 source={require("../../assets/img/incapacidad.png")}

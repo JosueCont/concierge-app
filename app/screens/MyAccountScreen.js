@@ -116,7 +116,9 @@ const MyAccountScreen = (props) => {
       data.append("id", props.user.userProfile.id);
       data.append("photo", image);
       let response = await ApiApp.updatePhoto(data);
-      setModalLoading(false);
+      setTimeout(() => {
+        setModalLoading(false);
+      }, 1500);
       props.getProfile(props.user).then((res) => {
         if (res != "Error") {
           modalSuccess();

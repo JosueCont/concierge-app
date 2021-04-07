@@ -24,17 +24,14 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
-const PermissionRequestScreen = (props) => {
+const IncapacityRequestScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
-  const [days, setDays] = useState([]);
-  const [daysRequest, setDaysRequest] = useState(0);
   const [calendar, setCalendar] = useState(false);
   const [textSelected, setTextSelected] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
-  const [reason, setReason] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
 
   const clickAction = () => {
@@ -62,21 +59,10 @@ const PermissionRequestScreen = (props) => {
 
   useEffect(() => {
     if (props.user && props.user.userProfile) {
-      generateDays();
     } else {
-      props.navigation.goBack(null);
+      clickAction();
     }
   }, [props.user]);
-
-  const generateDays = () => {
-    let numberDay = 0;
-    let arrayDays = [];
-    while (numberDay < props.user.userProfile.Available_days_vacation) {
-      numberDay++;
-      arrayDays.push({ label: `${numberDay}`, value: numberDay });
-    }
-    setDays(arrayDays);
-  };
 
   const validateRequest = () => {
     if (
@@ -85,21 +71,6 @@ const PermissionRequestScreen = (props) => {
       returnDate != "" &&
       returnDate != undefined
     ) {
-      const out = moment(departureDate);
-      const ret = moment(returnDate);
-      const data = {
-        requested_days: ret.diff(out, "days"),
-        departure_date: departureDate,
-        return_date: returnDate,
-        person: props.user.userProfile.id,
-        reason: reason,
-      };
-      if (reason == "") {
-        setMessageCustomModal("Capture el motivo de su solicitud.");
-        setIconSourceCustomModal(2);
-        setModalCustom(true);
-        return;
-      }
       setModalLoading(true);
       sendRequest(data);
     } else {
@@ -157,7 +128,7 @@ const PermissionRequestScreen = (props) => {
 
         <ToolbarGeneric
           clickAction={clickAction}
-          nameToolbar={"Permisos"}
+          nameToolbar={"Incapacidades"}
           type={1}
           clickProfile={clickProfile}
           goHome={goHome}
@@ -182,7 +153,7 @@ const PermissionRequestScreen = (props) => {
               }}
             >
               <Image
-                source={require("../../../assets/img/permissions.png")}
+                source={require("../../../assets/img/rh.png")}
                 style={{ width: 110, height: 110, resizeMode: "cover" }}
               ></Image>
             </View>
@@ -213,7 +184,6 @@ const PermissionRequestScreen = (props) => {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  marginTop: 15,
                 }}
               >
                 <View
@@ -224,13 +194,11 @@ const PermissionRequestScreen = (props) => {
                 >
                   <Text
                     style={{
-                      fontFamily: "Cabin-Regular",
                       color: Colors.bluetitle,
-                      fontSize: 12,
                       paddingBottom: 10,
                     }}
                   >
-                    Motivo :
+                    Documento de incapacidad
                   </Text>
                 </View>
               </View>
@@ -247,16 +215,14 @@ const PermissionRequestScreen = (props) => {
                     // padding: 10,
                   }}
                 >
-                  <TextInput
-                    style={styles.inputComment}
-                    placeholder="Motivo de la solicitud"
+                  <Text
+                    style={styles.input}
                     placeholderTextColor={Colors.bluetitle}
-                    autoCapitalize="none"
-                    multiline
-                    maxLength={200}
-                    onChangeText={(text) => setReason(text)}
-                    value={reason}
-                  />
+                    underlineColorAndroid={"transparent"}
+                    onPress={() => viewModalCalendar("out")}
+                  >
+                    {departureDate}
+                  </Text>
                 </View>
               </View>
             </View>
@@ -407,4 +373,4 @@ const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState)(PermissionRequestScreen);
+export default connect(mapState)(IncapacityRequestScreen);
