@@ -52,7 +52,7 @@ const PayrollCard = (props) => {
             ></Image>
           </View>
           <View style={{ marginRight: 20 }}>
-            <Text style={styles.title}>Nomina</Text>
+            <Text style={styles.title}>Nómina</Text>
             <Text style={styles.amount}>{item.amount}</Text>
             <Text style={styles.date}>{item.payment_date}</Text>
           </View>
@@ -86,8 +86,7 @@ const PayrollCard = (props) => {
                   fontSize: 16,
                 }}
               >
-                {" "}
-                Ver detalle{" "}
+                Ver detalle
               </Text>
             </TouchableOpacity>
           </View>

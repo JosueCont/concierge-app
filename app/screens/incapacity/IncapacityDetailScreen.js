@@ -10,14 +10,17 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
+  Linking,
 } from "react-native";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import { Colors } from "../../utils/colors";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
+import { AntDesign } from "@expo/vector-icons";
 
 const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
 
 const IncapacityDetailScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
@@ -25,6 +28,7 @@ const IncapacityDetailScreen = (props) => {
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(true);
   const [incapacity, setIncapacity] = useState({});
+  const [png, setPng] = useState(false);
 
   const clickAction = () => {
     props.navigation.goBack(null);
@@ -52,11 +56,20 @@ const IncapacityDetailScreen = (props) => {
 
   const getDetail = async () => {
     try {
+      setPng(false);
       let response = await ApiApp.getIncapacityDetail(
         props.navigation.getParam("id")
       );
       if (response.status == 200) {
         setIncapacity(response.data);
+
+        if (
+          response.data.document.search("png") != -1 ||
+          response.data.document.search("jpg") != -1 ||
+          response.data.document.search("jpeg") != -1
+        ) {
+          setPng(true);
+        }
         setTimeout(() => {
           setModalLoading(false);
         }, 1500);
@@ -76,6 +89,24 @@ const IncapacityDetailScreen = (props) => {
       }, 1500);
     }
   };
+
+  function Mark() {
+    return (
+      <View
+        style={{
+          width: "100%",
+          position: "absolute",
+          top: "40%",
+          textAlign: "center",
+          alignItems: "center",
+          zIndex: 2,
+        }}
+      >
+        <AntDesign name="eye" size={24} color={Colors.white} />
+      </View>
+    );
+  }
+
   return (
     <>
       <View
@@ -243,17 +274,59 @@ const IncapacityDetailScreen = (props) => {
                   alignItems: "flex-end",
                   marginTop: "5%",
                 }}
-                onPress={() => {}}
+                onPress={() => Linking.openURL(incapacity.document)}
               >
-                <Image
-                  source={{
-                    uri: incapacity.document,
-                  }}
-                  style={{
-                    height: 300,
-                    width: 250,
-                  }}
-                />
+                {png ? (
+                  <View style={styles.item}>
+                    <View
+                      style={{
+                        width: "100%",
+                        position: "absolute",
+                        top: "50%",
+                        textAlign: "center",
+                        alignItems: "center",
+                        zIndex: 2,
+                      }}
+                    >
+                      <AntDesign
+                        name="eye"
+                        size={24}
+                        color={Colors.bluelinks}
+                      />
+                    </View>
+                    <Image
+                      source={{
+                        uri: incapacity.document,
+                      }}
+                      style={{
+                        height: 300,
+                        width: 250,
+                      }}
+                    />
+                  </View>
+                ) : (
+                  <View style={styles.item}>
+                    <View
+                      style={{
+                        width: "100%",
+                        position: "absolute",
+                        top: "40%",
+                        textAlign: "center",
+                        alignItems: "center",
+                        zIndex: 2,
+                      }}
+                    >
+                      <AntDesign name="eye" size={24} color={Colors.white} />
+                    </View>
+                    <Image
+                      source={require("../../../assets/img/incapacidad.png")}
+                      style={{
+                        height: 100,
+                        width: 100,
+                      }}
+                    />
+                  </View>
+                )}
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -346,6 +419,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 8,
+  },
+  item: {
+    backgroundColor: "rgba(0,0,0,0.4)",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: Colors.bluelinks,
   },
 });
 

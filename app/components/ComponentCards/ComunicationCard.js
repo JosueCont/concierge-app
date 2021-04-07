@@ -114,88 +114,95 @@ const ComunicationCard = (props) => {
             </View>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity
-            onPress={() =>
-              props.props.navigation.navigate("NewScreen", {
-                image:
-                  item.files[0] != undefined &&
-                  item.files[0] != null &&
-                  item.files[0] != ""
-                    ? item.files[0].file
-                    : "",
-                text: item.message,
-              })
-            }
-          >
-            <View style={{ borderRadius: 10, overflow: "hidden" }}>
-              <ImageBackground
-                source={{
-                  uri:
+          <>
+            <TouchableOpacity
+              onPress={() =>
+                props.props.navigation.navigate("NewScreen", {
+                  image:
                     item.files[0] != undefined &&
                     item.files[0] != null &&
                     item.files[0] != ""
                       ? item.files[0].file
                       : "",
-                }}
-                style={{
-                  width: "100%",
-                  height: windowWidth / 2.2,
-                }}
-              >
-                <View
+                  text: item.message,
+                  title: item.title,
+                })
+              }
+            >
+              <View style={{ borderRadius: 10, overflow: "hidden" }}>
+                <ImageBackground
+                  source={{
+                    uri:
+                      item.files[0] != undefined &&
+                      item.files[0] != null &&
+                      item.files[0] != ""
+                        ? item.files[0].file
+                        : "",
+                  }}
                   style={{
-                    backgroundColor: Colors.bluetitle,
-                    width: 170,
-                    height: 48,
-                    top: 15,
-                    left: 10,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    paddingLeft: 10,
-                    borderRadius: 8,
+                    width: "100%",
+                    height: windowWidth / 2.2,
                   }}
                 >
-                  <Image
-                    source={require("../../../assets/img/icono_noticia.png")}
-                    style={{ width: 25, height: 25 }}
-                  ></Image>
-                  <Text
+                  <View
                     style={{
-                      marginLeft: 10,
-                      fontFamily: "Cabin-Bold",
-                      color: Colors.white,
-                      fontSize: 18,
+                      backgroundColor: Colors.bluetitle,
+                      width: 170,
+                      height: 48,
+                      top: 15,
+                      left: 10,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      paddingLeft: 10,
+                      borderRadius: 8,
                     }}
                   >
-                    Noticia
-                  </Text>
-                </View>
-              </ImageBackground>
-            </View>
-            <View style={{ marginTop: 20, paddingHorizontal: 10 }}>
+                    <Image
+                      source={require("../../../assets/img/icono_noticia.png")}
+                      style={{ width: 25, height: 25 }}
+                    ></Image>
+                    <Text
+                      style={{
+                        marginLeft: 10,
+                        fontFamily: "Cabin-Bold",
+                        color: Colors.white,
+                        fontSize: 18,
+                      }}
+                    >
+                      Noticia
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </View>
+              <View
+                style={{ marginTop: 20, paddingHorizontal: 10, height: 200 }}
+              >
+                <Text
+                  style={{
+                    marginBottom: 5,
+                    color: Colors.bluetitle,
+                    fontSize: 20,
+                    fontFamily: "Cabin-Bold",
+                  }}
+                >
+                  {item.title}
+                </Text>
+                <HTML source={{ html: item.message }} />
+              </View>
+            </TouchableOpacity>
+            <View style={{ alignItems: "flex-end" }}>
               <Text
                 style={{
                   marginBottom: 5,
-                  color: Colors.bluetitle,
-                  fontSize: 20,
+                  color: Colors.bluelinks,
+                  fontSize: 15,
                   fontFamily: "Cabin-Bold",
                 }}
               >
-                {" "}
-                {item.title}{" "}
+                Leer más...
               </Text>
-              {/* <Text
-                style={{
-                  marginBottom: 20,
-                  color: Colors.bluetitle,
-                  fontSize: 18,
-                  fontFamily: "Cabin-Regular",
-                }}
-              > */}
-              <HTML source={{ html: item.message }} />
-              {/* </Text> */}
             </View>
-          </TouchableOpacity>
+          </>
         )}
       </View>
     );

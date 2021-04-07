@@ -147,7 +147,7 @@ const LoanCard = (props) => {
                       paddingBottom: 10,
                     }}
                   >
-                    Cantidad solcitada{" "}
+                    Cantidad solicitada
                   </Text>
                 </View>
               </View>
@@ -201,7 +201,7 @@ const LoanCard = (props) => {
                       paddingBottom: 10,
                     }}
                   >
-                    Periocidad
+                    Periodicidad
                   </Text>
                 </View>
               </View>
