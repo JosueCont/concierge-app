@@ -114,6 +114,10 @@ class ApiApp {
   static incapacityRequest = (data) => {
     return ApiApp.ApisType(`/person/incapacity/`, "post", data);
   };
+
+  static getProceedings = (data) => {
+    return ApiApp.ApisType(`/person/person/${data}/document_person/`, "get");
+  };
 }
 
 export default ApiApp;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   ScrollView,
@@ -8,15 +8,27 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import { Colors } from "../utils/colors";
 import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
+import { connect } from "react-redux";
+import ApiApp from "../utils/ApiApp";
+import ModalCustom from "../components/modal/ModalCustom";
+import LoadingGlobal from "../components/modal/LoadingGlobal";
+import ProceedingsCard from "../components/ComponentCards/ProceedingsCard";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
 const ProceedingsScreen = (props) => {
+  const [modalCustom, setModalCustom] = useState(false);
+  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
+  const [messageCustomModal, setMessageCustomModal] = useState("");
+  const [modalLoading, setModalLoading] = useState(true);
+  const [documents, setDocuments] = useState([]);
+
   const clickAction = () => {
     props.navigation.navigate("Main");
   };
@@ -29,137 +41,154 @@ const ProceedingsScreen = (props) => {
     props.navigation.navigate("ProfileScreen");
   };
 
-  function Mark() {
+  useEffect(() => {
+    if (props.user && props.user.userProfile) {
+      getDocuments();
+    } else {
+      props.navigation.goBack(null);
+    }
+  }, []);
+
+  const getDocuments = async () => {
+    try {
+      setDocuments([]);
+      let response = await ApiApp.getProceedings(props.user.userProfile.id);
+      if (response.status == 200) {
+        setDocuments(response.data);
+        setTimeout(() => {
+          setModalLoading(false);
+        }, 1500);
+      } else {
+        setMessageCustomModal("No se encontraron resultados.");
+        setIconSourceCustomModal(3);
+        setModalCustom(true);
+        setModalLoading(false);
+      }
+    } catch (error) {
+      setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      setTimeout(() => {
+        setModalLoading(false);
+        props.navigation.goBack(null);
+      }, 1500);
+    }
+  };
+
+  const DocumentCard = () => {
+    return (
+      <>
+        {documents.map((a) => {
+          return <></>;
+        })}
+      </>
+    );
+  };
+
+  const headerList = () => {
     return (
       <View
         style={{
-          width: "100%",
-          position: "absolute",
-          top: -5,
-          textAlign: "center",
+          marginTop: 30,
+          marginBottom: 30,
+          flexDirection: "row",
           alignItems: "center",
-          zIndex: 2,
+          justifyContent: "center",
         }}
       >
-        <View
+        <Image
+          source={require("../../assets/img/rh.png")}
           style={{
-            backgroundColor: Colors.bluetitle,
-            width: windowWidth * 0.14,
-            height: 5,
+            width: 80,
+            height: 80,
+            resizeMode: "cover",
+            marginRight: 5,
           }}
-        ></View>
+        ></Image>
+        <View>
+          <Text
+            style={{
+              fontFamily: "Cabin-Regular",
+              fontSize: 22,
+              color: Colors.bluetitle,
+              textAlign: "left",
+            }}
+          >
+            Descarga tu{" "}
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Cabin-Regular",
+              fontSize: 22,
+              color: Colors.bluetitle,
+              textAlign: "left",
+            }}
+          >
+            documentación para
+          </Text>
+          <Text
+            style={{
+              fontFamily: "Cabin-Regular",
+              fontSize: 22,
+              color: Colors.bluetitle,
+              textAlign: "left",
+            }}
+          >
+            cualquier trámite
+          </Text>
+        </View>
       </View>
     );
-  }
+  };
 
   return (
-    <View
-      style={{
-        height: "100%",
-        zIndex: 1,
-        backgroundColor: Colors.bluebg,
-      }}
-    >
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="rgba(1,1,1,0)"
-        translucent={true}
-      />
-
-      <ToolbarGeneric
-        clickAction={clickAction}
-        nameToolbar={"Expediente"}
-        type={1}
-        clickProfile={clickProfile}
-        goHome={goHome}
-      />
-
-      <ScrollView
-        showsVerticalScrollIndicator={false}
+    <>
+      <View
         style={{
-          zIndex: 0,
-          paddingHorizontal: "10%",
+          height: "100%",
+          zIndex: 1,
+          backgroundColor: Colors.bluebg,
         }}
       >
-        <View
-          style={{
-            marginTop: 30,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            source={require("../../assets/img/rh.png")}
-            style={{
-              width: 80,
-              height: 80,
-              resizeMode: "cover",
-              marginRight: 5,
-            }}
-          ></Image>
-          <View>
-            <Text
-              style={{
-                fontFamily: "Cabin-Regular",
-                fontSize: 22,
-                color: Colors.bluetitle,
-                textAlign: "left",
-              }}
-            >
-              Descarga tu{" "}
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Cabin-Regular",
-                fontSize: 22,
-                color: Colors.bluetitle,
-                textAlign: "left",
-              }}
-            >
-              documentación para
-            </Text>
-            <Text
-              style={{
-                fontFamily: "Cabin-Regular",
-                fontSize: 22,
-                color: Colors.bluetitle,
-                textAlign: "left",
-              }}
-            >
-              cualquier trámite
-            </Text>
-          </View>
-        </View>
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor="rgba(1,1,1,0)"
+          translucent={true}
+        />
 
-        <View style={{ marginVertical: 40 }}>
-          <View style={styles.row}>
-            <TouchableOpacity
-              style={styles.item}
-              onPress={() => props.navigation.navigate("vacationScreen")}
-            >
-              <Mark />
-              <Image
-                source={require("../../assets/img/rh_icon_menu.png")}
-                style={styles.image}
-              ></Image>
-              <Text style={styles.title}>INE/IFE</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
-      <Image
-        style={{
-          width: "100%",
-          height: windowHeight * 0.46,
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          resizeMode: "stretch",
-          zIndex: -1,
-        }}
-        source={require("../../assets/img/fondo_azul.png")}
+        <ToolbarGeneric
+          clickAction={clickAction}
+          nameToolbar={"Expediente"}
+          type={1}
+          clickProfile={clickProfile}
+          goHome={goHome}
+        />
+
+        {documents && (
+          <ProceedingsCard headerList={headerList} cards={documents} />
+        )}
+
+        <Image
+          style={{
+            width: "100%",
+            height: windowHeight * 0.46,
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            resizeMode: "stretch",
+            zIndex: -1,
+          }}
+          source={require("../../assets/img/fondo_azul.png")}
+        />
+      </View>
+      <ModalCustom
+        visible={modalCustom}
+        text={messageCustomModal}
+        iconSource={iconSourceCustomModal}
+        setVisible={() => viewModalCustom(true)}
       />
-    </View>
+      <LoadingGlobal visible={modalLoading} text={"Cargando"} />
+    </>
   );
 };
 
@@ -192,4 +221,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProceedingsScreen;
+const mapState = (state) => {
+  return { user: state.user };
+};
+
+export default connect(mapState)(ProceedingsScreen);
