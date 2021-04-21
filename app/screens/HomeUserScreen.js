@@ -7,10 +7,14 @@ import { Colors } from "../utils/colors";
 import ApiApp from "../utils/ApiApp";
 import LoadingGlobal from "../components/modal/LoadingGlobal";
 import { getProfile, logOutAction } from "../redux/userDuck";
+import { registerForPushNotificationsAsync } from "../utils/functions";
+import ModalNews from "../components/modal/ModalNews";
 
 const HomeUserScreen = (props) => {
   const [comunications, setComunications] = useState([]);
   const [modalLoading, setModalLoading] = useState(true);
+  const [modalNews, setModalNews] = useState(false);
+  const [modalItem, setModalItem] = useState({});
 
   const clickAction = () => {
     props.navigation.toggleDrawer();
@@ -25,6 +29,9 @@ const HomeUserScreen = (props) => {
   };
 
   useEffect(() => {
+    registerForPushNotificationsAsync();
+    // console.log("Props-->> ", props.user.userProfile);
+    // getComunication();
     props.getProfile(props.user).then((response) => {
       if (response.id) {
         getComunication();
@@ -37,15 +44,27 @@ const HomeUserScreen = (props) => {
     });
   }, []);
 
+  useEffect(() => {
+    getComunication();
+  }, [props.user.userProfile]);
+
   const getComunication = async () => {
+    setModalLoading(true);
     try {
-      let response = await ApiApp.getComunication();
-      setComunications(response.data.results);
+      let data = {
+        company: props.user.userProfile.job[0].department.node.id,
+        department: props.user.userProfile.job[0].department.id,
+        gender: props.user.userProfile.gender,
+        person_id: props.user.userProfile.id,
+        job: props.user.userProfile.job[0].id,
+        type_person: props.user.userProfile.person_type,
+      };
+      let response = await ApiApp.getComunication(data);
+      setComunications(response.data);
       setTimeout(() => {
         setModalLoading(false);
       }, 1500);
     } catch (err) {
-      console.log(err.response.data);
       setTimeout(() => {
         setModalLoading(false);
       }, 1500);
@@ -104,34 +123,51 @@ const HomeUserScreen = (props) => {
     );
   };
 
-  return (
-    <View
-      style={{
-        height: "100%",
-        zIndex: 1,
-      }}
-    >
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="rgba(1,1,1,0)"
-        translucent={true}
-      />
-      <ToolbarGeneric
-        clickAction={clickAction}
-        nameToolbar={"Menú"}
-        type={2}
-        clickProfile={clickProfile}
-        goHome={goHome}
-      />
+  const openModalNews = (value) => {
+    modalNews ? setModalNews(false) : setModalNews(true);
+    setModalItem(value);
+  };
+  const changeStatus = (value) => {
+    comunications[value.index].is_red = true;
+    setModalNews(false);
+  };
 
-      <ComunicationCard
-        cards={comunications}
-        props={props}
-        headerList={headerList}
-        refresh={() => getComunication()}
+  return (
+    <>
+      <View
+        style={{
+          height: "100%",
+          zIndex: 1,
+        }}
+      >
+        <StatusBar
+          barStyle="dark-content"
+          backgroundColor="rgba(1,1,1,0)"
+          translucent={true}
+        />
+        <ToolbarGeneric
+          clickAction={clickAction}
+          nameToolbar={"Menú"}
+          type={2}
+          clickProfile={clickProfile}
+          goHome={goHome}
+        />
+
+        <ComunicationCard
+          cards={comunications}
+          props={props}
+          headerList={headerList}
+          refresh={() => getComunication()}
+          modalNews={(value) => openModalNews(value)}
+        />
+        <LoadingGlobal visible={modalLoading} text={"Cargando"} />
+      </View>
+      <ModalNews
+        visible={modalNews}
+        data={modalItem}
+        setVisible={(value) => changeStatus(value)}
       />
-      <LoadingGlobal visible={modalLoading} text={"Cargando"} />
-    </View>
+    </>
   );
 };
 

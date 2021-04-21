@@ -38,9 +38,10 @@ const ComunicationCard = (props) => {
         {item.category === 1 ? (
           <TouchableOpacity
             style={[
-              item.open ? styles.reminderOpen : styles.reminderClose,
+              item.is_red ? styles.reminderOpen : styles.reminderClose,
               styles.reminder,
             ]}
+            onPress={() => props.modalNews({ item: item, index: index })}
           >
             <View
               style={{
@@ -55,7 +56,7 @@ const ComunicationCard = (props) => {
                 borderRadius: 8,
               }}
             >
-              {item.open ? (
+              {item.is_red ? (
                 <Image
                   source={require("../../../assets/img/icono_recordatorio_azul.png")}
                   style={{ width: 25, height: 25 }}
@@ -87,30 +88,13 @@ const ComunicationCard = (props) => {
             >
               <Text
                 style={[
-                  item.open ? styles.textoOpen : styles.textoClose,
+                  item.is_red ? styles.textoOpen : styles.textoClose,
                   styles.textReminder,
                 ]}
               >
                 {item.title}
               </Text>
-              <HTML
-                source={{ html: item.message }}
-                contentWidth={witHtml}
-                onLinkPress={(event, href) => {
-                  Linking.openURL(href);
-                }}
-              />
-
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontFamily: "Cabin-Regular",
-                  color: "#08B9FF",
-                }}
-                onPress={() => Linking.openURL("http://google.com")}
-              >
-                {item.url}
-              </Text>
+              <HTML source={{ html: item.message }} contentWidth={witHtml} />
             </View>
           </TouchableOpacity>
         ) : (
@@ -198,6 +182,18 @@ const ComunicationCard = (props) => {
                   fontSize: 15,
                   fontFamily: "Cabin-Bold",
                 }}
+                onPress={() =>
+                  props.props.navigation.navigate("NewScreen", {
+                    image:
+                      item.files[0] != undefined &&
+                      item.files[0] != null &&
+                      item.files[0] != ""
+                        ? item.files[0].file
+                        : "",
+                    text: item.message,
+                    title: item.title,
+                  })
+                }
               >
                 Leer más...
               </Text>

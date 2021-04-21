@@ -11,17 +11,28 @@ import { connect } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { Colors } from "../../utils/colors";
 import HTML from "react-native-render-html";
+import ApiApp from "../../utils/ApiApp";
 
 const windowWidth = Dimensions.get("window").width;
 
-const ViewNotification = ({
-  visible,
-  departureDate,
-  returnDate,
-  setVisible,
-  textSelected,
-}) => {
+const ModalNews = ({ visible, setVisible, data, user }) => {
   const witHtml = useWindowDimensions().width;
+
+  useEffect(() => {
+    if (data.item && !data.item.is_red && user.userProfile) {
+      let value = {
+        person: user.userProfile.id,
+        notification: data.item.id,
+      };
+      changeStatus(value);
+    }
+  }, [data.item]);
+
+  const changeStatus = async (data) => {
+    try {
+      let response = await ApiApp.changeStatusComunication(data);
+    } catch (error) {}
+  };
 
   return (
     <View style={styles.centeredView}>
@@ -34,17 +45,23 @@ const ViewNotification = ({
                 width: 170,
                 height: 48,
                 marginTop: 15,
-                marginLeft: 10,
                 flexDirection: "row",
                 alignItems: "center",
-                paddingLeft: 10,
+                justifyContent: "center",
                 borderRadius: 8,
               }}
             >
-              <Image
-                source={require("../../../assets/img/icono_recordatorio_rojo.png")}
-                style={{ width: 25, height: 25 }}
-              ></Image>
+              {data.item && data.item.is_read ? (
+                <Image
+                  source={require("../../../assets/img/icono_recordatorio_azul.png")}
+                  style={{ width: 25, height: 25 }}
+                ></Image>
+              ) : (
+                <Image
+                  source={require("../../../assets/img/icono_recordatorio_rojo.png")}
+                  style={{ width: 25, height: 25 }}
+                ></Image>
+              )}
               <Text
                 style={{
                   marginLeft: 10,
@@ -56,6 +73,9 @@ const ViewNotification = ({
                 Aviso
               </Text>
             </View>
+            <Text style={[styles.textoOpen, styles.textReminder]}>
+              {data.item && data.item.title}
+            </Text>
             <View
               style={{
                 marginTop: 10,
@@ -64,18 +84,12 @@ const ViewNotification = ({
                 marginBottom: 20,
               }}
             >
-              <Text style={[styles.textoClose, styles.textReminder]}>Hola</Text>
-              <HTML source={{ html: "hola" }} contentWidth={witHtml} />
-
-              <Text
-                style={{
-                  fontSize: 18,
-                  fontFamily: "Cabin-Regular",
-                  color: "#08B9FF",
-                }}
-              >
-                TEXTO PARA CONTENIDO DE PERSONAS
-              </Text>
+              {data.item && (
+                <HTML
+                  source={{ html: data.item.message }}
+                  contentWidth={witHtml}
+                />
+              )}
             </View>
 
             <TouchableOpacity
@@ -90,7 +104,7 @@ const ViewNotification = ({
                 marginRight: 5,
                 margin: 10,
               }}
-              onPress={() => setVisible()}
+              onPress={() => setVisible({ index: data.index })}
             >
               <Text style={{ color: Colors.white, fontSize: 16 }}>
                 Regresar
@@ -124,10 +138,18 @@ const styles = {
     shadowRadius: 3.84,
     elevation: 5,
   },
+  textoOpen: {
+    padding: "2%",
+    color: Colors.bluetitle,
+  },
+  textReminder: {
+    fontSize: 18,
+    fontFamily: "Cabin-Regular",
+  },
 };
 
 const mapState = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapState)(ViewNotification);
+export default connect(mapState)(ModalNews);
