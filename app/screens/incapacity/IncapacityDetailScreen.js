@@ -329,6 +329,41 @@ const IncapacityDetailScreen = (props) => {
                 )}
               </TouchableOpacity>
 
+              {incapacity.comment && (
+                <>
+                  <View style={{ width: "100%", marginTop: "5%" }}>
+                    <Text
+                      style={{
+                        fontFamily: "Cabin-Regular",
+                        color: Colors.bluetitle,
+                        fontSize: 12,
+                      }}
+                    >
+                      Motivo
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      backgroundColor: Colors.bluebg,
+                      width: "100%",
+                      height: 50,
+                      borderRadius: 10,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: "Cabin-Bold",
+                        color: "#006FCC",
+                        fontSize: 15,
+                      }}
+                    >
+                      {incapacity.comment}
+                    </Text>
+                  </View>
+                </>
+              )}
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",

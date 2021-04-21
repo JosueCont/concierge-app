@@ -171,7 +171,10 @@ const HRScreen = (props) => {
             </TouchableOpacity>
           </View>
           <View style={styles.row}>
-            <TouchableOpacity style={styles.item}>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => props.navigation.navigate("ProceedingsScreen")}
+            >
               <Mark />
               <Image
                 source={require("../../assets/img/expediente.png")}

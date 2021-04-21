@@ -152,13 +152,7 @@ const LoanScreen = (props) => {
                 color: Colors.bluelinks,
               }}
               style={pickerSelectStyles}
-              //useNativeAndroidPickerStyle={false}
               items={years}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
             />
           </View>
         </View>

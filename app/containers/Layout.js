@@ -4,6 +4,7 @@ import { HomeStack, AppNavigatorLoggedIn } from "../containers/LayoutApp";
 import { useFonts } from "expo-font";
 import { Text } from "react-native";
 import { connect } from "react-redux";
+import LoadingScreen from "../components/modal/LoadingGlobal";
 const AppContainerLogin = createAppContainer(HomeStack);
 const AppNavigatorHome = createAppContainer(AppNavigatorLoggedIn);
 
@@ -18,7 +19,7 @@ const Layout = (props) => {
   if (fontsLoaded) {
     return props.user.loggedIn ? <AppNavigatorHome /> : <AppContainerLogin />;
   } else {
-    return <Text>Cargando..</Text>;
+    return <LoadingScreen text={"Cargando"} />;
   }
 };
 

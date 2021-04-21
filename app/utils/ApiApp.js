@@ -33,8 +33,16 @@ class ApiApp {
     );
   };
 
-  static getComunication = () => {
-    return ApiApp.ApisType("/noticenter/notification/", "get");
+  static getComunication = (data) => {
+    return ApiApp.ApisType(
+      "/noticenter/notification/notifications_user/",
+      "post",
+      data
+    );
+  };
+
+  static changeStatusComunication = (data) => {
+    return ApiApp.ApisType("/noticenter/user-notification/", "post", data);
   };
 
   static getPayrollVouchers = (data) => {
@@ -113,6 +121,10 @@ class ApiApp {
 
   static incapacityRequest = (data) => {
     return ApiApp.ApisType(`/person/incapacity/`, "post", data);
+  };
+
+  static getProceedings = (data) => {
+    return ApiApp.ApisType(`/person/person/${data}/document_person/`, "get");
   };
 }
 

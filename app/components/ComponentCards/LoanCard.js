@@ -124,6 +124,61 @@ const LoanCard = (props) => {
                   : "Pagado"}
               </Text>
             </View>
+            {item.status == 3 && (
+              <View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginTop: 15,
+                  }}
+                >
+                  <View
+                    style={{
+                      alignItems: "flex-start",
+                      width: "100%",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: "Cabin-Regular",
+                        color: Colors.bluetitle,
+                        fontSize: 12,
+                        paddingBottom: 10,
+                      }}
+                    >
+                      Comentarios
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <View
+                    style={{
+                      backgroundColor: Colors.bluebg,
+                      width: "100%",
+                      borderRadius: 10,
+                      padding: 10,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontFamily: "Cabin-Regular",
+                        color: "#006FCC",
+                        fontSize: 17,
+                        textAlign: "justify",
+                      }}
+                    >
+                      {item.comment}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            )}
 
             <View>
               <View
@@ -489,6 +544,59 @@ const LoanCard = (props) => {
                 </View>
               </>
             )}
+            <View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 15,
+                }}
+              >
+                <View
+                  style={{
+                    alignItems: "flex-start",
+                    width: "100%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      color: Colors.bluetitle,
+                      fontSize: 12,
+                      paddingBottom: 10,
+                    }}
+                  >
+                    Motivo
+                  </Text>
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <View
+                  style={{
+                    backgroundColor: Colors.bluebg,
+                    width: "100%",
+                    borderRadius: 10,
+                    padding: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      color: "#006FCC",
+                      fontSize: 17,
+                      textAlign: "justify",
+                    }}
+                  >
+                    {item.reason}
+                  </Text>
+                </View>
+              </View>
+            </View>
             {(item.status == 2 || item.status == 4) && (
               <TouchableOpacity
                 style={{

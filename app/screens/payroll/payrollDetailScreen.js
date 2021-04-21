@@ -16,6 +16,7 @@ import ApiApp from "../../utils/ApiApp";
 import { connect } from "react-redux";
 import ModalCustom from "../../components/modal/ModalCustom";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
+import * as FileSystem from "expo-file-system";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -114,8 +115,39 @@ const payrollDetailScreen = (props) => {
     );
   };
 
-  const openPdf = async () => {
-    await Linking.canOpenURL(voucher.pdf_url);
+  const downloadFile = async (uri) => {
+    console.log("URI-->>> ", uri);
+    let nameFile = "";
+    if (uri.search("pdf") != -1) {
+      nameFile = "nomina-" + voucher.payment_date + ".pdf";
+    } else if (uri.search("xml") != -1) {
+      nameFile = "nomina-" + voucher.payment_date + ".xml";
+    } else {
+      return;
+    }
+
+    FileSystem.downloadAsync(uri, FileSystem.documentDirectory + nameFile)
+      .then(({ uri }) => {
+        console.log("Finished downloading to ", uri);
+        moveFile(uri);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const moveFile = async (uri) => {
+    try {
+      const asset = await MediaLibrary.createAssetAsync(downloadedFile.uri);
+      const album = await MediaLibrary.getAlbumAsync("Download");
+      if (album == null) {
+        await MediaLibrary.createAlbumAsync("Download", asset, false);
+      } else {
+        await MediaLibrary.addAssetsToAlbumAsync([asset], album, false);
+      }
+    } catch (e) {
+      handleError(e);
+    }
   };
 
   return (
@@ -135,7 +167,7 @@ const payrollDetailScreen = (props) => {
 
         <ToolbarGeneric
           clickAction={clickAction}
-          nameToolbar={"Mi Nómina"}
+          nameToolbar={"Mi Nomina"}
           type={1}
           clickProfile={clickProfile}
           goHome={goHome}
@@ -200,41 +232,46 @@ const payrollDetailScreen = (props) => {
                   marginTop: 20,
                 }}
               >
-                <TouchableOpacity
-                  style={{
-                    fontFamily: "Cabin-Regular",
-                    backgroundColor: Colors.white,
-                    borderColor: Colors.bluetitle,
-                    borderWidth: 1,
-                    height: 45,
-                    width: "48%",
-                    borderRadius: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                  onPress={() => openPdf()}
-                >
-                  <Text style={{ color: Colors.bluetitle, fontSize: 14 }}>
-                    Descarga PDF
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    fontFamily: "Cabin-Regular",
-                    backgroundColor: Colors.white,
-                    borderColor: Colors.bluetitle,
-                    borderWidth: 1,
-                    height: 45,
-                    width: "48%",
-                    borderRadius: 10,
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text style={{ color: Colors.bluetitle, fontSize: 14 }}>
-                    Descarga CFDI
-                  </Text>
-                </TouchableOpacity>
+                {voucher.pdf_file && (
+                  <TouchableOpacity
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      backgroundColor: Colors.white,
+                      borderColor: Colors.bluetitle,
+                      borderWidth: 1,
+                      height: 45,
+                      width: "48%",
+                      borderRadius: 10,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onPress={() => Linking.openURL(voucher.pdf_file)}
+                  >
+                    <Text style={{ color: Colors.bluetitle, fontSize: 14 }}>
+                      Descarga PDF
+                    </Text>
+                  </TouchableOpacity>
+                )}
+                {voucher.pdf_xml && (
+                  <TouchableOpacity
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      backgroundColor: Colors.white,
+                      borderColor: Colors.bluetitle,
+                      borderWidth: 1,
+                      height: 45,
+                      width: "48%",
+                      borderRadius: 10,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onPress={() => Linking.openURL(voucher.pdf_xml)}
+                  >
+                    <Text style={{ color: Colors.bluetitle, fontSize: 14 }}>
+                      Descarga XML
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
               <View style={{ alignItems: "center", marginTop: 10 }}>
                 <TouchableOpacity
