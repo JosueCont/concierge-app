@@ -67,7 +67,6 @@ const ChangePasswordScreen = (props) => {
         }
       })
       .catch((error) => {
-        console.log(error.response.data.level);
         if (error.response.data.level == "error") {
           setMessageCustomModal("Contraseña actual incorrecta.");
           setIconSourceCustomModal(2);

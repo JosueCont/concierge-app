@@ -99,6 +99,7 @@ const ComunicationCard = (props) => {
           </TouchableOpacity>
         ) : (
           <>
+            <Text>{item.files}</Text>
             <TouchableOpacity
               onPress={() =>
                 props.props.navigation.navigate("NewScreen", {

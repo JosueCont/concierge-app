@@ -94,7 +94,7 @@ const VacationRequestScreen = (props) => {
         days_requested: daysRequest,
         departure_date: departureDate,
         return_date: returnDate,
-        khonnect_id: props.user.userProfile.khonnect_id,
+        person: props.user.userProfile.id,
       };
       const out = moment(departureDate);
       const ret = moment(returnDate);

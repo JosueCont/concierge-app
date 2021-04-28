@@ -30,8 +30,6 @@ const HomeUserScreen = (props) => {
 
   useEffect(() => {
     registerForPushNotificationsAsync();
-    // console.log("Props-->> ", props.user.userProfile);
-    // getComunication();
     props.getProfile(props.user).then((response) => {
       if (response.id) {
         getComunication();
