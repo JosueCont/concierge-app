@@ -115,27 +115,6 @@ const payrollDetailScreen = (props) => {
     );
   };
 
-  const downloadFile = async (uri) => {
-    console.log("URI-->>> ", uri);
-    let nameFile = "";
-    if (uri.search("pdf") != -1) {
-      nameFile = "nomina-" + voucher.payment_date + ".pdf";
-    } else if (uri.search("xml") != -1) {
-      nameFile = "nomina-" + voucher.payment_date + ".xml";
-    } else {
-      return;
-    }
-
-    FileSystem.downloadAsync(uri, FileSystem.documentDirectory + nameFile)
-      .then(({ uri }) => {
-        console.log("Finished downloading to ", uri);
-        moveFile(uri);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   const moveFile = async (uri) => {
     try {
       const asset = await MediaLibrary.createAssetAsync(downloadedFile.uri);

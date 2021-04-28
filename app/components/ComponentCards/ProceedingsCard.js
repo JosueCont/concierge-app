@@ -17,23 +17,24 @@ const windowHeight = Dimensions.get("window").height;
 
 const ProceedingsCard = (props) => {
   const renderItem = ({ item, index }) => {
-    return (
-      <View style={{ margin: "5%" }}>
-        <View>
-          <TouchableOpacity
-            style={styles.item}
-            onPress={() => Linking.openURL(item.document)}
-          >
-            <Mark />
-            <Image
-              source={require("../../../assets/img/rh_icon_menu.png")}
-              style={styles.image}
-            ></Image>
-            <Text style={styles.title}>{item.document_type.name}</Text>
-          </TouchableOpacity>
+    if (item.document_type.is_visible)
+      return (
+        <View style={{ margin: "5%" }}>
+          <View>
+            <TouchableOpacity
+              style={styles.item}
+              onPress={() => Linking.openURL(item.document)}
+            >
+              <Mark />
+              <Image
+                source={require("../../../assets/img/rh_icon_menu.png")}
+                style={styles.image}
+              ></Image>
+              <Text style={styles.title}>{item.document_type.name}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    );
+      );
   };
 
   const Mark = () => {

@@ -30,7 +30,7 @@ const ProceedingsScreen = (props) => {
   const [documents, setDocuments] = useState([]);
 
   const clickAction = () => {
-    props.navigation.navigate("Main");
+    props.navigation.goBack(null);
   };
 
   const goHome = () => {
@@ -39,6 +39,10 @@ const ProceedingsScreen = (props) => {
 
   const clickProfile = () => {
     props.navigation.navigate("ProfileScreen");
+  };
+
+  const viewModalCustom = () => {
+    modalCustom ? setModalCustom(false) : setModalCustom(true);
   };
 
   useEffect(() => {
@@ -58,31 +62,16 @@ const ProceedingsScreen = (props) => {
         setTimeout(() => {
           setModalLoading(false);
         }, 1500);
-      } else {
-        setMessageCustomModal("No se encontraron resultados.");
-        setIconSourceCustomModal(3);
-        setModalCustom(true);
-        setModalLoading(false);
       }
     } catch (error) {
-      setMessageCustomModal("Ocurrio un error, intente de nuevo.");
-      setIconSourceCustomModal(2);
+      setMessageCustomModal("No se encontraron resultados.");
+      setIconSourceCustomModal(3);
       setModalCustom(true);
+      setModalLoading(false);
       setTimeout(() => {
         setModalLoading(false);
-        props.navigation.goBack(null);
       }, 1500);
     }
-  };
-
-  const DocumentCard = () => {
-    return (
-      <>
-        {documents.map((a) => {
-          return <></>;
-        })}
-      </>
-    );
   };
 
   const headerList = () => {

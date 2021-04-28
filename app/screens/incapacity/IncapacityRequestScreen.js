@@ -106,7 +106,7 @@ const IncapacityRequestScreen = (props) => {
         let data = new FormData();
         data.append("departure_date", departureDate);
         data.append("return_date", returnDate);
-        data.append("khonnect_id", props.user.userProfile.khonnect_id);
+        data.append("person", props.user.userProfile.id);
         data.append("document", file);
         sendRequest(data);
       } else {

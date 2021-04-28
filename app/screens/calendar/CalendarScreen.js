@@ -43,7 +43,7 @@ const CalendarScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
-  const [modalLoading, setModalLoading] = useState(true);
+  const [modalLoading, setModalLoading] = useState(false);
   const dateCurrent = moment().format("YYYY-MM-DD");
 
   const [toDay, setToday] = useState({
@@ -72,7 +72,7 @@ const CalendarScreen = (props) => {
   ];
 
   useEffect(() => {
-    changeEvents("node__id");
+    // changeEvents("node__id");
   }, []);
 
   const clickAction = () => {
@@ -121,10 +121,25 @@ const CalendarScreen = (props) => {
           const daysEvent = response.data.results;
           createMarkedsDays(daysEvent);
         } else {
-          setMessageCustomModal("No se encontraron resultados.");
-          setIconSourceCustomModal(3);
-          setModalCustom(true);
-          setModalLoading(false);
+          setToday({
+            [dateCurrent]: {
+              customStyles: {
+                container: {
+                  backgroundColor: Colors.bluetitle,
+                  elevation: 2,
+                },
+                text: {
+                  color: Colors.white,
+                },
+              },
+            },
+          });
+          setTimeout(() => {
+            setModalLoading(false);
+            setMessageCustomModal("No se encontraron resultados.");
+            setIconSourceCustomModal(3);
+            setModalCustom(true);
+          }, 1500);
         }
       }
     } catch (error) {
@@ -160,8 +175,8 @@ const CalendarScreen = (props) => {
     });
     if (cont == 0)
       markedsDays[dateCurrent] = {
-        marked: true,
-        dotColor: "red",
+        // marked: true,
+        // dotColor: "red",
         customStyles: {
           container: {
             backgroundColor: Colors.bluetitle,
@@ -261,13 +276,7 @@ const CalendarScreen = (props) => {
                 color: Colors.bluetitle,
               }}
               style={pickerSelectStyles}
-              //useNativeAndroidPickerStyle={false}
               items={selectTypeEvent}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
             />
           </View>
         </View>
