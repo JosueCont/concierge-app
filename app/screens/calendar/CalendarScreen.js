@@ -101,7 +101,7 @@ const CalendarScreen = (props) => {
     }
     if (type == "node__id") {
       typeFilter = type;
-      id = props.user.userProfile.job[0].department.node.id;
+      id = props.user.userProfile.node;
     }
     let filter = `?${typeFilter}=${id}&date_year=${dateCurrent.substring(
       0,

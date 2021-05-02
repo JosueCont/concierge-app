@@ -50,13 +50,14 @@ const HomeUserScreen = (props) => {
     setModalLoading(true);
     try {
       let data = {
-        company: props.user.userProfile.job[0].department.node.id,
-        department: props.user.userProfile.job[0].department.id,
+        company: props.user.userProfile.node,
+        department: props.user.userProfile.department.id,
         gender: props.user.userProfile.gender,
         person_id: props.user.userProfile.id,
         job: props.user.userProfile.job[0].id,
         type_person: props.user.userProfile.person_type,
       };
+      console.log(data);
       let response = await ApiApp.getComunication(data);
       setComunications(response.data);
       setTimeout(() => {
