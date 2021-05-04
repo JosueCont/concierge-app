@@ -111,6 +111,10 @@ class ApiApp {
     );
   };
 
+  static requestBankAccount = (data) => {
+    return ApiApp.ApisType(`/person/bank-account-request/`, "post", data);
+  };
+
   static getIncapacityRequest = (data) => {
     return ApiApp.ApisType(`/person/incapacity/${data}`, "get");
   };

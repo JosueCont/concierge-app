@@ -80,6 +80,7 @@ const BankScreen = (props) => {
       value: "12",
     },
   ];
+  const [account, setAccount] = useState({});
   const [idAccount, setIdAccount] = useState(null);
   const [accountNumber, setAccountNumber] = useState("");
   const [interbankKey, setInterbankKey] = useState("");
@@ -87,6 +88,7 @@ const BankScreen = (props) => {
   const [cardNumber, setCardNumber] = useState("");
   const [expirationMonth, setExpirationMonth] = useState("");
   const [expirationYear, setExpirationYear] = useState("");
+  const [newAccount, setNewAccount] = useState(false);
 
   useEffect(() => {
     if (props.user.userProfile.id) {
@@ -158,23 +160,19 @@ const BankScreen = (props) => {
 
   const getBankAccount = async () => {
     try {
+      setModalLoading(true);
       let response = await ApiApp.getBankAccount(props.user.userProfile.id);
-      if (response.data && response.data.length > 0) {
-        setIdAccount(response.data[0].id);
-        setAccountNumber(response.data[0].account_number);
-        setInterbankKey(response.data[0].interbank_key);
-        setBank(response.data[0].bank.id);
-        setCardNumber(response.data[0].card_number);
-        setExpirationMonth(response.data[0].expiration_month);
-        setExpirationYear(response.data[0].expiration_year);
-      } else {
-        setMessageCustomModal("Ocurrio un error, intente de nuevo.");
-        setIconSourceCustomModal(2);
-        setModalCustom(true);
-        setTimeout(() => {
-          setModalLoading(false);
-          clickAction();
-        }, 1500);
+      if (response.data && response.data.id) {
+        setAccount(response.data);
+        setNewAccount(false);
+        setIdAccount(response.data.id);
+        setAccountNumber(response.data.account_number);
+        setInterbankKey(response.data.interbank_key);
+        setBank(response.data.bank.id);
+        setCardNumber(response.data.card_number);
+        setExpirationMonth(response.data.expiration_month);
+        setExpirationYear(response.data.expiration_year);
+        setModalLoading(false);
       }
     } catch (error) {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
@@ -184,6 +182,95 @@ const BankScreen = (props) => {
         setModalLoading(false);
         clickAction();
       }, 1500);
+    }
+  };
+
+  const validateSend = () => {
+    if (accountNumber.trim() === "") {
+      setMessageCustomModal("Capture su número de cuenta");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      return;
+    }
+    if (bank.trim() === "") {
+      setMessageCustomModal("Seleccione un banco.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      return;
+    }
+    if (interbankKey.trim() === "") {
+      setMessageCustomModal("Capture su clabe interbancaria.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      return;
+    }
+    if (cardNumber.trim() === "") {
+      setMessageCustomModal("Capture su número de tarjeta.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      return;
+    }
+    if (expirationMonth.trim() === "" || expirationYear.trim() === "") {
+      setMessageCustomModal("Capture el mes y año de vencimiento.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      return;
+    }
+    let data = {
+      new_account_number: accountNumber,
+      new_interbank_key: interbankKey,
+      new_card_number: cardNumber,
+      new_expiration_month: expirationMonth,
+      new_expiration_year: expirationYear,
+      new_bank: bank,
+      person: props.user.userProfile.id,
+    };
+    if (idAccount != null) {
+      data.previous_account_number = account.account_number;
+      data.previous_bank_account = idAccount;
+      data.previous_interbank_key = account.interbank_key;
+      data.previous_card_number = account.card_number;
+      data.previous_expiration_month = account.expiration_month;
+      data.previous_expiration_year = account.expiration_year;
+      data.type = 2;
+    }
+    RequestBankAccount(data);
+  };
+
+  const resetData = () => {
+    setNewAccount(true);
+    setIdAccount(null);
+    setAccountNumber("");
+    setInterbankKey("");
+    setBank("");
+    setCardNumber("");
+    setExpirationMonth("");
+    setExpirationYear("");
+  };
+
+  const RequestBankAccount = async (data) => {
+    try {
+      setModalLoading(true);
+      let response = await ApiApp.requestBankAccount(data);
+      if (response.data && response.data.id) {
+        setIdAccount(null);
+        setAccountNumber("");
+        setInterbankKey("");
+        setBank("");
+        setCardNumber("");
+        setExpirationMonth("");
+        setExpirationYear("");
+        getBankAccount();
+        setMessageCustomModal("Tus datos se guardaron correctamente.");
+        setIconSourceCustomModal(1);
+        setModalCustom(true);
+        setModalLoading(false);
+      }
+    } catch (error) {
+      setMessageCustomModal("Ocurrio un error, intente de nuevo.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+      setModalLoading(false);
     }
   };
 
@@ -299,7 +386,7 @@ const BankScreen = (props) => {
                   }}
                 >
                   <TextInput
-                    onChangeText={(text) => setAccountNumber}
+                    onChangeText={(text) => setAccountNumber(text)}
                     style={styles.input}
                     placeholderTextColor={Colors.bluetitle}
                     autoCapitalize="none"
@@ -339,7 +426,7 @@ const BankScreen = (props) => {
                   }}
                 >
                   <TextInput
-                    onChangeText={(text) => setInterbankKey}
+                    onChangeText={(text) => setInterbankKey(text)}
                     style={styles.input}
                     placeholderTextColor={Colors.bluetitle}
                     autoCapitalize="none"
@@ -580,17 +667,23 @@ const BankScreen = (props) => {
                     fontFamily: "Cabin-Regular",
                     backgroundColor: Colors.bluelinks,
                     height: 50,
-                    width: "80%",
+                    width: "100%",
                     borderRadius: 10,
                     marginTop: 20,
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => {}}
+                  onPress={() => validateSend()}
                 >
-                  <Text style={{ color: Colors.white, fontSize: 16 }}>
-                    Enviar
-                  </Text>
+                  {idAccount != null ? (
+                    <Text style={{ color: Colors.white, fontSize: 16 }}>
+                      Actualizar
+                    </Text>
+                  ) : (
+                    <Text style={{ color: Colors.white, fontSize: 16 }}>
+                      Enviar
+                    </Text>
+                  )}
                 </TouchableOpacity>
               </View>
             </View>

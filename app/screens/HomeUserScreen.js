@@ -57,7 +57,6 @@ const HomeUserScreen = (props) => {
         job: props.user.userProfile.job[0].id,
         type_person: props.user.userProfile.person_type,
       };
-      console.log(data);
       let response = await ApiApp.getComunication(data);
       setComunications(response.data);
       setTimeout(() => {
