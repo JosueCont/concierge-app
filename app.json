@@ -29,7 +29,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.hiumanlab.staff",
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "extra": {
       "URL_KHONNECT": "https://khonnect.hiumanlab.com/",
