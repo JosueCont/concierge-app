@@ -30,7 +30,7 @@ import ModalCustom from "../../components/modal/ModalCustom";
 
 const LoginScreen = (props) => {
   const [email, setEmail] = useState("georgina.tun@hiumanlab.com");
-  const [pass, setPass] = useState("123456");
+  const [pass, setPass] = useState("1234567a");
   // const [email, setEmail] = useState("");
   // const [pass, setPass] = useState("");
   const [changeView, setChangeView] = useState(false);

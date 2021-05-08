@@ -18,6 +18,7 @@ import LoadingGlobal from "../components/modal/LoadingGlobal";
 import ApiApp from "../utils/ApiApp";
 import RNPickerSelect from "react-native-picker-select";
 import { connect } from "react-redux";
+import { onlyNumber } from "../utils/functions";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -386,7 +387,10 @@ const BankScreen = (props) => {
                   }}
                 >
                   <TextInput
-                    onChangeText={(text) => setAccountNumber(text)}
+                    keyboardType="numeric"
+                    onChangeText={(text) =>
+                      setAccountNumber(text.replace(/\$\s?|[-,.*]/g, ""))
+                    }
                     style={styles.input}
                     placeholderTextColor={Colors.bluetitle}
                     autoCapitalize="none"
@@ -426,7 +430,10 @@ const BankScreen = (props) => {
                   }}
                 >
                   <TextInput
-                    onChangeText={(text) => setInterbankKey(text)}
+                    keyboardType="numeric"
+                    onChangeText={(text) =>
+                      setInterbankKey(text.replace(/\$\s?|[-,.*]/g, ""))
+                    }
                     style={styles.input}
                     placeholderTextColor={Colors.bluetitle}
                     autoCapitalize="none"
@@ -519,7 +526,10 @@ const BankScreen = (props) => {
                   }}
                 >
                   <TextInput
-                    onChangeText={(text) => setCardNumber(text)}
+                    keyboardType="numeric"
+                    onChangeText={(text) =>
+                      setCardNumber(text.replace(/\$\s?|[-,.*]/g, ""))
+                    }
                     style={styles.input}
                     placeholderTextColor={Colors.bluetitle}
                     autoCapitalize="none"

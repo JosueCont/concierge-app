@@ -92,8 +92,11 @@ class ApiApp {
     return ApiApp.ApisType(`/payroll/payment-plan/?loan__id=${data}`, "get");
   };
 
-  static getLoanConfig = () => {
-    return ApiApp.ApisType(`/payroll/loan-config/1/`, "get");
+  static getLoanConfig = (data) => {
+    return ApiApp.ApisType(
+      `payroll/loan-config/get_config_for_node/?node=${data}`,
+      "get"
+    );
   };
 
   static loanRequest = (data) => {

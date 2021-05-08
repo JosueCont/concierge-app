@@ -54,7 +54,7 @@ const HomeUserScreen = (props) => {
         department: props.user.userProfile.department.id,
         gender: props.user.userProfile.gender,
         person_id: props.user.userProfile.id,
-        job: props.user.userProfile.job[0].id,
+        job: props.user.userProfile.job.id,
         type_person: props.user.userProfile.person_type,
       };
       let response = await ApiApp.getComunication(data);
