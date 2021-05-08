@@ -77,13 +77,32 @@ const VacationRequestScreen = (props) => {
     setDays(arrayDays);
   };
 
-  const validateRequest = () => {
-    if (daysRequest <= 0) {
-      setMessageCustomModal("Los días solicitados no pueden ser cero.");
-      setIconSourceCustomModal(2);
-      setModalCustom(true);
-      return;
+  useEffect(() => {
+    if (
+      departureDate != "" &&
+      departureDate != undefined &&
+      returnDate != "" &&
+      returnDate != undefined
+    ) {
+      const out = moment(departureDate);
+      const ret = moment(returnDate);
+      if (
+        ret.diff(out, "days") <= props.user.userProfile.Available_days_vacation
+      ) {
+        setDaysRequest(ret.diff(out, "days"));
+      } else {
+        setMessageCustomModal(
+          "Los dias solicitados no pueden ser mayor a los dias disponibles."
+        );
+        setIconSourceCustomModal(2);
+        setModalCustom(true);
+        setReturnDate("");
+        setDaysRequest(0);
+      }
     }
+  }, [returnDate, departureDate]);
+
+  const validateRequest = () => {
     if (
       departureDate != "" &&
       departureDate != undefined &&
@@ -98,12 +117,12 @@ const VacationRequestScreen = (props) => {
       };
       const out = moment(departureDate);
       const ret = moment(returnDate);
-      if (ret.diff(out, "days") === daysRequest) {
+      if (daysRequest <= props.user.userProfile.Available_days_vacation) {
         setModalLoading(true);
         sendRequest(data);
       } else {
         setMessageCustomModal(
-          "Las fechas no coinciden con los dias solicitados."
+          "Los dias solicitados no pueden ser mayor a los dias disponibles."
         );
         setIconSourceCustomModal(2);
         setModalCustom(true);
@@ -233,23 +252,23 @@ const VacationRequestScreen = (props) => {
               >
                 <View
                   style={{
+                    // backgroundColor: Colors.white,
                     width: 80,
+                    height: 50,
                     borderRadius: 10,
-                    overflow: "hidden",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  <RNPickerSelect
-                    onValueChange={(value) => setDaysRequest(value)}
-                    placeholder={{
-                      label: "Días",
-                      value: 0,
-                      color: Colors.bluelinks,
+                  <Text
+                    style={{
+                      fontFamily: "Cabin-Bold",
+                      color: "#FFFFFF",
+                      fontSize: 30,
                     }}
-                    style={pickerSelectStyles}
-                    //useNativeAndroidPickerStyle={false}
-                    items={days}
-                    value={daysRequest}
-                  />
+                  >
+                    {daysRequest}
+                  </Text>
                 </View>
               </View>
               <Text

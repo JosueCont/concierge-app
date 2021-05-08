@@ -70,7 +70,7 @@ const LoanRequestScreen = (props) => {
 
   const getLoansConfig = async () => {
     try {
-      let response = await ApiApp.getLoanConfig();
+      let response = await ApiApp.getLoanConfig(props.user.userProfile.node);
       if (response.status == 200) {
         if (response.data != undefined) {
           setLoanConfig(response.data);
@@ -110,6 +110,7 @@ const LoanRequestScreen = (props) => {
       );
       setIconSourceCustomModal(2);
       setModalCustom(true);
+      return;
     }
     if (parseInt(amount) > loanConfig.max_amount) {
       setMessageCustomModal(
@@ -117,6 +118,7 @@ const LoanRequestScreen = (props) => {
       );
       setIconSourceCustomModal(2);
       setModalCustom(true);
+      return;
     }
     if (amount == "") {
       setMessageCustomModal("Capture la cantidad a solicitar.");
@@ -319,7 +321,10 @@ const LoanRequestScreen = (props) => {
                   }}
                 >
                   <TextInput
-                    onChangeText={(text) => changeAmount(text)}
+                    keyboardType="numeric"
+                    onChangeText={(text) =>
+                      changeAmount(text.replace(/\$\s?|[-,.*]/g, ""))
+                    }
                     style={styles.input}
                     placeholderTextColor={Colors.bluetitle}
                     autoCapitalize="none"
