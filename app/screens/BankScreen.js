@@ -659,7 +659,7 @@ const BankScreen = (props) => {
                         }}
                         style={pickerSelectStyles}
                         items={years}
-                        value={expirationMonth}
+                        value={expirationYear}
                       />
                     </View>
                   </View>
