@@ -140,12 +140,11 @@ const BankScreen = (props) => {
           setModalLoading(false);
         }, 1500);
       } else {
-        setMessageCustomModal("Ocurrio un error, intente de nuevo.");
-        setIconSourceCustomModal(2);
+        setMessageCustomModal("No se encontraron datos.");
+        setIconSourceCustomModal(3);
         setModalCustom(true);
         setTimeout(() => {
           setModalLoading(false);
-          clickAction();
         }, 1500);
       }
     } catch (error) {
@@ -173,8 +172,8 @@ const BankScreen = (props) => {
         setCardNumber(response.data.card_number);
         setExpirationMonth(response.data.expiration_month);
         setExpirationYear(response.data.expiration_year);
-        setModalLoading(false);
       }
+      setModalLoading(false);
     } catch (error) {
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);

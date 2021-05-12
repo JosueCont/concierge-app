@@ -13,6 +13,7 @@ import {
   Image,
   Platform,
   ImageBackground,
+  Linking,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { NavigationActions, StackActions } from "react-navigation";
@@ -29,10 +30,10 @@ import ModalLoadingLogin from "../../components/modal/loadingLogin";
 import ModalCustom from "../../components/modal/ModalCustom";
 
 const LoginScreen = (props) => {
-  const [email, setEmail] = useState("georgina.tun@hiumanlab.com");
-  const [pass, setPass] = useState("1234567a");
-  // const [email, setEmail] = useState("");
-  // const [pass, setPass] = useState("");
+  // const [email, setEmail] = useState("georgina.tun@hiumanlab.com");
+  // const [pass, setPass] = useState("1234567a");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
   const [changeView, setChangeView] = useState(false);
   const [play, setPlay] = useState(true);
 
@@ -306,6 +307,26 @@ const LoginScreen = (props) => {
                   ) : (
                     <ActivityIndicator size="small" color="white" />
                   )}
+                </View>
+              </View>
+              <View style={{ flexDirection: "row", width: "90%" }}>
+                <View style={{ alignItems: "center", flex: 1 }}>
+                  <Text
+                    style={{
+                      fontFamily: "Cabin-Bold",
+                      marginTop: 20,
+                      textAlign: "center",
+                      color: Colors.bluelinks,
+                      textDecorationLine: "underline",
+                    }}
+                    onPress={() =>
+                      Linking.openURL(
+                        "https://www.grupohuman.com/aviso-privacidad"
+                      )
+                    }
+                  >
+                    Aviso de privacidad
+                  </Text>
                 </View>
               </View>
             </View>
