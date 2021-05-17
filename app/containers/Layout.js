@@ -19,7 +19,9 @@ const Layout = (props) => {
   if (fontsLoaded) {
     return props.user.loggedIn ? <AppNavigatorHome /> : <AppContainerLogin />;
   } else {
-    return <LoadingScreen text={"Cargando"} />;
+    return props.user.loggedIn && <AppContainerLogin />;
+
+    //return <LoadingScreen text={"Cargando"} />;
   }
 };
 
