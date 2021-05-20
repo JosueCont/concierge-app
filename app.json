@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Staff Evolution",
-    "slug": "staffEvolution",
+    "name": "Staff Concierge",
+    "slug": "staffconcierge",
     "privacy": "public",
     "platforms": [
       "ios",
@@ -23,13 +23,18 @@
     ],
     "android": {
       "versionCode": 2,
-      "package": "com.hiumanlab.staff",
+      "package": "com.hiumanlab.staffconcierge",
       "useNextNotificationsApi": true,
-      "permissions": ["CAMERA_ROLL"]
+      "permissions": ["CAMERA_ROLL"],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
     },
     "ios": {
-      "bundleIdentifier": "com.hiumanlab.staff",
-      "supportsTablet": false
+      "bundleIdentifier": "com.hiumanlab.staffconcierge",
+      "supportsTablet": false,
+      "buildNumber": "2"
     },
     "extra": {
       "URL_KHONNECT": "https://khonnect.khor2.com/",
