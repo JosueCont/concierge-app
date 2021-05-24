@@ -27,10 +27,10 @@ import ModalLoadingLogin from "../../components/modal/loadingLogin";
 import ModalCustom from "../../components/modal/ModalCustom";
 
 const LoginScreen = (props) => {
-  const [email, setEmail] = useState("alex.dzul@hiumanlab.com");
-  const [pass, setPass] = useState("root");
-  // const [email, setEmail] = useState("");
-  // const [pass, setPass] = useState("");
+  // const [email, setEmail] = useState("alex.dzul@hiumanlab.com");
+  // const [pass, setPass] = useState("root");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
   const [changeView, setChangeView] = useState(false);
   const [play, setPlay] = useState(true);
 
