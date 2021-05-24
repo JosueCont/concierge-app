@@ -7,7 +7,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.1",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon_install.png",
     "splash": {
@@ -22,7 +22,7 @@
       "**/*"
     ],
     "android": {
-      "versionCode": 4,
+      "versionCode": 2,
       "package": "com.hiumanlab.staffconcierge",
       "useNextNotificationsApi": true,
       "permissions": ["CAMERA_ROLL"],
@@ -34,7 +34,7 @@
     "ios": {
       "bundleIdentifier": "com.hiumanlab.staffconcierge",
       "supportsTablet": false,
-      "buildNumber": "4"
+      "buildNumber": "2"
     },
     "extra": {
       "URL_KHONNECT": "https://khonnect.khor2.com/",

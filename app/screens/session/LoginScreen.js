@@ -27,10 +27,10 @@ import ModalLoadingLogin from "../../components/modal/loadingLogin";
 import ModalCustom from "../../components/modal/ModalCustom";
 
 const LoginScreen = (props) => {
-  const [email, setEmail] = useState("alex.dzul@hiumanlab.com");
-  const [pass, setPass] = useState("root");
-  // const [email, setEmail] = useState("");
-  // const [pass, setPass] = useState("");
+  // const [email, setEmail] = useState("alex.dzul@hiumanlab.com");
+  // const [pass, setPass] = useState("root");
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
   const [changeView, setChangeView] = useState(false);
   const [play, setPlay] = useState(true);
 
@@ -292,19 +292,30 @@ const LoginScreen = (props) => {
                 </Text>
               </TouchableOpacity>
 
-              <View style={{ flexDirection: "row", width: "90%" }}>
-                <View style={{ flex: 1, marginTop: 5 }}>
-                  {!props.user.fetching ? (
-                    <Button
-                      mensaje="Entrar"
-                      style={{ color: "white" }}
-                      onPress={() => _login()}
-                      colorBackground={Colors.bluelinks}
-                    />
-                  ) : (
-                    <ActivityIndicator size="small" color="white" />
-                  )}
-                </View>
+              {/* <View style={{ flexDirection: "row", width: "100%" }}> */}
+              <View style={{ alignItems: "center", width: "90%" }}>
+                {!props.user.fetching ? (
+                  <TouchableOpacity
+                    style={{
+                      fontFamily: "Cabin-Regular",
+                      backgroundColor: Colors.bluelinks,
+                      height: 40,
+                      width: "100%",
+                      borderRadius: 10,
+                      marginTop: 10,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onPress={() => _login()}
+                  >
+                    <Text style={{ color: Colors.white, fontSize: 16 }}>
+                      Entrar
+                    </Text>
+                  </TouchableOpacity>
+                ) : (
+                  <ActivityIndicator size="small" color="white" />
+                )}
+                {/* </View> */}
               </View>
               <View style={{ flexDirection: "row", width: "90%" }}>
                 <View style={{ alignItems: "center", flex: 1 }}>
