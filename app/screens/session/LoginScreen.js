@@ -15,12 +15,9 @@ import {
   ImageBackground,
   Linking,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 import { NavigationActions, StackActions } from "react-navigation";
 import { doLoginAction } from "../../redux/userDuck";
 import { connect } from "react-redux";
-import { AntDesign } from "@expo/vector-icons";
-import { darkerHex, emailRegEx } from "../../utils/utils";
 import Button from "../../components/Buttons/Button";
 import { Colors } from "../../utils/colors";
 import styled from "styled-components/native";
@@ -30,10 +27,10 @@ import ModalLoadingLogin from "../../components/modal/loadingLogin";
 import ModalCustom from "../../components/modal/ModalCustom";
 
 const LoginScreen = (props) => {
-  // const [email, setEmail] = useState("georgina.tun@hiumanlab.com");
-  // const [pass, setPass] = useState("1234567a");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("alex.dzul@hiumanlab.com");
+  const [pass, setPass] = useState("root");
+  // const [email, setEmail] = useState("");
+  // const [pass, setPass] = useState("");
   const [changeView, setChangeView] = useState(false);
   const [play, setPlay] = useState(true);
 

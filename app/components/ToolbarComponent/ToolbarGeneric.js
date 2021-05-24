@@ -94,9 +94,9 @@ const ToolbarGeneric = (props) => {
             onPress={() => props.goHome()}
           >
             <Image
-              source={require("../../../assets/img/staff_evolution.png")}
+              source={require("../../../assets/img/staff_concierge.png")}
               resizeMode={"contain"}
-              style={{ height: 60, width: 60 }}
+              style={{ height: 80, width: 80 }}
             />
           </TouchableOpacity>
           <TouchableOpacity

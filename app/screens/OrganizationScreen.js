@@ -101,7 +101,7 @@ const OrganizationScreen = (props) => {
             <Image
               resizeMode="contain"
               style={{ height: "100%", width: "100%" }}
-              source={require("../../assets/img/logo-staff.png")}
+              source={require("../../assets/img/logo_no_text.png")}
             />
           </View>
           <View>
@@ -123,7 +123,7 @@ const OrganizationScreen = (props) => {
                 textAlign: "left",
               }}
             >
-              Staff Evolution
+              Staff Concierge
             </Text>
           </View>
         </View>
@@ -163,7 +163,7 @@ const OrganizationScreen = (props) => {
             <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
               Email
             </Text>
-            <Text style={styles.input}>contacto@staffevolution.com</Text>
+            <Text style={styles.input}>contacto@staffconcierge.com</Text>
             <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
               Teléfono
             </Text>

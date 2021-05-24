@@ -42,14 +42,14 @@ const SideMenu = (props) => {
             alignItems: "center",
           }}
         >
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{ position: "absolute", bottom: 140, right: 15, zIndex: 5 }}
           >
             <Image
               source={require("../../assets/img/icono_noticia.png")}
               style={{ width: 25, height: 25, resizeMode: "contain" }}
             ></Image>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <View
             style={{
@@ -61,7 +61,7 @@ const SideMenu = (props) => {
           >
             <Image
               resizeMode="contain"
-              style={{ height: "100%", width: "100%" }}
+              style={{ height: "120%", width: "110%" }}
               source={require("../../assets/img/logo-staff.png")}
             />
           </View>
