@@ -22,7 +22,7 @@
       "**/*"
     ],
     "android": {
-      "versionCode": 2,
+      "versionCode": 4,
       "package": "com.hiumanlab.staffconcierge",
       "useNextNotificationsApi": true,
       "permissions": ["CAMERA_ROLL"],
@@ -34,7 +34,7 @@
     "ios": {
       "bundleIdentifier": "com.hiumanlab.staffconcierge",
       "supportsTablet": false,
-      "buildNumber": "2"
+      "buildNumber": "4"
     },
     "extra": {
       "URL_KHONNECT": "https://khonnect.khor2.com/",
