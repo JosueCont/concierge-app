@@ -42,27 +42,18 @@ const SideMenu = (props) => {
             alignItems: "center",
           }}
         >
-          {/* <TouchableOpacity
-            style={{ position: "absolute", bottom: 140, right: 15, zIndex: 5 }}
-          >
-            <Image
-              source={require("../../assets/img/icono_noticia.png")}
-              style={{ width: 25, height: 25, resizeMode: "contain" }}
-            ></Image>
-          </TouchableOpacity> */}
-
           <View
             style={{
               width: Dimensions.get("window").width * 0.2,
               height: Dimensions.get("window").width * 0.2,
               backgroundColor: "transparent",
-              marginTop: Dimensions.get("window").height * 0.06,
+              marginTop: Dimensions.get("window").height * 0.04,
             }}
           >
             <Image
               resizeMode="contain"
-              style={{ height: "120%", width: "110%" }}
-              source={require("../../assets/img/logo-staff.png")}
+              style={{ height: "120%", width: "120%" }}
+              source={require("../../assets/img/logo_no_text.png")}
             />
           </View>
 
@@ -78,7 +69,7 @@ const SideMenu = (props) => {
                   fontFamily: "Cabin-Medium",
                   fontSize: 22,
                   color: Colors.white,
-                  marginTop: 9,
+                  marginTop: 20,
                 }}
               >
                 {props.user.userProfile && props.user.userProfile.first_name}
