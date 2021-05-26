@@ -34,7 +34,7 @@
     "ios": {
       "bundleIdentifier": "com.hiumanlab.staffconcierge",
       "supportsTablet": false,
-      "buildNumber": "2"
+      "buildNumber": "5"
     },
     "extra": {
       "URL_KHONNECT": "https://khonnect.khor2.com/",
