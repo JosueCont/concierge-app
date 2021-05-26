@@ -16,6 +16,7 @@ import { Colors } from "../../utils/colors";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
+import { currentMonthNumber } from "../../utils/functions";
 
 const IncapacityScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
@@ -29,62 +30,13 @@ const IncapacityScreen = (props) => {
   const [yearIncapacity, setYearIncapacity] = useState(
     new Date().getFullYear()
   );
-  const months = [
-    {
-      label: "Enero",
-      value: 1,
-    },
-    {
-      label: "Febrero",
-      value: 2,
-    },
-    {
-      label: "Marzo",
-      value: 3,
-    },
-    {
-      label: "Abril",
-      value: 4,
-    },
-    {
-      label: "Mayo",
-      value: 5,
-    },
-    {
-      label: "Junio",
-      value: 6,
-    },
-    {
-      label: "Julio",
-      value: 7,
-    },
-    {
-      label: "Agosto",
-      value: 8,
-    },
-    {
-      label: "Septiembre",
-      value: 9,
-    },
-    {
-      label: "Octubre",
-      value: 10,
-    },
-    {
-      label: "Noviembre",
-      value: 11,
-    },
-    {
-      label: "Diciembre",
-      value: 12,
-    },
-  ];
+  const months = getmonths();
   const [years, setYears] = useState([]);
 
   useEffect(() => {
     if (props.user && props.user.userProfile) {
-      const mont = new Date().toLocaleDateString().substring(0, 2);
-      let data = months[mont - 1];
+      const currentMonth = currentMonthNumber();
+      let data = months[currentMonth];
       setMonthIncapacity(parseInt(data.value));
       generateYear();
       getIncapacityRequest();

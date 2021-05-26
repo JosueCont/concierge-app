@@ -16,7 +16,11 @@ import { Colors } from "../../utils/colors";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
-import { generateYear, getmonths } from "../../utils/functions";
+import {
+  currentMonthNumber,
+  generateYear,
+  getmonths,
+} from "../../utils/functions";
 import LoanCard from "../../components/ComponentCards/LoanCard";
 
 const LoanScreen = (props) => {
@@ -35,8 +39,8 @@ const LoanScreen = (props) => {
 
   useEffect(() => {
     if (props.user && props.user.userProfile) {
-      const mont = new Date().toLocaleDateString().substring(0, 2);
-      let data = months[mont - 1];
+      const currentMonth = currentMonthNumber();
+      let data = months[currentMonth];
       setMonthLoan(parseInt(data.value));
       setYears(generateYear());
       getLoansRequest();

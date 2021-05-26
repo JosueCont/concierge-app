@@ -3,6 +3,12 @@ import * as Permissions from "expo-permissions";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 
+export const currentMonthNumber = () => {
+  const date = new Date();
+  const month = date.getMonth();
+  return month;
+};
+
 export const generateYear = () => {
   let yearsArray = [];
   let currentYear = new Date().getFullYear();
