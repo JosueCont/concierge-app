@@ -1,13 +1,10 @@
 import {
   View,
-  ScrollView,
   Text,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -16,7 +13,12 @@ import { Colors } from "../../utils/colors";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
-import { currentMonthNumber } from "../../utils/functions";
+import {
+  currentMonthNumber,
+  generateYear,
+  getmonths,
+} from "../../utils/functions";
+import PickerSelect from "../../components/pickerSelect";
 
 const IncapacityScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
@@ -24,37 +26,25 @@ const IncapacityScreen = (props) => {
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
   const [incapacitys, setIncapacitys] = useState([]);
+  const months = getmonths();
   const [monthIncapacity, setMonthIncapacity] = useState(
-    new Date().toLocaleDateString().substring(0, 2)
+    months[currentMonthNumber()].value
   );
   const [yearIncapacity, setYearIncapacity] = useState(
     new Date().getFullYear()
   );
-  const months = getmonths();
   const [years, setYears] = useState([]);
+  const currentMonth = currentMonthNumber();
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     if (props.user && props.user.userProfile) {
-      const currentMonth = currentMonthNumber();
-      let data = months[currentMonth];
-      setMonthIncapacity(parseInt(data.value));
-      generateYear();
       getIncapacityRequest();
+      setYears(generateYear());
     } else {
       props.navigation.goBack(null);
     }
   }, [props.user]);
-
-  const generateYear = () => {
-    let yearsArray = [];
-    let currentYear = new Date().getFullYear();
-    let startYear = currentYear - 10;
-    while (startYear < currentYear) {
-      startYear++;
-      yearsArray.push({ label: `${startYear}`, value: startYear });
-    }
-    setYears(yearsArray.reverse());
-  };
 
   const clickAction = () => {
     props.navigation.goBack(null);
@@ -79,10 +69,10 @@ const IncapacityScreen = (props) => {
       setIncapacitys([]);
       if (monthIncapacity && monthIncapacity > 0)
         filter = filter + `timestamp__month=${monthIncapacity}&`;
-      else filter = filter + `timestamp__month=${month}&`;
+      else filter = filter + `timestamp__month=${currentMonth}&`;
       if (yearIncapacity && yearIncapacity > 0)
         filter = filter + `timestamp__year=${yearIncapacity}`;
-      else filter = filter + `timestamp__year=${year}`;
+      else filter = filter + `timestamp__year=${currentYear}`;
       let response = await ApiApp.getIncapacityRequest(filter);
       if (response.status == 200) {
         if (
@@ -108,6 +98,11 @@ const IncapacityScreen = (props) => {
     }
   };
 
+  const setPicker = async (type, value) => {
+    if (type == 1) setMonthIncapacity(value);
+    if (type == 2) setYearIncapacity(value);
+  };
+
   const headerList = () => {
     return (
       <>
@@ -130,15 +125,12 @@ const IncapacityScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setMonthIncapacity(value)}
-              placeholder={{
-                label: "Mes",
-                value: monthIncapacity,
-                color: Colors.bluelinks,
-              }}
-              style={pickerSelectStyles}
+            <PickerSelect
               items={months}
+              title={"Mes"}
+              type={1}
+              setSelect={setPicker}
+              value={monthIncapacity}
             />
           </View>
           <View
@@ -149,15 +141,12 @@ const IncapacityScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setYearIncapacity(value)}
-              placeholder={{
-                label: "Año",
-                value: yearIncapacity,
-                color: Colors.bluelinks,
-              }}
-              style={pickerSelectStyles}
+            <PickerSelect
               items={years}
+              title={"Año"}
+              type={2}
+              setSelect={setPicker}
+              value={yearIncapacity}
             />
           </View>
         </View>

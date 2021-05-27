@@ -25,6 +25,7 @@ import moment from "moment";
 import ApiApp from "../../utils/ApiApp";
 import ModalCustom from "../../components/modal/ModalCustom";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
+import PickerSelect from "../../components/pickerSelect";
 
 LocaleConfig.locales["es"] = {
   monthNames: monthNames(),
@@ -45,6 +46,8 @@ const CalendarScreen = (props) => {
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
   const dateCurrent = moment().format("YYYY-MM-DD");
+  const [evento, setEvento] = useState("");
+  let filter = "";
 
   const [toDay, setToday] = useState({
     [dateCurrent]: {
@@ -71,10 +74,6 @@ const CalendarScreen = (props) => {
     },
   ];
 
-  useEffect(() => {
-    // changeEvents("node__id");
-  }, []);
-
   const clickAction = () => {
     props.navigation.goBack(null);
   };
@@ -91,27 +90,32 @@ const CalendarScreen = (props) => {
     modalCustom ? setModalCustom(false) : setModalCustom(true);
   };
 
-  const changeEvents = async (type) => {
-    setModalLoading(true);
+  const changeEvents = (type, value) => {
+    // setModalLoading(true);
+    setEvento(value);
     let typeFilter = "";
     let id = "";
-    if (type == "guests") {
-      typeFilter = type;
+    if (value == "guests") {
+      typeFilter = value;
       id = props.user.userProfile.id;
     }
-    if (type == "node__id") {
-      typeFilter = type;
+    if (value == "node__id") {
+      typeFilter = value;
       id = props.user.userProfile.node;
     }
-    let filter = `?${typeFilter}=${id}&date_year=${dateCurrent.substring(
-      0,
-      4
-    )}`;
-    getAllEvents(filter);
+    filter = `?${typeFilter}=${id}&date_year=${dateCurrent.substring(0, 4)}`;
   };
+
+  useEffect(() => {
+    if (evento != "") {
+      setModalLoading(true);
+      getAllEvents(filter);
+    }
+  }, [evento]);
 
   const getAllEvents = async (filter) => {
     try {
+      setModalLoading(true);
       let response = await ApiApp.getEvents(filter);
       if (response.status == 200) {
         if (
@@ -269,7 +273,7 @@ const CalendarScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
+            {/* <RNPickerSelect
               onValueChange={(value) => changeEvents(value)}
               placeholder={{
                 label: "Selecciona",
@@ -277,6 +281,14 @@ const CalendarScreen = (props) => {
               }}
               style={pickerSelectStyles}
               items={selectTypeEvent}
+              value={}
+            /> */}
+            <PickerSelect
+              items={selectTypeEvent}
+              title={"Selecciona"}
+              type={1}
+              setSelect={changeEvents}
+              value={evento}
             />
           </View>
         </View>

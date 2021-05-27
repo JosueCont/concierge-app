@@ -12,17 +12,11 @@ import {
 } from "react-native";
 import { Colors } from "../utils/colors";
 import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
-import LoanCardDetail from "../components/ComponentCards/LoanCardDetail";
 import ModalCustom from "../components/modal/ModalCustom";
 import LoadingGlobal from "../components/modal/LoadingGlobal";
 import ApiApp from "../utils/ApiApp";
-import RNPickerSelect from "react-native-picker-select";
 import { connect } from "react-redux";
-import { onlyNumber } from "../utils/functions";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const statusHeight = StatusBar.currentHeight;
+import PickerSelect from "../components/pickerSelect";
 
 const BankScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
@@ -126,6 +120,12 @@ const BankScreen = (props) => {
       });
     }
     setYears(yearsArray.reverse());
+  };
+
+  const setPicker = (type, value) => {
+    if (type == 1) setBank(value);
+    if (type == 2) setExpirationMonth(value);
+    if (type == 3) setExpirationYear(value);
   };
 
   const getBanks = async () => {
@@ -480,7 +480,7 @@ const BankScreen = (props) => {
                       borderWidth: 1,
                     }}
                   >
-                    <RNPickerSelect
+                    {/* <RNPickerSelect
                       onValueChange={(value) => setBank(value)}
                       placeholder={{
                         label: "Banco",
@@ -489,6 +489,13 @@ const BankScreen = (props) => {
                       }}
                       style={pickerSelectStyles}
                       items={banks}
+                      value={bank}
+                    /> */}
+                    <PickerSelect
+                      items={banks}
+                      title={"Banco"}
+                      type={1}
+                      setSelect={setPicker}
                       value={bank}
                     />
                   </View>
@@ -589,7 +596,7 @@ const BankScreen = (props) => {
                         borderWidth: 1,
                       }}
                     >
-                      <RNPickerSelect
+                      {/* <RNPickerSelect
                         onValueChange={(value) => setExpirationMonth(value)}
                         placeholder={{
                           label: "Mes",
@@ -598,6 +605,13 @@ const BankScreen = (props) => {
                         }}
                         style={pickerSelectStyles}
                         items={months}
+                        value={expirationMonth}
+                      /> */}
+                      <PickerSelect
+                        items={months}
+                        title={"Mes"}
+                        type={2}
+                        setSelect={setPicker}
                         value={expirationMonth}
                       />
                     </View>
@@ -649,7 +663,7 @@ const BankScreen = (props) => {
                         borderWidth: 1,
                       }}
                     >
-                      <RNPickerSelect
+                      {/* <RNPickerSelect
                         onValueChange={(value) => setExpirationYear(value)}
                         placeholder={{
                           label: "Año",
@@ -658,6 +672,13 @@ const BankScreen = (props) => {
                         }}
                         style={pickerSelectStyles}
                         items={years}
+                        value={expirationYear}
+                      /> */}
+                      <PickerSelect
+                        items={years}
+                        title={"Año"}
+                        type={3}
+                        setSelect={setPicker}
                         value={expirationYear}
                       />
                     </View>
@@ -744,37 +765,9 @@ const styles = StyleSheet.create({
     width: "100%",
     borderColor: Colors.bluelinks,
     borderWidth: 1,
-    padding: 10,
+    padding: 12,
     borderRadius: 10,
     textAlign: "center",
-  },
-});
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontFamily: "Cabin-Regular",
-    backgroundColor: Colors.white,
-    fontSize: 16,
-    // paddingHorizontal: 10,
-    // paddingVertical: 8,
-    // borderRadius: 20,
-    color: Colors.bluetitle,
-  },
-  inputAndroid: {
-    fontFamily: "Cabin-Regular",
-    backgroundColor: Colors.white,
-    fontSize: 16,
-    // paddingHorizontal: 10,
-    // paddingVertical: 8,
-    // borderRadius: 20,
-    color: Colors.bluetitle,
-  },
-  iconContainer: {
-    top: "25%",
-    right: 15,
-  },
-  placeholder: {
-    fontFamily: "Cabin-Regular",
-    color: Colors.bluetitle,
   },
 });
 

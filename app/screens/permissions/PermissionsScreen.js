@@ -1,13 +1,10 @@
 import {
   View,
-  ScrollView,
   Text,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -21,6 +18,7 @@ import {
   generateYear,
   getmonths,
 } from "../../utils/functions";
+import PickerSelect from "../../components/pickerSelect";
 
 const PermissionsScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
@@ -38,6 +36,8 @@ const PermissionsScreen = (props) => {
   );
   const months = getmonths();
   const [years, setYears] = useState([]);
+  const currentMonth = currentMonthNumber();
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     if (props.user && props.user.userProfile) {
@@ -80,10 +80,10 @@ const PermissionsScreen = (props) => {
       setPermissions([]);
       if (monthPermission && monthPermission > 0)
         filter = filter + `departure_date__month=${monthPermission}&`;
-      else filter = filter + `departure_date__month=${month}&`;
+      else filter = filter + `departure_date__month=${currentMonth}&`;
       if (yearPermission && yearPermission > 0)
         filter = filter + `departure_date__year=${yearPermission}`;
-      else filter = filter + `departure_date__year=${year}`;
+      else filter = filter + `departure_date__year=${currentYear}`;
       let response = await ApiApp.getPermissionRequest(filter);
       if (response.status == 200) {
         if (
@@ -111,6 +111,11 @@ const PermissionsScreen = (props) => {
     }
   };
 
+  const setPicker = async (type, value) => {
+    if (type == 1) setMonthPermission(value);
+    if (type == 2) setYearPermission(value);
+  };
+
   const headerList = () => {
     return (
       <>
@@ -133,21 +138,12 @@ const PermissionsScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setMonthPermission(value)}
-              placeholder={{
-                label: "Mes",
-                value: monthPermission,
-                color: Colors.bluelinks,
-              }}
-              style={pickerSelectStyles}
-              //useNativeAndroidPickerStyle={false}
+            <PickerSelect
               items={months}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
+              title={"Mes"}
+              type={1}
+              setSelect={setPicker}
+              value={monthPermission}
             />
           </View>
           <View
@@ -158,21 +154,12 @@ const PermissionsScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setYearPermission(value)}
-              placeholder={{
-                label: "Año",
-                value: yearPermission,
-                color: Colors.bluelinks,
-              }}
-              style={pickerSelectStyles}
-              //useNativeAndroidPickerStyle={false}
+            <PickerSelect
               items={years}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
+              title={"Año"}
+              type={2}
+              setSelect={setPicker}
+              value={yearPermission}
             />
           </View>
         </View>
