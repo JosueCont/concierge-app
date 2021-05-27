@@ -1,23 +1,24 @@
 import {
   View,
-  ScrollView,
   Text,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import RequestCard from "../../components/ComponentCards/RequestCard";
 import { Colors } from "../../utils/colors";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
-import { generateYear, getmonths } from "../../utils/functions";
+import {
+  currentMonthNumber,
+  generateYear,
+  getmonths,
+} from "../../utils/functions";
 import LoanCard from "../../components/ComponentCards/LoanCard";
+import PickerSelect from "../../components/pickerSelect";
 
 const LoanScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
@@ -26,18 +27,17 @@ const LoanScreen = (props) => {
   const [modalLoading, setModalLoading] = useState(false);
   const [loans, SetLoans] = useState([]);
   const [modalDetail, setModalDetail] = useState(false);
+  const months = getmonths();
   const [monthLoan, setMonthLoan] = useState(
-    new Date().toLocaleDateString().substring(0, 2)
+    months[currentMonthNumber()].value
   );
   const [yearLoan, setYearLoan] = useState(new Date().getFullYear());
-  const months = getmonths();
   const [years, setYears] = useState([]);
+  const currentMonth = currentMonthNumber();
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     if (props.user && props.user.userProfile) {
-      const mont = new Date().toLocaleDateString().substring(0, 2);
-      let data = months[mont - 1];
-      setMonthLoan(parseInt(data.value));
       setYears(generateYear());
       getLoansRequest();
     } else {
@@ -72,10 +72,10 @@ const LoanScreen = (props) => {
       SetLoans([]);
       if (monthLoan && monthLoan > 0)
         filter = filter + `timestamp__month=${monthLoan}&`;
-      else filter = filter + `timestamp__month=${month}&`;
+      else filter = filter + `timestamp__month=${currentMonth}&`;
       if (yearLoan && yearLoan > 0)
         filter = filter + `timestamp__year=${yearLoan}`;
-      else filter = filter + `timestamp__year=${year}`;
+      else filter = filter + `timestamp__year=${currentYear}`;
       let response = await ApiApp.getLoanRequest(filter);
       if (response.status == 200) {
         if (
@@ -103,6 +103,11 @@ const LoanScreen = (props) => {
     }
   };
 
+  const setPicker = async (type, value) => {
+    if (type == 1) setMonthLoan(value);
+    if (type == 2) setYearLoan(value);
+  };
+
   const headerList = () => {
     return (
       <>
@@ -125,15 +130,12 @@ const LoanScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setMonthLoan(value)}
-              placeholder={{
-                label: "Mes",
-                value: monthLoan,
-                color: Colors.bluelinks,
-              }}
-              style={pickerSelectStyles}
+            <PickerSelect
               items={months}
+              title={"Mes"}
+              type={1}
+              setSelect={setPicker}
+              value={monthLoan}
             />
           </View>
           <View
@@ -144,15 +146,12 @@ const LoanScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setYearLoan(value)}
-              placeholder={{
-                label: "Año",
-                value: yearLoan,
-                color: Colors.bluelinks,
-              }}
-              style={pickerSelectStyles}
+            <PickerSelect
               items={years}
+              title={"Año"}
+              type={2}
+              setSelect={setPicker}
+              value={yearLoan}
             />
           </View>
         </View>

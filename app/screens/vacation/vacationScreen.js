@@ -1,13 +1,10 @@
 import {
   View,
-  ScrollView,
   Text,
   StatusBar,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -16,6 +13,12 @@ import { Colors } from "../../utils/colors";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
+import {
+  currentMonthNumber,
+  generateYear,
+  getmonths,
+} from "../../utils/functions";
+import PickerSelect from "../../components/pickerSelect";
 
 const vacationScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
@@ -23,84 +26,23 @@ const vacationScreen = (props) => {
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
   const [vacations, setVacations] = useState([]);
+  const months = getmonths();
   const [monthVacation, setMonthVacation] = useState(
-    new Date().toLocaleDateString().substring(0, 2)
+    months[currentMonthNumber()].value
   );
   const [yearVacation, setYearVacation] = useState(new Date().getFullYear());
-  const months = [
-    {
-      label: "Enero",
-      value: 1,
-    },
-    {
-      label: "Febrero",
-      value: 2,
-    },
-    {
-      label: "Marzo",
-      value: 3,
-    },
-    {
-      label: "Abril",
-      value: 4,
-    },
-    {
-      label: "Mayo",
-      value: 5,
-    },
-    {
-      label: "Junio",
-      value: 6,
-    },
-    {
-      label: "Julio",
-      value: 7,
-    },
-    {
-      label: "Agosto",
-      value: 8,
-    },
-    {
-      label: "Septiembre",
-      value: 9,
-    },
-    {
-      label: "Octubre",
-      value: 10,
-    },
-    {
-      label: "Noviembre",
-      value: 11,
-    },
-    {
-      label: "Diciembre",
-      value: 12,
-    },
-  ];
   const [years, setYears] = useState([]);
-
+  const currentMonth = currentMonthNumber();
+  const currentYear = new Date().getFullYear();
+  const [fake, setFake] = useState(null);
   useEffect(() => {
     if (props.user && props.user.userProfile) {
-      const mont = new Date().toLocaleDateString().substring(0, 2);
-      let data = months[mont - 1];
-      setMonthVacation(parseInt(data.value));
-      generateYear();
+      setYears(generateYear());
       getVacationsRequest();
     } else {
       props.navigation.goBack(null);
     }
   }, [props.user]);
-
-  const generateYear = () => {
-    let yearsArray = [];
-    let currentYear = new Date().getFullYear();
-    let startYear = currentYear - 10;
-    while (startYear < currentYear) {
-      startYear++;
-      yearsArray.push({ label: `${startYear}`, value: startYear });
-    }
-    setYears(yearsArray.reverse());
-  };
 
   const clickAction = () => {
     props.navigation.goBack(null);
@@ -125,10 +67,10 @@ const vacationScreen = (props) => {
       setVacations([]);
       if (monthVacation && monthVacation > 0)
         filter = filter + `departure_date__month=${monthVacation}&`;
-      else filter = filter + `departure_date__month=${month}&`;
+      else filter = filter + `departure_date__month=${currentMonth}&`;
       if (yearVacation && yearVacation > 0)
         filter = filter + `departure_date__year=${yearVacation}`;
-      else filter = filter + `departure_date__year=${year}`;
+      else filter = filter + `departure_date__year=${currentYear}`;
       let response = await ApiApp.getVacationRequest(filter);
       if (response.status == 200) {
         if (
@@ -147,6 +89,7 @@ const vacationScreen = (props) => {
         }
       }
     } catch (error) {
+      console.log("Error-->>> ", error);
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);
@@ -154,6 +97,11 @@ const vacationScreen = (props) => {
         setModalLoading(false);
       }, 1500);
     }
+  };
+
+  const setPicker = async (type, value) => {
+    if (type == 1) setMonthVacation(value);
+    if (type == 2) setYearVacation(value);
   };
 
   const headerList = () => {
@@ -219,21 +167,12 @@ const vacationScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setMonthVacation(value)}
-              placeholder={{
-                label: "Mes",
-                value: monthVacation,
-                color: Colors.bluelinks,
-              }}
-              style={pickerSelectStyles}
-              //useNativeAndroidPickerStyle={false}
+            <PickerSelect
               items={months}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
+              title={"Mes"}
+              type={1}
+              setSelect={setPicker}
+              value={monthVacation}
             />
           </View>
           <View
@@ -244,21 +183,12 @@ const vacationScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setYearVacation(value)}
-              placeholder={{
-                label: "Año",
-                value: yearVacation,
-                color: Colors.bluelinks,
-              }}
-              style={pickerSelectStyles}
-              //useNativeAndroidPickerStyle={false}
+            <PickerSelect
               items={years}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
+              title={"Año"}
+              type={2}
+              setSelect={setPicker}
+              value={yearVacation}
             />
           </View>
         </View>
