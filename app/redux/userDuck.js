@@ -3,6 +3,7 @@ import axios from "axios";
 import Constants from "expo-constants";
 import ApiApp from "../utils/ApiApp";
 import jwt_decode from "jwt-decode";
+import { registerForPushNotificationsAsync } from "../utils/functions";
 
 /***
  *CONSTANTS
@@ -148,6 +149,10 @@ export let doLoginAction = (credential) => {
 export let logOutAction = () => {
   return async (dispatch, getState) => {
     try {
+      const device_id = await registerForPushNotificationsAsync();
+      await ApiApp.deleteUserDevice({
+        device_id: device_id,
+      });
       dispatch({ type: LOG_OUT, payload: {} });
       cleanUser();
     } catch (err) {

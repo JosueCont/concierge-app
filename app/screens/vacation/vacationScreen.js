@@ -89,7 +89,6 @@ const vacationScreen = (props) => {
         }
       }
     } catch (error) {
-      console.log("Error-->>> ", error);
       setMessageCustomModal("Ocurrio un error, intente de nuevo.");
       setIconSourceCustomModal(2);
       setModalCustom(true);

@@ -175,6 +175,7 @@ export const getNumberDays = (departure, returned) => {
 };
 
 export const registerForPushNotificationsAsync = async () => {
+  let token = "";
   if (Constants.isDevice) {
     const { status: existingStatus } = await Permissions.getAsync(
       Permissions.NOTIFICATIONS
@@ -188,8 +189,8 @@ export const registerForPushNotificationsAsync = async () => {
       // alert("Failed to get push token for push notification!");
       return;
     }
-    const token = await Notifications.getExpoPushTokenAsync();
-    console.log("Token-- >> ", token.data);
+    token = await Notifications.getExpoPushTokenAsync();
+    // console.log("Token-- >> ", token.data);
     //const idDevice = await Notifications.getDevicePushTokenAsync();
     //await console.log("androidNAtive:::",idDevice)
     //await alert(idDevice.data)
@@ -206,4 +207,5 @@ export const registerForPushNotificationsAsync = async () => {
       lightColor: "#FF231F7C",
     });
   }
+  return token.data;
 };

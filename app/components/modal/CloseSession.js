@@ -5,8 +5,6 @@ import { logOutAction } from "../../redux/userDuck";
 import { Colors } from "../../utils/colors";
 
 const CloseSession = (props) => {
-  useEffect(() => {}, []);
-
   return (
     <View style={styles.centeredView}>
       <Modal animationType="fade" transparent={true} visible={props.visible}>
