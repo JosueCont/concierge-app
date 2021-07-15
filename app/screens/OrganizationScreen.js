@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   ScrollView,
@@ -18,6 +18,8 @@ const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
 const OrganizationScreen = (props) => {
+  const [changeView, setChangeView] = useState(1);
+
   const clickAction = () => {
     props.navigation.navigate("Main");
   };
@@ -132,19 +134,19 @@ const OrganizationScreen = (props) => {
           <View style={styles.row}>
             <TouchableOpacity
               style={styles.item}
-              // onPress={() => props.navigation.navigate("vacationScreen")}
+              onPress={() => setChangeView(1)}
             >
               <Text style={styles.title}>Información</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.item}
-              // onPress={() => props.navigation.navigate("PermissionsScreen")}
+              onPress={() => setChangeView(2)}
             >
               <Text style={styles.title}>Políticas</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.item}
-              // onPress={() => props.navigation.navigate("PermissionsScreen")}
+              onPress={() => setChangeView(3)}
             >
               <Text style={styles.title}>Reglas de negocio</Text>
             </TouchableOpacity>
@@ -152,71 +154,66 @@ const OrganizationScreen = (props) => {
         </View>
 
         <View style={styles.container}>
-          <View style={{ marginTop: "10%" }}>
-            <Mark />
-            <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
-              Dirección
-            </Text>
-            <Text style={styles.inputJustify}>
-              Calle 15 No. 122 entre 24 y 26, Col. México, 97125 Mérida, Yuc.
-            </Text>
-            <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
-              Email
-            </Text>
-            <Text style={styles.input}>contacto@staffconcierge.com</Text>
-            <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
-              Teléfono
-            </Text>
-            <Text style={styles.input}>(999) 666 0350</Text>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 15,
-              }}
-            >
+          {changeView == 1 && (
+            <View style={{ marginTop: "10%" }}>
+              <Mark />
+              <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
+                Dirección
+              </Text>
+              <Text style={styles.inputJustify}></Text>
+              <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
+                Email
+              </Text>
+              <Text style={styles.input}></Text>
+              <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
+                Teléfono
+              </Text>
+              <Text style={styles.input}></Text>
               <View
                 style={{
-                  alignItems: "flex-start",
-                  width: "100%",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 15,
                 }}
               >
-                <Text
+                <View
                   style={{
-                    marginBottom: 10,
-                    color: Colors.bluetitle,
+                    alignItems: "flex-start",
+                    width: "100%",
                   }}
                 >
-                  Información
-                </Text>
+                  <Text
+                    style={{
+                      marginBottom: 10,
+                      color: Colors.bluetitle,
+                    }}
+                  >
+                    Descripción
+                  </Text>
+                </View>
               </View>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginBottom: 20,
-              }}
-            >
               <View
                 style={{
-                  width: "100%",
-                  borderRadius: 10,
-                  padding: 10,
-                  backgroundColor: Colors.bluebg,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 20,
                 }}
               >
-                <Text style={styles.inputJustify}>
-                  Somos la primera fábrica de software en Capital Humano en
-                  Latinoamérica. Contamos con un equipo de profesionales que
-                  crea confianza en sus clientes, ya que tenemos una metodología
-                  para entender las necesidades de los clientes, y así ofrecer
-                  una solución en un tiempo óptimo utilizando tecnología de
-                  vanguardia.
-                </Text>
+                <View
+                  style={{
+                    width: "100%",
+                    borderRadius: 10,
+                    padding: 10,
+                    backgroundColor: Colors.bluebg,
+                  }}
+                >
+                  <Text style={styles.inputJustify}>
+                    {/* {props.user.userProfile.department.node.description} */}
+                  </Text>
+                </View>
               </View>
             </View>
-          </View>
+          )}
         </View>
       </ScrollView>
     </View>

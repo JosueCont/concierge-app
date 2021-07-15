@@ -28,39 +28,39 @@ const BankScreen = (props) => {
   const months = [
     {
       label: "01",
-      value: "1",
+      value: "01",
     },
     {
       label: "02",
-      value: "2",
+      value: "02",
     },
     {
       label: "03",
-      value: "3",
+      value: "03",
     },
     {
       label: "04",
-      value: "4",
+      value: "04",
     },
     {
       label: "05",
-      value: "5",
+      value: "05",
     },
     {
       label: "06",
-      value: "6",
+      value: "06",
     },
     {
       label: "07",
-      value: "7",
+      value: "07",
     },
     {
       label: "08",
-      value: "8",
+      value: "08",
     },
     {
       label: "09",
-      value: "9",
+      value: "09",
     },
     {
       label: "10",
@@ -480,17 +480,6 @@ const BankScreen = (props) => {
                       borderWidth: 1,
                     }}
                   >
-                    {/* <RNPickerSelect
-                      onValueChange={(value) => setBank(value)}
-                      placeholder={{
-                        label: "Banco",
-                        value: bank,
-                        color: Colors.bluelinks,
-                      }}
-                      style={pickerSelectStyles}
-                      items={banks}
-                      value={bank}
-                    /> */}
                     <PickerSelect
                       items={banks}
                       title={"Banco"}

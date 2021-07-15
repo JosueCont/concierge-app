@@ -46,7 +46,7 @@ const CalendarScreen = (props) => {
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
   const dateCurrent = moment().format("YYYY-MM-DD");
-  const [evento, setEvento] = useState("");
+  const [evento, setEvento] = useState("node__id");
   let filter = "";
 
   const [toDay, setToday] = useState({
@@ -91,7 +91,6 @@ const CalendarScreen = (props) => {
   };
 
   const changeEvents = (type, value) => {
-    // setModalLoading(true);
     setEvento(value);
     let typeFilter = "";
     let id = "";
@@ -273,16 +272,6 @@ const CalendarScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            {/* <RNPickerSelect
-              onValueChange={(value) => changeEvents(value)}
-              placeholder={{
-                label: "Selecciona",
-                color: Colors.bluetitle,
-              }}
-              style={pickerSelectStyles}
-              items={selectTypeEvent}
-              value={}
-            /> */}
             <PickerSelect
               items={selectTypeEvent}
               title={"Selecciona"}

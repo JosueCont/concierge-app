@@ -191,7 +191,6 @@ export let updateProfile = (dataProfile) => {
       });
       return response;
     } catch (e) {
-      console.log(e);
       return "Error";
     }
   };

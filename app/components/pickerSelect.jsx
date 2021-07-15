@@ -2,22 +2,25 @@ import { Colors } from "../utils/colors";
 import RNPickerSelect from "react-native-picker-select";
 import { StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
+import { View } from "native-base";
 
 const PickerSelect = (props) => {
   return (
-    <RNPickerSelect
-      key={props.value}
-      onValueChange={(value) => {
-        props.setSelect(props.type, value);
-      }}
-      placeholder={{
-        label: props.title,
-        color: Colors.bluelinks,
-      }}
-      style={pickerSelectStyles}
-      items={props.items}
-      value={props.value}
-    />
+    <View style={{ backgroundColor: Colors.white, borderRadius: 10 }}>
+      <RNPickerSelect
+        key={props.value}
+        onValueChange={(value) => {
+          props.setSelect(props.type, value);
+        }}
+        placeholder={{
+          label: props.title,
+          color: Colors.bluelinks,
+        }}
+        style={pickerSelectStyles}
+        items={props.items}
+        value={props.value}
+      />
+    </View>
   );
 };
 
@@ -33,6 +36,7 @@ const pickerSelectStyles = StyleSheet.create({
     color: Colors.bluetitle,
   },
   inputAndroid: {
+    height: 45,
     fontFamily: "Cabin-Regular",
     backgroundColor: Colors.white,
     fontSize: 16,

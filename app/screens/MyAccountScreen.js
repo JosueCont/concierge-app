@@ -13,7 +13,7 @@ import {
 import ToolbarNoLogin from "../components/ToolbarComponent/ToolbarNoLogin";
 import { Colors } from "../utils/colors";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import * as Permissions from "expo-permissions";
+import { Camera } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
 import { connect } from "react-redux";
 import { logOutAction, updateProfile, getProfile } from "../redux/userDuck";
@@ -64,15 +64,8 @@ const MyAccountScreen = (props) => {
   };
 
   const changeAvatar = async () => {
-    const resultPermissions = await Permissions.askAsync(
-      Permissions.CAMERA_ROLL
-    );
-    const resultPermissionsCamera =
-      resultPermissions.permissions.cameraRoll.status;
-
-    if (resultPermissions === "denied") {
-      console.log("permisos denegados");
-    } else {
+    const resultPermissions = await Camera.requestCameraPermissionsAsync();
+    if (resultPermissions.status != "denied") {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Image,
         allowsEditing: true,

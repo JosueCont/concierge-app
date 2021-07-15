@@ -15,6 +15,9 @@
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
+    "notification": {
+      "iosDisplayInForeground": true
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -37,10 +40,10 @@
       "buildNumber": "7"
     },
     "extra": {
-      "URL_KHONNECT": "https://khonnect.hiumanlab.com",
+      "URL_KHONNECT": "https://khonnect.khor2.com/",
       "KeySecret": "1LaNXFHqau-o8qH3BM7xBdZ9NPlQRCSyDWlcaWniLcQ",
-      "ClientId": "5fa42a1ca6f5f821bbe7fbea",
-      "URL_PEOPLE": "https://demo.people.hiumanlab.com/"
+      "ClientId": "60515413509a1df3e32d6669",
+      "URL_PEOPLE": "https://gape.people-api.khorplus.com/"
     }
   }
 }

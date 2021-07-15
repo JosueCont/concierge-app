@@ -38,7 +38,7 @@ const HomeUserScreen = (props) => {
           mobile_os: Platform.OS == "android" ? 1 : Platform.OS == "ios" && 2,
           device_id: device_id,
         };
-        ApiApp.userDevice(data);
+        if (device_id && device_id != "") ApiApp.userDevice(data);
         getComunication();
       } else if (response == "Error") {
         setTimeout(() => {

@@ -16,6 +16,7 @@ import { Colors } from "../../utils/colors";
 import ApiApp from "../../utils/ApiApp";
 import ModalCustom from "../../components/modal/ModalCustom";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
+import PickerSelect from "../../components/pickerSelect";
 
 const PayrollScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);
@@ -157,6 +158,11 @@ const PayrollScreen = (props) => {
     }
   };
 
+  const setPicker = (type, value) => {
+    if (type == 1) setMonthVoucher(value);
+    if (type == 2) setYearVoucher(value);
+  };
+
   const headerList = () => {
     return (
       <View
@@ -184,22 +190,12 @@ const PayrollScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setMonthVoucher(value)}
-              placeholder={{
-                label: "Mes",
-                value: "null",
-                color: Colors.bluelinks,
-              }}
-              style={pickerSelectStyles}
+            <PickerSelect
               items={months}
+              title={"Mes"}
+              type={1}
+              setSelect={setPicker}
               value={monthVoucher}
-              //useNativeAndroidPickerStyle={false}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
             />
           </View>
           <View
@@ -210,22 +206,12 @@ const PayrollScreen = (props) => {
               marginBottom: 20,
             }}
           >
-            <RNPickerSelect
-              onValueChange={(value) => setYearVoucher(value)}
-              placeholder={{
-                label: "Año",
-                value: yearVoucher,
-                color: Colors.bluelinks,
-              }}
-              value={yearVoucher}
-              style={pickerSelectStyles}
+            <PickerSelect
               items={years}
-              //useNativeAndroidPickerStyle={false}
-              //Icon={() => {
-              //                return (
-              //                  <AntDesign name="down" size={24} color={Colors.bluetitle} />
-              //                );
-              //              }}
+              title={"Año"}
+              type={2}
+              setSelect={setPicker}
+              value={yearVoucher}
             />
           </View>
           <View style={{ alignItems: "center" }}>
