@@ -402,7 +402,6 @@ const LoanCardDetail = (props) => {
         }}
         ListHeaderComponent={props.headerList}
         ListFooterComponent={props.footerList}
-        extraData={(data) => console.log("Data-->> ", data)}
       />
     </SafeAreaView>
   );

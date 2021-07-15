@@ -18,15 +18,12 @@ APIKit.interceptors.request.use(async function (config) {
       ? JSON.parse(userData).user_id
       : "";
     if (token) config.headers.Authorization = token;
-  } catch (e) {
-    console.log("Error->", e.error);
-  }
+  } catch (e) {}
 
   return config;
 });
 
 APIKit.interceptors.response.use(function (config) {
-  //console.log("response",config)
   return config;
 });
 

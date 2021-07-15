@@ -133,6 +133,18 @@ class ApiApp {
   static getProceedings = (data) => {
     return ApiApp.ApisType(`/person/person/${data}/document_person/`, "get");
   };
+
+  static userDevice = (data) => {
+    return ApiApp.ApisType(`/noticenter/user-device/`, "post", data);
+  };
+
+  static deleteUserDevice = (data) => {
+    return ApiApp.ApisType(
+      `/noticenter/user-device/delete_device/`,
+      "post",
+      data
+    );
+  };
 }
 
 export default ApiApp;

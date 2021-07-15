@@ -1,5 +1,4 @@
 import moment from "moment";
-import * as Permissions from "expo-permissions";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
 
@@ -175,27 +174,19 @@ export const getNumberDays = (departure, returned) => {
 };
 
 export const registerForPushNotificationsAsync = async () => {
+  let token = "";
+  let finalStatus = "granted";
   if (Constants.isDevice) {
-    const { status: existingStatus } = await Permissions.getAsync(
-      Permissions.NOTIFICATIONS
-    );
-    let finalStatus = existingStatus;
-    if (existingStatus !== "granted") {
-      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-      finalStatus = status;
+    const existingStatus = await Notifications.getPermissionsAsync();
+    // finalStatus = existingStatus.status;
+    if (existingStatus.status !== "granted") {
+      const status = await Notifications.requestPermissionsAsync();
+      finalStatus = status.status;
     }
-    if (finalStatus !== "granted") {
-      // alert("Failed to get push token for push notification!");
-      return;
+    if (finalStatus == "granted") {
+      token = await Notifications.getExpoPushTokenAsync();
     }
-    const token = await Notifications.getExpoPushTokenAsync();
-    console.log("Token-- >> ", token.data);
-    //const idDevice = await Notifications.getDevicePushTokenAsync();
-    //await console.log("androidNAtive:::",idDevice)
-    //await alert(idDevice.data)
-    // await registerDevice(token.data)
-  } else {
-    //alert('Must use physical device for Push Notifications');
+    token = await Notifications.getExpoPushTokenAsync();
   }
 
   if (Platform.OS === "android") {
@@ -204,6 +195,8 @@ export const registerForPushNotificationsAsync = async () => {
       importance: Notifications.AndroidImportance.MAX,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: "#FF231F7C",
+      sound: "default",
     });
   }
+  return token.data;
 };

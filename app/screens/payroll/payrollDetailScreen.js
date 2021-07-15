@@ -87,7 +87,6 @@ const payrollDetailScreen = (props) => {
     // movement_type 1 -->> Percepcion usar -->> amount_excent y taxed_amount
     // movement_type 2 -->> Deduccion  usar -->> amount
     // movement_type 3 -->> otros pagos usar -->> employee_allowens
-    // console.log("Array -->> ", detail);
     if (type == 3) closeModal();
     return (
       <>

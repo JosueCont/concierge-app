@@ -15,6 +15,7 @@ const HomeUserScreen = (props) => {
   const [modalLoading, setModalLoading] = useState(true);
   const [modalNews, setModalNews] = useState(false);
   const [modalItem, setModalItem] = useState({});
+  const [refresh, setRefresh] = useState(false);
 
   const clickAction = () => {
     props.navigation.toggleDrawer();
@@ -29,9 +30,15 @@ const HomeUserScreen = (props) => {
   };
 
   useEffect(() => {
-    registerForPushNotificationsAsync();
-    props.getProfile(props.user).then((response) => {
+    props.getProfile(props.user).then(async (response) => {
+      const device_id = await registerForPushNotificationsAsync();
       if (response.id) {
+        let data = {
+          person: response.id,
+          mobile_os: Platform.OS == "android" ? 1 : Platform.OS == "ios" && 2,
+          device_id: device_id,
+        };
+        if (device_id && device_id != "") ApiApp.userDevice(data);
         getComunication();
       } else if (response == "Error") {
         setTimeout(() => {
@@ -42,11 +49,11 @@ const HomeUserScreen = (props) => {
     });
   }, []);
 
-  useEffect(() => {
-    getComunication();
-  }, [props.user.userProfile]);
+  // useEffect(() => {
+  //   getComunication();
+  // }, [props.user.userProfile]);
 
-  const getComunication = async () => {
+  const getComunication = async (value) => {
     setModalLoading(true);
     try {
       let data = {
@@ -60,10 +67,12 @@ const HomeUserScreen = (props) => {
       let response = await ApiApp.getComunication(data);
       setComunications(response.data);
       setTimeout(() => {
+        if (value && value == "refrescar") setRefresh(false);
         setModalLoading(false);
       }, 1500);
     } catch (err) {
       setTimeout(() => {
+        if (value && value == "refrescar") setRefresh(false);
         setModalLoading(false);
       }, 1500);
     }
@@ -155,8 +164,11 @@ const HomeUserScreen = (props) => {
           cards={comunications}
           props={props}
           headerList={headerList}
-          refresh={() => getComunication()}
+          refresh={(value) => {
+            getComunication(value), setRefresh(true);
+          }}
           modalNews={(value) => openModalNews(value)}
+          refreshing={refresh}
         />
         <LoadingGlobal visible={modalLoading} text={"Cargando"} />
       </View>

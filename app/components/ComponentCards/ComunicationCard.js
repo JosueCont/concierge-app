@@ -25,12 +25,16 @@ const ComunicationCard = (props) => {
 
   const refresh = () => {
     setRefreshing(true);
-    props.refresh(false);
+    props.refresh("refrescar");
   };
 
   useEffect(() => {
     setRefreshing(false);
   }, [props.cards]);
+
+  useEffect(() => {
+    if (!props.refreshing) setRefreshing(false);
+  }, [props.refreshing]);
 
   const renderItem = ({ item, index }) => {
     return (
