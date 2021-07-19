@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const ModalLoadingGlobal = (props) => {
   return (
-    <View>
+    <View style={{flex:1,height:'100%'}}>
       <Modal transparent={true} visible={props.visible}>
         <View style={styles.centeredView}>
           <Image
@@ -25,6 +25,7 @@ const styles = {
     backgroundColor: "rgba(0,0,0,0.7)",
     justifyContent: "center",
     alignItems: "center",
+
   },
 };
 
