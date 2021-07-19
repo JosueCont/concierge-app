@@ -15,3 +15,7 @@ web-build/
 /.idea
 /native-base-theme/
 #carpeta
+/.expo-shared/
+/package-lock.json
+/yarn.lock
+/yarn-error.log
