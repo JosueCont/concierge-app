@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, View, Image, Text } from "react-native";
 import { connect } from "react-redux";
+import gif from "../../../assets/Login_concierge.gif"
 
 const ModalLoadingGlobal = (props) => {
   return (
@@ -10,7 +11,7 @@ const ModalLoadingGlobal = (props) => {
           <Image
             style={{ width: 100, height: 100 }}
             fullScreen
-            source={require("../../../assets/Login_concierge.gif")}
+            source={gif}
           />
           <Text style={{ color: "#fff" }}>{props.text}...</Text>
         </View>

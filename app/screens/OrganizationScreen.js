@@ -5,7 +5,6 @@ import {
     StatusBar,
     Image,
     Dimensions,
-    TouchableOpacity,
     Keyboard, TouchableWithoutFeedback, TextInput, Platform
 } from "react-native";
 import {Colors} from "../utils/colors";
@@ -13,7 +12,6 @@ import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
 import {connect} from "react-redux";
 import {styles} from "./organizationScreenStyleSheet";
 import {Icon, Tab, Tabs, Text, Textarea} from 'native-base';
-import axiosApi from "../utils/axiosApi";
 import APIKit from "../utils/axiosApi";
 
 const windowWidth = Dimensions.get("window").width;
@@ -29,12 +27,12 @@ const OrganizationScreen = ({navigation, user}) => {
     const [businessRules,setBusinessRules] = useState(null);
     const policiesInput = useRef(null);
     const rulesInput = useRef(null);
+    const [company] = useState(user.userProfile.node_user);
 
 
     useEffect(() => {
         APIKit.get(`/business/node-information/?node=${node}`).then((res) => {
             let data = res.data.results[0];
-            console.log(Object.keys(data))
             setAddress(data.address)
             setEmail(data.contact_email);
             setPhone(data.contact_phone);
@@ -117,25 +115,22 @@ const OrganizationScreen = ({navigation, user}) => {
                     style={{
                         marginTop: "2%",
                         flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
+                        height:80
                     }}
                 >
                     <View
                         style={{
-                            width: Dimensions.get("window").width * 0.2,
-                            height: Dimensions.get("window").width * 0.2,
-                            backgroundColor: "transparent",
-                            // marginTop: Dimensions.get("window").height * 0.06,
+                            flex:0.7,
+                            alignItems:'flex-end'
                         }}
                     >
                         <Image
                             resizeMode="contain"
-                            style={{height: "100%", width: "100%"}}
-                            source={require("../../assets/img/logo_no_text.png")}
+                            style={{height: "100%", width:80}}
+                            source={{uri:company.image}}
                         />
                     </View>
-                    <View>
+                    <View style={{flex:1, padding:10}}>
                         <Text
                             style={{
                                 fontFamily: "Cabin-Regular",
@@ -153,8 +148,10 @@ const OrganizationScreen = ({navigation, user}) => {
                                 color: Colors.bluetitle,
                                 textAlign: "left",
                             }}
+                            numberOfLines={2}
+                            adjustsFontSizeToFit={true}
                         >
-                            Staff Concierge
+                            {company.name}
                         </Text>
                     </View>
                 </View>
@@ -300,7 +297,9 @@ const OrganizationScreen = ({navigation, user}) => {
 
 
 const mapState = (state) => {
-    return {user: state.user};
+    return {
+        user: state.user
+    };
 };
 
 export default connect(mapState)(OrganizationScreen);

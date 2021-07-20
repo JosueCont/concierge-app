@@ -57,14 +57,14 @@ const HomeUserScreen = (props) => {
     const getComunication = async (value) => {
         setModalLoading(true);
         try {
-
             let response = await ApiApp.getComunication(props.user.userProfile.id);
-            setComunications(response.data);
+            setComunications(response.data.results);
             setTimeout(() => {
                 if (value && value == "refrescar") setRefresh(false);
                 setModalLoading(false);
             }, 1500);
         } catch (err) {
+            console.log(err.response)
             setTimeout(() => {
                 if (value && value == "refrescar") setRefresh(false);
                 setModalLoading(false);

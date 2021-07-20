@@ -35,8 +35,9 @@ class ApiApp {
     };
 
     static getComunication = (data) => {
+        console.log(38,data)
         return ApiApp.ApisType(
-            `/noticenter/user-notification/?person_id=${data}/`,
+            `/noticenter/user-notification/?notification__isnull=false&person_id=${data}`,
             "get"
         );
     };

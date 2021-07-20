@@ -39,10 +39,10 @@ const ComunicationCard = (props) => {
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.item}>
-        {item.category === 1 ? (
+        {item.notification.category === 1 ? (
           <TouchableOpacity
             style={[
-              item.is_red ? styles.reminderOpen : styles.reminderClose,
+              item.notification.is_red ? styles.reminderOpen : styles.reminderClose,
               styles.reminder,
             ]}
             onPress={() => props.modalNews({ item: item, index: index })}
@@ -60,7 +60,7 @@ const ComunicationCard = (props) => {
                 borderRadius: 8,
               }}
             >
-              {item.is_red ? (
+              {item.notification.is_red ? (
                 <Image
                   source={require("../../../assets/img/icono_recordatorio_azul.png")}
                   style={{ width: 25, height: 25 }}
@@ -85,20 +85,19 @@ const ComunicationCard = (props) => {
             <View
               style={{
                 marginTop: 10,
-                marginBottom: 10,
                 paddingHorizontal: 30,
                 marginBottom: 20,
               }}
             >
               <Text
                 style={[
-                  item.is_red ? styles.textoOpen : styles.textoClose,
+                  item.notification.is_red ? styles.textoOpen : styles.textoClose,
                   styles.textReminder,
                 ]}
               >
-                {item.title}
+                {item.notification.title}
               </Text>
-              <HTML source={{ html: item.message }} contentWidth={witHtml} />
+              <HTML source={{ html: item.notification.message }} contentWidth={witHtml} />
             </View>
           </TouchableOpacity>
         ) : (
@@ -107,13 +106,13 @@ const ComunicationCard = (props) => {
               onPress={() =>
                 props.props.navigation.navigate("NewScreen", {
                   image:
-                    item.files[0] != undefined &&
-                    item.files[0] != null &&
-                    item.files[0] != ""
-                      ? item.files[0].file
+                      item.notification.files[0] != undefined &&
+                      item.notification.files[0] != null &&
+                      item.notification.files[0] != ""
+                      ? item.notification.files[0].file
                       : "",
-                  text: item.message,
-                  title: item.title,
+                  text: item.notification.message,
+                  title: item.notification.title,
                 })
               }
             >
@@ -121,10 +120,10 @@ const ComunicationCard = (props) => {
                 <ImageBackground
                   source={{
                     uri:
-                      item.files[0] != undefined &&
-                      item.files[0] != null &&
-                      item.files[0] != ""
-                        ? item.files[0].file
+                        item.notification.files[0] != undefined &&
+                        item.notification.files[0] != null &&
+                        item.notification.files[0] != ""
+                        ? item.notification.files[0].file
                         : "",
                   }}
                   style={{
@@ -189,13 +188,13 @@ const ComunicationCard = (props) => {
                 onPress={() =>
                   props.props.navigation.navigate("NewScreen", {
                     image:
-                      item.files[0] != undefined &&
-                      item.files[0] != null &&
-                      item.files[0] != ""
-                        ? item.files[0].file
+                    item.notification.files[0] != undefined &&
+                      item.notification.files[0] != null &&
+                    item.notification.files[0] != ""
+                        ? item.notification.files[0].file
                         : "",
-                    text: item.message,
-                    title: item.title,
+                    text: item.notification.message,
+                    title: item.notification.title,
                   })
                 }
               >
