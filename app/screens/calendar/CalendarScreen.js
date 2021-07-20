@@ -7,10 +7,8 @@ import {
   Image,
   Dimensions,
 } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { Calendar } from "react-native-calendars";
 import { LocaleConfig } from "react-native-calendars";
-import { AntDesign } from "@expo/vector-icons";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
@@ -37,8 +35,6 @@ LocaleConfig.locales["es"] = {
 
 LocaleConfig.defaultLocale = "es";
 const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
-const statusHeight = StatusBar.currentHeight;
 
 const CalendarScreen = (props) => {
   const [modalCustom, setModalCustom] = useState(false);

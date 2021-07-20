@@ -23,7 +23,6 @@ import LoadingGlobal from "../components/modal/LoadingGlobal";
 import ApiApp from "../utils/ApiApp";
 import CloseSession from "../components/modal/CloseSession";
 
-const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
 
@@ -179,15 +178,16 @@ const MyAccountScreen = (props) => {
         backgroundColor="rgba(1,1,1,0)"
         translucent={true}
       />
+      <KeyboardAwareScrollView bounces={false}>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
+        bounces={false}
         style={{
           backgroundColor: "transparent",
           zIndex: 20,
         }}
       >
-        <KeyboardAwareScrollView>
           <View
             style={{
               position: "relative",
@@ -347,8 +347,9 @@ const MyAccountScreen = (props) => {
               </View>
             </View>
           </View>
-        </KeyboardAwareScrollView>
       </ScrollView>
+      </KeyboardAwareScrollView>
+
       <ModalCustom
         visible={modalCustom}
         text={messageCustomModal}

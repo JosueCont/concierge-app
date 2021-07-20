@@ -76,6 +76,7 @@ const HRScreen = (props) => {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
+        bounces={false}
         style={{
           zIndex: 0,
           paddingHorizontal: "10%",

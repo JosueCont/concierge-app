@@ -121,14 +121,14 @@ const ChangePasswordScreen = (props) => {
         translucent={true}
       />
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{
-          backgroundColor: "transparent",
-          zIndex: 20,
-        }}
-      >
-        <KeyboardAwareScrollView>
+
+        <KeyboardAwareScrollView bounces={false}
+                                 showsVerticalScrollIndicator={false}
+                                 style={{
+                                   backgroundColor: "transparent",
+                                   zIndex: 20,
+                                 }}
+        >
           <View
             style={{
               position: "relative",
@@ -259,7 +259,6 @@ const ChangePasswordScreen = (props) => {
             </View>
           </View>
         </KeyboardAwareScrollView>
-      </ScrollView>
       <ModalCustom
         visible={modalCustom}
         text={messageCustomModal}
