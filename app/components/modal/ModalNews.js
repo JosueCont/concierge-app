@@ -81,7 +81,6 @@ const ModalNews = ({ visible, setVisible, data, user }) => {
                 marginTop: 10,
                 marginBottom: 10,
                 paddingHorizontal: 30,
-                marginBottom: 20,
               }}
             >
               {data.item && (

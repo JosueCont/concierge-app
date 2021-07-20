@@ -251,19 +251,18 @@ const OrganizationScreen = ({navigation, user}) => {
                              }}
                              textStyle={{fontFamily: "Cabin-Regular", fontSize: 13, color: Colors.white}}
                         >
-                            <View
+                            <ScrollView
+                                nestedScrollEnabled={true}
                                 style={{
-                                    width: "100%",
-                                    marginTop:20
+                                    marginTop:20,
+                                    height: Dimensions.get('window').height,
+                                    flex:1
                                 }}
+                                showsVerticalScrollIndicator
+                                //contentContainerStyle={{flex:1}}
                             >
-                                <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss}>
-                                    <TextInput ref={policiesInput} on={()=> {
-                                        //console.log('run...')
-                                       // policiesInput.current.setNativeProps({ selection: { start: selection.start + 1, end: selection.start + 1, }, });
-                                    }} caretHidden={true}  value={policies}  style={{height:600, padding:20, fontFamily:'Cabin-Regular', color: Colors.bluetitle}} numberOfLines={7} keyboardType={'none'} scrollEnabled={true} multiline={true} selectTextOnFocus={false} showSoftInputOnFocus={false} editable={Platform.OS === 'android'? true: false} />
-                                </TouchableWithoutFeedback>
-                            </View>
+                                <Text style={{flex:1, padding:10, color:Colors.bluelinks, fontFamily:'Cabin-Regular'}}>{policies}</Text>
+                            </ScrollView>
                         </Tab>
                         <Tab heading="Reglas de negocio"
                              activeTabStyle={{
@@ -279,16 +278,18 @@ const OrganizationScreen = ({navigation, user}) => {
                              }}
                              textStyle={{fontFamily: "Cabin-Regular", fontSize: 11, color: Colors.white, textAlign:'center',}}
                         >
-                            <View
+                            <ScrollView
+                                nestedScrollEnabled={true}
                                 style={{
-                                    width: "100%",
-                                    marginTop:20
+                                    marginTop:20,
+                                    height: Dimensions.get('window').height,
+                                    flex:1
                                 }}
+                                showsVerticalScrollIndicator
+                                //contentContainerStyle={{flex:1}}
                             >
-                                <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss}>
-                                    <TextInput selection={{start:0, end:1}} caretHidden={true} value={businessRules}  style={{height:600, padding:20,fontFamily:'Cabin-Regular', color: Colors.bluetitle}} numberOfLines={7} keyboardType={'none'} scrollEnabled={true} multiline={true} selectTextOnFocus={false} showSoftInputOnFocus={false} editable={Platform.OS === 'android'? true: false} />
-                                </TouchableWithoutFeedback>
-                            </View>
+                                <Text style={{flex:1, padding:10, color:Colors.bluelinks, fontFamily:'Cabin-Regular'}}>{businessRules}</Text>
+                            </ScrollView>
                         </Tab>
                     </Tabs>
                 </View>
