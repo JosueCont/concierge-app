@@ -57,15 +57,8 @@ const HomeUserScreen = (props) => {
     const getComunication = async (value) => {
         setModalLoading(true);
         try {
-            let data = {
-                company: props.user.userProfile.node,
-                department: props.user.userProfile.department.id,
-                gender: props.user.userProfile.gender,
-                person_id: props.user.userProfile.id,
-                job: props.user.userProfile.job.id,
-                type_person: props.user.userProfile.person_type,
-            };
-            let response = await ApiApp.getComunication(data);
+
+            let response = await ApiApp.getComunication(props.user.userProfile.id);
             setComunications(response.data);
             setTimeout(() => {
                 if (value && value == "refrescar") setRefresh(false);

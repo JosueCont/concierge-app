@@ -40,13 +40,13 @@
       "buildNumber": "7"
     },
     "extra": {
-      "URL_KHONNECT_PROD": "https://khonnect.khor2.com/",
-      "URL_KHONNECT": "https://khonnect.hiumanlab.com/",
+      "URL_KHONNECT": "https://khonnect.khor2.com/",
+      "URL_KHONNECT_DEV": "https://khonnect.hiumanlab.com/",
       "KeySecret": "1LaNXFHqau-o8qH3BM7xBdZ9NPlQRCSyDWlcaWniLcQ",
-      "ClientId_PROD": "60515413509a1df3e32d6669",
-      "ClientId": "5fa42a1ca6f5f821bbe7fbea",
-      "URL_PEOPLE_PROD": "https://gape.people-api.khorplus.com/",
-      "URL_PEOPLE": "https://demo.people.hiumanlab.com/",
+      "ClientId": "60515413509a1df3e32d6669",
+      "ClientId_DEV": "5fa42a1ca6f5f821bbe7fbea",
+      "URL_PEOPLE": "https://gape.people-api.khorplus.com/",
+      "URL_PEOPLE_DEV": "https://demo.people.hiumanlab.com/",
     }
   }
 }
