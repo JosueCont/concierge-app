@@ -21,20 +21,7 @@ const windowHeight = Dimensions.get("window").height;
 
 const ComunicationCard = (props) => {
   const witHtml = useWindowDimensions().width;
-  const [refreshing, setRefreshing] = useState(false);
 
-  const refresh = () => {
-    setRefreshing(true);
-    props.refresh("refrescar");
-  };
-
-  useEffect(() => {
-    setRefreshing(false);
-  }, [props.cards]);
-
-  useEffect(() => {
-    if (!props.refreshing) setRefreshing(false);
-  }, [props.refreshing]);
 
   const renderItem = ({ item, index }) => {
     return (
@@ -210,17 +197,16 @@ const ComunicationCard = (props) => {
     );
   };
   return (
-    <SafeAreaView style={styles.container}>
       <FlatList
         style={{ paddingHorizontal: 22, backgroundColor: Colors.bluebg }}
         data={props.cards}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
-        onRefresh={() => refresh()}
-        refreshing={refreshing}
+        onRefresh={() => props.refresh()}
+        refreshing={props.refreshing}
+
         ListHeaderComponent={props.headerList}
       />
-    </SafeAreaView>
   );
 };
 
@@ -228,6 +214,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     // marginTop: 20,
+    backgroundColor:'white'
   },
   item: {
     backgroundColor: Colors.white,
