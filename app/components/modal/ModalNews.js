@@ -28,14 +28,9 @@ const ModalNews = ({ visible, setVisible, data, user }) => {
   }, [data.item]);
 
   const changeStatus = async (id, person) => {
-    console.log(person);
     try {
-      console.log(id);
       let response = await ApiApp.changeStatusComunication(id, person);
-      console.log(response.data.is_read);
-    } catch (error) {
-      console.log("e-> ", error);
-    }
+    } catch (error) {}
   };
 
   return (

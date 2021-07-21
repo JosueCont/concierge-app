@@ -99,14 +99,15 @@ const CalendarScreen = (props) => {
       id = props.user.userProfile.node;
     }
     filter = `?${typeFilter}=${id}&date_year=${dateCurrent.substring(0, 4)}`;
+    getAllEvents(filter);
   };
 
   useEffect(() => {
     if (evento != "") {
       setModalLoading(true);
-      getAllEvents(filter);
+      getAllEvents("?node__id=4&date_year=2021");
     }
-  }, [evento]);
+  }, []);
 
   const getAllEvents = async (filter) => {
     try {

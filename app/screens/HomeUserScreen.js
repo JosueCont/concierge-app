@@ -63,7 +63,6 @@ const HomeUserScreen = (props) => {
         setModalLoading(false);
       }, 1500);
     } catch (err) {
-      console.log(err.response);
       setTimeout(() => {
         if (value && value == "refrescar") setRefresh(false);
         setModalLoading(false);
