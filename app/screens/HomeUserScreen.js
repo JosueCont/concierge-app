@@ -135,7 +135,6 @@ const HomeUserScreen = (props) => {
     <>
       <View
         style={{
-          backgroundColor: "red",
           height: "100%",
           zIndex: 1,
         }}
