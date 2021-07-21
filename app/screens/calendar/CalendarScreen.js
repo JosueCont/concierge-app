@@ -297,8 +297,8 @@ const CalendarScreen = (props) => {
           <Image
             source={require("../../../assets/img/imagen_search.png")}
             style={{
-              width: windowWidth * 0.8,
-              height: windowWidth * 0.7,
+              width: windowWidth * 0.3,
+              height: windowWidth * 0.3,
               resizeMode: "contain",
             }}
           ></Image>

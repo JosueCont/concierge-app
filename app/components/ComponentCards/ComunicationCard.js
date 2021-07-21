@@ -42,7 +42,7 @@ const ComunicationCard = (props) => {
         {item.notification.category === 1 ? (
           <TouchableOpacity
             style={[
-              item.notification.is_red ? styles.reminderOpen : styles.reminderClose,
+              item.is_read ? styles.reminderOpen : styles.reminderClose,
               styles.reminder,
             ]}
             onPress={() => props.modalNews({ item: item, index: index })}
@@ -60,7 +60,7 @@ const ComunicationCard = (props) => {
                 borderRadius: 8,
               }}
             >
-              {item.notification.is_red ? (
+              {item.is_read ? (
                 <Image
                   source={require("../../../assets/img/icono_recordatorio_azul.png")}
                   style={{ width: 25, height: 25 }}
@@ -91,13 +91,16 @@ const ComunicationCard = (props) => {
             >
               <Text
                 style={[
-                  item.notification.is_red ? styles.textoOpen : styles.textoClose,
+                  item.is_read ? styles.textoOpen : styles.textoClose,
                   styles.textReminder,
                 ]}
               >
-                {item.notification.title}
+                {item.notification.title}Hola
               </Text>
-              <HTML source={{ html: item.notification.message }} contentWidth={witHtml} />
+              <HTML
+                source={{ html: item.notification.message }}
+                contentWidth={witHtml}
+              />
             </View>
           </TouchableOpacity>
         ) : (
@@ -106,9 +109,9 @@ const ComunicationCard = (props) => {
               onPress={() =>
                 props.props.navigation.navigate("NewScreen", {
                   image:
-                      item.notification.files[0] != undefined &&
-                      item.notification.files[0] != null &&
-                      item.notification.files[0] != ""
+                    item.notification.files[0] != undefined &&
+                    item.notification.files[0] != null &&
+                    item.notification.files[0] != ""
                       ? item.notification.files[0].file
                       : "",
                   text: item.notification.message,
@@ -120,9 +123,9 @@ const ComunicationCard = (props) => {
                 <ImageBackground
                   source={{
                     uri:
-                        item.notification.files[0] != undefined &&
-                        item.notification.files[0] != null &&
-                        item.notification.files[0] != ""
+                      item.notification.files[0] != undefined &&
+                      item.notification.files[0] != null &&
+                      item.notification.files[0] != ""
                         ? item.notification.files[0].file
                         : "",
                   }}
@@ -172,9 +175,9 @@ const ComunicationCard = (props) => {
                     fontFamily: "Cabin-Bold",
                   }}
                 >
-                  {item.title}
+                  {item.notification.title}
                 </Text>
-                <HTML source={{ html: item.message }} />
+                <HTML source={{ html: item.notification.message }} />
               </View>
             </TouchableOpacity>
             <View style={{ alignItems: "flex-end" }}>
@@ -188,9 +191,9 @@ const ComunicationCard = (props) => {
                 onPress={() =>
                   props.props.navigation.navigate("NewScreen", {
                     image:
-                    item.notification.files[0] != undefined &&
+                      item.notification.files[0] != undefined &&
                       item.notification.files[0] != null &&
-                    item.notification.files[0] != ""
+                      item.notification.files[0] != ""
                         ? item.notification.files[0].file
                         : "",
                     text: item.notification.message,

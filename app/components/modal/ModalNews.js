@@ -19,19 +19,23 @@ const ModalNews = ({ visible, setVisible, data, user }) => {
   const witHtml = useWindowDimensions().width;
 
   useEffect(() => {
-    if (data.item && !data.item.is_red && user.userProfile) {
-      let value = {
-        person: user.userProfile.id,
-        notification: data.item.id,
-      };
-      changeStatus(value);
+    if (data.item && !data.item.is_read && user.userProfile) {
+      changeStatus(data.item.id, {
+        person: data.item.person.id,
+        is_read: true,
+      });
     }
   }, [data.item]);
 
-  const changeStatus = async (data) => {
+  const changeStatus = async (id, person) => {
+    console.log(person);
     try {
-      let response = await ApiApp.changeStatusComunication(data);
-    } catch (error) {}
+      console.log(id);
+      let response = await ApiApp.changeStatusComunication(id, person);
+      console.log(response.data.is_read);
+    } catch (error) {
+      console.log("e-> ", error);
+    }
   };
 
   return (
@@ -74,7 +78,7 @@ const ModalNews = ({ visible, setVisible, data, user }) => {
               </Text>
             </View>
             <Text style={[styles.textoOpen, styles.textReminder]}>
-              {data.item && data.item.title}
+              {data.item && data.item.notification.title}
             </Text>
             <View
               style={{
@@ -85,7 +89,7 @@ const ModalNews = ({ visible, setVisible, data, user }) => {
             >
               {data.item && (
                 <HTML
-                  source={{ html: data.item.message }}
+                  source={{ html: data.item.notification.message }}
                   contentWidth={witHtml}
                 />
               )}
