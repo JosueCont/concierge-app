@@ -5,11 +5,13 @@ import gif from "../../../assets/Login_concierge.gif";
 
 const ModalLoadingGlobal = (props) => {
   return (
-    <View style={{ flex:1}}>
+    <View style={{ flex: 1, height: "100%" }}>
+      <Modal transparent={true} visible={props.visible}>
         <View style={styles.centeredView}>
           <Image style={{ width: 100, height: 100 }} fullScreen source={gif} />
           <Text style={{ color: "#fff" }}>{props.text}...</Text>
         </View>
+      </Modal>
     </View>
   );
 };
