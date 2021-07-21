@@ -45,8 +45,6 @@ class ApiApp {
   };
 
   static changeStatusComunication = (id, data) => {
-    console.log("ID-->> ", id);
-    console.log("data-->> ", data);
     return ApiApp.ApisType(`/noticenter/user-notification/${id}/`, "put", data);
   };
 
