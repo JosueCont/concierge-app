@@ -199,7 +199,7 @@ const OrganizationScreen = ({ navigation, user }) => {
                   />{" "}
                   Dirección
                 </Text>
-                <Text style={styles.inputJustify}>{address}</Text>
+                <Text style={styles.input}>{address}</Text>
                 <Text
                   style={{
                     marginBottom: 10,
