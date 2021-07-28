@@ -17,7 +17,6 @@ const HomeUserScreen = (props) => {
   const [modalItem, setModalItem] = useState({});
   const [refresh, setRefresh] = useState(false);
 
-
   const clickAction = () => {
     props.navigation.toggleDrawer();
   };
@@ -52,23 +51,22 @@ const HomeUserScreen = (props) => {
 
   useEffect(() => {
     getComunication();
-    setModalLoading(true)
+    setModalLoading(true);
   }, [props.user.userProfile]);
 
   const getComunication = async (value) => {
-      setRefresh(true)
+    setRefresh(true);
     try {
       let response = await ApiApp.getComunication(props.user.userProfile.id);
-      setComunications(response.data.results);
+      setComunications(response.data.data);
 
-      setTimeout(()=>{
-          setRefresh(false)
-      },300)
-
+      setTimeout(() => {
+        setRefresh(false);
+      }, 300);
     } catch (err) {
-        setTimeout(()=>{
-            setRefresh(false)
-        },300)
+      setTimeout(() => {
+        setRefresh(false);
+      }, 300);
     }
   };
 
@@ -134,16 +132,14 @@ const HomeUserScreen = (props) => {
   };
 
   return (
-      <View>
-        {
-          modalNews &&
-          <ModalNews
-              visible={modalNews}
-              data={modalItem}
-              setVisible={(value) => changeStatus(value)}
-          />
-        }
-
+    <View>
+      {modalNews && (
+        <ModalNews
+          visible={modalNews}
+          data={modalItem}
+          setVisible={(value) => changeStatus(value)}
+        />
+      )}
 
       <View
         style={{
@@ -174,9 +170,8 @@ const HomeUserScreen = (props) => {
           modalNews={(value) => openModalNews(value)}
           refreshing={refresh}
         />
-
       </View>
-      </View>
+    </View>
   );
 };
 
