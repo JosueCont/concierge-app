@@ -27,10 +27,10 @@ import ModalLoadingLogin from "../../components/modal/loadingLogin";
 import ModalCustom from "../../components/modal/ModalCustom";
 
 const LoginScreen = (props) => {
-  // const [email, setEmail] = useState("usuariohiuman01@hiuman.com");
-  // const [pass, setPass] = useState("1234567");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+  const [email, setEmail] = useState("usuariohiuman01@hiuman.com");
+  const [pass, setPass] = useState("1234567");
+  // const [email, setEmail] = useState("");
+  // const [pass, setPass] = useState("");
   const [changeView, setChangeView] = useState(false);
   const [play, setPlay] = useState(true);
 
@@ -69,6 +69,14 @@ const LoginScreen = (props) => {
   const viewModalCustom = () => {
     modalCustom ? setModalCustom(false) : setModalCustom(true);
   };
+
+  useEffect(() => {
+    if (props.user.modalDenied) {
+      setMessageCustomModal("Acceso denegado, contacte con su supervisor.");
+      setIconSourceCustomModal(2);
+      setModalCustom(true);
+    }
+  }, [props.user.modalDenied]);
 
   useEffect(() => {
     Keyboard.addListener("keyboardDidShow", keyboardWillShow);

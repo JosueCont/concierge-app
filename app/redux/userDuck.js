@@ -13,6 +13,7 @@ const initialData = {
   fetching: false,
   error: "",
   userProfile: null,
+  modalDenied: false,
 };
 
 const LOGIN = "LOGIN";
@@ -26,6 +27,7 @@ const LOG_OUT = "LOG_OUT";
 const USER_PROFILE = "USER_PROFILE";
 const USER_PROFILE_SUCCESS = "USER_PROFILE_SUCCESS";
 const TEMPORAL_LOGIN = "TEMPORAL_LOGIN";
+const USER_PROFILE_DENIED = "USER_PROFILE_DENIED";
 
 /***
  *REDUCE
@@ -51,9 +53,25 @@ export default userReducer = (state = initialData, action) => {
         error: action.payload,
       };
     case USER_PROFILE_SUCCESS:
-      return { ...state, userProfile: action.payload };
+      return {
+        ...state,
+        fetching: false,
+        loggedIn: true,
+        userProfile: action.payload,
+      };
+    case USER_PROFILE_DENIED:
+      return {
+        ...state,
+        fetching: false,
+        modalDenied: true,
+      };
     case LOGIN_SUCCESS:
-      return { ...state, fetching: false, loggedIn: true, ...action.payload };
+      return {
+        ...state,
+        loggedIn: false,
+        modalDenied: false,
+        ...action.payload,
+      };
     case LOG_OUT:
       return {
         ...state,
@@ -170,10 +188,16 @@ export let getProfile = (user) => {
         khonnect_id: user.user_id,
         jwt: user,
       });
-      dispatch({
-        type: USER_PROFILE_SUCCESS,
-        payload: response.data,
-      });
+      console.log("res-->", response);
+      if (response.data.department.node.active)
+        dispatch({
+          type: USER_PROFILE_SUCCESS,
+          payload: response.data,
+        });
+      else
+        dispatch({
+          type: USER_PROFILE_DENIED,
+        });
       return response.data;
     } catch (err) {
       return "Error";
