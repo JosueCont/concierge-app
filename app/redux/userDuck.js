@@ -188,7 +188,7 @@ export let getProfile = (user) => {
         khonnect_id: user.user_id,
         jwt: user,
       });
-      if (response.data.department.node.active)
+      if (response.data.department.node.active && response.data.is_active)
         dispatch({
           type: USER_PROFILE_SUCCESS,
           payload: response.data,
