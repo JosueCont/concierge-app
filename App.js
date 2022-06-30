@@ -1,13 +1,15 @@
 import {StatusBar} from "expo-status-bar";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {StyleSheet, View} from "react-native";
-import {StyleProvider, Root, Spinner} from "native-base";
+import {Root, Spinner, StyleProvider} from "native-base";
 import theme from "./app/customTheme/index";
 import {Provider} from "react-redux";
 import generateStore from "./app/redux/store";
 import Layout from "./app/containers/Layout";
 import {useFonts} from "expo-font";
 import {Colors} from "./app/utils/colors";
+
+console.disableYellowBox = true;
 
 const store = generateStore();
 

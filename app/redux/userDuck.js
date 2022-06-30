@@ -1,9 +1,9 @@
-import { AsyncStorage } from "react-native";
+import {AsyncStorage} from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
 import ApiApp from "../utils/ApiApp";
 import jwt_decode from "jwt-decode";
-import { registerForPushNotificationsAsync } from "../utils/functions";
+import {registerForPushNotificationsAsync} from "../utils/functions";
 
 /***
  *CONSTANTS
@@ -133,15 +133,17 @@ export let doLoginAction = (credential) => {
     dispatch({ type: LOGIN });
     try {
       const response = await axios.post(
-        Constants.manifest.extra.URL_KHONNECT + "/login/",
-        credential,
-        {
-          headers: {
-            "client-id": Constants.manifest.extra.ClientId,
-            "Content-Type": "application/json",
-          },
-        }
+          Constants.manifest.extra.URL_KHONNECT + "/login/",
+          credential,
+          {
+            headers: {
+              "client-id": Constants.manifest.extra.ClientId,
+              "Content-Type": "application/json",
+            },
+          }
       );
+
+      console.log(response.data)
 
       let convertResponse = jwt_decode(response.data.token);
 
@@ -157,7 +159,8 @@ export let doLoginAction = (credential) => {
       }
       return convertResponse;
     } catch (err) {
-      dispatch({ type: LOGIN_ERROR_SERVER, payload: err.response });
+      console.log(err.response.data)
+      dispatch({type: LOGIN_ERROR_SERVER, payload: err.response});
       return err.response;
     }
   };
