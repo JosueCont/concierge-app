@@ -1,6 +1,6 @@
 import {StatusBar} from "expo-status-bar";
 import React, {useState} from "react";
-import {StyleSheet, View} from "react-native";
+import {LogBox, StyleSheet, View} from "react-native";
 import {Root, Spinner, StyleProvider} from "native-base";
 import theme from "./app/customTheme/index";
 import {Provider} from "react-redux";
@@ -9,8 +9,7 @@ import Layout from "./app/containers/Layout";
 import {useFonts} from "expo-font";
 import {Colors} from "./app/utils/colors";
 
-console.disableYellowBox = true;
-
+LogBox.ignoreAllLogs(true);
 const store = generateStore();
 
 export default function App() {

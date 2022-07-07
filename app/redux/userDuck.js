@@ -1,9 +1,9 @@
-import {AsyncStorage} from "react-native";
 import axios from "axios";
 import Constants from "expo-constants";
 import ApiApp from "../utils/ApiApp";
 import jwt_decode from "jwt-decode";
 import {registerForPushNotificationsAsync} from "../utils/functions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /***
  *CONSTANTS
@@ -143,7 +143,6 @@ export let doLoginAction = (credential) => {
           }
       );
 
-      console.log(response.data)
 
       let convertResponse = jwt_decode(response.data.token);
 
