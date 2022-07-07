@@ -1,24 +1,10 @@
-import {
-  View,
-  ScrollView,
-  Text,
-  StatusBar,
-  StyleSheet,
-  Image,
-  Dimensions,
-} from "react-native";
-import { Calendar } from "react-native-calendars";
-import { LocaleConfig } from "react-native-calendars";
+import {Dimensions, Image, ScrollView, StatusBar, StyleSheet, Text, View,} from "react-native";
+import {Calendar, LocaleConfig} from "react-native-calendars";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Colors } from "../../utils/colors";
-import {
-  dayNames,
-  dayNamesShort,
-  monthNames,
-  monthNamesShort,
-} from "../../utils/functions";
+import React, {useEffect, useState} from "react";
+import {connect} from "react-redux";
+import {Colors} from "../../utils/colors";
+import {dayNames, dayNamesShort, monthNames, monthNamesShort,} from "../../utils/functions";
 import moment from "moment";
 import ApiApp from "../../utils/ApiApp";
 import ModalCustom from "../../components/modal/ModalCustom";
@@ -105,7 +91,7 @@ const CalendarScreen = (props) => {
   useEffect(() => {
     if (evento != "") {
       setModalLoading(true);
-      getAllEvents("?node__id=4&date_year=2021");
+      getAllEvents(`?node__id=4&date_year=${moment().format('YYYY')}`);
     }
   }, []);
 
