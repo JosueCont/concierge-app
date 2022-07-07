@@ -9,7 +9,7 @@ import {Colors} from "../../utils/colors";
 
 const {width, height} = Dimensions.get("window");
 
-const ModalCustom = ({modalVisible, setModalVisible, iconSource, text}) => {
+const ModalCustom = ({visible, setVisible, iconSource, text}) => {
   const [sourceIconState, setSourceIconState] = useState(null);
 
 
@@ -34,7 +34,7 @@ const ModalCustom = ({modalVisible, setModalVisible, iconSource, text}) => {
       <Modal
           animationType={'slide'}
           transparent={true}
-          visible={modalVisible}
+          visible={visible}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -60,7 +60,7 @@ const ModalCustom = ({modalVisible, setModalVisible, iconSource, text}) => {
             <TouchableOpacity
               style={styles.modalBtn}
               onPress={() => {
-                setModalVisible(false)
+                setVisible()
               }}
             >
               <Text style={styles.modalBtnText}>Cerrar</Text>

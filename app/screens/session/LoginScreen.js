@@ -48,13 +48,13 @@ const LoginScreen = (props) => {
     };
 
 
-    // useEffect(() => {
-    //     if (props.user.modalDenied) {
-    //         setMessageCustomModal("Acceso denegado, contacte con su supervisor.");
-    //         setIconSourceCustomModal(2);
-    //         setModalCustom(true);
-    //     }
-    // }, [props.user.modalDenied]);
+    useEffect(() => {
+        if (props.user.modalDenied) {
+            setMessageCustomModal("Acceso denegado, contacte con su supervisor.");
+            setIconSourceCustomModal(2);
+            setModalCustomVisible(true);
+        }
+    }, [props.user.modalDenied]);
 
     useEffect(() => {
         Keyboard.addListener("keyboardDidShow", keyboardWillShow);
@@ -321,7 +321,7 @@ const LoginScreen = (props) => {
                                             )
                                         }
                                     >
-                                        Aviso de privacidad {modalCustomVisible.toString()}
+                                        Aviso de privacidad
                                     </Text>
                                 </View>
                             </View>
@@ -336,10 +336,10 @@ const LoginScreen = (props) => {
             {
                 modalCustomVisible === true &&
                 <ModalCustom
-                    modalVisible={modalCustomVisible}
+                    visible={modalCustomVisible}
                     text={messageCustomModal}
                     iconSource={iconSourceCustomModal}
-                    setModalVisible={(v) => setModalCustomVisible(v)}
+                    setVisible={(v) => setModalCustomVisible(v)}
                 ></ModalCustom>
             }
 
