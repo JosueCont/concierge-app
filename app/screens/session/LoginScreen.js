@@ -8,15 +8,31 @@ import styled from "styled-components/native";
 import {Video} from "expo-av";
 import * as Animatable from "react-native-animatable";
 import ModalLoadingLogin from "../../components/modal/loadingLogin";
+import {wait} from "../../utils/functions";
 import ModalCustom from "../../components/modal/ModalCustom";
 
 const LoginScreen = (props) => {
-    // const [email, setEmail] = useState("usuariohiuman01@hiuman.com");
-    // const [pass, setPass] = useState("1234567");
+
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [changeView, setChangeView] = useState(false);
     const [play, setPlay] = useState(true);
+    const [visibleHeight, setVisibleHeight] = useState(
+        Dimensions.get("window").height
+    );
+    const [comp_no_imp, setComp_no_imp] = useState(
+        Dimensions.get("window").height
+    );
+    const [comp_aux, setComp_aux] = useState(0);
+    const [justificante_login, setJustificante_login] = useState("flex-end");
+    const [comp_aux_imagen, setComp_aux_imagen] = useState(
+        Dimensions.get("window").width * 0.5
+    );
+    const [modalCustomVisible, setModalCustomVisible] = useState(false);
+    const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
+    const [messageCustomModal, setMessageCustomModal] = useState("");
+    const [loading, setLoading] = useState(false);
+
 
     const resetStack = () => {
         navigation.dispatch(
@@ -30,42 +46,20 @@ const LoginScreen = (props) => {
             })
         );
     };
-    /***
-     *Modal para cuando responde un servicio
-     ***/
 
-    const [visibleHeight, setVisibleHeight] = useState(
-        Dimensions.get("window").height
-    );
-    const [comp_no_imp, setComp_no_imp] = useState(
-        Dimensions.get("window").height
-    );
-    const [comp_aux, setComp_aux] = useState(0);
-    const [justificante_login, setJustificante_login] = useState("flex-end");
-    const [comp_aux_imagen, setComp_aux_imagen] = useState(
-        Dimensions.get("window").width * 0.5
-    );
-    const [modalCustom, setModalCustom] = useState(false);
-    const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
-    const [messageCustomModal, setMessageCustomModal] = useState("");
-    const [loading, setLoading] = useState(false);
 
-    const viewModalCustom = () => {
-        modalCustom ? setModalCustom(false) : setModalCustom(true);
-    };
-
-    useEffect(() => {
-        if (props.user.modalDenied) {
-            setMessageCustomModal("Acceso denegado, contacte con su supervisor.");
-            setIconSourceCustomModal(2);
-            setModalCustom(true);
-        }
-    }, [props.user.modalDenied]);
+    // useEffect(() => {
+    //     if (props.user.modalDenied) {
+    //         setMessageCustomModal("Acceso denegado, contacte con su supervisor.");
+    //         setIconSourceCustomModal(2);
+    //         setModalCustom(true);
+    //     }
+    // }, [props.user.modalDenied]);
 
     useEffect(() => {
         Keyboard.addListener("keyboardDidShow", keyboardWillShow);
         Keyboard.addListener("keyboardDidHide", keyboardWillHide);
-    }, [props.user.fetching]);
+    }, []);
 
     const keyboardWillShow = (e) => {
         LayoutAnimation.easeInEaseOut();
@@ -90,50 +84,51 @@ const LoginScreen = (props) => {
     };
 
     const _login = () => {
+        console.log(88)
+        setLoading(true)
         if (email.trim() === "" || pass.trim() === "") {
             setMessageCustomModal("Llene todos los campos");
             setIconSourceCustomModal(2);
-            setModalCustom(true);
-            return;
-        }
-        props
-            .doLoginAction({
+            setModalCustomVisible(true);
+            setLoading(false)
+        } else {
+            props.doLoginAction({
                 email: email,
                 password: pass,
-            })
-            .then((response) => {
-                console.log(response, 121)
-                if (response.status && response.status != 200) {
-                    setMessageCustomModal("El usuario y la contraseña no coinciden.");
-                    setIconSourceCustomModal(2);
-                    setModalCustom(true);
-                } else {
-                    if (!response.password_changed) {
-                        props.navigation.navigate("ChangePasswordFirstTime");
+            }).then((response) => {
+                console.log(response, 98)
+
+                setLoading(false);
+
+                wait(500).then(() => {
+                    if (response.message === 'incorrect password') {
+                        setMessageCustomModal("El usuario y la contraseña no coinciden.");
+                        setIconSourceCustomModal(2);
+                        setModalCustomVisible(true);
                     } else {
-                        setLoading(false);
+                        if (!response.password_changed) {
+                            props.navigation.navigate("ChangePasswordFirstTime");
+                        }
                     }
-                }
+                });
+
+
+            }).catch((error) => {
+                console.log(error, 118)
             });
+        }
     };
 
-    useEffect(() => {
-        if (props.user.fetching) {
-            setLoading(true);
-        } else {
-            setLoading(false);
-        }
-    }, [props.user.fetching]);
+
     return (
-        <>
-            <ImageBackground
-                source={require("../../../assets/img/fondo_logon_noicon.png")}
-                style={{resizeMode: "cover"}}
-            >
-                {!changeView ? (
-                    <Video
-                        source={require("../../../assets/video/LoginConcierge.mp4")}
-                        rate={1.0}
+        <ImageBackground
+            source={require("../../../assets/img/fondo_logon_noicon.png")}
+            style={{resizeMode: "cover"}}
+        >
+            {!changeView ? (
+                <Video
+                    source={require("../../../assets/video/LoginConcierge.mp4")}
+                    rate={1.0}
                         volume={1.0}
                         isMuted={true}
                         resizeMode="cover"
@@ -287,7 +282,7 @@ const LoginScreen = (props) => {
 
                             {/* <View style={{ flexDirection: "row", width: "100%" }}> */}
                             <View style={{alignItems: "center", width: "90%"}}>
-                                {!props.user.fetching ? (
+                                {!loading ? (
                                     <TouchableOpacity
                                         style={{
                                             fontFamily: "Cabin-Regular",
@@ -326,22 +321,29 @@ const LoginScreen = (props) => {
                                             )
                                         }
                                     >
-                                        Aviso de privacidad
+                                        Aviso de privacidad {modalCustomVisible.toString()}
                                     </Text>
                                 </View>
                             </View>
                         </View>
                     </Animatable.View>
                 </Wrapper>
-            </ImageBackground>
-            <ModalLoadingLogin visible={loading}/>
-            <ModalCustom
-                visible={modalCustom}
-                text={messageCustomModal}
-                iconSource={iconSourceCustomModal}
-                setVisible={() => viewModalCustom(true)}
-            />
-        </>
+            {
+                loading &&
+                <ModalLoadingLogin visible={loading}/>
+
+            }
+            {
+                modalCustomVisible === true &&
+                <ModalCustom
+                    modalVisible={modalCustomVisible}
+                    text={messageCustomModal}
+                    iconSource={iconSourceCustomModal}
+                    setModalVisible={(v) => setModalCustomVisible(v)}
+                ></ModalCustom>
+            }
+
+        </ImageBackground>
     );
 };
 

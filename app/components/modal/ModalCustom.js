@@ -1,51 +1,66 @@
-import React, { useState } from "react";
-import { Modal, View, Image, TouchableOpacity, Dimensions } from "react-native";
+import React, {useEffect, useState} from "react";
+import {Dimensions, Image, Modal, TouchableOpacity, View} from "react-native";
 
-import { Button, Text } from "native-base";
+import {Text} from "native-base";
 
 // import iconError from "../../../assets/icon-error.png";
 // import iconSuccess from "../../../assets/icon_success.png";
-import { Colors } from "../../utils/colors";
-const { width, height } = Dimensions.get("window");
+import {Colors} from "../../utils/colors";
 
-const ModalCustom = ({ visible, setVisible, iconSource, text }) => {
-  let sourceIcon = require("../../../assets/icon.png");
-  if (iconSource === 1)
-    sourceIcon = require("../../../assets/img/icono_ok.png");
-  if (iconSource === 2)
-    sourceIcon = require("../../../assets/img/error_icon.png");
-  if (iconSource === 3)
-    sourceIcon = require("../../../assets/img/imagen_search.png");
-  if (iconSource === 4)
-    sourceIcon = require("../../../assets/img/notification_send.png");
+const {width, height} = Dimensions.get("window");
+
+const ModalCustom = ({modalVisible, setModalVisible, iconSource, text}) => {
+  const [sourceIconState, setSourceIconState] = useState(null);
+
+
+  useEffect(() => {
+    let sourceIcon = require("../../../assets/icon.png");
+    if (iconSource === 1) {
+      sourceIcon = require("../../../assets/img/icono_ok.png");
+    } else if (iconSource === 2) {
+      sourceIcon = require("../../../assets/img/error_icon.png");
+    } else if (iconSource === 3) {
+      sourceIcon = require("../../../assets/img/imagen_search.png");
+    } else if (iconSource === 4) {
+      sourceIcon = require("../../../assets/img/notification_send.png");
+    }
+
+    setSourceIconState(sourceIcon)
+
+  }, [iconSource])
+
+
   return (
-    <View style={styles.centeredView}>
-      <Modal animationType="fade" transparent={true} visible={visible}>
+      <Modal
+          animationType={'slide'}
+          transparent={true}
+          visible={modalVisible}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View
-              style={{
-                width: "100%",
-                position: "absolute",
-                top: 0,
-                textAlign: "center",
-                alignItems: "center",
-              }}
+                style={{
+                  width: "100%",
+                  position: "absolute",
+                  top: 0,
+                  textAlign: "center",
+                  alignItems: "center",
+                }}
             >
               <View
-                style={{
-                  backgroundColor: Colors.bluetitle,
-                  width: 80,
-                  height: 4,
-                }}
+                  style={{
+                    backgroundColor: Colors.bluetitle,
+                    width: 80,
+                    height: 4,
+                  }}
               ></View>
             </View>
-            <Image source={sourceIcon} style={styles.modalImg} />
+            <Image source={sourceIconState} style={styles.modalImg}/>
             <Text style={styles.modalText}>{text}</Text>
             <TouchableOpacity
               style={styles.modalBtn}
               onPress={() => {
-                setVisible(false);
+                setModalVisible(false)
               }}
             >
               <Text style={styles.modalBtnText}>Cerrar</Text>
@@ -53,7 +68,6 @@ const ModalCustom = ({ visible, setVisible, iconSource, text }) => {
           </View>
         </View>
       </Modal>
-    </View>
   );
 };
 

@@ -200,3 +200,10 @@ export const registerForPushNotificationsAsync = async () => {
   }
   return token.data;
 };
+
+
+export const wait = (timeout) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}

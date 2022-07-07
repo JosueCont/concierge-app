@@ -14,7 +14,7 @@ let APIKit = axios.create(config);
 APIKit.interceptors.request.use(async function (config) {
   try {
     let userData = await AsyncStorage.getItem("user");
-    console.log(config.data)
+    //console.log(config.data)
     let token = (await JSON.parse(userData).user_id) ? JSON.parse(userData).user_id : "";
     if (token) config.headers.Authorization = token;
   } catch (e) {
@@ -25,7 +25,7 @@ APIKit.interceptors.request.use(async function (config) {
 });
 
 APIKit.interceptors.response.use(function (response) {
-  console.log(response.data)
+  //console.log(response.data)
   return response;
 });
 

@@ -143,7 +143,6 @@ export let doLoginAction = (credential) => {
           }
       );
 
-
       let convertResponse = jwt_decode(response.data.token);
 
       if (convertResponse.password_changed) {
@@ -158,9 +157,8 @@ export let doLoginAction = (credential) => {
       }
       return convertResponse;
     } catch (err) {
-      console.log(err.response.data)
       dispatch({type: LOGIN_ERROR_SERVER, payload: err.response});
-      return err.response;
+      return err.response.data;
     }
   };
 };
