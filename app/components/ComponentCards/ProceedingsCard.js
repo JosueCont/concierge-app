@@ -7,15 +7,29 @@ import {
   Text,
   Image,
   Linking,
+  TouchableOpacity,
+    Alert
 } from "react-native";
 import React, { useState } from "react";
 import { Colors } from "../../utils/colors";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 const ProceedingsCard = (props) => {
+
+  const goLink=async(doc)=>{
+      const supported = await Linking.canOpenURL(doc.document);
+      if (supported) {
+          // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+          // by some browser in the mobile
+          Linking.openURL(doc.document)
+      } else {
+          Alert.alert(`Don't know how to open this URL: ${url}`);
+      }
+
+  }
+
   const renderItem = ({ item, index }) => {
     if (item.document_type.is_visible)
       return (
@@ -23,7 +37,7 @@ const ProceedingsCard = (props) => {
           <View>
             <TouchableOpacity
               style={styles.item}
-              onPress={() => Linking.openURL(item.document)}
+              onPress={() => goLink(item)}
             >
               <Mark />
               <Image

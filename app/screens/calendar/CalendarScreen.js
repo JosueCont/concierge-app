@@ -34,12 +34,12 @@ const CalendarScreen = (props) => {
   const [toDay, setToday] = useState({
     [dateCurrent]: {
       customStyles: {
-        container: {
-          backgroundColor: Colors.bluetitle,
-          elevation: 2,
-        },
+        // container: {
+        //   backgroundColor: Colors.bluetitle,
+        //   elevation: 2,
+        // },
         text: {
-          color: Colors.white,
+          color: Colors.black,
         },
       },
     },
@@ -91,7 +91,7 @@ const CalendarScreen = (props) => {
   useEffect(() => {
     if (evento != "") {
       setModalLoading(true);
-      getAllEvents(`?node__id=4&date_year=${moment().format('YYYY')}`);
+      getAllEvents(`?node__id=${props.user.userProfile.node}&date_year=${moment().format('YYYY')}`);
     }
   }, []);
 
@@ -99,9 +99,9 @@ const CalendarScreen = (props) => {
     try {
       setModalLoading(true);
       let response = await ApiApp.getEvents(filter);
-      if (response.status == 200) {
+      if (response.status === 200) {
         if (
-          response.data.results != undefined &&
+          response.data.results !== undefined &&
           response.data.results.length > 0
         ) {
           const daysEvent = response.data.results;
@@ -110,12 +110,12 @@ const CalendarScreen = (props) => {
           setToday({
             [dateCurrent]: {
               customStyles: {
-                container: {
-                  backgroundColor: Colors.bluetitle,
-                  elevation: 2,
-                },
+                // container: {
+                //   backgroundColor: Colors.bluetitle,
+                //   elevation: 2,
+                // },
                 text: {
-                  color: Colors.white,
+                  color: Colors.black,
                 },
               },
             },
@@ -140,38 +140,53 @@ const CalendarScreen = (props) => {
     let cont = 0;
     let markedsDays = {};
     days.map((a) => {
-      if (dateCurrent == a.date && cont == 0) {
+      if (dateCurrent === a.date && cont === 0) {
         cont = 1;
         markedsDays[a.date] = {
           marked: true,
-          dotColor: "red",
+          dotColor: "green",
           customStyles: {
             container: {
-              backgroundColor: Colors.bluetitle,
+              backgroundColor: '#75F967',
               elevation: 2,
             },
             text: {
-              color: Colors.white,
+              color: Colors.black,
             },
           },
         };
       } else if (dateCurrent != a.date) {
-        markedsDays[a.date] = { marked: true, dotColor: "red" };
+        markedsDays[a.date] = {
+          // marked: true,
+          // dotColor: "blue",
+          customStyles: {
+            container: {
+              backgroundColor: '#75F967',
+              elevation: 2,
+            },
+            text: {
+              color: Colors.black,
+            },
+          },
+        };
       }
     });
-    if (cont == 0)
+    if (cont === 0)
       markedsDays[dateCurrent] = {
-        // marked: true,
-        // dotColor: "red",
-        customStyles: {
-          container: {
-            backgroundColor: Colors.bluetitle,
-            elevation: 2,
-          },
-          text: {
-            color: Colors.white,
-          },
-        },
+        marked: true,
+        dotColor: "blue",
+        text:{
+          color:Colors.red
+        }
+        // customStyles: {
+        //   container: {
+        //     backgroundColor: Colors.bluetitle,
+        //     elevation: 2,
+        //   },
+        //   text: {
+        //     color: Colors.white,
+        //   },
+        // },
       };
     setToday(markedsDays);
     setTimeout(() => {
