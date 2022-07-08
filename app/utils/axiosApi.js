@@ -12,6 +12,8 @@ let config = {
 let APIKit = axios.create(config);
 
 APIKit.interceptors.request.use(async function (config) {
+  console.log(config.method, ': ', config.url)
+  console.log(config.data)
   try {
     let userData = await AsyncStorage.getItem("user");
     //console.log(config.data)
