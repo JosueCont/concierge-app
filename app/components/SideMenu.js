@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { NavigationActions } from "react-navigation";
-import {
-  Dimensions,
-  ScrollView,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  Linking,
-  Text,
-  Platform,
-  ImageBackground,
-} from "react-native";
-import { connect } from "react-redux";
-import { Colors } from "../utils/colors";
-import { logOutAction } from "../redux/userDuck";
+import React, {useState} from "react";
+import {NavigationActions} from "react-navigation";
+import {Dimensions, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
+import {connect} from "react-redux";
+import {Colors} from "../utils/colors";
+import {logOutAction} from "../redux/userDuck";
 import CloseSession from "../components/modal/CloseSession";
+import Constants from "expo-constants";
 
 const SideMenu = (props) => {
-  const [closeSession, setCloseSession] = useState(false);
+    const [closeSession, setCloseSession] = useState(false);
 
-  const navigateToScreen = (route) => () => {
-    const navigateAction = NavigationActions.navigate({
-      routeName: route,
-    });
+    const navigateToScreen = (route) => () => {
+        const navigateAction = NavigationActions.navigate({
+            routeName: route,
+        });
     props.navigation.dispatch(navigateAction);
   };
 
@@ -184,17 +174,17 @@ const SideMenu = (props) => {
                 style={{ width: "80%", height: "100%", resizeMode: "contain" }}
               ></Image>
             </View>
-            <Text
-              style={{
-                marginTop: "5%",
-                fontFamily: "Cabin-Regular",
-                fontSize: 16,
-                textAlign: "center",
-                color: Colors.bluetitle,
-              }}
-            >
-              Versión: 1.0.0
-            </Text>
+              <Text
+                  style={{
+                      marginTop: "5%",
+                      fontFamily: "Cabin-Regular",
+                      fontSize: 16,
+                      textAlign: "center",
+                      color: Colors.bluetitle,
+                  }}
+              >
+                  Versión: {Constants.manifest.version} ({Platform.OS === 'ios' ? Constants.manifest.ios.buildNumber : Constants.manifest.versionCode})
+              </Text>
           </View>
           <CloseSession
             visible={closeSession}

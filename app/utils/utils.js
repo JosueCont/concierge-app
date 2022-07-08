@@ -1,13 +1,14 @@
-import React, {useEffect, useState, useContext} from "react";
+import React from "react";
 import moment from 'moment';
 import 'moment/locale/es';
+
 moment.locale('es');
 
 export const emailRegEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-export const  regexp_password = /^(?=.*[a-z])(?=.*\d)(?=.*[0-9]){6,15}/;
+export const regexp_password = /^(?=.*[a-z])(?=.*\d)(?=.*[0-9]){6,15}/;
 
 
-export const dateFormatString=(dateString)=>{
+export const dateFormatString = (dateString) => {
 
     let dt = dateString;
     return moment(dt).format('DD/MMM/YYYY')

@@ -248,6 +248,7 @@ const LoginScreen = (props) => {
                                 value={email}
                                 keyboardType="email-address"
                                 underlineColorAndroid={"transparent"}
+                                autoCorrect={false}
                             />
 
                             <TextInput
