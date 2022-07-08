@@ -115,12 +115,16 @@ export let cleanUser = async () => {
 export let saveSessionAction = () => async (dispatch) => {
   try {
     let storage = await AsyncStorage.getItem("user");
+    console.log(storage)
     storage = JSON.parse(storage);
+
+
     if (storage) {
       dispatch({
         type: LOGIN_SUCCESS,
         payload: storage,
       });
+      dispatch(getProfile(storage));
     }
   } catch (error) {
     // Error saving data
