@@ -1,28 +1,18 @@
-import {
-  View,
-  Text,
-  StatusBar,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import {StatusBar, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Colors } from "../../utils/colors";
+import React, {useEffect, useState} from "react";
+import {connect} from "react-redux";
+import {Colors} from "../../utils/colors";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
-import {
-  currentMonthNumber,
-  generateYear,
-  getmonths,
-} from "../../utils/functions";
+import {currentMonthNumber, generateYear, getmonths,} from "../../utils/functions";
 import LoanCard from "../../components/ComponentCards/LoanCard";
 import PickerSelect from "../../components/pickerSelect";
 
 const LoanScreen = (props) => {
-  const [modalCustom, setModalCustom] = useState(false);
-  const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
+    const [modalCustom, setModalCustom] = useState(false);
+    const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
   const [loans, SetLoans] = useState([]);
@@ -78,19 +68,19 @@ const LoanScreen = (props) => {
       else filter = filter + `timestamp__year=${currentYear}`;
       let response = await ApiApp.getLoanRequest(filter);
       if (response.status == 200) {
-        if (
-          response.data.results != undefined &&
-          response.data.results.length > 0
-        ) {
-          SetLoans(response.data.results);
-          setTimeout(() => {
-            setModalLoading(false);
-          }, 1500);
-        } else {
-          setMessageCustomModal("No se encontraron resultados.");
-          setIconSourceCustomModal(3);
-          setModalCustom(true);
-          setModalLoading(false);
+          if (
+              response.data != undefined &&
+              response.data.length > 0
+          ) {
+              SetLoans(response.data);
+              setTimeout(() => {
+                  setModalLoading(false);
+              }, 1500);
+          } else {
+              setMessageCustomModal("No se encontraron resultados.");
+              setIconSourceCustomModal(3);
+              setModalCustom(true);
+              setModalLoading(false);
         }
       }
     } catch (error) {

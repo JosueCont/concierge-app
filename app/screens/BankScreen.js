@@ -1,14 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {
-    View,
-    ScrollView,
-    Text,
-    StyleSheet,
-    StatusBar,
-    Image,
-    TouchableOpacity,
-    TextInput,
-} from "react-native";
+import {Image, ScrollView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View,} from "react-native";
 import {Colors} from "../utils/colors";
 import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
 import ModalCustom from "../components/modal/ModalCustom";
@@ -162,6 +153,7 @@ const BankScreen = (props) => {
         try {
             setModalLoading(true);
             let response = await ApiApp.getBankAccount(props.user.userProfile.id);
+            console.log(response)
             if (response.data && response.data.id) {
                 setAccount(response.data);
                 setNewAccount(false);
@@ -298,296 +290,296 @@ const BankScreen = (props) => {
                 />
 
                 <KeyboardAwareScrollView bounces={false}>
-                <ScrollView
-                    bounces={false}
-                    showsVerticalScrollIndicator={false}
-                    style={{
-                        zIndex: 0,
-                        paddingHorizontal: "5%",
-                    }}
-                >
-                    <View
+                    <ScrollView
+                        bounces={false}
+                        showsVerticalScrollIndicator={false}
                         style={{
-                            marginLeft: "10%",
-                            marginTop: "5%",
-                            flexDirection: "row",
-                            alignItems: "center",
+                            zIndex: 0,
+                            paddingHorizontal: "5%",
                         }}
                     >
-                        <Image
-                            source={require("../../assets/img/bank_data.png")}
+                        <View
                             style={{
-                                width: 80,
-                                height: 80,
-                                resizeMode: "cover",
-                                marginRight: 5,
+                                marginLeft: "10%",
+                                marginTop: "5%",
+                                flexDirection: "row",
+                                alignItems: "center",
                             }}
-                        ></Image>
-                        <View>
-                            <Text
+                        >
+                            <Image
+                                source={require("../../assets/img/bank_data.png")}
                                 style={{
-                                    fontFamily: "Cabin-Regular",
-                                    fontSize: 20,
-                                    color: Colors.bluetitle,
-                                    textAlign: "left",
+                                    width: 80,
+                                    height: 80,
+                                    resizeMode: "cover",
+                                    marginRight: 5,
                                 }}
-                            >
-                                Mis datos bancarios
-                            </Text>
+                            ></Image>
+                            <View>
+                                <Text
+                                    style={{
+                                        fontFamily: "Cabin-Regular",
+                                        fontSize: 20,
+                                        color: Colors.bluetitle,
+                                        textAlign: "left",
+                                    }}
+                                >
+                                    Mis datos bancarios
+                                </Text>
+                            </View>
                         </View>
-                    </View>
 
-                    <View style={styles.ctnForm}>
-                        <View style={styles.ctnPart1}>
-                            <View
-                                style={{
-                                    width: "100%",
-                                    position: "absolute",
-                                    top: -13,
-                                    textAlign: "center",
-                                    alignItems: "center",
-                                }}
-                            >
+                        <View style={styles.ctnForm}>
+                            <View style={styles.ctnPart1}>
                                 <View
                                     style={{
-                                        backgroundColor: Colors.bluetitle,
-                                        width: 80,
-                                        height: 4,
+                                        width: "100%",
+                                        position: "absolute",
+                                        top: -13,
+                                        textAlign: "center",
+                                        alignItems: "center",
                                     }}
-                                ></View>
-                            </View>
+                                >
+                                    <View
+                                        style={{
+                                            backgroundColor: Colors.bluetitle,
+                                            width: 80,
+                                            height: 4,
+                                        }}
+                                    ></View>
+                                </View>
 
-                            <View
-                                style={{
-                                    alignItems: "center",
-                                    marginTop: 15,
-                                    width: "100%",
-                                }}
-                            >
                                 <View
                                     style={{
-                                        alignItems: "flex-start",
+                                        alignItems: "center",
+                                        marginTop: 15,
                                         width: "100%",
                                     }}
                                 >
-                                    <Text
+                                    <View
                                         style={{
-                                            fontFamily: "Cabin-Regular",
-                                            color: Colors.bluetitle,
-                                            fontSize: 12,
-                                            paddingBottom: 10,
+                                            alignItems: "flex-start",
+                                            width: "100%",
                                         }}
                                     >
-                                        Número de cuenta
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{
-                                        width: "100%",
-                                        borderRadius: 10,
-                                    }}
-                                >
-                                    <TextInput
-                                        keyboardType="numeric"
-                                        onChangeText={(text) =>
-                                            setAccountNumber(text.replace(/\$\s?|[-,.*]/g, ""))
-                                        }
-                                        style={styles.input}
-                                        placeholderTextColor={Colors.bluetitle}
-                                        autoCapitalize="none"
-                                        underlineColorAndroid={"transparent"}
-                                        value={accountNumber}
-                                    />
-                                </View>
-                            </View>
-                            <View
-                                style={{
-                                    alignItems: "center",
-                                    marginTop: 15,
-                                    width: "100%",
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        alignItems: "flex-start",
-                                        width: "100%",
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontFamily: "Cabin-Regular",
-                                            color: Colors.bluetitle,
-                                            fontSize: 12,
-                                            paddingBottom: 10,
-                                        }}
-                                    >
-                                        Clabe interbancaria
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{
-                                        width: "100%",
-                                        borderRadius: 10,
-                                    }}
-                                >
-                                    <TextInput
-                                        keyboardType="numeric"
-                                        onChangeText={(text) =>
-                                            setInterbankKey(text.replace(/\$\s?|[-,.*]/g, ""))
-                                        }
-                                        style={styles.input}
-                                        placeholderTextColor={Colors.bluetitle}
-                                        autoCapitalize="none"
-                                        underlineColorAndroid={"transparent"}
-                                        value={interbankKey}
-                                    />
-                                </View>
-                            </View>
-                            <View
-                                style={{
-                                    alignItems: "center",
-                                    marginTop: 15,
-                                    width: "100%",
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        alignItems: "flex-start",
-                                        width: "100%",
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontFamily: "Cabin-Regular",
-                                            color: Colors.bluetitle,
-                                            fontSize: 12,
-                                            paddingBottom: 10,
-                                        }}
-                                    >
-                                        Banco
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{
-                                        width: "100%",
-                                        borderRadius: 10,
-                                    }}
-                                >
+                                        <Text
+                                            style={{
+                                                fontFamily: "Cabin-Regular",
+                                                color: Colors.bluetitle,
+                                                fontSize: 12,
+                                                paddingBottom: 10,
+                                            }}
+                                        >
+                                            Número de cuenta
+                                        </Text>
+                                    </View>
                                     <View
                                         style={{
                                             width: "100%",
                                             borderRadius: 10,
-                                            padding: 3,
-                                            borderColor: Colors.bluelinks,
-                                            borderWidth: 1,
                                         }}
                                     >
-                                        <PickerSelect
-                                            items={banks}
-                                            title={"Banco"}
-                                            type={1}
-                                            setSelect={setPicker}
-                                            value={bank}
+                                        <TextInput
+                                            keyboardType="numeric"
+                                            onChangeText={(text) =>
+                                                setAccountNumber(text.replace(/\$\s?|[-,.*]/g, ""))
+                                            }
+                                            style={styles.input}
+                                            placeholderTextColor={Colors.bluetitle}
+                                            autoCapitalize="none"
+                                            underlineColorAndroid={"transparent"}
+                                            value={accountNumber}
                                         />
                                     </View>
                                 </View>
-                            </View>
-                            <View
-                                style={{
-                                    alignItems: "center",
-                                    marginTop: 15,
-                                    width: "100%",
-                                }}
-                            >
                                 <View
                                     style={{
-                                        alignItems: "flex-start",
+                                        alignItems: "center",
+                                        marginTop: 15,
                                         width: "100%",
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            fontFamily: "Cabin-Regular",
-                                            color: Colors.bluetitle,
-                                            fontSize: 12,
-                                            paddingBottom: 10,
-                                        }}
-                                    >
-                                        Número de tarjeta
-                                    </Text>
-                                </View>
-                                <View
-                                    style={{
-                                        width: "100%",
-                                        borderRadius: 10,
-                                    }}
-                                >
-                                    <TextInput
-                                        keyboardType="numeric"
-                                        onChangeText={(text) =>
-                                            setCardNumber(text.replace(/\$\s?|[-,.*]/g, ""))
-                                        }
-                                        style={styles.input}
-                                        placeholderTextColor={Colors.bluetitle}
-                                        autoCapitalize="none"
-                                        underlineColorAndroid={"transparent"}
-                                        value={cardNumber}
-                                    />
-                                </View>
-                            </View>
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                }}
-                            >
-                                <View
-                                    style={{
-                                        width: "45%",
-                                        marginRight: "5%",
                                     }}
                                 >
                                     <View
                                         style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            marginTop: 15,
+                                            alignItems: "flex-start",
+                                            width: "100%",
                                         }}
                                     >
-                                        <View
+                                        <Text
                                             style={{
-                                                alignItems: "flex-start",
-                                                width: "100%",
+                                                fontFamily: "Cabin-Regular",
+                                                color: Colors.bluetitle,
+                                                fontSize: 12,
+                                                paddingBottom: 10,
                                             }}
                                         >
-                                            <Text
-                                                style={{
-                                                    fontFamily: "Cabin-Regular",
-                                                    color: Colors.bluetitle,
-                                                    fontSize: 12,
-                                                    paddingBottom: 10,
-                                                }}
-                                            >
-                                                Mes de vencimiento
-                                            </Text>
-                                        </View>
+                                            Clabe interbancaria
+                                        </Text>
                                     </View>
                                     <View
                                         style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
+                                            width: "100%",
+                                            borderRadius: 10,
+                                        }}
+                                    >
+                                        <TextInput
+                                            keyboardType="numeric"
+                                            onChangeText={(text) =>
+                                                setInterbankKey(text.replace(/\$\s?|[-,.*]/g, ""))
+                                            }
+                                            style={styles.input}
+                                            placeholderTextColor={Colors.bluetitle}
+                                            autoCapitalize="none"
+                                            underlineColorAndroid={"transparent"}
+                                            value={interbankKey}
+                                        />
+                                    </View>
+                                </View>
+                                <View
+                                    style={{
+                                        alignItems: "center",
+                                        marginTop: 15,
+                                        width: "100%",
+                                    }}
+                                >
+                                    <View
+                                        style={{
+                                            alignItems: "flex-start",
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <Text
+                                            style={{
+                                                fontFamily: "Cabin-Regular",
+                                                color: Colors.bluetitle,
+                                                fontSize: 12,
+                                                paddingBottom: 10,
+                                            }}
+                                        >
+                                            Banco
+                                        </Text>
+                                    </View>
+                                    <View
+                                        style={{
+                                            width: "100%",
+                                            borderRadius: 10,
                                         }}
                                     >
                                         <View
                                             style={{
                                                 width: "100%",
                                                 borderRadius: 10,
-                                                padding: 2,
+                                                padding: 3,
                                                 borderColor: Colors.bluelinks,
                                                 borderWidth: 1,
                                             }}
                                         >
-                                            {/* <RNPickerSelect
+                                            <PickerSelect
+                                                items={banks}
+                                                title={"Banco"}
+                                                type={1}
+                                                setSelect={setPicker}
+                                                value={bank}
+                                            />
+                                        </View>
+                                    </View>
+                                </View>
+                                <View
+                                    style={{
+                                        alignItems: "center",
+                                        marginTop: 15,
+                                        width: "100%",
+                                    }}
+                                >
+                                    <View
+                                        style={{
+                                            alignItems: "flex-start",
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <Text
+                                            style={{
+                                                fontFamily: "Cabin-Regular",
+                                                color: Colors.bluetitle,
+                                                fontSize: 12,
+                                                paddingBottom: 10,
+                                            }}
+                                        >
+                                            Número de tarjeta
+                                        </Text>
+                                    </View>
+                                    <View
+                                        style={{
+                                            width: "100%",
+                                            borderRadius: 10,
+                                        }}
+                                    >
+                                        <TextInput
+                                            keyboardType="numeric"
+                                            onChangeText={(text) =>
+                                                setCardNumber(text.replace(/\$\s?|[-,.*]/g, ""))
+                                            }
+                                            style={styles.input}
+                                            placeholderTextColor={Colors.bluetitle}
+                                            autoCapitalize="none"
+                                            underlineColorAndroid={"transparent"}
+                                            value={cardNumber}
+                                        />
+                                    </View>
+                                </View>
+                                <View
+                                    style={{
+                                        flexDirection: "row",
+                                        alignItems: "center",
+                                    }}
+                                >
+                                    <View
+                                        style={{
+                                            width: "45%",
+                                            marginRight: "5%",
+                                        }}
+                                    >
+                                        <View
+                                            style={{
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                marginTop: 15,
+                                            }}
+                                        >
+                                            <View
+                                                style={{
+                                                    alignItems: "flex-start",
+                                                    width: "100%",
+                                                }}
+                                            >
+                                                <Text
+                                                    style={{
+                                                        fontFamily: "Cabin-Regular",
+                                                        color: Colors.bluetitle,
+                                                        fontSize: 12,
+                                                        paddingBottom: 10,
+                                                    }}
+                                                >
+                                                    Mes de vencimiento
+                                                </Text>
+                                            </View>
+                                        </View>
+                                        <View
+                                            style={{
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <View
+                                                style={{
+                                                    width: "100%",
+                                                    borderRadius: 10,
+                                                    padding: 2,
+                                                    borderColor: Colors.bluelinks,
+                                                    borderWidth: 1,
+                                                }}
+                                            >
+                                                {/* <RNPickerSelect
                         onValueChange={(value) => setExpirationMonth(value)}
                         placeholder={{
                           label: "Mes",
@@ -598,63 +590,63 @@ const BankScreen = (props) => {
                         items={months}
                         value={expirationMonth}
                       /> */}
-                                            <PickerSelect
-                                                items={months}
-                                                title={"Mes"}
-                                                type={2}
-                                                setSelect={setPicker}
-                                                value={expirationMonth}
-                                            />
+                                                <PickerSelect
+                                                    items={months}
+                                                    title={"Mes"}
+                                                    type={2}
+                                                    setSelect={setPicker}
+                                                    value={expirationMonth}
+                                                />
+                                            </View>
                                         </View>
                                     </View>
-                                </View>
-                                <View
-                                    style={{
-                                        width: "45%",
-                                        marginLeft: "5%",
-                                    }}
-                                >
                                     <View
                                         style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                            marginTop: 15,
+                                            width: "45%",
+                                            marginLeft: "5%",
                                         }}
                                     >
                                         <View
                                             style={{
-                                                alignItems: "flex-start",
-                                                width: "100%",
+                                                flexDirection: "row",
+                                                alignItems: "center",
+                                                marginTop: 15,
                                             }}
                                         >
-                                            <Text
+                                            <View
                                                 style={{
-                                                    fontFamily: "Cabin-Regular",
-                                                    color: Colors.bluetitle,
-                                                    fontSize: 12,
-                                                    paddingBottom: 10,
+                                                    alignItems: "flex-start",
+                                                    width: "100%",
                                                 }}
                                             >
-                                                Año de vencimiento
-                                            </Text>
+                                                <Text
+                                                    style={{
+                                                        fontFamily: "Cabin-Regular",
+                                                        color: Colors.bluetitle,
+                                                        fontSize: 12,
+                                                        paddingBottom: 10,
+                                                    }}
+                                                >
+                                                    Año de vencimiento
+                                                </Text>
+                                            </View>
                                         </View>
-                                    </View>
-                                    <View
-                                        style={{
-                                            flexDirection: "row",
-                                            alignItems: "center",
-                                        }}
-                                    >
                                         <View
                                             style={{
-                                                width: "100%",
-                                                padding: 2,
-                                                borderRadius: 10,
-                                                borderColor: Colors.bluelinks,
-                                                borderWidth: 1,
+                                                flexDirection: "row",
+                                                alignItems: "center",
                                             }}
                                         >
-                                            {/* <RNPickerSelect
+                                            <View
+                                                style={{
+                                                    width: "100%",
+                                                    padding: 2,
+                                                    borderRadius: 10,
+                                                    borderColor: Colors.bluelinks,
+                                                    borderWidth: 1,
+                                                }}
+                                            >
+                                                {/* <RNPickerSelect
                         onValueChange={(value) => setExpirationYear(value)}
                         placeholder={{
                           label: "Año",
@@ -665,51 +657,51 @@ const BankScreen = (props) => {
                         items={years}
                         value={expirationYear}
                       /> */}
-                                            <PickerSelect
-                                                items={years}
-                                                title={"Año"}
-                                                type={3}
-                                                setSelect={setPicker}
-                                                value={expirationYear}
-                                            />
+                                                <PickerSelect
+                                                    items={years}
+                                                    title={"Año"}
+                                                    type={3}
+                                                    setSelect={setPicker}
+                                                    value={expirationYear}
+                                                />
+                                            </View>
                                         </View>
                                     </View>
                                 </View>
-                            </View>
 
-                            <View
-                                style={{
-                                    flexDirection: "row",
-                                    justifyContent: "space-between",
-                                }}
-                            >
-                                <TouchableOpacity
+                                <View
                                     style={{
-                                        fontFamily: "Cabin-Regular",
-                                        backgroundColor: Colors.bluelinks,
-                                        height: 50,
-                                        width: "100%",
-                                        borderRadius: 10,
-                                        marginTop: 20,
-                                        alignItems: "center",
-                                        justifyContent: "center",
+                                        flexDirection: "row",
+                                        justifyContent: "space-between",
                                     }}
-                                    onPress={() => validateSend()}
                                 >
-                                    {idAccount != null ? (
-                                        <Text style={{color: Colors.white, fontSize: 16}}>
-                                            Actualizar
-                                        </Text>
-                                    ) : (
-                                        <Text style={{color: Colors.white, fontSize: 16}}>
-                                            Enviar
-                                        </Text>
-                                    )}
-                                </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={{
+                                            fontFamily: "Cabin-Regular",
+                                            backgroundColor: Colors.bluelinks,
+                                            height: 50,
+                                            width: "100%",
+                                            borderRadius: 10,
+                                            marginTop: 20,
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                        }}
+                                        onPress={() => validateSend()}
+                                    >
+                                        {idAccount != null ? (
+                                            <Text style={{color: Colors.white, fontSize: 16}}>
+                                                Actualizar
+                                            </Text>
+                                        ) : (
+                                            <Text style={{color: Colors.white, fontSize: 16}}>
+                                                Enviar
+                                            </Text>
+                                        )}
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                </ScrollView>
+                    </ScrollView>
                 </KeyboardAwareScrollView>
             </View>
             <ModalCustom
