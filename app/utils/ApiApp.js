@@ -108,7 +108,7 @@ class ApiApp {
   };
 
   static getBanks = () => {
-    return ApiApp.ApisType(`/setup/banks/`, "get");
+    return ApiApp.ApisType(`/fiscal/bank/`, "get");
   };
 
   static getBankAccount = (data) => {

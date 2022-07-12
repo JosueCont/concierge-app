@@ -8,6 +8,7 @@ import ApiApp from "../utils/ApiApp";
 import {connect} from "react-redux";
 import PickerSelect from "../components/pickerSelect";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {wait} from "../utils/functions";
 
 const BankScreen = (props) => {
     const [modalCustom, setModalCustom] = useState(false);
@@ -122,9 +123,8 @@ const BankScreen = (props) => {
     const getBanks = async () => {
         try {
             let response = await ApiApp.getBanks();
-            console.log(response.data, 125)
-            if (response.data && response.data.length > 0) {
-                let banksArray = response.data.map((a) => {
+            if (response.data.results && response.data.results.length > 0) {
+                let banksArray = response.data.results.map((a) => {
                     return {label: a.name, value: a.id};
                 });
                 setBanks(banksArray);
@@ -156,7 +156,7 @@ const BankScreen = (props) => {
         try {
             setModalLoading(true);
             let response = await ApiApp.getBankAccount(props.user.userProfile.id);
-            console.log(response.data, 157)
+            console.log(response.data)
             if (response.data && response.data.id) {
                 setAccount(response.data);
                 setNewAccount(false);
@@ -249,20 +249,24 @@ const BankScreen = (props) => {
             setModalLoading(true);
             let response = await ApiApp.requestBankAccount(data);
             if (response.data && response.data.id) {
-                setIdAccount(null);
-                setAccountNumber("");
-                setInterbankKey("");
-                setBank("");
-                setCardNumber("");
-                setExpirationMonth("");
-                setExpirationYear("");
-                getBankAccount();
-                setMessageCustomModal("Tus datos se guardaron correctamente.");
-                setIconSourceCustomModal(1);
-                setModalCustom(true);
-                setModalLoading(false);
+                wait(500).then(() => {
+                    setIdAccount(null);
+                    setAccountNumber("");
+                    setInterbankKey("");
+                    setBank("");
+                    setCardNumber("");
+                    setExpirationMonth("");
+                    setExpirationYear("");
+                    getBankAccount();
+                    setMessageCustomModal("Tus datos se guardaron correctamente.");
+                    setIconSourceCustomModal(1);
+                    setModalCustom(true);
+                    setModalLoading(false);
+                })
+
             }
         } catch (error) {
+            console.log(error.response)
             setMessageCustomModal("Ocurrio un error, intente de nuevo.");
             setIconSourceCustomModal(2);
             setModalCustom(true);
