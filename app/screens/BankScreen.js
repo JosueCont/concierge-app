@@ -122,8 +122,9 @@ const BankScreen = (props) => {
     const getBanks = async () => {
         try {
             let response = await ApiApp.getBanks();
-            if (response.data && response.data.results.length > 0) {
-                let banksArray = response.data.results.map((a) => {
+            console.log(response.data, 125)
+            if (response.data && response.data.length > 0) {
+                let banksArray = response.data.map((a) => {
                     return {label: a.name, value: a.id};
                 });
                 setBanks(banksArray);
@@ -139,6 +140,8 @@ const BankScreen = (props) => {
                 }, 1500);
             }
         } catch (error) {
+            console.log(error, 143)
+
             setMessageCustomModal("Ocurrio un error, intente de nuevo.");
             setIconSourceCustomModal(2);
             setModalCustom(true);
@@ -153,7 +156,7 @@ const BankScreen = (props) => {
         try {
             setModalLoading(true);
             let response = await ApiApp.getBankAccount(props.user.userProfile.id);
-            console.log(response)
+            console.log(response.data, 157)
             if (response.data && response.data.id) {
                 setAccount(response.data);
                 setNewAccount(false);
@@ -167,6 +170,7 @@ const BankScreen = (props) => {
             }
             setModalLoading(false);
         } catch (error) {
+            console.log(error, 171)
             setMessageCustomModal("Ocurrio un error, intente de nuevo.");
             setIconSourceCustomModal(2);
             setModalCustom(true);
