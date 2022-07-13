@@ -123,6 +123,7 @@ const PayrollScreen = (props) => {
                 filter = filter + `payment_date__year=${yearVoucher}`;
             else filter = filter + `payment_date__year=${year}`;
             let response = await ApiApp.getPayrollVouchers(filter);
+
             if (response.status == 200) {
                 if (
                     response.data != undefined &&
@@ -140,6 +141,7 @@ const PayrollScreen = (props) => {
                 }
             }
         } catch (error) {
+            console.log(error.response, 143)
             setMessageCustomModal("Ocurrio un error, intente de nuevo.");
             setIconSourceCustomModal(2);
             setModalCustom(true);
