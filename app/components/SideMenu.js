@@ -34,16 +34,16 @@ const SideMenu = (props) => {
         >
           <View
             style={{
-              width: Dimensions.get("window").width * 0.2,
-              height: Dimensions.get("window").width * 0.2,
+              // width: Dimensions.get("window").width * 0.2,
+              // height: Dimensions.get("window").width * 0.2,
               backgroundColor: "transparent",
               marginTop: Dimensions.get("window").height * 0.04,
             }}
           >
             <Image
               resizeMode="contain"
-              style={{ height: "120%", width: "120%" }}
-              source={require("../../assets/img/logo_no_text.png")}
+              style={{ marginTop:20, marginLeft:0 }}
+              source={require("../../assets/logos.png")}
             />
           </View>
 

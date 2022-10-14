@@ -90,11 +90,11 @@ const ToolbarGeneric = (props) => {
             )}
           </TouchableOpacity>
           <TouchableOpacity
-            style={{ flex: 1, alignItems: "center" }}
+            style={{ flex: 1}}
             onPress={() => props.goHome()}
           >
             <Image
-              source={require("../../../assets/img/staff_concierge.png")}
+              source={require("../../../assets/img/header.png")}
               resizeMode={"contain"}
               style={{ height: 80, width: 80 }}
             />

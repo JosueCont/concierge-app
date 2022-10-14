@@ -108,6 +108,9 @@ const LoginScreen = (props) => {
                     } else {
                         if (!response.password_changed) {
                             props.navigation.navigate("ChangePasswordFirstTime");
+                        }else{
+                            console.log('entra HomeUsserScreen')
+                            props.navigation.navigate("Home");
                         }
                     }
                 });
@@ -185,21 +188,7 @@ const LoginScreen = (props) => {
                             marginBottom: comp_aux === 0 ? 10 : 30,
                         }}
                     >
-                        {!play && (
-                            <Image
-                                resizeMode="contain"
-                                style={{
-                                    top: comp_aux === 0 ? 10 : 0,
-                                    backgroundColor: "transparent",
-                                    height: comp_aux_imagen,
-                                    width: comp_aux_imagen,
-                                    alignItems: "center",
-                                    alignSelf: "center",
-                                    marginBottom: comp_aux === 0 ? 10 : 30,
-                                }}
-                                source={require("../../../assets/img/logo-staff.png")}
-                            />
-                        )}
+
                     </View>
 
                     <View style={{height: comp_aux * 0.05}}/>
