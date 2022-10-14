@@ -82,7 +82,7 @@ const ComunicationCard = (props) => {
                   styles.textReminder,
                 ]}
               >
-                {item.notification.title}Hola
+                {item.notification.title}
               </Text>
               <HTML
                 source={{ html: item.notification.message }}
