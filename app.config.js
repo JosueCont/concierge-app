@@ -23,8 +23,8 @@ const commonConfig = {
         KeySecret: "1LaNXFHqau-o8qH3BM7xBdZ9NPlQRCSyDWlcaWniLcQ",
         ClientId: "62a13e7eb7089b08990e3cd5",
         ClientId_DEV: "62a13e7eb7089b08990e3cd5",
-        URL_PEOPLE: "https://demo.people.khorplus.com/",
-        URL_PEOPLE_DEV: "https://demo.people.khorplus.com/"
+        URL_PEOPLE: "https://demo.people-api.khorplus.com/",
+        URL_PEOPLE_DEV: "https://demo.people-api.khorplus.com/"
     }
 };
 

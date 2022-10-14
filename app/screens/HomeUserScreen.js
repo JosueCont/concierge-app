@@ -32,6 +32,7 @@ const HomeUserScreen = (props) => {
   useEffect(() => {
     props.getProfile(props.user).then(async (response) => {
       const device_id = await registerForPushNotificationsAsync();
+      console.log('getProfile',response)
       if (response.id) {
         let data = {
           person: response.id,
@@ -59,6 +60,7 @@ const HomeUserScreen = (props) => {
     try {
       let response = await ApiApp.getComunication(props.user.userProfile.id);
       setComunications(response.data.data);
+
 
       setTimeout(() => {
         setRefresh(false);

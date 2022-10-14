@@ -38,6 +38,7 @@ const LoginStack = createStackNavigator(
     EmailSentScreen: EmailSentScreen,
     ChangePasswordFirstTime: ChangePasswordFirstTime,
     ChangePasswordScreen: ChangePasswordScreen,
+    Home: HomeUserScreen,
   },
   {
     headerMode: "none",

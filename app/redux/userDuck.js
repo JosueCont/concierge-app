@@ -68,7 +68,7 @@ export default userReducer = (state = initialData, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        loggedIn: false,
+        loggedIn: true,
         modalDenied: false,
         ...action.payload,
       };
@@ -92,6 +92,7 @@ export default userReducer = (state = initialData, action) => {
 //Se guarda la información del usuario en el AsyncStorage
 export let saveStore = async (storage) => {
   try {
+    console.log('data store',storage)
     await AsyncStorage.setItem("user", JSON.stringify(storage));
   } catch (error) {
     // Error saving data
@@ -117,9 +118,8 @@ export let saveSessionAction = () => async (dispatch) => {
     let storage = await AsyncStorage.getItem("user");
     console.log(storage)
     storage = JSON.parse(storage);
-
-
     if (storage) {
+      console.log('hay store')
       dispatch({
         type: LOGIN_SUCCESS,
         payload: storage,
@@ -148,6 +148,8 @@ export let doLoginAction = (credential) => {
       );
 
       let convertResponse = jwt_decode(response.data.token);
+      convertResponse = {...convertResponse, jwt: response.data.token}
+      console.log('convertResponse', convertResponse)
 
       if (convertResponse.password_changed) {
         dispatch({
@@ -205,6 +207,7 @@ export let getProfile = (user) => {
         });
       return response.data;
     } catch (err) {
+      console.log(err)
       return "Error";
     }
   };

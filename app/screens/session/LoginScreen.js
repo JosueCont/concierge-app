@@ -35,12 +35,12 @@ const LoginScreen = (props) => {
 
 
     const resetStack = () => {
-        navigation.dispatch(
+        props.navigation.dispatch(
             StackActions.reset({
                 index: 0,
                 actions: [
                     NavigationActions.navigate({
-                        routeName: "Main",
+                        routeName: "Home",
                     }),
                 ],
             })
@@ -340,7 +340,10 @@ const LoginScreen = (props) => {
                     visible={modalCustomVisible}
                     text={messageCustomModal}
                     iconSource={iconSourceCustomModal}
-                    setVisible={(v) => setModalCustomVisible(false)}
+                    setVisible={(v) => {
+                        console.log('acetar', 'login')
+                        setModalCustomVisible(false)
+                    }}
                 ></ModalCustom>
             }
 
