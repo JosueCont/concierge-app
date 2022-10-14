@@ -26,7 +26,11 @@ const RequestCard = (props) => {
             numberDay = getNumberDays(item.departure_date, item.return_date);
         }
         return (
-            <View style={{marginTop: 10}}>
+
+            <TouchableOpacity
+                onPress={() => openViewDetail(item)}
+            >
+                <View style={{marginTop: 10}}>
                 <View
                     style={{
                         width: "100%",
@@ -99,15 +103,16 @@ const RequestCard = (props) => {
                             </View>
                         </View>
 
-                        <TouchableOpacity
-                            style={styles.ctnBtn}
-                            onPress={() => openViewDetail(item)}
-                        >
-                            <Text style={styles.btn}>Ver detalle</Text>
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity*/}
+                        {/*    style={styles.ctnBtn}*/}
+                        {/*    onPress={() => openViewDetail(item)}*/}
+                        {/*>*/}
+                        {/*    <Text style={styles.btn}>Ver detalle</Text>*/}
+                        {/*</TouchableOpacity>*/}
                     </View>
                 </View>
             </View>
+            </TouchableOpacity>
         );
     };
 
