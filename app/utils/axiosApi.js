@@ -12,7 +12,7 @@ console.log(config)
 let APIKit = axios.create(config);
 
 APIKit.interceptors.request.use(async function (conf) {
-  console.log(conf.method, ': :', config.url)
+  console.log(conf.method, ': ', conf.url)
   console.log(conf.data)
   try {
     let userData = await AsyncStorage.getItem("user");
@@ -27,7 +27,6 @@ APIKit.interceptors.request.use(async function (conf) {
 });
 
 APIKit.interceptors.response.use(function (response) {
-  //console.log(response.data)
   return response;
 });
 
