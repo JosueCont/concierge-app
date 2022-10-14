@@ -1,4 +1,4 @@
-import {StatusBar, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
+import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
@@ -72,14 +72,14 @@ const PayrollScreen = (props) => {
     const month = new Date().getMonth();
 
     useEffect(() => {
-        setYearVoucher(year);
-        setMonthVoucher(month);
-        if (props.user && props.user.userProfile) {
-            generateYear();
-            getPayrollVoucher();
-        } else {
-            props.navigation.goBack(null);
-        }
+        // setYearVoucher(year);
+        // setMonthVoucher(month);
+        // if (props.user && props.user.userProfile) {
+        //     generateYear();
+        //     getPayrollVoucher();
+        // } else {
+        //     props.navigation.goBack(null);
+        // }
     }, []);
 
     const clickAction = () => {
@@ -291,12 +291,52 @@ const PayrollScreen = (props) => {
                     goHome={goHome}
                 />
 
-                <PayrollCard
-                    vouchers={vouchers}
-                    props={props}
-                    headerList={headerList}
-                    footerList={footerList}
-                />
+
+
+
+                <View style={{ alignItems: "center" }}>
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            marginTop: 20,
+                        }}
+                    >
+                        <Image
+                            source={require("../../../assets/img/icono_nomina.png")}
+                            />
+                    </View>
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            marginTop: 20,
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontFamily: "Cabin-Regular",
+                                color: Colors.bluetitle,
+                                fontSize: 28,
+                            }}
+                        >
+                            Próximamente
+                        </Text>
+
+                    </View>
+
+                    <Text
+                        style={{
+                            fontFamily: "Cabin-Regular",
+                            color: Colors.bluetitle,
+                            fontSize: 30,
+                            textAlign: "center",
+                        }}
+                    >
+
+                    </Text>
+                </View>
+
             </View>
             <ModalCustom
                 visible={modalCustom}
