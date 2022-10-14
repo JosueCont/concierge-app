@@ -334,12 +334,12 @@ const LoginScreen = (props) => {
 
             }
             {
-                modalCustomVisible === true &&
+                modalCustomVisible &&
                 <ModalCustom
                     visible={modalCustomVisible}
                     text={messageCustomModal}
                     iconSource={iconSourceCustomModal}
-                    setVisible={(v) => setModalCustomVisible(v)}
+                    setVisible={(v) => setModalCustomVisible(false)}
                 ></ModalCustom>
             }
 

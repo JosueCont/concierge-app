@@ -17,14 +17,14 @@ const commonConfig = {
         iosDisplayInForeground: true
     },
     extra: {
-        production: false,
-        URL_KHONNECT: "https://api.khonnect.hiumanlab.com",
-        URL_KHONNECT_DEV: "https://api.khonnect.hiumanlab.com",
+        production: true,
+        URL_KHONNECT: "https://khonnect.khor2.com/",
+        URL_KHONNECT_DEV: "https://khonnect.hiumanlab.com/",
         KeySecret: "1LaNXFHqau-o8qH3BM7xBdZ9NPlQRCSyDWlcaWniLcQ",
-        ClientId: "5fa42a1ca6f5f821bbe7fbea",
-        ClientId_DEV: "5fa42a1ca6f5f821bbe7fbea",
-        URL_PEOPLE: "https://demo.api.people.hiumanlab.com",
-        URL_PEOPLE_DEV: "https://demo.api.people.hiumanlab.com"
+        ClientId: "62a13e7eb7089b08990e3cd5",
+        ClientId_DEV: "62a13e7eb7089b08990e3cd5",
+        URL_PEOPLE: "https://demo.people.khorplus.com/",
+        URL_PEOPLE_DEV: "https://demo.people.khorplus.com/"
     }
 };
 

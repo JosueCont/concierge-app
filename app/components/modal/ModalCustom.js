@@ -63,7 +63,7 @@ const ModalCustom = ({visible, setVisible, iconSource, text}) => {
                 setVisible()
               }}
             >
-              <Text style={styles.modalBtnText}>Cerrar</Text>
+              <Text style={styles.modalBtnText}>Cerrars</Text>
             </TouchableOpacity>
           </View>
         </View>
