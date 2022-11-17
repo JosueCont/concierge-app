@@ -112,7 +112,7 @@ const PayrollScreen = (props) => {
     };
 
     const getPayrollVoucher = async () => {
-        let filter = `node=${props?.user?.userProfile?.node}&person=${props?.user?.userProfile?.id}&`;
+        let filter = `node=${props?.user?.userProfile?.node}&person=${props?.user?.userProfile?.id}&year=${1}&month=${1}`;
         try {
             setModalLoading(true);
             setVouchers([]);
@@ -131,7 +131,7 @@ const PayrollScreen = (props) => {
                     setVouchers(response.results);
                     setTimeout(() => {
                         setModalLoading(false);
-                    }, 1500);
+                    }, 500);
                 } else {
                     setMessageCustomModal("No se encontraron resultados.");
                     setIconSourceCustomModal(3);
@@ -331,6 +331,7 @@ const PayrollScreen = (props) => {
                         vouchers.length>0 ? <HeaderList/> : <FooterList/>
                     }
 
+                    <HeaderList/>
 
                     <Text
                         style={{

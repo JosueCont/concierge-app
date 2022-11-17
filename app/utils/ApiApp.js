@@ -49,9 +49,14 @@ class ApiApp {
     return ApiApp.ApisType(`/noticenter/user-notification/${id}/`, "put", data);
   };
 
+  /**
+   * Ver Jesus TODO
+   * @param data
+   * @returns {Promise<AxiosResponse<any>>}
+   */
   static getPayrollVouchers = (data) => {
     // return ApiApp.ApisType(`/payroll/cfdi-voucher/?${data}&page=1`, "get");
-    return ApiApp.ApisType(`https://demo.api.people.hiumanlab.com/payroll/cfdi-voucher?node=262&page=3&person=1cef0adf91944e46a7f15b84daa8c7e1&year=2022`, "get");
+    return ApiApp.ApisType(`https://nominaqa.api.people.hiumanlab.mx/payroll/cfdi-voucher?&node=37&person=6e8f90bb784f45ef88c92edee8326c85&year=2022&page=1`, "get");
   };
 
   static getPayrollVoucherDetail = (data) => {
