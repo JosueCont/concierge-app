@@ -72,14 +72,14 @@ const PayrollScreen = (props) => {
     const month = new Date().getMonth();
 
     useEffect(() => {
-        // setYearVoucher(year);
-        // setMonthVoucher(month);
-        // if (props.user && props.user.userProfile) {
-        //     generateYear();
-        //     getPayrollVoucher();
-        // } else {
-        //     props.navigation.goBack(null);
-        // }
+        setYearVoucher(year);
+        setMonthVoucher(month);
+        if (props.user && props.user.userProfile) {
+            generateYear();
+            getPayrollVoucher();
+        } else {
+            props.navigation.goBack(null);
+        }
     }, []);
 
     const clickAction = () => {
@@ -112,7 +112,7 @@ const PayrollScreen = (props) => {
     };
 
     const getPayrollVoucher = async () => {
-        let filter = `person__id=${props.user.userProfile.id}&`;
+        let filter = `node=${props?.user?.userProfile?.node}&person=${props?.user?.userProfile?.id}&`;
         try {
             setModalLoading(true);
             setVouchers([]);
@@ -120,16 +120,15 @@ const PayrollScreen = (props) => {
                 filter = filter + `payment_date__month=${monthVoucher}&`;
             else filter = filter + `payment_date__month=${month}&`;
             if (yearVoucher && yearVoucher > 0)
-                filter = filter + `payment_date__year=${yearVoucher}`;
-            else filter = filter + `payment_date__year=${year}`;
+                filter = filter + `year=${yearVoucher}`;
+            else filter = filter + `year=${year}`;
             let response = await ApiApp.getPayrollVouchers(filter);
 
-            if (response.status == 200) {
+            if (response.status === 200) {
                 if (
-                    response.data != undefined &&
-                    response.data.length > 0
+                    response.results.length > 0
                 ) {
-                    setVouchers(response.data);
+                    setVouchers(response.results);
                     setTimeout(() => {
                         setModalLoading(false);
                     }, 1500);
@@ -156,7 +155,7 @@ const PayrollScreen = (props) => {
         if (type == 2) setYearVoucher(value);
     };
 
-    const headerList = () => {
+    const HeaderList = () => {
         return (
             <View
                 style={{
@@ -236,7 +235,7 @@ const PayrollScreen = (props) => {
         );
     };
 
-    const footerList = () => {
+    const FooterList = () => {
         return (
             <View>
                 <View style={{alignItems: "center"}}>
@@ -294,6 +293,8 @@ const PayrollScreen = (props) => {
 
 
 
+
+
                 <View style={{ alignItems: "center" }}>
                     <View
                         style={{
@@ -306,6 +307,7 @@ const PayrollScreen = (props) => {
                             source={require("../../../assets/img/icono_nomina.png")}
                             />
                     </View>
+
                     <View
                         style={{
                             flexDirection: "row",
@@ -324,6 +326,11 @@ const PayrollScreen = (props) => {
                         </Text>
 
                     </View>
+
+                    {
+                        vouchers.length>0 ? <HeaderList/> : <FooterList/>
+                    }
+
 
                     <Text
                         style={{

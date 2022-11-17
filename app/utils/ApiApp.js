@@ -50,7 +50,8 @@ class ApiApp {
   };
 
   static getPayrollVouchers = (data) => {
-    return ApiApp.ApisType(`/payroll/payroll-voucher/?${data}`, "get");
+    // return ApiApp.ApisType(`/payroll/cfdi-voucher/?${data}&page=1`, "get");
+    return ApiApp.ApisType(`https://demo.api.people.hiumanlab.com/payroll/cfdi-voucher?node=262&page=3&person=1cef0adf91944e46a7f15b84daa8c7e1&year=2022`, "get");
   };
 
   static getPayrollVoucherDetail = (data) => {
