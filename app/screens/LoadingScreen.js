@@ -8,11 +8,11 @@ const LoadingScreen = (props) => {
   return (
     <>
       <ImageBackground
-        source={require("../../assets/img/fondo_logon_noicon.png")}
+        source={require("../../assets/img/new/fondo_logon_noicon.png")}
         style={{ resizeMode: "cover" }}
       >
         <Image
-          source={require("../../assets/img/fondo-banner.png")}
+          source={require("../../assets/img/new/fondo-banner.png")}
           style={{
             height: "100%",
             width: "100%",

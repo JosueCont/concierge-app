@@ -63,7 +63,7 @@ const OrganizationScreen = ({navigation, user}) => {
             >
                 <View
                     style={{
-                        backgroundColor: Colors.bluetitle,
+                        backgroundColor: Colors.secondary,
                         width: windowWidth * 0.2,
                         height: 5,
                     }}
@@ -77,7 +77,7 @@ const OrganizationScreen = ({navigation, user}) => {
             style={{
                 height: "100%",
                 zIndex: 1,
-                backgroundColor: Colors.bluebg,
+                backgroundColor: Colors.texts,
             }}
         >
             <StatusBar
@@ -126,7 +126,7 @@ const OrganizationScreen = ({navigation, user}) => {
                             style={{
                                 fontFamily: "Cabin-Regular",
                                 fontSize: 15,
-                                color: Colors.bluetitle,
+                                color: Colors.secondary,
                                 textAlign: "left",
                             }}
                         >
@@ -136,7 +136,7 @@ const OrganizationScreen = ({navigation, user}) => {
                             style={{
                                 fontFamily: "Cabin-Regular",
                                 fontSize: 24,
-                                color: Colors.bluetitle,
+                                color: Colors.primary,
                                 textAlign: "left",
                             }}
                             numberOfLines={2}
@@ -155,7 +155,7 @@ const OrganizationScreen = ({navigation, user}) => {
                         <Tab
                             heading="Información"
                             activeTabStyle={{
-                                backgroundColor: Colors.bluetitle,
+                                backgroundColor: Colors.secondary,
                                 borderTopStartRadius: 10,
                                 borderTopEndRadius: 10,
                             }}
@@ -165,7 +165,7 @@ const OrganizationScreen = ({navigation, user}) => {
                                 color: "white",
                             }}
                             tabStyle={{
-                                backgroundColor: Colors.bluelinks,
+                                backgroundColor: Colors.primary,
                                 borderTopStartRadius: 10,
                                 borderTopEndRadius: 10,
                             }}
@@ -179,14 +179,14 @@ const OrganizationScreen = ({navigation, user}) => {
                                 <Text
                                     style={{
                                         marginBottom: 10,
-                                        color: Colors.bluetitle,
+                                        color: Colors.secondary,
                                         fontFamily: "Cabin-Bold",
                                     }}
                                 >
                                     <Icon
                                         type={"Entypo"}
                                         name={"location-pin"}
-                                        style={{fontSize: 18, color: Colors.bluelinks}}
+                                        style={{fontSize: 18, color: Colors.primary}}
                                     />{" "}
                                     Dirección
                                 </Text>
@@ -194,14 +194,14 @@ const OrganizationScreen = ({navigation, user}) => {
                                 <Text
                                     style={{
                                         marginBottom: 10,
-                                        color: Colors.bluetitle,
+                                        color: Colors.secondary,
                                         fontFamily: "Cabin-Bold",
                                     }}
                                 >
                                     <Icon
                                         type={"Entypo"}
                                         name={"mail"}
-                                        style={{fontSize: 18, color: Colors.bluelinks}}
+                                        style={{fontSize: 18, color: Colors.primary}}
                                     />{" "}
                                     Email
                                 </Text>
@@ -209,14 +209,14 @@ const OrganizationScreen = ({navigation, user}) => {
                                 <Text
                                     style={{
                                         marginBottom: 10,
-                                        color: Colors.bluetitle,
+                                        color: Colors.secondary,
                                         fontFamily: "Cabin-Bold",
                                     }}
                                 >
                                     <Icon
                                         type={"Entypo"}
                                         name={"phone"}
-                                        style={{fontSize: 18, color: Colors.bluelinks}}
+                                        style={{fontSize: 18, color: Colors.primary}}
                                     />{" "}
                                     Teléfono
                                 </Text>
@@ -237,7 +237,7 @@ const OrganizationScreen = ({navigation, user}) => {
                                         <Text
                                             style={{
                                                 marginBottom: 10,
-                                                color: Colors.bluetitle,
+                                                color: Colors.secondary,
                                                 fontFamily: "Cabin-Bold",
                                             }}
                                         >
@@ -257,7 +257,7 @@ const OrganizationScreen = ({navigation, user}) => {
                                             width: "100%",
                                             borderRadius: 10,
                                             padding: 10,
-                                            backgroundColor: Colors.bluebg,
+                                            backgroundColor: Colors.back,
                                         }}
                                     >
                                         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss}>
@@ -268,11 +268,11 @@ const OrganizationScreen = ({navigation, user}) => {
                                                         ? {
                                                             height: 150,
                                                             fontFamily: "Cabin-Regular",
-                                                            color: Colors.bluetitle,
+                                                            color: Colors.secondary,
                                                         }
                                                         : {
                                                             fontFamily: "Cabin-Regular",
-                                                            color: Colors.bluetitle,
+                                                            color: Colors.secondary,
                                                         }
                                                 }
                                                 numberOfLines={7}
@@ -291,7 +291,7 @@ const OrganizationScreen = ({navigation, user}) => {
                         <Tab
                             heading="Políticas"
                             activeTabStyle={{
-                                backgroundColor: Colors.bluetitle,
+                                backgroundColor: Colors.secondary,
                                 borderTopStartRadius: 10,
                                 borderTopEndRadius: 10,
                             }}
@@ -301,7 +301,7 @@ const OrganizationScreen = ({navigation, user}) => {
                                 color: "white",
                             }}
                             tabStyle={{
-                                backgroundColor: Colors.bluelinks,
+                                backgroundColor: Colors.primary,
                                 borderTopStartRadius: 10,
                                 borderTopEndRadius: 10,
                             }}
@@ -325,7 +325,7 @@ const OrganizationScreen = ({navigation, user}) => {
                                     style={{
                                         flex: 1,
                                         padding: 10,
-                                        color: Colors.bluelinks,
+                                        color: Colors.secondary,
                                         fontFamily: "Cabin-Regular",
                                     }}
                                 >
@@ -336,7 +336,7 @@ const OrganizationScreen = ({navigation, user}) => {
                         <Tab
                             heading="Reglas de negocio"
                             activeTabStyle={{
-                                backgroundColor: Colors.bluetitle,
+                                backgroundColor: Colors.secondary,
                                 borderTopStartRadius: 10,
                                 borderTopEndRadius: 10,
                             }}
@@ -346,7 +346,7 @@ const OrganizationScreen = ({navigation, user}) => {
                                 color: "white",
                             }}
                             tabStyle={{
-                                backgroundColor: Colors.bluelinks,
+                                backgroundColor: Colors.primary,
                                 borderTopStartRadius: 10,
                                 borderTopEndRadius: 10,
                             }}
@@ -371,7 +371,7 @@ const OrganizationScreen = ({navigation, user}) => {
                                     style={{
                                         flex: 1,
                                         padding: 10,
-                                        color: Colors.bluelinks,
+                                        color: Colors.secondary,
                                         fontFamily: "Cabin-Regular",
                                     }}
                                 >

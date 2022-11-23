@@ -210,7 +210,7 @@ const MyAccountScreen = (props) => {
                                 resizeMode: "stretch",
                                 zIndex: -1,
                             }}
-                            source={require("../../assets/img/fondo_azul.png")}
+                            source={require("../../assets/img/new/fondo_azul.png")}
                         />
                         <View style={styles.ctnPart1}>
                             <TouchableOpacity onPress={() => changeAvatar()}>
@@ -220,7 +220,7 @@ const MyAccountScreen = (props) => {
                                 style={{
                                     fontFamily: "Cabin-Regular",
                                     fontSize: 16,
-                                    color: Colors.bluelinks,
+                                    color: Colors.secondary,
                                 }}
                                 onPress={() => {
                                     changeAvatar();
@@ -241,7 +241,7 @@ const MyAccountScreen = (props) => {
                             >
                                 <View
                                     style={{
-                                        backgroundColor: Colors.bluetitle,
+                                        backgroundColor: Colors.secondary,
                                         width: 80,
                                         height: 4,
                                     }}
@@ -251,7 +251,7 @@ const MyAccountScreen = (props) => {
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Nombre(s)"
-                                    placeholderTextColor={Colors.bluetitle}
+                                    placeholderTextColor={Colors.secondary}
                                     autoCapitalize="none"
                                     keyboardType="default"
                                     underlineColorAndroid={"transparent"}
@@ -261,7 +261,7 @@ const MyAccountScreen = (props) => {
                                 <TextInput
                                     style={styles.input}
                                     placeholder="Apellido paterno"
-                                    placeholderTextColor={Colors.bluetitle}
+                                    placeholderTextColor={Colors.secondary}
                                     autoCapitalize="none"
                                     keyboardType="default"
                                     underlineColorAndroid={"transparent"}
@@ -288,7 +288,7 @@ const MyAccountScreen = (props) => {
                                     <TouchableOpacity
                                         style={{
                                             fontFamily: "Cabin-Regular",
-                                            backgroundColor: Colors.bluetitle,
+                                            backgroundColor: Colors.primary,
                                             height: 45,
                                             width: "48%",
                                             borderRadius: 10,
@@ -311,7 +311,7 @@ const MyAccountScreen = (props) => {
                                     <TouchableOpacity
                                         style={{
                                             fontFamily: "Cabin-Regular",
-                                            backgroundColor: Colors.bluelinks,
+                                            backgroundColor: Colors.primary,
                                             height: 45,
                                             width: "48%",
                                             borderRadius: 10,
@@ -334,7 +334,7 @@ const MyAccountScreen = (props) => {
                                     <Text
                                         style={{
                                             fontFamily: "Cabin-Regular",
-                                            color: Colors.bluelinks,
+                                            color: Colors.primary,
                                             fontSize: 16,
                                             marginTop: 15,
                                             marginBottom: 0,
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
         height: 180,
         resizeMode: "cover",
         marginBottom: 10,
-        borderColor: Colors.bluelinks,
+        borderColor: Colors.primary,
         borderWidth: 5,
         borderRadius: 90,
     },
@@ -399,9 +399,9 @@ const styles = StyleSheet.create({
     input: {
         fontFamily: "Cabin-Regular",
         fontSize: 16,
-        color: Colors.bluetitle,
+        color: Colors.secondary,
         width: "100%",
-        borderColor: Colors.bluelinks,
+        borderColor: Colors.primary,
         borderWidth: 1,
         marginBottom: 20,
         padding: 10,

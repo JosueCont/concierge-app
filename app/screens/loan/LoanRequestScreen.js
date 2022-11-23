@@ -216,7 +216,7 @@ const LoanRequestScreen = (props) => {
         style={{
           height: "100%",
           zIndex: 1,
-          backgroundColor: Colors.bluebg,
+          backgroundColor: Colors.texts,
         }}
       >
         <StatusBar
@@ -248,7 +248,7 @@ const LoanRequestScreen = (props) => {
             }}
           >
             <Image
-              source={require("../../../assets/img/lending_payment.png")}
+              source={require("../../../assets/img/new/lending_payment.png")}
               style={{
                 width: 80,
                 height: 80,
@@ -261,7 +261,7 @@ const LoanRequestScreen = (props) => {
                 style={{
                   fontFamily: "Cabin-Regular",
                   fontSize: 20,
-                  color: Colors.bluetitle,
+                  color: Colors.secondary,
                   textAlign: "left",
                 }}
               >
@@ -283,7 +283,7 @@ const LoanRequestScreen = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.secondary,
                     width: 80,
                     height: 4,
                   }}
@@ -306,7 +306,7 @@ const LoanRequestScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       fontSize: 12,
                       paddingBottom: 10,
                     }}
@@ -326,7 +326,7 @@ const LoanRequestScreen = (props) => {
                       changeAmount(text.replace(/\$\s?|[-,.*]/g, ""))
                     }
                     style={styles.input}
-                    placeholderTextColor={Colors.bluetitle}
+                    placeholderTextColor={Colors.secondary}
                     autoCapitalize="none"
                     underlineColorAndroid={"transparent"}
                     value={amount}
@@ -362,7 +362,7 @@ const LoanRequestScreen = (props) => {
                       <Text
                         style={{
                           fontFamily: "Cabin-Regular",
-                          color: Colors.bluetitle,
+                          color: Colors.secondary,
                           fontSize: 12,
                           paddingBottom: 10,
                         }}
@@ -382,7 +382,7 @@ const LoanRequestScreen = (props) => {
                         width: "100%",
                         borderRadius: 10,
                         padding: 2,
-                        borderColor: Colors.bluelinks,
+                        borderColor: Colors.primary,
                         borderWidth: 1,
                       }}
                     >
@@ -391,7 +391,7 @@ const LoanRequestScreen = (props) => {
                         placeholder={{
                           label: "Plazo",
                           value: term,
-                          color: Colors.bluelinks,
+                          color: Colors.secondary,
                         }}
                         style={pickerSelectStyles}
                         items={deadLine}
@@ -421,7 +421,7 @@ const LoanRequestScreen = (props) => {
                       <Text
                         style={{
                           fontFamily: "Cabin-Regular",
-                          color: Colors.bluetitle,
+                          color: Colors.secondary,
                           fontSize: 12,
                           paddingBottom: 10,
                         }}
@@ -441,7 +441,7 @@ const LoanRequestScreen = (props) => {
                         width: "100%",
                         padding: 2,
                         borderRadius: 10,
-                        borderColor: Colors.bluelinks,
+                        borderColor: Colors.primary,
                         borderWidth: 1,
                       }}
                     >
@@ -450,7 +450,7 @@ const LoanRequestScreen = (props) => {
                         placeholder={{
                           label: "Periodicidad",
                           value: period,
-                          color: Colors.bluelinks,
+                          color: Colors.secondary,
                         }}
                         style={pickerSelectStyles}
                         items={periodicity}
@@ -476,7 +476,7 @@ const LoanRequestScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       fontSize: 12,
                       paddingBottom: 10,
                     }}
@@ -486,7 +486,7 @@ const LoanRequestScreen = (props) => {
                 </View>
                 <View
                   style={{
-                    backgroundColor: Colors.bluebg,
+                    backgroundColor: Colors.back,
                     width: "100%",
                     borderRadius: 10,
                     padding: 10,
@@ -495,7 +495,7 @@ const LoanRequestScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: "#006FCC",
+                      color: Colors.secondary,
                       fontSize: 17,
                       textAlign: "center",
                     }}
@@ -521,7 +521,7 @@ const LoanRequestScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       fontSize: 12,
                       paddingBottom: 10,
                     }}
@@ -539,7 +539,7 @@ const LoanRequestScreen = (props) => {
                     onChangeText={(text) => setReason(text)}
                     style={styles.inputComment}
                     placeholder="Motivo de la solicitud"
-                    placeholderTextColor={Colors.bluetitle}
+                    placeholderTextColor={Colors.secondary}
                     autoCapitalize="none"
                     multiline
                     maxLength={200}
@@ -557,7 +557,7 @@ const LoanRequestScreen = (props) => {
                 <TouchableOpacity
                   style={{
                     fontFamily: "Cabin-Regular",
-                    backgroundColor: Colors.bluelinks,
+                    backgroundColor: Colors.primary,
                     height: 50,
                     width: "80%",
                     borderRadius: 10,
@@ -606,10 +606,10 @@ const styles = StyleSheet.create({
   inputComment: {
     fontFamily: "Cabin-Regular",
     fontSize: 16,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     width: "100%",
     height: 100,
-    borderColor: Colors.bluelinks,
+    borderColor: Colors.primary,
     borderWidth: 1,
     marginBottom: 20,
     padding: 15,
@@ -618,9 +618,9 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: "Cabin-Regular",
     fontSize: 16,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     width: "100%",
-    borderColor: Colors.bluelinks,
+    borderColor: Colors.primary,
     borderWidth: 1,
     padding: 10,
     borderRadius: 10,
@@ -635,7 +635,7 @@ const pickerSelectStyles = StyleSheet.create({
     // paddingHorizontal: 10,
     // paddingVertical: 8,
     // borderRadius: 20,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
   inputAndroid: {
     fontFamily: "Cabin-Regular",
@@ -644,7 +644,7 @@ const pickerSelectStyles = StyleSheet.create({
     // paddingHorizontal: 10,
     // paddingVertical: 8,
     // borderRadius: 20,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
   iconContainer: {
     top: "25%",
@@ -652,7 +652,7 @@ const pickerSelectStyles = StyleSheet.create({
   },
   placeholder: {
     fontFamily: "Cabin-Regular",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
 });
 

@@ -118,7 +118,7 @@ const VacationDetailScreen = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.secondary,
                     width: 80,
                     height: 4,
                   }}
@@ -134,7 +134,7 @@ const VacationDetailScreen = (props) => {
                 <Text
                   style={{
                     fontFamily: "Cabin-Regular",
-                    color: Colors.bluetitle,
+                    color: Colors.secondary,
                     fontSize: 30,
                     marginBottom: "5%",
                   }}
@@ -173,7 +173,7 @@ const VacationDetailScreen = (props) => {
                 <View style={{ alignItems: "center" }}>
                   <View
                     style={{
-                      backgroundColor: Colors.bluebg,
+                      backgroundColor: Colors.back,
                       width: 35,
                       height: 35,
                       borderRadius: 10,
@@ -184,7 +184,7 @@ const VacationDetailScreen = (props) => {
                     <Text
                       style={{
                         fontFamily: "Cabin-Bold",
-                        color: "#006FCC",
+                        color: Colors.primary,
                         fontSize: 17,
                       }}
                     >
@@ -198,7 +198,7 @@ const VacationDetailScreen = (props) => {
                   style={{
                     fontFamily: "Cabin-Regular",
                     fontSize: 12,
-                    color: Colors.bluetitle,
+                    color: Colors.secondary,
                     marginLeft: 15,
                   }}
                 >
@@ -208,7 +208,7 @@ const VacationDetailScreen = (props) => {
                 <View style={{ alignItems: "center", marginLeft: "12%" }}>
                   <View
                     style={{
-                      backgroundColor: Colors.bluebg,
+                      backgroundColor: Colors.back,
                       width: 35,
                       height: 35,
                       borderRadius: 10,
@@ -219,7 +219,7 @@ const VacationDetailScreen = (props) => {
                     <Text
                       style={{
                         fontFamily: "Cabin-Bold",
-                        color: "#006FCC",
+                        color: Colors.primary,
                         fontSize: 17,
                       }}
                     >
@@ -231,7 +231,7 @@ const VacationDetailScreen = (props) => {
                   style={{
                     fontFamily: "Cabin-Regular",
                     fontSize: 12,
-                    color: Colors.bluetitle,
+                    color: Colors.secondary,
                     marginLeft: 10,
                   }}
                 >
@@ -250,7 +250,7 @@ const VacationDetailScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       fontSize: 12,
                     }}
                   >
@@ -259,7 +259,7 @@ const VacationDetailScreen = (props) => {
                 </View>
                 <View
                   style={{
-                    backgroundColor: Colors.bluebg,
+                    backgroundColor: Colors.back,
                     width: "70%",
                     height: 35,
                     borderRadius: 10,
@@ -270,7 +270,7 @@ const VacationDetailScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Bold",
-                      color: "#006FCC",
+                      color: Colors.secondary,
                       fontSize: 17,
                     }}
                   >
@@ -289,7 +289,7 @@ const VacationDetailScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       fontSize: 12,
                     }}
                   >
@@ -298,7 +298,7 @@ const VacationDetailScreen = (props) => {
                 </View>
                 <View
                   style={{
-                    backgroundColor: Colors.bluebg,
+                    backgroundColor: Colors.back,
                     width: "70%",
                     height: 35,
                     borderRadius: 10,
@@ -309,7 +309,7 @@ const VacationDetailScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Bold",
-                      color: "#006FCC",
+                      color: Colors.secondary,
                       fontSize: 17,
                     }}
                   >
@@ -335,7 +335,7 @@ const VacationDetailScreen = (props) => {
                       <Text
                         style={{
                           fontFamily: "Cabin-Regular",
-                          color: Colors.bluetitle,
+                          color: Colors.secondary,
                           fontSize: 12,
                           paddingBottom: 10,
                         }}
@@ -376,7 +376,7 @@ const VacationDetailScreen = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluelinks,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   borderRadius: 10,
                   marginTop: "10%",
@@ -403,7 +403,7 @@ const VacationDetailScreen = (props) => {
             resizeMode: "stretch",
             zIndex: -1,
           }}
-          source={require("../../../assets/img/fondo_azul.png")}
+          source={require("../../../assets/img/new/fondo_azul.png")}
         />
       </View>
       <ModalCustom

@@ -171,7 +171,7 @@ const VacationRequestScreen = (props) => {
         style={{
           height: "100%",
           zIndex: 1,
-          backgroundColor: Colors.bluebg,
+          backgroundColor: Colors.texts,
         }}
       >
         <StatusBar
@@ -195,7 +195,7 @@ const VacationRequestScreen = (props) => {
             paddingHorizontal: 22,
           }}
         >
-          <View style={{ backgroundColor: Colors.bluebg }}>
+          <View style={{ backgroundColor: Colors.texts }}>
             <View
               style={{
                 flexDirection: "row",
@@ -216,7 +216,7 @@ const VacationRequestScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Bold",
-                      color: "#006FCC",
+                      color: Colors.primary,
                       fontSize: 40,
                     }}
                   >
@@ -228,7 +228,7 @@ const VacationRequestScreen = (props) => {
                 style={{
                   fontFamily: "Cabin-Regular",
                   fontSize: 20,
-                  color: Colors.bluetitle,
+                  color: Colors.secondary,
                   marginLeft: 20,
                 }}
               >
@@ -240,7 +240,7 @@ const VacationRequestScreen = (props) => {
               style={{
                 flexDirection: "row",
                 alignItems: "center",
-                backgroundColor: Colors.bluetitle,
+                backgroundColor: Colors.primary,
                 borderRadius: 8,
               }}
             >
@@ -295,12 +295,12 @@ const VacationRequestScreen = (props) => {
               }}
             >
               <Image
-                source={require("../../../assets/img/hollidays.png")}
+                source={require("../../../assets/img/new/hollidays.png")}
                 style={{ width: 110, height: 110, resizeMode: "cover" }}
               ></Image>
             </View>
             <View style={{ marginTop: 80 }}>
-              <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
+              <Text style={{ marginBottom: 10, color: Colors.secondary }}>
                 Fecha de salida
               </Text>
               <Text
@@ -311,7 +311,7 @@ const VacationRequestScreen = (props) => {
               >
                 {departureDate}
               </Text>
-              <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
+              <Text style={{ marginBottom: 10, color: Colors.secondary }}>
                 Fecha de retorno
               </Text>
               <Text
@@ -332,7 +332,7 @@ const VacationRequestScreen = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluetitle,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   width: "45%",
                   borderRadius: 10,
@@ -349,7 +349,7 @@ const VacationRequestScreen = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluelinks,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   width: "45%",
                   borderRadius: 10,
@@ -409,9 +409,9 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: "Cabin-Regular",
     fontSize: 16,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     width: "100%",
-    borderColor: Colors.bluelinks,
+    borderColor: Colors.primary,
     borderWidth: 1,
     marginBottom: 20,
     padding: 15,

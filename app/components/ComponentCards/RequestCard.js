@@ -1,15 +1,19 @@
-import {FlatList, SafeAreaView, StyleSheet, Text, View,} from "react-native";
+import {FlatList, SafeAreaView, StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import React from "react";
 import {Colors} from "../../utils/colors";
-import {TouchableOpacity} from "react-native-gesture-handler";
+//import {TouchableOpacity} from "react-native-gesture-handler";
 import {getNumberDays} from "../../utils/functions";
 
 const RequestCard = (props) => {
     const openViewDetail = (item) => {
-        if (props.type == "vacation")
+        console.log(item.id);
+        if (props.type == "vacation"){
+            console.log('OPEN VAC DETAIL');
             props.props.navigation.navigate("VacationDetailScreen", {
                 id: item.id,
             });
+        }
+            
         if (props.type == "permission")
             props.props.navigation.navigate("PermissionDetailScreen", {
                 id: item.id,
@@ -26,7 +30,7 @@ const RequestCard = (props) => {
             numberDay = getNumberDays(item.departure_date, item.return_date);
         }
         return (
-
+                
             <TouchableOpacity
                 onPress={() => openViewDetail(item)}
             >
@@ -43,7 +47,7 @@ const RequestCard = (props) => {
                 >
                     <View
                         style={{
-                            backgroundColor: "#47A8DE",
+                            backgroundColor: Colors.secondary,
                             width: 70,
                             height: 5,
                         }}
@@ -121,7 +125,7 @@ const RequestCard = (props) => {
             <FlatList
                 style={{
                     zIndex: 0,
-                    backgroundColor: Colors.bluebg,
+                    backgroundColor: Colors.texts,
                     paddingHorizontal: 22,
                 }}
                 data={props.cards}
@@ -151,18 +155,18 @@ const styles = StyleSheet.create({
     titleDate: {
         fontSize: 14,
         fontFamily: "Cabin-Regular",
-        color: Colors.bluetitle,
+        color: Colors.secondary,
     },
     date: {
         fontSize: 18,
         fontFamily: "Cabin-Bold",
-        color: Colors.bluetitle,
+        color: Colors.secondary,
         marginTop: 5,
     },
     titleStatus: {
         fontSize: 14,
         fontFamily: "Cabin-Regular",
-        color: Colors.bluetitle,
+        color: Colors.secondary,
         marginTop: 10,
     },
     ctnStatus: {
@@ -179,47 +183,47 @@ const styles = StyleSheet.create({
         color: Colors.white,
     },
     statusPendiente: {
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.secondary,
     },
     statusAprobado: {
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.secondary,
     },
     statusRechazado: {
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.secondary,
     },
     titlePerson: {
         fontSize: 14,
         fontFamily: "Cabin-Regular",
-        color: Colors.bluetitle,
+        color: Colors.secondary,
         marginTop: 10,
     },
     person: {
         fontSize: 17,
         fontFamily: "Cabin-Bold",
-        color: Colors.bluetitle,
+        color: Colors.secondary,
         marginTop: 5,
     },
     titleDays: {
         fontFamily: "Cabin-Regular",
         fontSize: 14,
-        color: Colors.bluetitle,
+        color: Colors.secondary,
     },
     ctnDays: {
         width: 35,
         height: 35,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: Colors.bluebg,
+        backgroundColor: Colors.back,
         borderRadius: 10,
         marginTop: 5,
     },
     days: {
-        fontFamily: "Cabin-Regular",
+        fontFamily: "Cabin-Bold",
         fontSize: 16,
-        color: Colors.bluetitle,
+        color: Colors.secondary,
     },
     ctnBtn: {
-        backgroundColor: Colors.bluebg,
+        backgroundColor: Colors.primary,
         height: 40,
         width: "100%",
         maxWidth: 180,
@@ -230,7 +234,7 @@ const styles = StyleSheet.create({
     },
     btn: {
         fontFamily: "Cabin-Regular",
-        color: Colors.bluetitle,
+        color: Colors.primary,
         fontSize: 14,
     },
 });

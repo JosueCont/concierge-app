@@ -55,7 +55,7 @@ const LoanCard = (props) => {
             >
               <View
                 style={{
-                  backgroundColor: Colors.bluetitle,
+                  backgroundColor: Colors.secondary,
                   width: 80,
                   height: 4,
                 }}
@@ -71,7 +71,7 @@ const LoanCard = (props) => {
               <Text
                 style={{
                   fontFamily: "Cabin-Regular",
-                  color: Colors.bluetitle,
+                  color: Colors.secondary,
                   fontSize: 18,
                 }}
               >
@@ -80,7 +80,7 @@ const LoanCard = (props) => {
               <Text
                 style={{
                   fontFamily: "Cabin-Regular",
-                  color: Colors.bluetitle,
+                  color: Colors.secondary,
                   fontSize: 15,
                   marginBottom: "5%",
                 }}
@@ -103,7 +103,7 @@ const LoanCard = (props) => {
                 <Text
                   style={{
                     fontFamily: "Cabin-Regular",
-                    color: Colors.bluetitle,
+                    color: Colors.secondary,
                     fontSize: 12,
                     paddingBottom: 10,
                   }}
@@ -142,7 +142,7 @@ const LoanCard = (props) => {
                     <Text
                       style={{
                         fontFamily: "Cabin-Regular",
-                        color: Colors.bluetitle,
+                        color: Colors.secondary,
                         fontSize: 12,
                         paddingBottom: 10,
                       }}
@@ -159,7 +159,7 @@ const LoanCard = (props) => {
                 >
                   <View
                     style={{
-                      backgroundColor: Colors.bluebg,
+                      backgroundColor: Colors.back,
                       width: "100%",
                       borderRadius: 10,
                       padding: 10,
@@ -168,7 +168,7 @@ const LoanCard = (props) => {
                     <Text
                       style={{
                         fontFamily: "Cabin-Regular",
-                        color: "#006FCC",
+                        color: Colors.secondary,
                         fontSize: 17,
                         textAlign: "justify",
                       }}
@@ -197,7 +197,7 @@ const LoanCard = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       fontSize: 12,
                       paddingBottom: 10,
                     }}
@@ -214,7 +214,7 @@ const LoanCard = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: Colors.bluebg,
+                    backgroundColor: Colors.back,
                     width: "100%",
                     borderRadius: 10,
                     padding: 10,
@@ -223,7 +223,7 @@ const LoanCard = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: "#006FCC",
+                      color: Colors.secondary,
                       fontSize: 17,
                       textAlign: "justify",
                     }}
@@ -251,7 +251,7 @@ const LoanCard = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       fontSize: 12,
                       paddingBottom: 10,
                     }}
@@ -268,7 +268,7 @@ const LoanCard = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: Colors.bluebg,
+                    backgroundColor: Colors.back,
                     width: "100%",
                     borderRadius: 10,
                     padding: 10,
@@ -277,7 +277,7 @@ const LoanCard = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: "#006FCC",
+                      color: Colors.secondary,
                       fontSize: 17,
                       textAlign: "justify",
                     }}
@@ -324,7 +324,7 @@ const LoanCard = (props) => {
                         <Text
                           style={{
                             fontFamily: "Cabin-Regular",
-                            color: Colors.bluetitle,
+                            color: Colors.secondary,
                             fontSize: 12,
                             paddingBottom: 10,
                           }}
@@ -341,7 +341,7 @@ const LoanCard = (props) => {
                     >
                       <View
                         style={{
-                          backgroundColor: Colors.bluebg,
+                          backgroundColor: Colors.back,
                           width: "100%",
                           borderRadius: 10,
                           padding: 10,
@@ -350,7 +350,7 @@ const LoanCard = (props) => {
                         <Text
                           style={{
                             fontFamily: "Cabin-Regular",
-                            color: "#006FCC",
+                            color: Colors.secondary,
                             fontSize: 17,
                             textAlign: "justify",
                           }}
@@ -382,7 +382,7 @@ const LoanCard = (props) => {
                         <Text
                           style={{
                             fontFamily: "Cabin-Regular",
-                            color: Colors.bluetitle,
+                            color: Colors.secondary,
                             fontSize: 12,
                             paddingBottom: 10,
                           }}
@@ -399,7 +399,7 @@ const LoanCard = (props) => {
                     >
                       <View
                         style={{
-                          backgroundColor: Colors.bluebg,
+                          backgroundColor: Colors.back,
                           width: "100%",
                           borderRadius: 10,
                           padding: 10,
@@ -408,7 +408,7 @@ const LoanCard = (props) => {
                         <Text
                           style={{
                             fontFamily: "Cabin-Regular",
-                            color: "#006FCC",
+                            color: Colors.secondary,
                             fontSize: 17,
                             // textAlign: "justify",
                           }}
@@ -447,7 +447,7 @@ const LoanCard = (props) => {
                         <Text
                           style={{
                             fontFamily: "Cabin-Regular",
-                            color: Colors.bluetitle,
+                            color: Colors.secondary,
                             fontSize: 12,
                             paddingBottom: 10,
                           }}
@@ -464,7 +464,7 @@ const LoanCard = (props) => {
                     >
                       <View
                         style={{
-                          backgroundColor: Colors.bluebg,
+                          backgroundColor: Colors.back,
                           width: "100%",
                           borderRadius: 10,
                           padding: 10,
@@ -473,7 +473,7 @@ const LoanCard = (props) => {
                         <Text
                           style={{
                             fontFamily: "Cabin-Regular",
-                            color: "#006FCC",
+                            color: Colors.secondary,
                             fontSize: 17,
                             textAlign: "center",
                           }}
@@ -505,7 +505,7 @@ const LoanCard = (props) => {
                         <Text
                           style={{
                             fontFamily: "Cabin-Regular",
-                            color: Colors.bluetitle,
+                            color: Colors.secondary,
                             fontSize: 12,
                             paddingBottom: 10,
                           }}
@@ -522,7 +522,7 @@ const LoanCard = (props) => {
                     >
                       <View
                         style={{
-                          backgroundColor: Colors.bluebg,
+                          backgroundColor: Colors.back,
                           width: "100%",
                           borderRadius: 10,
                           padding: 10,
@@ -531,7 +531,7 @@ const LoanCard = (props) => {
                         <Text
                           style={{
                             fontFamily: "Cabin-Regular",
-                            color: "#006FCC",
+                            color: Colors.secondary,
                             fontSize: 17,
                             textAlign: "center",
                           }}
@@ -561,7 +561,7 @@ const LoanCard = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       fontSize: 12,
                       paddingBottom: 10,
                     }}
@@ -578,7 +578,7 @@ const LoanCard = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: Colors.bluebg,
+                    backgroundColor: Colors.back,
                     width: "100%",
                     borderRadius: 10,
                     padding: 10,
@@ -587,7 +587,7 @@ const LoanCard = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: "#006FCC",
+                      color: Colors.secondary,
                       fontSize: 17,
                       textAlign: "justify",
                     }}
@@ -601,7 +601,7 @@ const LoanCard = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluelinks,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   borderRadius: 10,
                   marginTop: "10%",
@@ -626,7 +626,7 @@ const LoanCard = (props) => {
       <FlatList
         style={{
           zIndex: 0,
-          backgroundColor: Colors.bluebg,
+          backgroundColor: Colors.texts,
           paddingHorizontal: 22,
         }}
         data={props.cards}
@@ -681,7 +681,7 @@ const styles = StyleSheet.create({
   status: {
     fontSize: 27,
     fontFamily: "Cabin-Bold",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
   ctnStatus: {
     height: 60,
@@ -689,7 +689,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 8,
-    backgroundColor: Colors.bluebg,
+    backgroundColor: Colors.back,
   },
 });
 

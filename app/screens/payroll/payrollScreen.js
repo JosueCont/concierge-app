@@ -1,4 +1,4 @@
-import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
+import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View, SafeAreaView,FlatList, ScrollView, Linking,} from "react-native";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
@@ -76,14 +76,19 @@ const PayrollScreen = (props) => {
         setMonthVoucher(month);
         if (props.user && props.user.userProfile) {
             generateYear();
-            getPayrollVoucher();
+            setVouchers([]);
+            //getPayrollVoucher();
         } else {
             props.navigation.goBack(null);
         }
     }, []);
 
+    useEffect(()=>{
+        console.log(vouchers.length);
+    }, [vouchers])
+
     const clickAction = () => {
-        setVouchers(0);
+        setVouchers([]);
         setMonthVoucher(0);
         props.navigation.goBack(null);
     };
@@ -112,23 +117,25 @@ const PayrollScreen = (props) => {
     };
 
     const getPayrollVoucher = async () => {
-        let filter = `node=${props?.user?.userProfile?.node}&person=${props?.user?.userProfile?.id}&year=${1}&month=${1}`;
+        //props?.user?.userProfile?.node
+        //props?.user?.userProfile?.id
+        //Use node and person hardcoded to test
+        let filter = `?node=${37}&person=${'6e8f90bb784f45ef88c92edee8326c85'}&year=${yearVoucher}&page=${1}`;
         try {
             setModalLoading(true);
             setVouchers([]);
-            if (monthVoucher && monthVoucher > 0)
-                filter = filter + `payment_date__month=${monthVoucher}&`;
-            else filter = filter + `payment_date__month=${month}&`;
-            if (yearVoucher && yearVoucher > 0)
-                filter = filter + `year=${yearVoucher}`;
-            else filter = filter + `year=${year}`;
+            // if (monthVoucher && monthVoucher > 0)
+            //     filter = filter + `payment_date__month=${monthVoucher}&`;
+            // else filter = filter + `payment_date__month=${month}&`;
+            // if (yearVoucher && yearVoucher > 0)
+            //     filter = filter + `year=${yearVoucher}`;
+            // else filter = filter + `year=${year}`;
             let response = await ApiApp.getPayrollVouchers(filter);
-
             if (response.status === 200) {
                 if (
-                    response.results.length > 0
+                    response?.data?.results?.length > 0
                 ) {
-                    setVouchers(response.results);
+                    setVouchers(response?.data?.results);
                     setTimeout(() => {
                         setModalLoading(false);
                     }, 500);
@@ -140,7 +147,7 @@ const PayrollScreen = (props) => {
                 }
             }
         } catch (error) {
-            console.log(error.response, 143)
+            console.log(error, 143)
             setMessageCustomModal("Ocurrio un error, intente de nuevo.");
             setIconSourceCustomModal(2);
             setModalCustom(true);
@@ -160,12 +167,11 @@ const PayrollScreen = (props) => {
             <View
                 style={{
                     zIndex: 0,
-                    backgroundColor: Colors.bluebg,
                 }}
             >
                 <View
                     style={{
-                        backgroundColor: Colors.dark,
+                        backgroundColor: Colors.primary,
                         marginTop: 40,
                         alignItems: "center",
                         borderRadius: 20,
@@ -209,7 +215,7 @@ const PayrollScreen = (props) => {
                     <View style={{alignItems: "center"}}>
                         <TouchableOpacity
                             style={{
-                                backgroundColor: "#47A8DE",
+                                backgroundColor: Colors.secondary,
                                 height: 50,
                                 width: 160,
                                 borderRadius: 10,
@@ -235,16 +241,108 @@ const PayrollScreen = (props) => {
         );
     };
 
+    const CardPayroll = ({voucher})=>{
+        return(
+            <View
+                style={{
+                    zIndex: 0,
+                    width: '100%',
+                    height: 100
+                }}
+            >
+                <View
+                    style={{
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        alignContent: 'space-between',
+                        flexDirection: 'row',
+                        backgroundColor: Colors.dark,
+                        marginTop: 2,
+                        borderRadius: 20,
+                        paddingTop: 2,
+                        paddingBottom: 2,
+                    }}
+                >   
+                    <View style={{flexDirection: 'column', alignItems: "flex-start", display: 'flex', marginLeft: 20, marginRight: 20}}>
+                        <Text style={{color: Colors.white}}>
+                            {voucher?.payroll_person.person?.first_name} {voucher?.payroll_person.person?.flast_name} 
+                        </Text>
+                        <Text style={{color: Colors.white}}>
+                            {voucher?.emission_date}
+                        </Text>
+                    </View>
+                        
+                    <View style={{alignItems: "center", display: 'flex', marginLeft: 10}}>
+                        {
+                            voucher?.pdf_file && 
+                            <TouchableOpacity
+                                style={{
+                                    backgroundColor: Colors.primary,
+                                    height: 40,
+                                    width: 40,
+                                    borderRadius: 5,
+                                    marginTop: 10,
+                                    marginBottom: 10,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                                onPress={() => Linking.openURL(voucher?.pdf_file)}
+                            >
+                                <Text
+                                    style={{
+                                        fontFamily: "Cabin-Regular",
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                    }}
+                                >
+                                    Pdf
+                                </Text>
+                            </TouchableOpacity>
+                        }
+                        
+                    </View>
+                    
+                    <View style={{alignItems: "center", display: 'flex', marginLeft: 10}}>
+                    <TouchableOpacity
+                            style={{
+                                backgroundColor: Colors.primary,
+                                height: 40,
+                                width: 40,
+                                borderRadius: 5,
+                                marginTop: 10,
+                                marginBottom: 10,
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }}
+                            onPress={() => Linking.openURL(voucher?.xml_file)}
+                        >
+                            <Text
+                                style={{
+                                    fontFamily: "Cabin-Regular",
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                }}
+                            >
+                                Xml
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
     const FooterList = () => {
         return (
             <View>
                 <View style={{alignItems: "center"}}>
-                    {vouchers.length > 0 && (
+                    {vouchers?.length > 0 && (
                         <TouchableOpacity
                             style={{
                                 backgroundColor: Colors.bluetitle,
                                 height: 50,
-                                width: "48%",
+                                width: "100%",
                                 borderRadius: 10,
                                 marginTop: 20,
                                 marginBottom: 40,
@@ -304,7 +402,7 @@ const PayrollScreen = (props) => {
                         }}
                     >
                         <Image
-                            source={require("../../../assets/img/icono_nomina.png")}
+                            source={require("../../../assets/img/new/icono_nomina.png")}
                             />
                     </View>
 
@@ -318,7 +416,7 @@ const PayrollScreen = (props) => {
                         <Text
                             style={{
                                 fontFamily: "Cabin-Regular",
-                                color: Colors.bluetitle,
+                                color: Colors.secondary,
                                 fontSize: 28,
                             }}
                         >
@@ -327,25 +425,21 @@ const PayrollScreen = (props) => {
 
                     </View>
 
-                    {
-                        vouchers.length>0 ? <HeaderList/> : <FooterList/>
-                    }
-
-                    <HeaderList/>
-
-                    <Text
-                        style={{
-                            fontFamily: "Cabin-Regular",
-                            color: Colors.bluetitle,
-                            fontSize: 30,
-                            textAlign: "center",
-                        }}
-                    >
-
-                    </Text>
+                    {vouchers.length<=0 && <HeaderList/>}
+                    <ScrollView style={{marginTop: 20, height: 500, width: '80%'}}>
+                        {vouchers.map((voucher, index)=>{
+                            console.log(index);
+                            return(
+                                <CardPayroll voucher={voucher} />
+                            )
+                        })}
+                    </ScrollView>
+                    
                 </View>
 
             </View>
+            
+            
             <ModalCustom
                 visible={modalCustom}
                 text={messageCustomModal}
@@ -385,6 +479,33 @@ const pickerSelectStyles = StyleSheet.create({
         color: Colors.bluetitle,
     },
 });
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    item: {
+      backgroundColor: Colors.white,
+      width: "100%",
+      marginBottom: 15,
+      paddingHorizontal: 30,
+      paddingVertical: 25,
+      borderRadius: 20,
+      flexDirection: "row",
+    },
+    title: {
+      fontSize: 18,
+      fontFamily: "Cabin-Bold",
+      color: Colors.bluetitle,
+      marginBottom: 8,
+    },
+    description: {
+      fontSize: 15,
+      fontFamily: "Cabin-Regular",
+      color: Colors.bluetitle,
+      marginBottom: 5,
+    },
+  });
 
 const mapState = (state) => {
     return {user: state.user};

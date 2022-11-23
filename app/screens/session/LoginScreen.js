@@ -125,7 +125,7 @@ const LoginScreen = (props) => {
 
     return (
         <ImageBackground
-            source={require("../../../assets/img/fondo_logon_noicon.png")}
+            source={require("../../../assets/img/new/fondo_logon_noicon.png")}
             style={{resizeMode: "cover"}}
         >
             {!changeView ? (
@@ -149,7 +149,7 @@ const LoginScreen = (props) => {
                     />
                 ) : (
                     <Image
-                        source={require("../../../assets/img/fondo-banner.png")}
+                        source={require("../../../assets/img/new/fondo-banner.png")}
                         style={{
                             height: "100%",
                             width: "100%",
@@ -222,7 +222,7 @@ const LoginScreen = (props) => {
                                     marginTop: 20,
                                     marginBottom: 20,
                                     textAlign: "center",
-                                    color: Colors.bluetitle,
+                                    color: Colors.secondary,
                                 }}
                             >
                                 Iniciar sesión
@@ -231,7 +231,7 @@ const LoginScreen = (props) => {
                             <TextInput
                                 style={styles.input}
                                 placeholder="Correo electrónico"
-                                placeholderTextColor={Colors.bluetitle}
+                                placeholderTextColor={Colors.secondary}
                                 autoCapitalize="none"
                                 onChangeText={(text) => setEmail(text)}
                                 value={email}
@@ -243,7 +243,7 @@ const LoginScreen = (props) => {
                             <TextInput
                                 style={styles.input}
                                 placeholder="Contraseña"
-                                placeholderTextColor={Colors.bluetitle}
+                                placeholderTextColor={Colors.secondary}
                                 secureTextEntry={true}
                                 onChangeText={(text) => setPass(text)}
                                 value={pass}
@@ -260,7 +260,7 @@ const LoginScreen = (props) => {
                                 <Text
                                     style={{
                                         fontFamily: "Cabin-Regular",
-                                        color: Colors.bluelinks,
+                                        color: Colors.secondary,
                                         fontSize: 14,
                                         marginTop: 10,
                                         marginBottom: 0,
@@ -276,7 +276,7 @@ const LoginScreen = (props) => {
                                     <TouchableOpacity
                                         style={{
                                             fontFamily: "Cabin-Regular",
-                                            backgroundColor: Colors.bluelinks,
+                                            backgroundColor: Colors.primary,
                                             height: 40,
                                             width: "100%",
                                             borderRadius: 10,
@@ -302,7 +302,7 @@ const LoginScreen = (props) => {
                                             fontFamily: "Cabin-Bold",
                                             marginTop: 20,
                                             textAlign: "center",
-                                            color: Colors.bluelinks,
+                                            color: Colors.secondary,
                                             textDecorationLine: "underline",
                                         }}
                                         onPress={() =>
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
         width: "90%",
         height: 44,
         color: "black",
-        borderColor: Colors.bluelinks,
+        borderColor: Colors.primary,
         borderWidth: 1,
         backgroundColor: "white",
         borderRadius: 8,

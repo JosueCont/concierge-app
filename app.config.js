@@ -24,7 +24,8 @@ const commonConfig = {
         ClientId: "62a13e7eb7089b08990e3cd5",
         ClientId_DEV: "62a13e7eb7089b08990e3cd5",
         URL_PEOPLE: "https://demo.people-api.khorplus.com/",
-        URL_PEOPLE_DEV: "https://demo.people-api.khorplus.com/"
+        URL_PEOPLE_DEV: "https://demo.people-api.khorplus.com/",
+        URL_QA: "https://nominaqa.api.people.hiumanlab.mx/"
     }
 };
 

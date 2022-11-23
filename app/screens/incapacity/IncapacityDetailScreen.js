@@ -150,7 +150,7 @@ const IncapacityDetailScreen = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.secondary,
                     width: 80,
                     height: 4,
                   }}
@@ -166,7 +166,7 @@ const IncapacityDetailScreen = (props) => {
                 <Text
                   style={{
                     fontFamily: "Cabin-Regular",
-                    color: Colors.bluetitle,
+                    color: Colors.secondary,
                     fontSize: 30,
                     marginBottom: "5%",
                   }}
@@ -198,7 +198,7 @@ const IncapacityDetailScreen = (props) => {
                 <Text
                   style={{
                     fontFamily: "Cabin-Regular",
-                    color: Colors.bluetitle,
+                    color: Colors.secondary,
                     fontSize: 12,
                   }}
                 >
@@ -207,7 +207,7 @@ const IncapacityDetailScreen = (props) => {
               </View>
               <View
                 style={{
-                  backgroundColor: Colors.bluebg,
+                  backgroundColor: Colors.back,
                   width: "100%",
                   height: 50,
                   borderRadius: 10,
@@ -218,7 +218,7 @@ const IncapacityDetailScreen = (props) => {
                 <Text
                   style={{
                     fontFamily: "Cabin-Bold",
-                    color: "#006FCC",
+                    color: Colors.secondary,
                     fontSize: 20,
                   }}
                 >
@@ -230,7 +230,7 @@ const IncapacityDetailScreen = (props) => {
                 <Text
                   style={{
                     fontFamily: "Cabin-Regular",
-                    color: Colors.bluetitle,
+                    color: Colors.secondary,
                     fontSize: 12,
                   }}
                 >
@@ -239,7 +239,7 @@ const IncapacityDetailScreen = (props) => {
               </View>
               <View
                 style={{
-                  backgroundColor: Colors.bluebg,
+                  backgroundColor: Colors.back,
                   width: "100%",
                   height: 50,
                   borderRadius: 10,
@@ -250,7 +250,7 @@ const IncapacityDetailScreen = (props) => {
                 <Text
                   style={{
                     fontFamily: "Cabin-Bold",
-                    color: "#006FCC",
+                    color: Colors.secondary,
                     fontSize: 20,
                   }}
                 >
@@ -261,7 +261,7 @@ const IncapacityDetailScreen = (props) => {
                 <Text
                   style={{
                     fontFamily: "Cabin-Regular",
-                    color: Colors.bluetitle,
+                    color: Colors.secondary,
                     fontSize: 12,
                   }}
                 >
@@ -291,7 +291,7 @@ const IncapacityDetailScreen = (props) => {
                       <AntDesign
                         name="eye"
                         size={24}
-                        color={Colors.bluelinks}
+                        color={Colors.primary}
                       />
                     </View>
                     <Image
@@ -319,7 +319,7 @@ const IncapacityDetailScreen = (props) => {
                       <AntDesign name="eye" size={24} color={Colors.white} />
                     </View>
                     <Image
-                      source={require("../../../assets/img/incapacidad.png")}
+                      source={require("../../../assets/img/new/incapacidad.png")}
                       style={{
                         height: 100,
                         width: 100,
@@ -344,7 +344,7 @@ const IncapacityDetailScreen = (props) => {
                   </View>
                   <View
                     style={{
-                      backgroundColor: Colors.bluebg,
+                      backgroundColor: Colors.back,
                       width: "100%",
                       height: 50,
                       borderRadius: 10,
@@ -355,7 +355,7 @@ const IncapacityDetailScreen = (props) => {
                     <Text
                       style={{
                         fontFamily: "Cabin-Bold",
-                        color: "#006FCC",
+                        color: Colors.secondary,
                         fontSize: 15,
                       }}
                     >
@@ -367,7 +367,7 @@ const IncapacityDetailScreen = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluelinks,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   borderRadius: 10,
                   marginTop: "10%",
@@ -394,7 +394,7 @@ const IncapacityDetailScreen = (props) => {
             resizeMode: "stretch",
             zIndex: -1,
           }}
-          source={require("../../../assets/img/fondo_azul.png")}
+          source={require("../../../assets/img/new/fondo_azul.png")}
         />
       </View>
       <ModalCustom

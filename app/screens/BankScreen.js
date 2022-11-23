@@ -280,7 +280,7 @@ const BankScreen = (props) => {
                 style={{
                     height: "100%",
                     zIndex: 1,
-                    backgroundColor: Colors.bluebg,
+                    backgroundColor: Colors.texts,
                 }}
             >
                 <StatusBar
@@ -315,7 +315,7 @@ const BankScreen = (props) => {
                             }}
                         >
                             <Image
-                                source={require("../../assets/img/bank_data.png")}
+                                source={require("../../assets/img/new/bank_data.png")}
                                 style={{
                                     width: 80,
                                     height: 80,
@@ -328,7 +328,7 @@ const BankScreen = (props) => {
                                     style={{
                                         fontFamily: "Cabin-Regular",
                                         fontSize: 20,
-                                        color: Colors.bluetitle,
+                                        color: Colors.secondary,
                                         textAlign: "left",
                                     }}
                                 >
@@ -350,7 +350,7 @@ const BankScreen = (props) => {
                                 >
                                     <View
                                         style={{
-                                            backgroundColor: Colors.bluetitle,
+                                            backgroundColor: Colors.secondary,
                                             width: 80,
                                             height: 4,
                                         }}
@@ -373,7 +373,7 @@ const BankScreen = (props) => {
                                         <Text
                                             style={{
                                                 fontFamily: "Cabin-Regular",
-                                                color: Colors.bluetitle,
+                                                color: Colors.secondary,
                                                 fontSize: 12,
                                                 paddingBottom: 10,
                                             }}
@@ -393,7 +393,7 @@ const BankScreen = (props) => {
                                                 setAccountNumber(text.replace(/\$\s?|[-,.*]/g, ""))
                                             }
                                             style={styles.input}
-                                            placeholderTextColor={Colors.bluetitle}
+                                            placeholderTextColor={Colors.secondary}
                                             autoCapitalize="none"
                                             underlineColorAndroid={"transparent"}
                                             value={accountNumber}
@@ -416,7 +416,7 @@ const BankScreen = (props) => {
                                         <Text
                                             style={{
                                                 fontFamily: "Cabin-Regular",
-                                                color: Colors.bluetitle,
+                                                color: Colors.secondary,
                                                 fontSize: 12,
                                                 paddingBottom: 10,
                                             }}
@@ -436,7 +436,7 @@ const BankScreen = (props) => {
                                                 setInterbankKey(text.replace(/\$\s?|[-,.*]/g, ""))
                                             }
                                             style={styles.input}
-                                            placeholderTextColor={Colors.bluetitle}
+                                            placeholderTextColor={Colors.secondary}
                                             autoCapitalize="none"
                                             underlineColorAndroid={"transparent"}
                                             value={interbankKey}
@@ -459,7 +459,7 @@ const BankScreen = (props) => {
                                         <Text
                                             style={{
                                                 fontFamily: "Cabin-Regular",
-                                                color: Colors.bluetitle,
+                                                color: Colors.secondary,
                                                 fontSize: 12,
                                                 paddingBottom: 10,
                                             }}
@@ -478,7 +478,7 @@ const BankScreen = (props) => {
                                                 width: "100%",
                                                 borderRadius: 10,
                                                 padding: 3,
-                                                borderColor: Colors.bluelinks,
+                                                borderColor: Colors.primary,
                                                 borderWidth: 1,
                                             }}
                                         >
@@ -508,7 +508,7 @@ const BankScreen = (props) => {
                                         <Text
                                             style={{
                                                 fontFamily: "Cabin-Regular",
-                                                color: Colors.bluetitle,
+                                                color: Colors.secondary,
                                                 fontSize: 12,
                                                 paddingBottom: 10,
                                             }}
@@ -528,7 +528,7 @@ const BankScreen = (props) => {
                                                 setCardNumber(text.replace(/\$\s?|[-,.*]/g, ""))
                                             }
                                             style={styles.input}
-                                            placeholderTextColor={Colors.bluetitle}
+                                            placeholderTextColor={Colors.secondary}
                                             autoCapitalize="none"
                                             underlineColorAndroid={"transparent"}
                                             value={cardNumber}
@@ -563,7 +563,7 @@ const BankScreen = (props) => {
                                                 <Text
                                                     style={{
                                                         fontFamily: "Cabin-Regular",
-                                                        color: Colors.bluetitle,
+                                                        color: Colors.secondary,
                                                         fontSize: 12,
                                                         paddingBottom: 10,
                                                     }}
@@ -583,7 +583,7 @@ const BankScreen = (props) => {
                                                     width: "100%",
                                                     borderRadius: 10,
                                                     padding: 2,
-                                                    borderColor: Colors.bluelinks,
+                                                    borderColor: Colors.primary,
                                                     borderWidth: 1,
                                                 }}
                                             >
@@ -630,7 +630,7 @@ const BankScreen = (props) => {
                                                 <Text
                                                     style={{
                                                         fontFamily: "Cabin-Regular",
-                                                        color: Colors.bluetitle,
+                                                        color: Colors.secondary,
                                                         fontSize: 12,
                                                         paddingBottom: 10,
                                                     }}
@@ -650,7 +650,7 @@ const BankScreen = (props) => {
                                                     width: "100%",
                                                     padding: 2,
                                                     borderRadius: 10,
-                                                    borderColor: Colors.bluelinks,
+                                                    borderColor: Colors.primary,
                                                     borderWidth: 1,
                                                 }}
                                             >
@@ -686,7 +686,7 @@ const BankScreen = (props) => {
                                     <TouchableOpacity
                                         style={{
                                             fontFamily: "Cabin-Regular",
-                                            backgroundColor: Colors.bluelinks,
+                                            backgroundColor: Colors.primary,
                                             height: 50,
                                             width: "100%",
                                             borderRadius: 10,
@@ -753,9 +753,9 @@ const styles = StyleSheet.create({
     input: {
         fontFamily: "Cabin-Regular",
         fontSize: 16,
-        color: Colors.bluetitle,
+        color: Colors.secondary,
         width: "100%",
-        borderColor: Colors.bluelinks,
+        borderColor: Colors.primary,
         borderWidth: 1,
         padding: 12,
         borderRadius: 10,

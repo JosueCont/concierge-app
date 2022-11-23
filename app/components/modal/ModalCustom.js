@@ -16,13 +16,13 @@ const ModalCustom = ({visible, setVisible, iconSource, text}) => {
   useEffect(() => {
     let sourceIcon = require("../../../assets/icon.png");
     if (iconSource === 1) {
-      sourceIcon = require("../../../assets/img/icono_ok.png");
+      sourceIcon = require("../../../assets/img/new/icono_ok.png");
     } else if (iconSource === 2) {
-      sourceIcon = require("../../../assets/img/error_icon.png");
+      sourceIcon = require("../../../assets/img/new/error_icon.png");
     } else if (iconSource === 3) {
-      sourceIcon = require("../../../assets/img/imagen_search.png");
+      sourceIcon = require("../../../assets/img/new/imagen_search.png");
     } else if (iconSource === 4) {
-      sourceIcon = require("../../../assets/img/notification_send.png");
+      sourceIcon = require("../../../assets/img/new/notification_send.png");
     }
 
     setSourceIconState(sourceIcon)
@@ -49,7 +49,7 @@ const ModalCustom = ({visible, setVisible, iconSource, text}) => {
             >
               <View
                   style={{
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.secondary,
                     width: 80,
                     height: 4,
                   }}
@@ -63,7 +63,7 @@ const ModalCustom = ({visible, setVisible, iconSource, text}) => {
                 setVisible()
               }}
             >
-              <Text style={styles.modalBtnText}>Cerrars</Text>
+              <Text style={styles.modalBtnText}>Cerrar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -105,11 +105,11 @@ const styles = {
   modalText: {
     fontFamily: "Cabin-Regular",
     textAlign: "center",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     marginBottom: 20,
   },
   modalBtn: {
-    backgroundColor: Colors.bluetitle,
+    backgroundColor: Colors.primary,
     width: "100%",
     height: 40,
     borderRadius: 10,

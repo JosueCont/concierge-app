@@ -14,7 +14,7 @@ const PickerSelect = (props) => {
         }}
         placeholder={{
           label: props.title,
-          color: Colors.bluelinks,
+          color: Colors.secondary,
         }}
         style={pickerSelectStyles}
         items={props.items}
@@ -33,7 +33,7 @@ const pickerSelectStyles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderRadius: 10,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
   inputAndroid: {
     height: 45,
@@ -43,7 +43,7 @@ const pickerSelectStyles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 8,
     borderRadius: 10,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
   iconContainer: {
     top: "25%",
@@ -51,7 +51,7 @@ const pickerSelectStyles = StyleSheet.create({
   },
   placeholder: {
     fontFamily: "Cabin-Regular",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
 });
 export default PickerSelect;

@@ -32,7 +32,7 @@ const RecoverPasswordScreen = (props) => {
   const [loading, setLoading] = useState(false);
 
   const actionReturn = () => {
-    props.navigation.navigate("EmailSentScreen");
+    props.navigation.navigate("LoginScreen");
   };
 
   const sendMailRecoveryPassword = (data) => {
@@ -132,17 +132,17 @@ const RecoverPasswordScreen = (props) => {
                 resizeMode: "stretch",
                 zIndex: -1,
               }}
-              source={require("../../../assets/img/fondo_azul.png")}
+              source={require("../../../assets/img/new/fondo_azul.png")}
             />
             <View style={styles.ctnPart1}>
               <Image
                 style={styles.imgPrincipal}
-                source={require("../../../assets/img/alerta_icon.png")}
+                source={require("../../../assets/img/new/alerta_icon.png")}
               />
               <View
                 style={{
                   width: "92%",
-                  backgroundColor: Colors.dark,
+                  backgroundColor: Colors.secondary,
                   borderRadius: 40,
                   paddingHorizontal: 20,
                   paddingVertical: 50,
@@ -174,7 +174,7 @@ const RecoverPasswordScreen = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.secondary,
                     width: 80,
                     height: 4,
                   }}
@@ -188,7 +188,7 @@ const RecoverPasswordScreen = (props) => {
                 <TextInput
                   style={styles.input}
                   placeholder="Email"
-                  placeholderTextColor={Colors.bluetitle}
+                  placeholderTextColor={Colors.secondary}
                   autoCapitalize="none"
                   underlineColorAndroid={"transparent"}
                   onChangeText={(text) => setEmail(text)}
@@ -203,7 +203,7 @@ const RecoverPasswordScreen = (props) => {
                   <TouchableOpacity
                     style={{
                       fontFamily: "Cabin-Regular",
-                      backgroundColor: Colors.bluelinks,
+                      backgroundColor: Colors.primary,
                       height: 50,
                       width: "48%",
                       borderRadius: 10,
@@ -220,7 +220,7 @@ const RecoverPasswordScreen = (props) => {
                   <TouchableOpacity
                     style={{
                       fontFamily: "Cabin-Regular",
-                      backgroundColor: Colors.bluetitle,
+                      backgroundColor: Colors.primary,
                       height: 50,
                       width: "48%",
                       borderRadius: 10,
@@ -283,15 +283,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 30,
     textAlign: "center",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     paddingHorizontal: 20,
   },
   input: {
     fontFamily: "Cabin-Regular",
     fontSize: 16,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     width: "100%",
-    borderColor: Colors.bluelinks,
+    borderColor: Colors.primary,
     borderWidth: 1,
     marginBottom: 20,
     padding: 10,

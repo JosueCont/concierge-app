@@ -21,14 +21,14 @@ const CloseSession = (props) => {
             >
               <View
                 style={{
-                  backgroundColor: Colors.bluetitle,
+                  backgroundColor: Colors.secondary,
                   width: 80,
                   height: 4,
                 }}
               ></View>
             </View>
             <Image
-              source={require("../../../assets/img/icon_contrasena.png")}
+              source={require("../../../assets/img/new/icon_contrasena.png")}
               style={styles.modalImg}
             />
             <Text style={styles.modalText}>
@@ -43,7 +43,7 @@ const CloseSession = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluetitle,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   width: "60%",
                   borderRadius: 10,
@@ -60,7 +60,7 @@ const CloseSession = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluelinks,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   width: "60%",
                   borderRadius: 10,
@@ -114,12 +114,12 @@ const styles = {
   modalText: {
     fontFamily: "Cabin-Regular",
     textAlign: "center",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     marginBottom: 20,
     fontSize: 20,
   },
   modalBtn: {
-    backgroundColor: Colors.bluetitle,
+    backgroundColor: Colors.primary,
     width: "60%",
     height: 40,
     borderRadius: 10,

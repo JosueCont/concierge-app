@@ -114,7 +114,7 @@ const PermissionDetail = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.secondary,
                     width: 80,
                     height: 4,
                   }}
@@ -123,7 +123,7 @@ const PermissionDetail = (props) => {
               <Text
                 style={{
                   fontFamily: "Cabin-Regular",
-                  color: Colors.bluetitle,
+                  color: Colors.secondary,
                   fontSize: 30,
                   marginBottom: "10%",
                 }}
@@ -177,7 +177,7 @@ const PermissionDetail = (props) => {
                         <Text
                           style={{
                             fontFamily: "Cabin-Regular",
-                            color: Colors.bluetitle,
+                            color: Colors.secondary,
                             fontSize: 12,
                             paddingBottom: 10,
                           }}
@@ -223,7 +223,7 @@ const PermissionDetail = (props) => {
                 <TouchableOpacity
                   style={{
                     fontFamily: "Cabin-Regular",
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.primary,
                     height: 50,
                     width: "60%",
                     borderRadius: 10,
@@ -251,7 +251,7 @@ const PermissionDetail = (props) => {
             resizeMode: "stretch",
             zIndex: -1,
           }}
-          source={require("../../../assets/img/fondo_azul.png")}
+          source={require("../../../assets/img/new/fondo_azul.png")}
         />
       </View>
       <ModalCustom
@@ -284,14 +284,14 @@ const styles = {
   titleText: {
     fontFamily: "Cabin-Regular",
     textAlign: "center",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     marginBottom: 10,
     fontSize: 17,
   },
   modalDate: {
     fontFamily: "Cabin-Regular",
     textAlign: "center",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     marginBottom: 10,
     fontSize: 30,
   },

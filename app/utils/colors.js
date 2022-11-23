@@ -12,4 +12,8 @@ export const Colors = {
     bluelinks: '#0089E5',    
     bluebg: '#F0F7FC',
     dark: '#191919',
+    primary: '#F99543',
+    secondary: '#121212',
+    texts: "#FFF1E6",
+    back: "#E3E3E3"
 }

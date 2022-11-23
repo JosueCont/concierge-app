@@ -31,7 +31,7 @@ const ToolbarGeneric = (props) => {
         width: "100%",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.secondary,
       }}
     >
       <View style={{ alignItems: "center", width: "100%" }}>
@@ -59,13 +59,13 @@ const ToolbarGeneric = (props) => {
                 <Ionicons
                   name="ios-arrow-back"
                   size={30}
-                  color={Colors.bluetitle}
+                  color={Colors.white}
                 />
                 <Text
                   style={{
                     fontFamily: "Cabin-Medium",
                     marginLeft: 10,
-                    color: Colors.bluelinks,
+                    color: Colors.white,
                     fontSize: 14,
                   }}
                 >
@@ -75,12 +75,12 @@ const ToolbarGeneric = (props) => {
             )}
             {props.type == 2 && (
               <>
-                <Entypo name="menu" size={30} color={Colors.bluetitle} />
+                <Entypo name="menu" size={30} color={Colors.white} />
                 <Text
                   style={{
                     fontFamily: "Cabin-Medium",
                     marginLeft: 5,
-                    color: Colors.bluelinks,
+                    color: Colors.white,
                     fontSize: 14,
                   }}
                 >
@@ -94,7 +94,7 @@ const ToolbarGeneric = (props) => {
             onPress={() => props.goHome()}
           >
             <Image
-              source={require("../../../assets/img/header.png")}
+              source={require("../../../assets/img/new/header.png")}
               resizeMode={"contain"}
               style={{ height: 80, width: 80 }}
             />
@@ -111,7 +111,7 @@ const ToolbarGeneric = (props) => {
               style={{
                 height: 60,
                 width: 60,
-                borderColor: Colors.bluelinks,
+                borderColor: Colors.primary,
                 borderWidth: 4,
                 borderRadius: 50,
                 overflow: "hidden",

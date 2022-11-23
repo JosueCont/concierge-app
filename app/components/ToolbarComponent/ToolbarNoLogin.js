@@ -24,7 +24,7 @@ const ToolbarGeneric = (props) => {
                   }}
                 >
                   <Image
-                    source={require("../../../assets/img/header.png")}
+                    source={require("../../../assets/img/new/header.png")}
                     resizeMode={"contain"}
                     style={{ height: 80, width: 80 }}
                   />
@@ -60,13 +60,13 @@ const ToolbarGeneric = (props) => {
                 <Ionicons
                   name="ios-arrow-back"
                   size={30}
-                  color={Colors.bluetitle}
+                  color={Colors.secondary}
                 />
                 <Text
                   style={{
                     fontFamily: "Cabin-Medium",
                     marginLeft: 10,
-                    color: Colors.bluelinks,
+                    color: Colors.secondary,
                     fontSize: 14,
                   }}
                 >
@@ -80,7 +80,7 @@ const ToolbarGeneric = (props) => {
                 }}
               >
                 <Image
-                  source={require("../../../assets/img/header.png")}
+                  source={require("../../../assets/img/new/header.png")}
                   resizeMode={"contain"}
                   style={{ height: 80, width: 80 }}
                 />

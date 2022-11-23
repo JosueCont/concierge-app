@@ -92,7 +92,7 @@ const HomeUserScreen = (props) => {
             <Text
               style={{
                 fontFamily: "Cabin-Regular",
-                color: Colors.bluetitle,
+                color: Colors.secondary,
                 fontSize: 28,
               }}
             >
@@ -101,7 +101,7 @@ const HomeUserScreen = (props) => {
             <Text
               style={{
                 fontFamily: "Cabin-Bold",
-                color: Colors.bluetitle,
+                color: Colors.primary,
                 fontSize: 28,
                 marginLeft: 5,
               }}
@@ -112,7 +112,7 @@ const HomeUserScreen = (props) => {
           <Text
             style={{
               fontFamily: "Cabin-Regular",
-              color: Colors.bluetitle,
+              color: Colors.secondary,
               fontSize: 30,
               textAlign: "center",
             }}

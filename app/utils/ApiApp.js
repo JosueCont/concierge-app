@@ -55,8 +55,8 @@ class ApiApp {
    * @returns {Promise<AxiosResponse<any>>}
    */
   static getPayrollVouchers = (data) => {
-    // return ApiApp.ApisType(`/payroll/cfdi-voucher/?${data}&page=1`, "get");
-    return ApiApp.ApisType(`https://nominaqa.api.people.hiumanlab.mx/payroll/cfdi-voucher?&node=37&person=6e8f90bb784f45ef88c92edee8326c85&year=2022&page=1`, "get");
+    console.log('data: ', data);
+    return ApiApp.ApisType(`https://nominaqa.api.people.hiumanlab.mx/payroll/cfdi-voucher${data}`, "get");
   };
 
   static getPayrollVoucherDetail = (data) => {

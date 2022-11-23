@@ -49,12 +49,12 @@ const ComunicationCard = (props) => {
             >
               {item.is_read ? (
                 <Image
-                  source={require("../../../assets/img/icono_recordatorio_azul.png")}
+                  source={require("../../../assets/img/new/icono_recordatorio_azul.png")}
                   style={{ width: 25, height: 25 }}
                 ></Image>
               ) : (
                 <Image
-                  source={require("../../../assets/img/icono_recordatorio_rojo.png")}
+                  source={require("../../../assets/img/new/icono_recordatorio_rojo.png")}
                   style={{ width: 25, height: 25 }}
                 ></Image>
               )}
@@ -123,7 +123,7 @@ const ComunicationCard = (props) => {
                 >
                   <View
                     style={{
-                      backgroundColor: Colors.bluetitle,
+                      backgroundColor: Colors.primary,
                       width: 170,
                       height: 48,
                       top: 15,
@@ -135,7 +135,7 @@ const ComunicationCard = (props) => {
                     }}
                   >
                     <Image
-                      source={require("../../../assets/img/icono_noticia.png")}
+                      source={require("../../../assets/img/new/icono_noticia.png")}
                       style={{ width: 25, height: 25 }}
                     ></Image>
                     <Text
@@ -157,7 +157,7 @@ const ComunicationCard = (props) => {
                 <Text
                   style={{
                     marginBottom: 5,
-                    color: Colors.bluetitle,
+                    color: Colors.secondary,
                     fontSize: 20,
                     fontFamily: "Cabin-Bold",
                   }}
@@ -171,7 +171,7 @@ const ComunicationCard = (props) => {
               <Text
                 style={{
                   marginBottom: 5,
-                  color: Colors.bluelinks,
+                  color: Colors.secondary,
                   fontSize: 15,
                   fontFamily: "Cabin-Bold",
                 }}
@@ -198,7 +198,7 @@ const ComunicationCard = (props) => {
   };
   return (
       <FlatList
-        style={{ paddingHorizontal: 22, backgroundColor: Colors.bluebg }}
+        style={{ paddingHorizontal: 22, backgroundColor: Colors.texts }}
         data={props.cards}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   textoOpen: {
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
   textoClose: {
     color: Colors.white,

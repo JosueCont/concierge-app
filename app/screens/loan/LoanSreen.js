@@ -103,7 +103,7 @@ const LoanScreen = (props) => {
       <>
         <View
           style={{
-            backgroundColor: "#006FCC",
+            backgroundColor: Colors.primary,
             marginTop: 15,
             alignItems: "center",
             borderRadius: 20,
@@ -157,7 +157,7 @@ const LoanScreen = (props) => {
           <TouchableOpacity
             style={{
               fontFamily: "Cabin-Regular",
-              backgroundColor: Colors.bluelinks,
+              backgroundColor: Colors.primary,
               height: 50,
               width: "48%",
               borderRadius: 10,
@@ -171,7 +171,7 @@ const LoanScreen = (props) => {
           <TouchableOpacity
             style={{
               fontFamily: "Cabin-Regular",
-              backgroundColor: Colors.bluetitle,
+              backgroundColor: Colors.primary,
               height: 50,
               width: "48%",
               borderRadius: 10,
@@ -194,7 +194,7 @@ const LoanScreen = (props) => {
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={{
-                backgroundColor: Colors.bluelinks,
+                backgroundColor: Colors.primary,
                 height: 50,
                 width: "48%",
                 borderRadius: 10,

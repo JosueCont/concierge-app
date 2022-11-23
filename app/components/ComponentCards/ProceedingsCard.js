@@ -41,7 +41,7 @@ const ProceedingsCard = (props) => {
             >
               <Mark />
               <Image
-                source={require("../../../assets/img/rh_icon_menu.png")}
+                source={require("../../../assets/img/new/rh_icon_menu.png")}
                 style={styles.image}
               ></Image>
               <Text style={styles.title}>{item.document_type.name}</Text>
@@ -65,7 +65,7 @@ const ProceedingsCard = (props) => {
       >
         <View
           style={{
-            backgroundColor: Colors.bluetitle,
+            backgroundColor: Colors.secondary,
             width: windowWidth * 0.14,
             height: 5,
           }}
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Cabin-Regular",
     fontSize: 18,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     textAlign: "center",
     marginTop: 15,
   },

@@ -146,7 +146,7 @@ const PermissionRequestScreen = (props) => {
         style={{
           height: "100%",
           zIndex: 1,
-          backgroundColor: Colors.bluebg,
+          backgroundColor: Colors.texts,
         }}
       >
         <StatusBar
@@ -182,28 +182,28 @@ const PermissionRequestScreen = (props) => {
               }}
             >
               <Image
-                source={require("../../../assets/img/permissions.png")}
+                source={require("../../../assets/img/new/permissions.png")}
                 style={{ width: 110, height: 110, resizeMode: "cover" }}
               ></Image>
             </View>
             <View style={{ marginTop: 80 }}>
-              <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
+              <Text style={{ marginBottom: 10, color: Colors.secondary }}>
                 Fecha de salida
               </Text>
               <Text
                 style={styles.input}
-                placeholderTextColor={Colors.bluetitle}
+                placeholderTextColor={Colors.secondary}
                 underlineColorAndroid={"transparent"}
                 onPress={() => viewModalCalendar("out")}
               >
                 {departureDate}
               </Text>
-              <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
+              <Text style={{ marginBottom: 10, color: Colors.secondary }}>
                 Fecha de retorno
               </Text>
               <Text
                 style={styles.input}
-                placeholderTextColor={Colors.bluetitle}
+                placeholderTextColor={Colors.secondary}
                 underlineColorAndroid={"transparent"}
                 onPress={() => viewModalCalendar("return")}
               >
@@ -225,7 +225,7 @@ const PermissionRequestScreen = (props) => {
                   <Text
                     style={{
                       fontFamily: "Cabin-Regular",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       fontSize: 12,
                       paddingBottom: 10,
                     }}
@@ -250,7 +250,7 @@ const PermissionRequestScreen = (props) => {
                   <TextInput
                     style={styles.inputComment}
                     placeholder="Motivo de la solicitud"
-                    placeholderTextColor={Colors.bluetitle}
+                    placeholderTextColor={Colors.secondary}
                     autoCapitalize="none"
                     multiline
                     maxLength={200}
@@ -271,7 +271,7 @@ const PermissionRequestScreen = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluetitle,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   width: "45%",
                   borderRadius: 10,
@@ -288,7 +288,7 @@ const PermissionRequestScreen = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluelinks,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   width: "45%",
                   borderRadius: 10,
@@ -349,9 +349,9 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: "Cabin-Regular",
     fontSize: 16,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     width: "100%",
-    borderColor: Colors.bluelinks,
+    borderColor: Colors.primary,
     borderWidth: 1,
     marginBottom: 20,
     padding: 15,
@@ -361,15 +361,15 @@ const styles = StyleSheet.create({
   inputComment: {
     fontFamily: "Cabin-Regular",
     fontSize: 16,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     width: "100%",
     height: 100,
-    borderColor: Colors.bluelinks,
+    borderColor: Colors.primary,
     borderWidth: 1,
     marginBottom: 20,
     padding: 15,
     borderRadius: 10,
-    backgroundColor: Colors.bluebg,
+    backgroundColor: Colors.white,
   },
 });
 

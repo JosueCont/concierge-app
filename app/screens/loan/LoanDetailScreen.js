@@ -94,7 +94,7 @@ const LoanDetailScreen = (props) => {
         }}
       >
         <Image
-          source={require("../../../assets/img/lending_payment.png")}
+          source={require("../../../assets/img/new/lending_payment.png")}
           style={{
             width: 80,
             height: 80,
@@ -107,7 +107,7 @@ const LoanDetailScreen = (props) => {
             style={{
               fontFamily: "Cabin-Regular",
               fontSize: 24,
-              color: Colors.bluetitle,
+              color: Colors.secondary,
               textAlign: "left",
             }}
           >
@@ -125,7 +125,7 @@ const LoanDetailScreen = (props) => {
           <View style={{ alignItems: "center" }}>
             <TouchableOpacity
               style={{
-                backgroundColor: Colors.bluelinks,
+                backgroundColor: Colors.primary,
                 height: 50,
                 width: "48%",
                 borderRadius: 10,
@@ -158,7 +158,7 @@ const LoanDetailScreen = (props) => {
         style={{
           height: "100%",
           zIndex: 1,
-          backgroundColor: Colors.bluebg,
+          backgroundColor: Colors.texts,
         }}
       >
         <StatusBar

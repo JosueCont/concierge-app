@@ -158,7 +158,7 @@ const IncapacityRequestScreen = (props) => {
         style={{
           height: "100%",
           zIndex: 1,
-          backgroundColor: Colors.bluebg,
+          backgroundColor: Colors.texts,
         }}
       >
         <StatusBar
@@ -194,28 +194,28 @@ const IncapacityRequestScreen = (props) => {
               }}
             >
               <Image
-                source={require("../../../assets/img/rh.png")}
+                source={require("../../../assets/img/new/rh.png")}
                 style={{ width: 110, height: 110, resizeMode: "cover" }}
               ></Image>
             </View>
             <View style={{ marginTop: 80 }}>
-              <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
+              <Text style={{ marginBottom: 10, color: Colors.secondary }}>
                 Fecha de salida
               </Text>
               <Text
                 style={styles.input}
-                placeholderTextColor={Colors.bluetitle}
+                placeholderTextColor={Colors.secondary}
                 underlineColorAndroid={"transparent"}
                 onPress={() => viewModalCalendar("out")}
               >
                 {departureDate}
               </Text>
-              <Text style={{ marginBottom: 10, color: Colors.bluetitle }}>
+              <Text style={{ marginBottom: 10, color: Colors.secondary }}>
                 Fecha de retorno
               </Text>
               <Text
                 style={styles.input}
-                placeholderTextColor={Colors.bluetitle}
+                placeholderTextColor={Colors.secondary}
                 underlineColorAndroid={"transparent"}
                 onPress={() => viewModalCalendar("return")}
               >
@@ -235,7 +235,7 @@ const IncapacityRequestScreen = (props) => {
                 >
                   <Text
                     style={{
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                       paddingBottom: 10,
                     }}
                   >
@@ -255,14 +255,14 @@ const IncapacityRequestScreen = (props) => {
                 >
                   <Text
                     style={styles.input}
-                    placeholderTextColor={Colors.bluetitle}
+                    placeholderTextColor={Colors.secondary}
                     underlineColorAndroid={"transparent"}
                     onPress={() => chargerDocumnet()}
                   >
                     <AntDesign
                       name="upload"
                       size={24}
-                      color={Colors.bluelinks}
+                      color={Colors.secondary}
                     />
                   </Text>
                 </View>
@@ -288,7 +288,7 @@ const IncapacityRequestScreen = (props) => {
                     <>
                       <View style={styles.item}>
                         <Image
-                          source={require("../../../assets/img/incapacidad.png")}
+                          source={require("../../../assets/img/new/incapacidad.png")}
                           style={{
                             height: 100,
                             width: 100,
@@ -299,7 +299,7 @@ const IncapacityRequestScreen = (props) => {
                         style={{
                           fontFamily: "Cabin-Regular",
                           fontSize: 16,
-                          color: Colors.bluetitle,
+                          color: Colors.secondary,
                         }}
                       >
                         {documentName}
@@ -320,7 +320,7 @@ const IncapacityRequestScreen = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluetitle,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   width: "45%",
                   borderRadius: 10,
@@ -337,7 +337,7 @@ const IncapacityRequestScreen = (props) => {
               <TouchableOpacity
                 style={{
                   fontFamily: "Cabin-Regular",
-                  backgroundColor: Colors.bluelinks,
+                  backgroundColor: Colors.primary,
                   height: 50,
                   width: "45%",
                   borderRadius: 10,
@@ -398,9 +398,9 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: "Cabin-Regular",
     fontSize: 16,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     width: "100%",
-    borderColor: Colors.bluelinks,
+    borderColor: Colors.primary,
     borderWidth: 1,
     marginBottom: 20,
     padding: 15,
@@ -413,7 +413,7 @@ const styles = StyleSheet.create({
     color: Colors.bluetitle,
     width: "100%",
     height: 100,
-    borderColor: Colors.bluelinks,
+    borderColor: Colors.primary,
     borderWidth: 1,
     marginBottom: 20,
     padding: 15,

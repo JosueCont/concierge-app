@@ -27,7 +27,7 @@ const SideMenu = (props) => {
         <View
           style={{
             zIndex: 5,
-            backgroundColor: Colors.bluetitle,
+            backgroundColor: Colors.secondary,
             padding: 16,
             alignItems: "center",
           }}
@@ -89,7 +89,7 @@ const SideMenu = (props) => {
               }}
             >
               <Image
-                source={require("../../assets/img/calendar_icon_menu.png")}
+                source={require("../../assets/img/new/calendar_icon_menu.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
               <Text style={styles.navItemStyle}>Calendario</Text>
@@ -103,7 +103,7 @@ const SideMenu = (props) => {
               }}
             >
               <Image
-                source={require("../../assets/img/icono_nomina.png")}
+                source={require("../../assets/img/new/icono_nomina.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
               <Text style={styles.navItemStyle}>Nómina</Text>
@@ -117,7 +117,7 @@ const SideMenu = (props) => {
               }}
             >
               <Image
-                source={require("../../assets/img/rh_icon_menu.png")}
+                source={require("../../assets/img/new/rh_icon_menu.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
               <Text style={styles.navItemStyle}>Recursos humanos</Text>
@@ -131,7 +131,7 @@ const SideMenu = (props) => {
               }}
             >
               <Image
-                source={require("../../assets/img/node_tree_icon_menu.png")}
+                source={require("../../assets/img/new/node_tree_icon_menu.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
               <Text style={styles.navItemStyle}>Organización</Text>
@@ -145,7 +145,7 @@ const SideMenu = (props) => {
               }}
             >
               <Image
-                source={require("../../assets/img/prestamo.png")}
+                source={require("../../assets/img/new/prestamo.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
               <Text style={styles.navItemStyle}>Cuentas bancarias</Text>
@@ -156,7 +156,7 @@ const SideMenu = (props) => {
               onPress={() => modalCloseSession()}
             >
               <Image
-                source={require("../../assets/img/icono_cerrar_sesion.png")}
+                source={require("../../assets/img/new/icono_cerrar_sesion.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
               <Text style={styles.navItemStyle}>Cerrar sesión</Text>
@@ -170,7 +170,7 @@ const SideMenu = (props) => {
               }}
             >
               <Image
-                source={require("../../assets/img/imagen_menu.png")}
+                source={require("../../assets/img/new/imagen_menu.png")}
                 style={{ width: "80%", height: "100%", resizeMode: "contain" }}
               ></Image>
             </View>
@@ -180,7 +180,7 @@ const SideMenu = (props) => {
                       fontFamily: "Cabin-Regular",
                       fontSize: 16,
                       textAlign: "center",
-                      color: Colors.bluetitle,
+                      color: Colors.secondary,
                   }}
               >
                   Versión: {Constants.manifest.version} ({Platform.OS === 'ios' ? Constants.manifest.ios.buildNumber : Constants.manifest.versionCode})
@@ -198,7 +198,7 @@ const SideMenu = (props) => {
 const styles = StyleSheet.create({
   navSectionStyle: {
     backgroundColor: "transparent",
-    borderBottomColor: Colors.bluelinks,
+    borderBottomColor: Colors.primary,
     borderBottomWidth: 1,
     paddingVertical: 10,
     flexDirection: "row",
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   },
   navItemStyle: {
     fontFamily: "Cabin-Regular",
-    color: Colors.bluetitle,
+    color: Colors.primary,
     fontSize: 18,
     marginLeft: 15,
   },

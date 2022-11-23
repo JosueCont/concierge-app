@@ -86,7 +86,7 @@ const ProceedingsScreen = (props) => {
         }}
       >
         <Image
-          source={require("../../assets/img/rh.png")}
+          source={require("../../assets/img/new/rh.png")}
           style={{
             width: 80,
             height: 80,
@@ -99,7 +99,7 @@ const ProceedingsScreen = (props) => {
             style={{
               fontFamily: "Cabin-Regular",
               fontSize: 22,
-              color: Colors.bluetitle,
+              color: Colors.secondary,
               textAlign: "left",
             }}
           >
@@ -109,7 +109,7 @@ const ProceedingsScreen = (props) => {
             style={{
               fontFamily: "Cabin-Regular",
               fontSize: 22,
-              color: Colors.bluetitle,
+              color: Colors.secondary,
               textAlign: "left",
             }}
           >
@@ -119,7 +119,7 @@ const ProceedingsScreen = (props) => {
             style={{
               fontFamily: "Cabin-Regular",
               fontSize: 22,
-              color: Colors.bluetitle,
+              color: Colors.secondary,
               textAlign: "left",
             }}
           >
@@ -136,7 +136,7 @@ const ProceedingsScreen = (props) => {
         style={{
           height: "100%",
           zIndex: 1,
-          backgroundColor: Colors.bluebg,
+          backgroundColor: Colors.texts,
         }}
       >
         <StatusBar
@@ -167,7 +167,7 @@ const ProceedingsScreen = (props) => {
             resizeMode: "stretch",
             zIndex: -1,
           }}
-          source={require("../../assets/img/fondo_azul.png")}
+          source={require("../../assets/img/new/fondo_azul.png")}
         />
       </View>
       <ModalCustom

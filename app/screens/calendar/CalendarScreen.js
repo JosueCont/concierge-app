@@ -225,13 +225,13 @@ const CalendarScreen = (props) => {
         showsVerticalScrollIndicator={false}
         style={{
           zIndex: 0,
-          backgroundColor: Colors.bluebg,
+          backgroundColor: Colors.texts,
           paddingHorizontal: 22,
         }}
       >
         <View
           style={{
-            backgroundColor: Colors.dark,
+            backgroundColor: Colors.primary,
             marginTop: 40,
             borderRadius: 20,
             paddingHorizontal: 35,
@@ -285,6 +285,7 @@ const CalendarScreen = (props) => {
             style={{
               marginTop: 30,
               borderRadius: 20,
+              color: Colors.secondary
             }}
             markingType={"custom"}
             markedDates={toDay}
@@ -297,7 +298,7 @@ const CalendarScreen = (props) => {
 
         <View style={{ alignItems: "center", marginBottom: 40 }}>
           <Image
-            source={require("../../../assets/img/imagen_search.png")}
+            source={require("../../../assets/img/new/imagen_search.png")}
             style={{
               width: windowWidth * 0.3,
               height: windowWidth * 0.3,
@@ -351,18 +352,18 @@ const pickerSelectStyles = StyleSheet.create({
 const themeConfig = {
   backgroundColor: "purple",
   calendarBackground: Colors.white,
-  textSectionTitleColor: Colors.bluetitle,
-  textSectionTitleDisabledColor: Colors.bluetitle,
+  textSectionTitleColor: Colors.secondary,
+  textSectionTitleDisabledColor: Colors.secondary,
   selectedDayBackgroundColor: "#00adf5",
   selectedDayTextColor: "#ffffff",
-  todayTextColor: Colors.bluelinks,
-  dayTextColor: Colors.bluetitle,
+  todayTextColor: Colors.secondary,
+  dayTextColor: Colors.secondary,
   textDisabledColor: "#d9e1e8",
   dotColor: "#00adf5",
   selectedDotColor: "#ffffff",
-  arrowColor: Colors.bluelinks,
-  disabledArrowColor: Colors.bluelinks,
-  monthTextColor: Colors.bluetitle,
+  arrowColor: Colors.secondary,
+  disabledArrowColor: Colors.secondary,
+  monthTextColor: Colors.secondary,
   indicatorColor: "blue",
   textDayFontFamily: "Cabin-Regular",
   textMonthFontFamily: "Cabin-Regular",

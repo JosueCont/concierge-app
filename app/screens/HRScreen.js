@@ -43,7 +43,7 @@ const HRScreen = (props) => {
       >
         <View
           style={{
-            backgroundColor: Colors.bluetitle,
+            backgroundColor: Colors.secondary,
             width: windowWidth * 0.14,
             height: 5,
           }}
@@ -90,7 +90,7 @@ const HRScreen = (props) => {
           }}
         >
           <Image
-            source={require("../../assets/img/rh.png")}
+            source={require("../../assets/img/new/rh.png")}
             style={{
               width: 80,
               height: 80,
@@ -103,7 +103,7 @@ const HRScreen = (props) => {
               style={{
                 fontFamily: "Cabin-Regular",
                 fontSize: 24,
-                color: Colors.bluetitle,
+                color: Colors.secondary,
                 textAlign: "left",
               }}
             >
@@ -113,7 +113,7 @@ const HRScreen = (props) => {
               style={{
                 fontFamily: "Cabin-Regular",
                 fontSize: 24,
-                color: Colors.bluetitle,
+                color: Colors.secondary,
                 textAlign: "left",
               }}
             >
@@ -130,7 +130,7 @@ const HRScreen = (props) => {
             >
               <Mark />
               <Image
-                source={require("../../assets/img/vacaciones.png")}
+                source={require("../../assets/img/new/vacaciones.png")}
                 style={styles.image}
               ></Image>
               <Text style={styles.title}>Vacaciones</Text>
@@ -141,7 +141,7 @@ const HRScreen = (props) => {
             >
               <Mark />
               <Image
-                source={require("../../assets/img/permisos.png")}
+                source={require("../../assets/img/new/permisos.png")}
                 style={styles.image}
               ></Image>
               <Text style={styles.title}>Permisos</Text>
@@ -154,7 +154,7 @@ const HRScreen = (props) => {
             >
               <Mark />
               <Image
-                source={require("../../assets/img/prestamo.png")}
+                source={require("../../assets/img/new/prestamo.png")}
                 style={styles.image}
               ></Image>
               <Text style={styles.title}>Préstamo</Text>
@@ -165,7 +165,7 @@ const HRScreen = (props) => {
             >
               <Mark />
               <Image
-                source={require("../../assets/img/incapacidad.png")}
+                source={require("../../assets/img/new/incapacidad.png")}
                 style={styles.image}
               ></Image>
               <Text style={styles.title}>Incapacidad</Text>
@@ -178,7 +178,7 @@ const HRScreen = (props) => {
             >
               <Mark />
               <Image
-                source={require("../../assets/img/expediente.png")}
+                source={require("../../assets/img/new/expediente.png")}
                 style={styles.image}
               ></Image>
               <Text style={styles.title}>Expediente</Text>
@@ -196,7 +196,7 @@ const HRScreen = (props) => {
           resizeMode: "stretch",
           zIndex: -1,
         }}
-        source={require("../../assets/img/fondo_azul.png")}
+        source={require("../../assets/img/new/fondo_azul.png")}
       />
     </View>
   );
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Cabin-Regular",
     fontSize: 18,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     textAlign: "center",
     marginTop: 15,
   },

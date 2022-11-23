@@ -152,12 +152,12 @@ const ChangePasswordScreen = (props) => {
                 resizeMode: "stretch",
                 zIndex: -1,
               }}
-              source={require("../../../assets/img/fondo_azul.png")}
+              source={require("../../../assets/img/new/fondo_azul.png")}
             />
             <View style={styles.ctnPart1}>
               <Image
                 style={styles.imgPrincipal}
-                source={require("../../../assets/img/changepass.png")}
+                source={require("../../../assets/img/new/changepass.png")}
               />
             </View>
             <View style={styles.ctnPart2}>
@@ -172,7 +172,7 @@ const ChangePasswordScreen = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.secondary,
                     width: 80,
                     height: 4,
                   }}
@@ -182,7 +182,7 @@ const ChangePasswordScreen = (props) => {
                 <TextInput
                   style={styles.input}
                   placeholder="Contraseña actual"
-                  placeholderTextColor={Colors.bluetitle}
+                  placeholderTextColor={Colors.secondary}
                   secureTextEntry={true}
                   password={true}
                   autoCapitalize="none"
@@ -193,7 +193,7 @@ const ChangePasswordScreen = (props) => {
                 <TextInput
                   style={styles.input}
                   placeholder="Nueva contraseña"
-                  placeholderTextColor={Colors.bluetitle}
+                  placeholderTextColor={Colors.secondary}
                   secureTextEntry={true}
                   password={true}
                   autoCapitalize="none"
@@ -204,7 +204,7 @@ const ChangePasswordScreen = (props) => {
                 <TextInput
                   style={styles.input}
                   placeholder="Confirmar contraseña"
-                  placeholderTextColor={Colors.bluetitle}
+                  placeholderTextColor={Colors.secondary}
                   secureTextEntry={true}
                   password={true}
                   autoCapitalize="none"
@@ -222,7 +222,7 @@ const ChangePasswordScreen = (props) => {
                   <TouchableOpacity
                     style={{
                       fontFamily: "Cabin-Regular",
-                      backgroundColor: Colors.bluetitle,
+                      backgroundColor: Colors.primary,
                       height: 50,
                       width: "48%",
                       borderRadius: 10,
@@ -240,7 +240,7 @@ const ChangePasswordScreen = (props) => {
                   <TouchableOpacity
                     style={{
                       fontFamily: "Cabin-Regular",
-                      backgroundColor: Colors.bluelinks,
+                      backgroundColor: Colors.primary,
                       height: 50,
                       width: "48%",
                       borderRadius: 10,
@@ -299,9 +299,9 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: "Cabin-Regular",
     fontSize: 16,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     width: "100%",
-    borderColor: Colors.bluelinks,
+    borderColor: Colors.primary,
     borderWidth: 1,
     marginBottom: 20,
     padding: 10,

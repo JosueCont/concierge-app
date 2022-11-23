@@ -76,12 +76,12 @@ const EmailSentScreen = (props) => {
               resizeMode: "stretch",
               zIndex: -1,
             }}
-            source={require("../../../assets/img/fondo_azul.png")}
+            source={require("../../../assets/img/new/fondo_azul.png")}
           />
           <View style={styles.ctnPart1}>
             <Image
               style={styles.imgPrincipal}
-              source={require("../../../assets/img/emailsent.png")}
+              source={require("../../../assets/img/new/emailsent.png")}
             />
           </View>
           <View style={styles.ctnPart2}>
@@ -96,7 +96,7 @@ const EmailSentScreen = (props) => {
             >
               <View
                 style={{
-                  backgroundColor: Colors.bluetitle,
+                  backgroundColor: Colors.secondary,
                   width: 80,
                   height: 4,
                 }}
@@ -110,14 +110,14 @@ const EmailSentScreen = (props) => {
               <View style={{ alignItems: "center" }}>
                 <Image
                   style={styles.imgForm}
-                  source={require("../../../assets/img/icono_ok.png")}
+                  source={require("../../../assets/img/new/icono_ok.png")}
                 />
               </View>
               <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
                   style={{
                     fontFamily: "Cabin-Regular",
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.primary,
                     height: 50,
                     width: "48%",
                     borderRadius: 10,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 30,
     textAlign: "center",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
     paddingHorizontal: 20,
   },
   imgForm: {

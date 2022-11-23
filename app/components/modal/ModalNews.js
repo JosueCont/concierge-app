@@ -40,7 +40,7 @@ const ModalNews = ({ visible, setVisible, data, user }) => {
           <View style={styles.modalView}>
             <View
               style={{
-                backgroundColor: Colors.bluetitle,
+                backgroundColor: Colors.secondary,
                 width: 170,
                 height: 48,
                 marginTop: 15,
@@ -52,12 +52,12 @@ const ModalNews = ({ visible, setVisible, data, user }) => {
             >
               {data.item && data.item.is_read ? (
                 <Image
-                  source={require("../../../assets/img/icono_recordatorio_azul.png")}
+                  source={require("../../../assets/img/new/icono_recordatorio_azul.png")}
                   style={{ width: 25, height: 25 }}
                 ></Image>
               ) : (
                 <Image
-                  source={require("../../../assets/img/icono_recordatorio_rojo.png")}
+                  source={require("../../../assets/img/new/icono_recordatorio_rojo.png")}
                   style={{ width: 25, height: 25 }}
                 ></Image>
               )}
@@ -93,7 +93,7 @@ const ModalNews = ({ visible, setVisible, data, user }) => {
             <TouchableOpacity
               style={{
                 fontFamily: "Cabin-Regular",
-                backgroundColor: Colors.bluetitle,
+                backgroundColor: Colors.primary,
                 height: 50,
                 width: "45%",
                 borderRadius: 10,
@@ -138,7 +138,7 @@ const styles = {
   },
   textoOpen: {
     padding: "2%",
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
   textReminder: {
     fontSize: 18,

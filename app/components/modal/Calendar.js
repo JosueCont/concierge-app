@@ -12,12 +12,16 @@ const ModalCalendar = ({
   setVisible,
   textSelected,
 }) => {
+
+  const [daySelectedOut, setDaySelectedOut] = useState(null);
+  const [daySelectedReturn, setDaySelectedReturn] = useState(null);
+  
   const dateCurrent = moment().format("YYYY-MM-DD");
   const toDay = {
-    [dateCurrent]: {
+    [daySelectedOut?.dateString]: {
       customStyles: {
         container: {
-          backgroundColor: Colors.bluetitle,
+          backgroundColor: Colors.primary,
           elevation: 2,
         },
         text: {
@@ -25,6 +29,17 @@ const ModalCalendar = ({
         },
       },
     },
+    [daySelectedReturn?.dateString]:{
+      customStyles: {
+        container: {
+          backgroundColor: Colors.primary,
+          elevation: 2,
+        },
+        text: {
+          color: Colors.white,
+        },
+      },
+    }
   };
 
   LocaleConfig.locales["es"] = {
@@ -70,8 +85,14 @@ const ModalCalendar = ({
   };
 
   const clickDay = (day) => {
-    if (textSelected == "out") departureDate(day.dateString);
-    if (textSelected == "return") returnDate(day.dateString);
+    if (textSelected == "out"){ 
+      departureDate(day.dateString);
+      setDaySelectedOut(day);
+    }
+    if (textSelected == "return") {
+      returnDate(day.dateString)
+      setDaySelectedReturn(day);
+    }
     setVisible();
   };
 
@@ -92,7 +113,7 @@ const ModalCalendar = ({
             <TouchableOpacity
               style={{
                 fontFamily: "Cabin-Regular",
-                backgroundColor: Colors.bluetitle,
+                backgroundColor: Colors.primary,
                 height: 50,
                 width: "45%",
                 borderRadius: 10,
@@ -140,19 +161,19 @@ const styles = {
 const themeCalaendar = {
   backgroundColor: "purple",
   calendarBackground: Colors.white,
-  textSectionTitleColor: Colors.bluetitle,
-  textSectionTitleDisabledColor: Colors.bluetitle,
-  selectedDayBackgroundColor: "#00adf5",
-  selectedDayTextColor: "#ffffff",
-  todayTextColor: Colors.bluelinks,
-  dayTextColor: Colors.bluetitle,
+  textSectionTitleColor: Colors.secondary,
+  textSectionTitleDisabledColor: Colors.secondary,
+  selectedDayBackgroundColor: Colors.white,
+  selectedDayTextColor: Colors.primary,
+  todayTextColor: Colors.secondary,
+  dayTextColor: Colors.secondary,
   textDisabledColor: "#d9e1e8",
-  dotColor: "#00adf5",
-  selectedDotColor: "#ffffff",
-  arrowColor: Colors.bluelinks,
-  disabledArrowColor: Colors.bluelinks,
-  monthTextColor: Colors.bluetitle,
-  indicatorColor: "blue",
+  dotColor: Colors.primary,
+  // selectedDotColor: Colors.primary,
+  arrowColor: Colors.secondary,
+  disabledArrowColor: Colors.secondary,
+  monthTextColor: Colors.secondary,
+  indicatorColor: Colors.secondary,
   textDayFontFamily: "Cabin-Regular",
   textMonthFontFamily: "Cabin-Regular",
   textDayHeaderFontFamily: "Cabin-Bold",
