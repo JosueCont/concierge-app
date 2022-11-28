@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import LoginScreen from "../screens/session/LoginScreen";
+import QrReader from "../screens/session/QrReader";
 import RecoverPasswordScreen from "../screens/session/RecoverPasswordScreen";
 import HomeUserScreen from "../screens/HomeUserScreen";
 import SideMenu from "../components/SideMenu";
@@ -34,6 +35,7 @@ import ProceedingsScreen from "../screens/ProceedingsScreen";
 const LoginStack = createStackNavigator(
   {
     LoginScreen: LoginScreen,
+    QrReader: QrReader,
     RecoverPasswordScreen: RecoverPasswordScreen,
     EmailSentScreen: EmailSentScreen,
     ChangePasswordFirstTime: ChangePasswordFirstTime,

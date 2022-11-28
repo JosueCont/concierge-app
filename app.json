@@ -28,7 +28,7 @@
       "versionCode": 5,
       "package": "com.hiumanlab.staffconcierge",
       "useNextNotificationsApi": true,
-      "permissions": ["CAMERA_ROLL"],
+      "permissions": ["CAMERA_ROLL", "CAMERA"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -37,7 +37,10 @@
     "ios": {
       "bundleIdentifier": "com.hiumanlab.staffconcierge",
       "supportsTablet": false,
-      "buildNumber": "5"
+      "buildNumber": "5",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Esta aplicación requiere el uso de la camara para escanear el QR."
+      }
     },
     "extra": {
       "URL_KHONNECT": "https://khonnect.khor2.com/",

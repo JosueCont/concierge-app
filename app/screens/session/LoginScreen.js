@@ -10,9 +10,13 @@ import * as Animatable from "react-native-animatable";
 import ModalLoadingLogin from "../../components/modal/loadingLogin";
 import {wait} from "../../utils/functions";
 import ModalCustom from "../../components/modal/ModalCustom";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import APIKit from "../../utils/axiosApi";
+import Constants from "expo-constants";
+import { useFocusEffect } from '@react-navigation/native';
 
 const LoginScreen = (props) => {
-
+    const [code, setCode] = useState("");
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
     const [changeView, setChangeView] = useState(false);
@@ -32,6 +36,9 @@ const LoginScreen = (props) => {
     const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
     const [messageCustomModal, setMessageCustomModal] = useState("");
     const [loading, setLoading] = useState(false);
+    const [company, setCompany] = useState('');
+    const [loginCode, setLoginCode] = useState(false);
+    const [loginQr, setLoginQr] = useState(false);
 
 
     const resetStack = () => {
@@ -47,6 +54,22 @@ const LoginScreen = (props) => {
         );
     };
 
+    useEffect(()=>{
+        const focusListener = props.navigation.addListener('didFocus', async() => {
+            checkTenet();
+          });
+          return () => {
+            focusListener.remove();
+          };
+    }, [])
+
+    useEffect(async () => {
+        try {
+            checkTenet();
+        } catch (e) {
+            console.log(e)
+        }
+    }, [])
 
     useEffect(() => {
         if (props.user.modalDenied) {
@@ -60,6 +83,12 @@ const LoginScreen = (props) => {
         Keyboard.addListener("keyboardDidShow", keyboardWillShow);
         Keyboard.addListener("keyboardDidHide", keyboardWillHide);
     }, []);
+
+    const checkTenet = async()=>{
+        let tenet = await AsyncStorage.getItem('tenet');
+        setCompany(tenet ? tenet : '');
+        console.log("tenet: ", tenet);
+    }
 
     const keyboardWillShow = (e) => {
         LayoutAnimation.easeInEaseOut();
@@ -82,6 +111,22 @@ const LoginScreen = (props) => {
         setChangeView(false);
         setPlay(false);
     };
+
+    const sendCode = async ()=>{
+        const namesCompanies = ["qa", "sukka", "hiuman", "demo"];
+        const randomCompany = namesCompanies[Math.floor(Math.random()*namesCompanies.length)];
+        await AsyncStorage.setItem("tenet", randomCompany);
+        APIKit.defaults.baseURL = APIKit.defaults.baseURL.replace("[tenet]", randomCompany);
+        setCompany(randomCompany);
+        setCode("");
+    }
+
+    const changeCompany = async()=>{
+        await AsyncStorage.removeItem("tenet");
+        APIKit.defaults.baseURL = Constants.manifest.extra.production === true ? Constants.manifest.extra.URL_PEOPLE : Constants.manifest.extra.URL_PEOPLE_DEV
+        console.log("Actual url", APIKit.defaults.baseURL);
+        setCompany("");
+    }
 
     const _login = () => {
         console.log(88)
@@ -206,7 +251,7 @@ const LoginScreen = (props) => {
                             paddingHorizontal: 10,
                         }}
                     >
-                        <View
+                       {company != "" ? <View
                             style={{
                                 backgroundColor: "white",
                                 borderRadius: 40,
@@ -273,7 +318,8 @@ const LoginScreen = (props) => {
                             {/* <View style={{ flexDirection: "row", width: "100%" }}> */}
                             <View style={{alignItems: "center", width: "90%"}}>
                                 {!loading ? (
-                                    <TouchableOpacity
+                                    <View style={{width: '100%'}}>
+                                        <TouchableOpacity
                                         style={{
                                             fontFamily: "Cabin-Regular",
                                             backgroundColor: Colors.primary,
@@ -290,6 +336,25 @@ const LoginScreen = (props) => {
                                             Entrar
                                         </Text>
                                     </TouchableOpacity>
+                                    <TouchableOpacity
+                                        style={{
+                                            fontFamily: "Cabin-Regular",
+                                            backgroundColor: Colors.primary,
+                                            height: 40,
+                                            width: "100%",
+                                            borderRadius: 10,
+                                            marginTop: 10,
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                        }}
+                                        onPress={() => changeCompany()}
+                                    >
+                                        <Text style={{color: Colors.white, fontSize: 16}}>
+                                            Cambiar compañía
+                                        </Text>
+                                    </TouchableOpacity>
+                                    </View>
+                                    
                                 ) : (
                                     <ActivityIndicator size="small" color="white"/>
                                 )}
@@ -315,7 +380,197 @@ const LoginScreen = (props) => {
                                     </Text>
                                 </View>
                             </View>
+                        </View> :
+                        loginCode ? 
+                        <View
+                            style={{
+                                backgroundColor: "white",
+                                borderRadius: 40,
+                                padding: 30,
+                                width: Dimensions.get("window").height * 0.44,
+                                alignItems: "center",
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontFamily: "Cabin-Bold",
+                                    fontSize: 30,
+                                    marginTop: 20,
+                                    marginBottom: 20,
+                                    textAlign: "center",
+                                    color: Colors.secondary,
+                                }}
+                            >
+                                Ingresar por código
+                            </Text>
+
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Código"
+                                placeholderTextColor={Colors.secondary}
+                                autoCapitalize="none"
+                                onChangeText={(text) => setCode(text)}
+                                value={code}
+                                keyboardType="email-address"
+                                underlineColorAndroid={"transparent"}
+                                autoCorrect={false}
+                            />
+
+                            {/* <View style={{ flexDirection: "row", width: "100%" }}> */}
+                            <View style={{alignItems: "center", width: "90%"}}>
+                                {!loading ? (
+                                    <View style={{width: '100%'}}>
+                                        <TouchableOpacity
+                                        style={{
+                                            fontFamily: "Cabin-Regular",
+                                            backgroundColor: Colors.primary,
+                                            height: 40,
+                                            width: "100%",
+                                            borderRadius: 10,
+                                            marginTop: 10,
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                        }}
+                                        onPress={() => sendCode()}
+                                    >
+                                        <Text style={{color: Colors.white, fontSize: 16}}>
+                                            Ingresar
+                                        </Text>
+                                    </TouchableOpacity>
+                                        <TouchableOpacity
+                                        style={{
+                                            fontFamily: "Cabin-Regular",
+                                            backgroundColor: Colors.primary,
+                                            height: 40,
+                                            width: "100%",
+                                            borderRadius: 10,
+                                            marginTop: 10,
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                        }}
+                                        onPress={() => {setLoginCode(false); setCode("")}}
+                                    >
+                                        <Text style={{color: Colors.white, fontSize: 16}}>
+                                            Regresar
+                                        </Text>
+                                    </TouchableOpacity>
+                                    </View>
+                                    
+                                ) : (
+                                    <ActivityIndicator size="small" color="white"/>
+                                )}
+                                {/* </View> */}
+                            </View>
+                            <View style={{flexDirection: "row", width: "90%"}}>
+                                <View style={{alignItems: "center", flex: 1}}>
+                                    <Text
+                                        style={{
+                                            fontFamily: "Cabin-Bold",
+                                            marginTop: 20,
+                                            textAlign: "center",
+                                            color: Colors.secondary,
+                                            textDecorationLine: "underline",
+                                        }}
+                                        onPress={() =>
+                                            Linking.openURL(
+                                                "https://www.grupohuman.com/aviso-privacidad"
+                                            )
+                                        }
+                                    >
+                                        Aviso de privacidad
+                                    </Text>
+                                </View>
+                            </View>
+                        </View> :
+                        <View
+                        style={{
+                            backgroundColor: "white",
+                            borderRadius: 40,
+                            padding: 30,
+                            width: Dimensions.get("window").height * 0.44,
+                            alignItems: "center",
+                        }}
+                    >
+                        <Text
+                            style={{
+                                fontFamily: "Cabin-Bold",
+                                fontSize: 30,
+                                marginTop: 20,
+                                marginBottom: 20,
+                                textAlign: "center",
+                                color: Colors.secondary,
+                            }}
+                        >
+                            Ingresar
+                        </Text>
+
+                        {/* <View style={{ flexDirection: "row", width: "100%" }}> */}
+                        <View style={{alignItems: "center", width: "90%"}}>
+                            {!loading ? (
+                                <View style={{width: '100%'}}>
+                                    <TouchableOpacity
+                                    style={{
+                                        fontFamily: "Cabin-Regular",
+                                        backgroundColor: Colors.primary,
+                                        height: 40,
+                                        width: "100%",
+                                        borderRadius: 10,
+                                        marginTop: 10,
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                    onPress={() => setLoginCode(true)}
+                                >
+                                    <Text style={{color: Colors.white, fontSize: 16}}>
+                                        Ingresar por código
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={{
+                                        fontFamily: "Cabin-Regular",
+                                        backgroundColor: Colors.primary,
+                                        height: 40,
+                                        width: "100%",
+                                        borderRadius: 10,
+                                        marginTop: 10,
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                    onPress={() => props.navigation.navigate("QrReader")}
+                                >
+                                    <Text style={{color: Colors.white, fontSize: 16}}>
+                                        Escanear QR
+                                    </Text>
+                                </TouchableOpacity>
+                                </View>
+                                
+                                
+                            ) : (
+                                <ActivityIndicator size="small" color="white"/>
+                            )}
+                            {/* </View> */}
                         </View>
+                        <View style={{flexDirection: "row", width: "90%"}}>
+                            <View style={{alignItems: "center", flex: 1}}>
+                                <Text
+                                    style={{
+                                        fontFamily: "Cabin-Bold",
+                                        marginTop: 20,
+                                        textAlign: "center",
+                                        color: Colors.secondary,
+                                        textDecorationLine: "underline",
+                                    }}
+                                    onPress={() =>
+                                        Linking.openURL(
+                                            "https://www.grupohuman.com/aviso-privacidad"
+                                        )
+                                    }
+                                >
+                                    Aviso de privacidad
+                                </Text>
+                            </View>
+                        </View>
+                    </View>}
                     </Animatable.View>
                 </Wrapper>
             {

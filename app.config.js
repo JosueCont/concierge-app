@@ -23,8 +23,8 @@ const commonConfig = {
         KeySecret: "1LaNXFHqau-o8qH3BM7xBdZ9NPlQRCSyDWlcaWniLcQ",
         ClientId: "62a13e7eb7089b08990e3cd5",
         ClientId_DEV: "62a13e7eb7089b08990e3cd5",
-        URL_PEOPLE: "https://demo.people-api.khorplus.com/",
-        URL_PEOPLE_DEV: "https://demo.people-api.khorplus.com/",
+        URL_PEOPLE: "https://[tenet].people-api.khorplus.com/",
+        URL_PEOPLE_DEV: "https://[tenet].people-api.khorplus.com/",
         URL_QA: "https://nominaqa.api.people.hiumanlab.mx/"
     }
 };
@@ -32,14 +32,17 @@ const commonConfig = {
 const ios = {
     bundleIdentifier: "com.hiumanlab.staffconcierge",
     supportsTablet: false,
-    buildNumber: "5"
+    buildNumber: "5",
+    infoPlist: {
+        NSCameraUsageDescription: "Esta aplicación requiere el uso de la camara para escanear el QR.",
+    }
 };
 
 const android = {
     versionCode: 5,
     package: "com.hiumanlab.staffconcierge",
     useNextNotificationsApi: true,
-    permissions: ["CAMERA_ROLL"],
+    permissions: ["CAMERA_ROLL", "CAMERA"],
     adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#FFFFFF"
