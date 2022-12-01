@@ -86,9 +86,20 @@ const VacationRequestScreen = (props) => {
     ) {
       const out = moment(departureDate);
       const ret = moment(returnDate);
+      const differenceDays = ret.diff(out, "days");
       if (
-        ret.diff(out, "days") <= props.user.userProfile.Available_days_vacation
+        differenceDays <= props.user.userProfile.Available_days_vacation
       ) {
+        if(differenceDays == 0){
+          setMessageCustomModal(
+            "La fecha de salida y de retorno no pueden ser las mismas."
+          );
+          setIconSourceCustomModal(2);
+          setModalCustom(true);
+          setReturnDate("");
+          setDaysRequest(0);
+          return;
+        }
         setDaysRequest(ret.diff(out, "days"));
       } else {
         setMessageCustomModal(

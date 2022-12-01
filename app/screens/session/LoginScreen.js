@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import APIKit from "../../utils/axiosApi";
 import Constants from "expo-constants";
 import { useFocusEffect } from '@react-navigation/native';
+import ApiApp from "../../utils/ApiApp";
 
 const LoginScreen = (props) => {
     const [code, setCode] = useState("");
@@ -56,7 +57,7 @@ const LoginScreen = (props) => {
 
     useEffect(()=>{
         const focusListener = props.navigation.addListener('didFocus', async() => {
-            checkTenet();
+            checkTenant();
           });
           return () => {
             focusListener.remove();
@@ -65,7 +66,7 @@ const LoginScreen = (props) => {
 
     useEffect(async () => {
         try {
-            checkTenet();
+            checkTenant();
         } catch (e) {
             console.log(e)
         }
@@ -84,10 +85,10 @@ const LoginScreen = (props) => {
         Keyboard.addListener("keyboardDidHide", keyboardWillHide);
     }, []);
 
-    const checkTenet = async()=>{
-        let tenet = await AsyncStorage.getItem('tenet');
-        setCompany(tenet ? tenet : '');
-        console.log("tenet: ", tenet);
+    const checkTenant = async()=>{
+        let tenant = await AsyncStorage.getItem('tenant');
+        setCompany(tenant ? tenant : '');
+        console.log("tenant: ", tenant);
     }
 
     const keyboardWillShow = (e) => {
@@ -113,16 +114,28 @@ const LoginScreen = (props) => {
     };
 
     const sendCode = async ()=>{
-        const namesCompanies = ["qa", "sukka", "hiuman", "demo"];
-        const randomCompany = namesCompanies[Math.floor(Math.random()*namesCompanies.length)];
-        await AsyncStorage.setItem("tenet", randomCompany);
-        APIKit.defaults.baseURL = APIKit.defaults.baseURL.replace("[tenet]", randomCompany);
-        setCompany(randomCompany);
-        setCode("");
+        console.log(code);
+        try {
+            let response = await ApiApp.validateTenantCode({
+                code: code
+            })
+            if(response?.data?.tenant_name)
+            {
+                await AsyncStorage.setItem("tenant", response?.data?.tenant_name);
+                APIKit.defaults.baseURL = APIKit.defaults.baseURL.replace("[tenant]", response?.data?.tenant_name);
+                setCompany(response?.data?.tenant_name);
+                setCode("");
+            }
+            return;
+        } catch (error) {
+            console.log("Err: ", error);
+            setMessageCustomModal("Código Qr inválido. Intenta de nuevo.");
+            setModalCustomVisible(true);
+        }
     }
 
     const changeCompany = async()=>{
-        await AsyncStorage.removeItem("tenet");
+        await AsyncStorage.removeItem("tenant");
         APIKit.defaults.baseURL = Constants.manifest.extra.production === true ? Constants.manifest.extra.URL_PEOPLE : Constants.manifest.extra.URL_PEOPLE_DEV
         console.log("Actual url", APIKit.defaults.baseURL);
         setCompany("");

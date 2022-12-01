@@ -94,6 +94,19 @@ const PermissionRequestScreen = (props) => {
         person: props.user.userProfile.id,
         reason: reason,
       };
+      if(data.requested_days < 0){
+        setMessageCustomModal("La fecha de salida no puede ser después de la fecha de retorno.");
+        setIconSourceCustomModal(2);
+        setModalCustom(true);
+        return;
+      }
+      if(data.requested_days == 0){
+        setMessageCustomModal("La fecha de salida y de retorno no pueden ser las mismas.");
+        setIconSourceCustomModal(2);
+        setModalCustom(true);
+        return;
+      }
+
       if (reason == "") {
         setMessageCustomModal("Capture el motivo de su solicitud.");
         setIconSourceCustomModal(2);

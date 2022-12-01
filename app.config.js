@@ -23,8 +23,9 @@ const commonConfig = {
         KeySecret: "1LaNXFHqau-o8qH3BM7xBdZ9NPlQRCSyDWlcaWniLcQ",
         ClientId: "62a13e7eb7089b08990e3cd5",
         ClientId_DEV: "62a13e7eb7089b08990e3cd5",
-        URL_PEOPLE: "https://[tenet].people-api.khorplus.com/",
-        URL_PEOPLE_DEV: "https://[tenet].people-api.khorplus.com/",
+        URL_TENANT_VALIDATE: "https://demo.api.people.hiumanlab.com/setup/validate-tenant-code/",
+        URL_PEOPLE: "https://[tenant].people-api.khorplus.com/",
+        URL_PEOPLE_DEV: "https://[tenant].people-api.khorplus.com/",
         URL_QA: "https://nominaqa.api.people.hiumanlab.mx/"
     }
 };

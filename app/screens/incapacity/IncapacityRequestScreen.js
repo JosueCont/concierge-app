@@ -20,6 +20,7 @@ import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import * as DocumentPicker from "expo-document-picker";
 import * as mime from "react-native-mime-types";
 import { AntDesign } from "@expo/vector-icons";
+import moment from "moment";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -101,21 +102,37 @@ const IncapacityRequestScreen = (props) => {
       returnDate != "" &&
       returnDate != undefined
     ) {
-      if (file.uri) {
-        setModalLoading(true);
-        let data = new FormData();
-        data.append("departure_date", departureDate);
-        data.append("return_date", returnDate);
-        data.append("person", props.user.userProfile.id);
-        data.append("document", file);
-        sendRequest(data);
-      } else {
+      const out = moment(departureDate);
+      const ret = moment(returnDate);
+      const differenceDays = ret.diff(out, "days")
+
+      if(differenceDays<0){
+        setMessageCustomModal("La fecha de salida no puede ser después de la fecha de retorno.");
+        setIconSourceCustomModal(2);
+        setModalCustom(true);
+        return;
+      }
+      if(differenceDays == 0){
+        setMessageCustomModal("La fecha de salida y de retorno no pueden ser las mismas.");
+        setIconSourceCustomModal(2);
+        setModalCustom(true);
+        return;
+      }
+      if (!file.uri) {
         setMessageCustomModal("Debe cargar un documento.");
         setIconSourceCustomModal(2);
         setModalCustom(true);
+        return;
       }
+      setModalLoading(true);
+      let data = new FormData();
+      data.append("departure_date", departureDate);
+      data.append("return_date", returnDate);
+      data.append("person", props.user.userProfile.id);
+      data.append("document", file);
+      sendRequest(data);
     } else {
-      setMessageCustomModal("Seleccione una fecha de salida y retorno.");
+      setMessageCustomModal("Seleccione una fecha de salida y retorno");
       setIconSourceCustomModal(2);
       setModalCustom(true);
     }
