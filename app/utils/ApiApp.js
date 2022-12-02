@@ -21,6 +21,10 @@ class ApiApp {
     }
   };
 
+  static validateTenantCode = (data) => {
+      return ApiApp.ApisType("https://demo.api.people.hiumanlab.com/setup/validate-tenant-code/", "post", data);
+  }
+
   static getUserProfile = (data) => {
     return ApiApp.ApisType("/person/person/save_person_jwt/", "post", data);
   };

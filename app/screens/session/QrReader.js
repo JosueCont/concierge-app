@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import APIKit from "../../utils/axiosApi";
 import ModalCustom from "../../components/modal/ModalCustom";
+import ApiApp from "../../utils/ApiApp";
 
 const QrReader = (props) => {
     const [hasPermission, setHasPermission] = useState(null);
@@ -38,12 +39,21 @@ const QrReader = (props) => {
         try {
             const url = `${data}`;
             const dataParsed = JSON.parse(data);
-            if(dataParsed.tenet){
-                console.log(dataParsed.tenet);
-                await AsyncStorage.setItem("tenet", dataParsed.tenet);
-                APIKit.defaults.baseURL = APIKit.defaults.baseURL.replace("[tenet]", dataParsed.tenet);
-                setScanned(false);
-                props.navigation.navigate("LoginScreen");
+            if(dataParsed.tenant){
+                console.log(dataParsed.tenant);
+                let response = await ApiApp.validateTenantCode({
+                    code: dataParsed.tenant
+                })
+                if(response?.data?.tenant_name){
+                    await AsyncStorage.setItem("tenant", response?.data?.tenant_name);
+                    APIKit.defaults.baseURL = APIKit.defaults.baseURL.replace("[tenant]", response?.data?.tenant_name);
+                    setScanned(false);
+                    props.navigation.navigate("LoginScreen");
+                }else{
+                    setMessageCustomModal("Código Qr inválido. Intenta de nuevo.");
+                    setModalCustomVisible(true);
+                    setScanned(false);
+                }
             }else{
                 setMessageCustomModal("Código Qr inválido. Intenta de nuevo.");
                 setModalCustomVisible(true);
