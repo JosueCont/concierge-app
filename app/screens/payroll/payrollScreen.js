@@ -406,25 +406,6 @@ const PayrollScreen = (props) => {
                             />
                     </View>
 
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            marginTop: 20,
-                        }}
-                    >
-                        <Text
-                            style={{
-                                fontFamily: "Cabin-Regular",
-                                color: Colors.secondary,
-                                fontSize: 28,
-                            }}
-                        >
-                            Próximamente
-                        </Text>
-
-                    </View>
-
                     {vouchers.length<=0 && <HeaderList/>}
                     <ScrollView style={{marginTop: 20, height: 500, width: '80%'}}>
                         {vouchers.map((voucher, index)=>{

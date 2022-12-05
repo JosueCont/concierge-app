@@ -36,7 +36,7 @@ const ComunicationCard = (props) => {
           >
             <View
               style={{
-                backgroundColor: Colors.bluetitle,
+                backgroundColor: Colors.secondary,
                 width: 170,
                 height: 48,
                 marginTop: 15,
