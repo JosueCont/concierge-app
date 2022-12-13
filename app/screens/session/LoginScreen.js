@@ -15,6 +15,7 @@ import APIKit from "../../utils/axiosApi";
 import Constants from "expo-constants";
 import { useFocusEffect } from '@react-navigation/native';
 import ApiApp from "../../utils/ApiApp";
+import LoadingGlobal from "../../components/modal/LoadingGlobal";
 
 const LoginScreen = (props) => {
     const [code, setCode] = useState("");
@@ -40,7 +41,7 @@ const LoginScreen = (props) => {
     const [company, setCompany] = useState('');
     const [loginCode, setLoginCode] = useState(false);
     const [loginQr, setLoginQr] = useState(false);
-
+    const [modalLoading, setModalLoading] = useState(false);
 
     const resetStack = () => {
         props.navigation.dispatch(
@@ -116,6 +117,7 @@ const LoginScreen = (props) => {
     const sendCode = async ()=>{
         console.log(code);
         try {
+            setModalLoading(true);
             let response = await ApiApp.validateTenantCode({
                 code: code
             })
@@ -125,12 +127,18 @@ const LoginScreen = (props) => {
                 APIKit.defaults.baseURL = APIKit.defaults.baseURL.replace("[tenant]", response?.data?.tenant_name);
                 setCompany(response?.data?.tenant_name);
                 setCode("");
+                setTimeout(() => {
+                    setModalLoading(false);
+                }, 1500);
             }
             return;
         } catch (error) {
             console.log("Err: ", error);
-            setMessageCustomModal("Código Qr inválido. Intenta de nuevo.");
-            setModalCustomVisible(true);
+            setTimeout(() => {
+                setModalLoading(false);
+                setMessageCustomModal("Código de empresa inválido. Intenta de nuevo.");
+                setModalCustomVisible(true);
+            }, 1500);
         }
     }
 
@@ -603,6 +611,7 @@ const LoginScreen = (props) => {
                     }}
                 ></ModalCustom>
             }
+            <LoadingGlobal visible={modalLoading} text={"Cargando"}/>
 
         </ImageBackground>
     );

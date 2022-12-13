@@ -55,7 +55,7 @@ const NewScreen = (props) => {
         showsVerticalScrollIndicator={false}
         style={{
           zIndex: 0,
-          backgroundColor: Colors.bluebg,
+          backgroundColor: Colors.texts,
           paddingHorizontal: 20,
         }}
       >
@@ -71,7 +71,7 @@ const NewScreen = (props) => {
           >
             <View
               style={{
-                backgroundColor: "#47A8DE",
+                backgroundColor: Colors.secondary,
                 width: 70,
                 height: 5,
               }}
@@ -99,7 +99,7 @@ const NewScreen = (props) => {
               <View style={{ alignItems: "center" }}>
                 <TouchableOpacity
                   style={{
-                    backgroundColor: Colors.bluetitle,
+                    backgroundColor: Colors.primary,
                     height: 50,
                     width: "52%",
                     borderRadius: 20,
@@ -141,18 +141,18 @@ const styles = StyleSheet.create({
   titleNew: {
     fontFamily: "Cabin-Bold",
     fontSize: 22,
-    color: Colors.bluetitle,
+    color: Colors.primary,
     marginBottom: 20,
   },
   subTitleNew: {
     fontFamily: "Cabin-Bold",
     fontSize: 17,
-    color: Colors.bluetitle,
+    color: Colors.primary,
     marginBottom: 20,
   },
   descNew: {
     fontFamily: "Cabin-Regular",
     fontSize: 18,
-    color: Colors.bluetitle,
+    color: Colors.secondary,
   },
 });
