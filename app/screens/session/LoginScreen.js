@@ -121,6 +121,7 @@ const LoginScreen = (props) => {
             let response = await ApiApp.validateTenantCode({
                 code: code
             })
+            console.log(response)
             if(response?.data?.tenant_name)
             {
                 await AsyncStorage.setItem("tenant", response?.data?.tenant_name);
@@ -611,7 +612,10 @@ const LoginScreen = (props) => {
                     }}
                 ></ModalCustom>
             }
-            <LoadingGlobal visible={modalLoading} text={"Cargando"}/>
+            {
+                modalLoading && <LoadingGlobal visible={modalLoading} text={"Cargando"}/>
+            }
+
 
         </ImageBackground>
     );

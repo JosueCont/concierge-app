@@ -120,16 +120,16 @@ const PayrollScreen = (props) => {
         //props?.user?.userProfile?.node
         //props?.user?.userProfile?.id
         //Use node and person hardcoded to test
-        let filter = `?node=${37}&person=${'6e8f90bb784f45ef88c92edee8326c85'}&year=${yearVoucher}&page=${1}`;
+        let filter = `?node=${props?.user?.userProfile?.node}&person=${props?.user?.userProfile?.id}&page=${1}`;
         try {
             setModalLoading(true);
             setVouchers([]);
             // if (monthVoucher && monthVoucher > 0)
             //     filter = filter + `payment_date__month=${monthVoucher}&`;
             // else filter = filter + `payment_date__month=${month}&`;
-            // if (yearVoucher && yearVoucher > 0)
-            //     filter = filter + `year=${yearVoucher}`;
-            // else filter = filter + `year=${year}`;
+            if (yearVoucher && yearVoucher > 0)
+                filter = filter + `&year=${yearVoucher}`;
+            else filter = filter + `&year=${year}`;
             let response = await ApiApp.getPayrollVouchers(filter);
             if (response.status === 200) {
                 if (
@@ -180,22 +180,22 @@ const PayrollScreen = (props) => {
                         paddingBottom: 30,
                     }}
                 >
-                    <View
-                        style={{
-                            width: "100%",
-                            borderRadius: 10,
-                            overflow: "hidden",
-                            marginBottom: 20,
-                        }}
-                    >
-                        <PickerSelect
-                            items={months}
-                            title={"Mes"}
-                            type={1}
-                            setSelect={setPicker}
-                            value={monthVoucher}
-                        />
-                    </View>
+                    {/*<View*/}
+                    {/*    style={{*/}
+                    {/*        width: "100%",*/}
+                    {/*        borderRadius: 10,*/}
+                    {/*        overflow: "hidden",*/}
+                    {/*        marginBottom: 20,*/}
+                    {/*    }}*/}
+                    {/*>*/}
+                    {/*    <PickerSelect*/}
+                    {/*        items={months}*/}
+                    {/*        title={"Mes"}*/}
+                    {/*        type={1}*/}
+                    {/*        setSelect={setPicker}*/}
+                    {/*        value={monthVoucher}*/}
+                    {/*    />*/}
+                    {/*</View>*/}
                     <View
                         style={{
                             width: "100%",

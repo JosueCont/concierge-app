@@ -22,7 +22,7 @@ class ApiApp {
   };
 
   static validateTenantCode = (data) => {
-      return ApiApp.ApisType("https://demo.api.people.hiumanlab.com/setup/validate-tenant-code/", "post", data);
+      return ApiApp.ApisType("https://nominaqa.api.people.hiumanlab.mx/setup/validate-tenant-code/", "post", data);
   }
 
   static getUserProfile = (data) => {

@@ -20,12 +20,12 @@ const commonConfig = {
         production: true,
         URL_KHONNECT: "https://khonnect.khor2.com/",
         URL_KHONNECT_DEV: "https://khonnect.hiumanlab.com/",
-        KeySecret: "1LaNXFHqau-o8qH3BM7xBdZ9NPlQRCSyDWlcaWniLcQ",
-        ClientId: "62a13e7eb7089b08990e3cd5",
-        ClientId_DEV: "62a13e7eb7089b08990e3cd5",
+        KeySecret: "KeQAranV2m9DnX4xy-HroaxPXNovIoElT6OXkyrwDOQ",
+        ClientId: "62b0ed2b239eef42ce69aa98",
+        ClientId_DEV: "62b0ed2b239eef42ce69aa98",
         URL_TENANT_VALIDATE: "https://demo.api.people.hiumanlab.com/setup/validate-tenant-code/",
-        URL_PEOPLE: "https://[tenant].people-api.khorplus.com/",
-        URL_PEOPLE_DEV: "https://[tenant].people-api.khorplus.com/",
+        URL_PEOPLE: "https://[tenant].api.people.hiumanlab.mx/",
+        URL_PEOPLE_DEV: "https://[tenant].api.people.hiumanlab.mx/",
         URL_QA: "https://nominaqa.api.people.hiumanlab.mx/"
     }
 };
