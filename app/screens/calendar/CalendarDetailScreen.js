@@ -195,7 +195,7 @@ const CalendarDetailScreen = (props) => {
 
         <ToolbarGeneric
           clickAction={clickAction}
-          nameToolbar={"Calendario"}
+          nameToolbar={""}
           type={1}
           clickProfile={clickProfile}
           goHome={goHome}

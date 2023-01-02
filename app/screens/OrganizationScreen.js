@@ -88,7 +88,7 @@ const OrganizationScreen = ({navigation, user}) => {
 
             <ToolbarGeneric
                 clickAction={clickAction}
-                nameToolbar={"Organización"}
+                nameToolbar={""}
                 type={1}
                 clickProfile={clickProfile}
                 goHome={goHome}

@@ -181,7 +181,7 @@ const HRScreen = (props) => {
                 source={require("../../assets/img/new/expediente.png")}
                 style={styles.image}
               ></Image>
-              <Text style={styles.title}>Expediente</Text>
+              <Text style={styles.title}>Mis documentos</Text>
             </TouchableOpacity>
           </View>
         </View>

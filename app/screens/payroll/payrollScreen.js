@@ -382,7 +382,7 @@ const PayrollScreen = (props) => {
 
                 <ToolbarGeneric
                     clickAction={clickAction}
-                    nameToolbar={"Mi Nómina"}
+                    nameToolbar={""}
                     type={1}
                     clickProfile={clickProfile}
                     goHome={goHome}

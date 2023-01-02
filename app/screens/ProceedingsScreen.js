@@ -147,7 +147,7 @@ const ProceedingsScreen = (props) => {
 
         <ToolbarGeneric
           clickAction={clickAction}
-          nameToolbar={"Expediente"}
+          nameToolbar={""}
           type={1}
           clickProfile={clickProfile}
           goHome={goHome}

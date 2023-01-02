@@ -92,7 +92,7 @@ const SideMenu = (props) => {
                 source={require("../../assets/img/new/calendar_icon_menu.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
-              <Text style={styles.navItemStyle}>Calendario</Text>
+              <Text style={styles.navItemStyle}>Eventos</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -106,7 +106,7 @@ const SideMenu = (props) => {
                 source={require("../../assets/img/new/icono_nomina.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
-              <Text style={styles.navItemStyle}>Nómina</Text>
+              <Text style={styles.navItemStyle}>Comprobantes Nómina</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -134,7 +134,7 @@ const SideMenu = (props) => {
                 source={require("../../assets/img/new/node_tree_icon_menu.png")}
                 style={{ width: 25, height: 25, resizeMode: "contain" }}
               ></Image>
-              <Text style={styles.navItemStyle}>Organización</Text>
+              <Text style={styles.navItemStyle}>Inf. Organización</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
