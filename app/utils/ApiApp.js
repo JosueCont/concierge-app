@@ -22,8 +22,12 @@ class ApiApp {
   };
 
   static validateTenantCode = (data) => {
-      return ApiApp.ApisType("https://nominaqa.api.people.hiumanlab.mx/setup/validate-tenant-code/", "post", data);
-  }
+    return ApiApp.ApisType(
+      "https://iu.people-api.khorplus.com/setup/validate-tenant-code/",
+      "post",
+      data
+    );
+  };
 
   static getUserProfile = (data) => {
     return ApiApp.ApisType("/person/person/save_person_jwt/", "post", data);
@@ -59,8 +63,11 @@ class ApiApp {
    * @returns {Promise<AxiosResponse<any>>}
    */
   static getPayrollVouchers = (data) => {
-    console.log('data: ', data);
-    return ApiApp.ApisType(`https://nominaqa.api.people.hiumanlab.mx/payroll/cfdi-voucher${data}`, "get");
+    console.log("data: ", data);
+    return ApiApp.ApisType(
+      `https://nominaqa.api.people.hiumanlab.mx/payroll/cfdi-voucher${data}`,
+      "get"
+    );
   };
 
   static getPayrollVoucherDetail = (data) => {
@@ -72,6 +79,13 @@ class ApiApp {
 
   static getVacationRequest = (data) => {
     return ApiApp.ApisType(`/person/vacation/${data}`, "get");
+  };
+
+  static getRecordVacations = (data) => {
+    return ApiApp.ApisType(
+      `/person/vacation/get_record_vacations/?person__id=${data}`,
+      "get"
+    );
   };
 
   static getVacationDetail = (data) => {

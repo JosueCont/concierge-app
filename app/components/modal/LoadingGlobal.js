@@ -1,7 +1,7 @@
 import React from "react";
 import { Modal, View, Image, Text } from "react-native";
 import { connect } from "react-redux";
-import gif from "../../../assets/Login_concierge.gif";
+import gif from "../../../assets/Load_Dark.gif";
 
 const ModalLoadingGlobal = (props) => {
   return (
