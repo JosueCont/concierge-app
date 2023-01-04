@@ -35,6 +35,13 @@ const VacationRequestScreen = (props) => {
   const [departureDate, setDepartureDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
   const [modalLoading, setModalLoading] = useState(false);
+  const [recordVacations, setRecordVacations] = useState(0);
+
+  useEffect(() => {
+    const vacations_record = props.navigation.getParam("vacations_pending");
+    if (vacations_record && vacations_record != undefined)
+      setRecordVacations(vacations_record);
+  }, [props.navigation]);
 
   const clickAction = () => {
     props.navigation.goBack(null);
@@ -70,7 +77,7 @@ const VacationRequestScreen = (props) => {
   const generateDays = () => {
     let numberDay = 0;
     let arrayDays = [];
-    while (numberDay < props.user.userProfile.Available_days_vacation) {
+    while (numberDay < recordVacations) {
       numberDay++;
       arrayDays.push({ label: `${numberDay}`, value: numberDay });
     }
@@ -87,10 +94,8 @@ const VacationRequestScreen = (props) => {
       const out = moment(departureDate);
       const ret = moment(returnDate);
       const differenceDays = ret.diff(out, "days");
-      if (
-        differenceDays <= props.user.userProfile.Available_days_vacation
-      ) {
-        if(differenceDays == 0){
+      if (differenceDays <= recordVacations) {
+        if (differenceDays == 0) {
           setMessageCustomModal(
             "La fecha de salida y de retorno no pueden ser las mismas."
           );
@@ -128,7 +133,7 @@ const VacationRequestScreen = (props) => {
       };
       const out = moment(departureDate);
       const ret = moment(returnDate);
-      if (daysRequest <= props.user.userProfile.Available_days_vacation) {
+      if (daysRequest <= recordVacations) {
         setModalLoading(true);
         sendRequest(data);
       } else {
@@ -231,7 +236,7 @@ const VacationRequestScreen = (props) => {
                       fontSize: 40,
                     }}
                   >
-                    {props.user.userProfile.Available_days_vacation}
+                    {recordVacations}
                   </Text>
                 </View>
               </View>

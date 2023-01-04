@@ -1,22 +1,22 @@
 import React from "react";
-import {Dimensions, Image, Modal, Text, View,} from "react-native";
-import {connect} from "react-redux";
+import { Dimensions, Image, Modal, Text, View } from "react-native";
+import { connect } from "react-redux";
 
-const {width, height} = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
-const ModalLoadingLogin = ({visible}) => {
+const ModalLoadingLogin = ({ visible }) => {
   return (
-      <View>
-        <Modal transparent={true} visible={visible}>
-          <View style={styles.centeredView}>
-            <Image
-                style={{width: 100, height: 100}}
-                fullScreen
-                source={require("../../../assets/Login_concierge.gif")}
-            />
-            <Text style={{color: "#fff"}}>Cargando...</Text>
-          </View>
-        </Modal>
+    <View>
+      <Modal transparent={true} visible={visible}>
+        <View style={styles.centeredView}>
+          <Image
+            style={{ width: 100, height: 100 }}
+            fullScreen
+            source={require("../../../assets/Load_Dark.gif")}
+          />
+          <Text style={{ color: "#fff" }}>Cargando...</Text>
+        </View>
+      </Modal>
     </View>
   );
 };

@@ -3,24 +3,34 @@ import Constants from "expo-constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let config = {
-  baseURL: Constants.manifest.extra.production === true ? Constants.manifest.extra.URL_PEOPLE : Constants.manifest.extra.URL_PEOPLE_DEV,
+  baseURL:
+    Constants.manifest.extra.production === true
+      ? Constants.manifest.extra.URL_PEOPLE
+      : Constants.manifest.extra.URL_PEOPLE_DEV,
   headers: {
     Accept: "application/json",
   },
 };
-console.log(config)
 let APIKit = axios.create(config);
 
+const checkTenant = async () => {
+  let tenant = await AsyncStorage.getItem("tenant");
+  return tenant;
+};
+
 APIKit.interceptors.request.use(async function (conf) {
-  console.log(conf.method, ': ', conf.url)
-  console.log(conf.data)
+  const tenant = await checkTenant();
+  if (tenant) conf.baseURL = conf.baseURL.replace("[tenant]", tenant);
   try {
     let userData = await AsyncStorage.getItem("user");
-    //console.log(config.data)
-    let token = (await JSON.parse(userData).user_id) ? JSON.parse(userData).user_id : "";
-    if (token) conf.headers.Authorization = token;
+    if (userData) {
+      let token = (await JSON.parse(userData).user_id)
+        ? JSON.parse(userData).user_id
+        : "";
+      if (token) conf.headers.Authorization = token;
+    }
   } catch (e) {
-    console.log(e)
+    console.log(e);
   }
 
   return conf;

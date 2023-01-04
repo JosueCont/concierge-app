@@ -2,7 +2,7 @@ import axios from "axios";
 import Constants from "expo-constants";
 import ApiApp from "../utils/ApiApp";
 import jwt_decode from "jwt-decode";
-import {registerForPushNotificationsAsync} from "../utils/functions";
+import { registerForPushNotificationsAsync } from "../utils/functions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /***
@@ -115,6 +115,7 @@ export let cleanUser = async () => {
 export let saveSessionAction = () => async (dispatch) => {
   try {
     let storage = await AsyncStorage.getItem("user");
+
     storage = JSON.parse(storage);
     if (storage) {
       dispatch({
@@ -134,18 +135,18 @@ export let doLoginAction = (credential) => {
     dispatch({ type: LOGIN });
     try {
       const response = await axios.post(
-          Constants.manifest.extra.URL_KHONNECT + "/login/",
-          credential,
-          {
-            headers: {
-              "client-id": Constants.manifest.extra.ClientId,
-              "Content-Type": "application/json",
-            },
-          }
+        Constants.manifest.extra.URL_KHONNECT + "/login/",
+        credential,
+        {
+          headers: {
+            "client-id": Constants.manifest.extra.ClientId,
+            "Content-Type": "application/json",
+          },
+        }
       );
 
       let convertResponse = jwt_decode(response.data.token);
-      convertResponse = {...convertResponse, jwt: response.data.token}
+      convertResponse = { ...convertResponse, jwt: response.data.token };
 
       if (convertResponse.password_changed) {
         dispatch({
@@ -159,7 +160,7 @@ export let doLoginAction = (credential) => {
       }
       return convertResponse;
     } catch (err) {
-      dispatch({type: LOGIN_ERROR_SERVER, payload: err.response});
+      dispatch({ type: LOGIN_ERROR_SERVER, payload: err.response });
       return err.response.data;
     }
   };
@@ -190,6 +191,10 @@ export let getProfile = (user) => {
         khonnect_id: user.user_id,
         jwt: user,
       });
+      console.log(
+        "🚀 ~ file: userDuck.js:194 ~ return ~ response profile",
+        response
+      );
 
       // if (response.data.department.node.active && response.data.is_active)
       if (response.data.is_active)
