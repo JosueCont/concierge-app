@@ -217,7 +217,6 @@ const MyAccountScreen = (props) => {
                 clickAction={clickAction}
                 nameToolbar={"Mi Cuenta"}
                 type={2}
-                translateY={translateY}
             />
             <KeyboardAwareScrollView bounces={false}>
 

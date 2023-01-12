@@ -175,6 +175,7 @@ const LoginScreen = (props) => {
       let clientId = await ApiApp.getCLientId({ url });
       if(clientId?.data.client_khonnect_id){
         await AsyncStorage.setItem("clientId", clientId?.data.client_khonnect_id);
+        await AsyncStorage.setItem('conciergeLogo', clientId?.data.concierge_logo);
       }
     } catch (e) {
       console.log('error cliente_id', e)
@@ -183,6 +184,8 @@ const LoginScreen = (props) => {
 
   const changeCompany = async () => {
     await AsyncStorage.removeItem("tenant");
+    await AsyncStorage.removeItem("clientId");
+    await AsyncStorage.removeItem("conciergeLogo");
     APIKit.defaults.baseURL = URL_TENANT_VALIDATE
     console.log("Actual url", APIKit.defaults.baseURL);
     setCompany("");
