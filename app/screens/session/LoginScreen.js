@@ -128,6 +128,19 @@ const LoginScreen = (props) => {
     setPlay(false);
   };
 
+  const { 
+    URL_TENANT_VALIDATE,
+    URL_PEOPLE,
+    URL_PEOPLE_DEV, 
+    PROTOCOL, 
+    production ,
+    TENANT_DEFAULT
+  } = Constants.manifest.extra
+
+  const getUrlBaseTenant = async (tenant) => {
+    return `${PROTOCOL}${tenant}.${production ? URL_PEOPLE : URL_PEOPLE_DEV}`;
+  }
+
   const sendCode = async () => {
     console.log(code);
     try {
@@ -138,10 +151,7 @@ const LoginScreen = (props) => {
       });
       if (response?.data?.tenant_name) {
         await AsyncStorage.setItem("tenant", response?.data?.tenant_name);
-        APIKit.defaults.baseURL = APIKit.defaults.baseURL.replace(
-          "[tenant]",
-          response?.data?.tenant_name
-        );
+        getClientId(response?.data?.tenant_name)
         setCompany(response?.data?.tenant_name);
         setCode("");
         setTimeout(() => {
@@ -159,12 +169,21 @@ const LoginScreen = (props) => {
     }
   };
 
+  const getClientId = async(tenant) => {
+    try {
+      const url = await getUrlBaseTenant(tenant);
+      let clientId = await ApiApp.getCLientId({ url });
+      if(clientId?.data.client_khonnect_id){
+        await AsyncStorage.setItem("clientId", clientId?.data.client_khonnect_id);
+      }
+    } catch (e) {
+      console.log('error cliente_id', e)
+    }
+  }
+
   const changeCompany = async () => {
     await AsyncStorage.removeItem("tenant");
-    APIKit.defaults.baseURL =
-      Constants.manifest.extra.production === true
-        ? Constants.manifest.extra.URL_PEOPLE
-        : Constants.manifest.extra.URL_PEOPLE_DEV;
+    APIKit.defaults.baseURL = URL_TENANT_VALIDATE
     console.log("Actual url", APIKit.defaults.baseURL);
     setCompany("");
   };

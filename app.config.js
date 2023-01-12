@@ -22,10 +22,12 @@ const commonConfig = {
     ClientId: "612d0aac30976e8504806d92",
     ClientId_DEV: "612d0aac30976e8504806d92",
     URL_TENANT_VALIDATE:
-      "https://demo.api.people.hiumanlab.com/setup/validate-tenant-code/",
-    URL_PEOPLE: "https://[tenant].people-api.khorplus.com/",
-    URL_PEOPLE_DEV: "https://[tenant].people-api.khorplus.com/",
-    URL_QA: "https://iu.api.people.hiumanlab.mx/",
+    "https://iu.people-api.khorplus.com/setup/validate-tenant-code/",
+    URL_PEOPLE: "people-api.khorplus.com",
+    URL_PEOPLE_DEV: "people-api.khorplus.com",
+    URL_QA: "https://iu.api.people.hiumanlab.mx/", 
+    PROTOCOL: "https://",
+    TENANT_DEFAULT: "demo"
   },
 };
 
