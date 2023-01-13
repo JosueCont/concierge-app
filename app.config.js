@@ -26,7 +26,11 @@ const commonConfig = {
     URL_PEOPLE_DEV: "api.people.hiumanlab.mx",
     PROTOCOL: "https://",
     TENANT_DEFAULT: "demo",
-    PRIVACY_NOTICE: 'https://www.grupohuman.com/aviso-privacidad'
+    PRIVACY_NOTICE: 'https://www.grupohuman.com/aviso-privacidad',
+    eas: {
+      projectId: "332c662c-ee25-49b2-8e57-975397001082"
+    }
+
   },
 };
 

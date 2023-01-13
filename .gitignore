@@ -13,7 +13,6 @@ web-build/
 .DS_Store
 #idea
 /.idea
-/native-base-theme/
 #carpeta
 /.expo-shared/
 /package-lock.json
