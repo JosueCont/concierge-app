@@ -1,4 +1,4 @@
-import { View, ScrollView, Text, StatusBar } from "react-native";
+import { View, ScrollView, Text, StatusBar, Platform } from "react-native";
 import ToolbarGeneric from "../components/ToolbarComponent/ToolbarGeneric";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";

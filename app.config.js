@@ -17,15 +17,16 @@ const commonConfig = {
   extra: {
     production: true,
     URL_KHONNECT: "https://khonnect.khor2.com/",
-    URL_KHONNECT_DEV: "https://khonnect.khor2.com/",
-    KeySecret: "KeQAranV2m9DnX4xy-HroaxPXNovIoElT6OXkyrwDOQ",
-    ClientId: "612d0aac30976e8504806d92",
-    ClientId_DEV: "612d0aac30976e8504806d92",
+    URL_KHONNECT_DEV: "https://api.khonnect.hiumanlab.com/",
     URL_TENANT_VALIDATE:
-      "https://demo.api.people.hiumanlab.com/setup/validate-tenant-code/",
-    URL_PEOPLE: "https://[tenant].people-api.khorplus.com/",
-    URL_PEOPLE_DEV: "https://[tenant].people-api.khorplus.com/",
-    URL_QA: "https://iu.api.people.hiumanlab.mx/",
+    "https://iu.people-api.khorplus.com/setup/validate-tenant-code/",
+    URL_TENANT_VALIDATE_DEV: 
+    "https://demo.api.people.hiumanlab.com/setup/validate-tenant-code/",
+    URL_PEOPLE: "people-api.khorplus.com",
+    URL_PEOPLE_DEV: "api.people.hiumanlab.mx",
+    PROTOCOL: "https://",
+    TENANT_DEFAULT: "demo",
+    PRIVACY_NOTICE: 'https://www.grupohuman.com/aviso-privacidad'
   },
 };
 

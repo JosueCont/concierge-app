@@ -17,6 +17,7 @@ import { connect } from "react-redux";
 import Constants from "expo-constants";
 import ModalCustom from "../../components/modal/ModalCustom";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -30,18 +31,23 @@ const ChangePasswordFirstTime = (props) => {
   const [iconSourceCustomModal, setIconSourceCustomModal] = useState("");
   const [messageCustomModal, setMessageCustomModal] = useState("");
 
+  const {
+    URL_KHONNECT, production,URL_KHONNECT_DEV
+  } = Constants.manifest.extra
+
   const actionReturn = () => {
     props.navigation.navigate("LoginScreen");
   };
 
-  const changePasswordFirstLogin = (data) => {
+  const changePasswordFirstLogin = async(data) => {
+    let clientId = await AsyncStorage.getItem('clientId');
     axios
       .post(
-        Constants.manifest.extra.URL_KHONNECT + "/password/change/direct/",
+        production ? URL_KHONNECT : URL_KHONNECT_DEV + "/password/change/direct/",
         data,
         {
           headers: {
-            "client-id": Constants.manifest.extra.ClientId,
+            "client-id": clientId,
             "Content-Type": "application/json",
           },
         }

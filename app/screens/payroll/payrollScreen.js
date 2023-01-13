@@ -8,6 +8,12 @@ import ApiApp from "../../utils/ApiApp";
 import ModalCustom from "../../components/modal/ModalCustom";
 import LoadingGlobal from "../../components/modal/LoadingGlobal";
 import PickerSelect from "../../components/pickerSelect";
+import axios from 'axios'
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+import Constants from "expo-constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const PayrollScreen = (props) => {
     const [modalCustom, setModalCustom] = useState(false);
@@ -71,6 +77,14 @@ const PayrollScreen = (props) => {
     const year = new Date().getFullYear();
     const month = new Date().getMonth();
 
+    const { 
+        URL_PEOPLE,
+        URL_PEOPLE_DEV, 
+        PROTOCOL, 
+        production ,
+        TENANT_DEFAULT,
+    } = Constants.manifest.extra
+
     useEffect(() => {
         setYearVoucher(year);
         setMonthVoucher(month);
@@ -116,11 +130,82 @@ const PayrollScreen = (props) => {
         modalCustom ? setModalCustom(false) : setModalCustom(true);
     };
 
+
+    const downLoadFileBlob = async (
+        url,
+        name = "Example.xlsx",
+        type = "POST",
+        params = null,
+        Textmessage = null
+    ) => {
+        let headers = {
+            method: type,
+            responseType: "blob",
+        };
+        if (params) headers.data = params;
+        axios(
+            url.toLowerCase().includes("http") ? url : `${typeHttp}://` + url,
+            headers
+        )
+            .then((response) => {
+                const blob = new Blob([response.data]);
+                const fr = new FileReader();
+                fr.readAsDataURL(blob);
+                fr.onload = async () => {
+                    const fileUri = `${FileSystem.documentDirectory}/${name}`;
+                    console.log('fileUri', fileUri)
+                    await FileSystem.writeAsStringAsync(fileUri, fr.result.split(',')[1], { encoding: FileSystem.EncodingType.Base64 });
+                    await Sharing.shareAsync(fileUri);
+                };
+                fr.readAsDataURL(response.data);
+
+                // const link = document.createElement("a");
+                // link.href = window.URL.createObjectURL(blob);
+                // link.download = name;
+                // link.click();
+            })
+            .catch((e) => {
+                console.log('Error xd', e.response)
+                let errorMessage = e.response?.data?.message || ""
+                if (errorMessage !== ""){
+                    message.error(errorMessage)
+                } else if(Textmessage){
+                    message.error(Textmessage)
+                }else if(e?.response?.status===404){
+                    message.error('No se encontraron datos de la nómina de las personas seleccionadas.')
+                }
+            });
+    };
+
+    const downLoadFile = (item, file=2) => {
+        let data = {
+            type_request: 3,
+            type_file: file,
+            id_facturama: item.id_facturama,
+        };
+        let url = getUrl();
+
+        downLoadFileBlob(
+            url,
+            `file${Math.random()}.${file == 1 ? "xml" : "pdf"}`,
+            "POST",
+            data
+        );
+    };
+
+    const getUrl = async() => {
+        let tenant = TENANT_DEFAULT;
+        let tenantAysnc = await AsyncStorage.getItem('tenant');
+        if(tenantAysnc) tenant = tenantAysnc;
+
+        return `${PROTOCOL}${tenant}.${production ? URL_PEOPLE : URL_PEOPLE_DEV}/payroll/cfdi_multi_emitter_facturama/cfdi_multi_emitter/`;
+    }
+
     const getPayrollVoucher = async () => {
         //props?.user?.userProfile?.node
         //props?.user?.userProfile?.id
         //Use node and person hardcoded to test
-        let filter = `?node=${props?.user?.userProfile?.node}&person=${props?.user?.userProfile?.id}&page=${1}`;
+        let filter = `?node=${props?.user?.userProfile?.node}&person=${props?.user?.userProfile?.id}&page=1`;
         try {
             setModalLoading(true);
             setVouchers([]);
@@ -133,7 +218,7 @@ const PayrollScreen = (props) => {
             let response = await ApiApp.getPayrollVouchers(filter);
             if (response.status === 200) {
                 if (
-                    response?.data?.results?.length > 0
+                    response?.data?.results.length > 0
                 ) {
                     setVouchers(response?.data?.results);
                     setTimeout(() => {
@@ -275,7 +360,7 @@ const PayrollScreen = (props) => {
                         
                     <View style={{alignItems: "center", display: 'flex', marginLeft: 10}}>
                         {
-                            voucher?.pdf_file && 
+                            (voucher.id_facturama) &&
                             <TouchableOpacity
                                 style={{
                                     backgroundColor: Colors.primary,
@@ -287,7 +372,7 @@ const PayrollScreen = (props) => {
                                     alignItems: "center",
                                     justifyContent: "center",
                                 }}
-                                onPress={() => Linking.openURL(voucher?.pdf_file)}
+                                onPress={() => downLoadFile(voucher, 2)}
                             >
                                 <Text
                                     style={{
@@ -304,29 +389,61 @@ const PayrollScreen = (props) => {
                     </View>
                     
                     <View style={{alignItems: "center", display: 'flex', marginLeft: 10}}>
-                    <TouchableOpacity
-                            style={{
-                                backgroundColor: Colors.primary,
-                                height: 40,
-                                width: 40,
-                                borderRadius: 5,
-                                marginTop: 10,
-                                marginBottom: 10,
-                                alignItems: "center",
-                                justifyContent: "center",
-                            }}
-                            onPress={() => Linking.openURL(voucher?.xml_file)}
-                        >
-                            <Text
+                        {
+                            (voucher?.xml_file && !voucher.id_facturama) &&
+                            <TouchableOpacity
                                 style={{
-                                    fontFamily: "Cabin-Regular",
-                                    color: Colors.white,
-                                    fontSize: 18,
+                                    backgroundColor: Colors.primary,
+                                    height: 40,
+                                    width: 40,
+                                    borderRadius: 5,
+                                    marginTop: 10,
+                                    marginBottom: 10,
+                                    alignItems: "center",
+                                    justifyContent: "center",
                                 }}
+                                onPress={() => Linking.openURL(voucher?.xml_file)}
                             >
-                                Xml
-                            </Text>
-                        </TouchableOpacity>
+                                <Text
+                                    style={{
+                                        fontFamily: "Cabin-Regular",
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                    }}
+                                >
+                                    Xml
+                                </Text>
+                            </TouchableOpacity>
+                        }
+
+
+                        {
+                            (!voucher?.xml_file && voucher.id_facturama) &&
+                            <TouchableOpacity
+                                style={{
+                                    backgroundColor: Colors.primary,
+                                    height: 40,
+                                    width: 40,
+                                    borderRadius: 5,
+                                    marginTop: 10,
+                                    marginBottom: 10,
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                }}
+                                onPress={() => downLoadFile(voucher, 1)}
+                            >
+                                <Text
+                                    style={{
+                                        fontFamily: "Cabin-Regular",
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                    }}
+                                >
+                                    Xml
+                                </Text>
+                            </TouchableOpacity>
+                        }
+
                     </View>
                 </View>
             </View>
@@ -409,7 +526,6 @@ const PayrollScreen = (props) => {
                     {vouchers.length<=0 && <HeaderList/>}
                     <ScrollView style={{marginTop: 20, height: 500, width: '80%'}}>
                         {vouchers.map((voucher, index)=>{
-                            console.log(index);
                             return(
                                 <CardPayroll voucher={voucher} />
                             )

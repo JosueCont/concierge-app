@@ -29,6 +29,10 @@ const USER_PROFILE_SUCCESS = "USER_PROFILE_SUCCESS";
 const TEMPORAL_LOGIN = "TEMPORAL_LOGIN";
 const USER_PROFILE_DENIED = "USER_PROFILE_DENIED";
 
+const {
+  URL_KHONNECT, production,URL_KHONNECT_DEV
+} = Constants.manifest.extra
+
 /***
  *REDUCE
  * ***/
@@ -134,12 +138,13 @@ export let doLoginAction = (credential) => {
   return async (dispatch, getState) => {
     dispatch({ type: LOGIN });
     try {
+      let clientId = await AsyncStorage.getItem('clientId');
       const response = await axios.post(
-        Constants.manifest.extra.URL_KHONNECT + "/login/",
+        production ? URL_KHONNECT : URL_KHONNECT_DEV + "/login/",
         credential,
         {
           headers: {
-            "client-id": Constants.manifest.extra.ClientId,
+            "client-id": clientId ,
             "Content-Type": "application/json",
           },
         }
@@ -189,7 +194,7 @@ export let getProfile = (user) => {
     try {
       let response = await ApiApp.getUserProfile({
         khonnect_id: user.user_id,
-        jwt: user,
+        jwt: user.jwt,
       });
       console.log(
         "🚀 ~ file: userDuck.js:194 ~ return ~ response profile",
@@ -208,6 +213,7 @@ export let getProfile = (user) => {
         });
       return response.data;
     } catch (err) {
+      console.log('err',err)
       return "Error";
     }
   };

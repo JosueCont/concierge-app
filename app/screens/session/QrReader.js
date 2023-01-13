@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import APIKit from "../../utils/axiosApi";
 import ModalCustom from "../../components/modal/ModalCustom";
 import ApiApp from "../../utils/ApiApp";
+import Constants from "expo-constants";
 
 const QrReader = (props) => {
     const [hasPermission, setHasPermission] = useState(null);
@@ -15,6 +16,13 @@ const QrReader = (props) => {
     const [text, setText] = useState('Escaneando...');
     const [modalCustomVisible, setModalCustomVisible] = useState(false);
     const [messageCustomModal, setMessageCustomModal] = useState("");
+
+    const { 
+        URL_PEOPLE,
+        URL_PEOPLE_DEV, 
+        PROTOCOL, 
+        production ,
+      } = Constants.manifest.extra
 
     useEffect(() => {
         (async () => {
@@ -46,7 +54,7 @@ const QrReader = (props) => {
                 })
                 if(response?.data?.tenant_name){
                     await AsyncStorage.setItem("tenant", response?.data?.tenant_name);
-                    APIKit.defaults.baseURL = APIKit.defaults.baseURL.replace("[tenant]", response?.data?.tenant_name);
+                    getClientId(response?.data?.tenant_name)
                     setScanned(false);
                     props.navigation.navigate("LoginScreen");
                 }else{
@@ -65,6 +73,22 @@ const QrReader = (props) => {
             setScanned(false);
         }
     };
+
+    const getClientId = async(tenant) => {
+        try {
+          const url = await getUrlBaseTenant(tenant);
+          let clientId = await ApiApp.getCLientId({ url });
+          if(clientId?.data.client_khonnect_id){
+            await AsyncStorage.setItem("clientId", clientId?.data.client_khonnect_id);
+          }
+        } catch (e) {
+          console.log('error cliente_id', e)
+        }
+    }
+
+    const getUrlBaseTenant = async (tenant) => {
+        return `${PROTOCOL}${tenant}.${production ? URL_PEOPLE : URL_PEOPLE_DEV}`;
+      }
     
     if (hasPermission === null) {
         return (
