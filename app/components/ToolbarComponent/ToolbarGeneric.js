@@ -10,12 +10,16 @@ import {
 import { Colors } from "../../utils/colors";
 import { Ionicons, Entypo } from "@expo/vector-icons";
 import connect from "react-redux/lib/connect/connect";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ToolbarGeneric = (props) => {
   const [photo, setPhoto] = useState(
     require("../../../assets/img/profile-default.png")
   );
+  const [ imgCompany, setImageCompany ] = useState('');
+
   useEffect(() => {
+    getImageCompany();
     if (props.user && props.user.userProfile)
       props.user.userProfile.photo
         ? setPhoto({
@@ -23,6 +27,11 @@ const ToolbarGeneric = (props) => {
           })
         : setPhoto(require("../../../assets/img/profile-default.png"));
   }, [props.user]);
+
+  const getImageCompany = async() => {
+    let image = await AsyncStorage.getItem('conciergeLogo');
+    setImageCompany(image);
+  }
 
   return (
     <View
@@ -94,7 +103,7 @@ const ToolbarGeneric = (props) => {
             onPress={() => props.goHome()}
           >
             <Image
-              source={require("../../../assets/img/new/header.png")}
+              source={{uri: imgCompany}}
               resizeMode={"contain"}
               style={{ height: 80, width: 80 }}
             />

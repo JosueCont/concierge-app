@@ -1,4 +1,5 @@
 import APIKit from "./axiosApi";
+import Constants from 'expo-constants';
 
 class ApiApp {
   static ApisType = (url, method = "post", params = {}) => {
@@ -22,8 +23,9 @@ class ApiApp {
   };
 
   static validateTenantCode = (data) => {
+    const {productivo, URL_TENANT_VALIDATE} = Constants.manifest.extra
     return ApiApp.ApisType(
-      "https://iu.people-api.khorplus.com/setup/validate-tenant-code/",
+      URL_TENANT_VALIDATE,
       "post",
       data
     );
@@ -173,6 +175,17 @@ class ApiApp {
       data
     );
   };
+
+  static getCLientId = ({url}) => {
+    return ApiApp.ApisType(
+      `${url}/setup/site-configuration/`,
+      "get"
+    );
+  };
+
+  static deleteUserData = (data) => {
+    return ApiApp.ApisType(`/person/person/deletion_request/`,"post",data);
+  }
 }
 
 export default ApiApp;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {
     View,
     ScrollView,
@@ -9,6 +9,7 @@ import {
     TextInput,
     TouchableOpacity,
     StyleSheet, Platform,
+    Animated
 } from "react-native";
 import ToolbarNoLogin from "../components/ToolbarComponent/ToolbarNoLogin";
 import {Colors} from "../utils/colors";
@@ -23,6 +24,7 @@ import LoadingGlobal from "../components/modal/LoadingGlobal";
 import ApiApp from "../utils/ApiApp";
 import CloseSession from "../components/modal/CloseSession";
 import {Thumbnail} from "native-base";
+import ModalDeleteDataRequest from "../components/modal/DeleteDataRequest";
 
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
@@ -38,6 +40,7 @@ const MyAccountScreen = (props) => {
     const [messageCustomModal, setMessageCustomModal] = useState("");
     const [modalLoading, setModalLoading] = useState(false);
     const [closeSession, setCloseSession] = useState(false);
+    const [modalDelete, setModalDelete] = useState(false);
 
     useEffect(() => {
         if (props.user && props.user.userProfile) {
@@ -58,6 +61,10 @@ const MyAccountScreen = (props) => {
     const viewModalCustom = () => {
         modalCustom ? setModalCustom(false) : setModalCustom(true);
     };
+
+    const ViewModalDeleteData = () => {
+        setModalDelete(!modalDelete) 
+    }
 
     const clickAction = () => {
         props.navigation.goBack(null);
@@ -167,10 +174,37 @@ const MyAccountScreen = (props) => {
         closeSession ? setCloseSession(false) : setCloseSession(true);
     };
 
+    const deleteData = async() => {
+        try {
+            let result = true;
+            ViewModalDeleteData();
+            setModalLoading(true);
+            setInterval(()=> {
+                setModalLoading(false)
+            },3000);
+            if(modalLoading == false){
+                if(result != false){
+                    console.log(props.user.userProfile.id)
+                    setMessageCustomModal("Hemos recibido tu solicitud para la eliminación de tus datos, en las próximas horas tu cuenta de usuario será eliminada")
+                    setIconSourceCustomModal(1);
+                    viewModalCustom();
+                    
+                }else{
+                    setMessageCustomModal("Ocurrio un error, intente de nuevo.")
+                    setIconSourceCustomModal(2);
+                    viewModalCustom();
+                }
+            }
+            
+        } catch (e) {
+            console.log(e)
+        }
+    }
     return (
         <View
             style={{
-                height: "100%",
+                //flex:1,
+                height:windowHeight,
                 zIndex: 1,
             }}
         >
@@ -178,6 +212,11 @@ const MyAccountScreen = (props) => {
                 barStyle="dark-content"
                 backgroundColor="rgba(1,1,1,0)"
                 translucent={true}
+            />
+            <ToolbarNoLogin
+                clickAction={clickAction}
+                nameToolbar={"Mi Cuenta"}
+                type={2}
             />
             <KeyboardAwareScrollView bounces={false}>
 
@@ -189,17 +228,7 @@ const MyAccountScreen = (props) => {
                         zIndex: 20,
                     }}
                 >
-                    <View
-                        style={{
-                            position: "relative",
-                            height: windowHeight + statusHeight,
-                        }}
-                    >
-                        <ToolbarNoLogin
-                            clickAction={clickAction}
-                            nameToolbar={"Mi Cuenta"}
-                            type={2}
-                        />
+                    <View>
                         <Image
                             style={{
                                 width: "100%",
@@ -326,6 +355,11 @@ const MyAccountScreen = (props) => {
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
+                                <TouchableOpacity 
+                                    style={styles.btnDelete}
+                                    onPress={() => ViewModalDeleteData()}>
+                                    <Text style={styles.lblDetele}>Solicitar eliminación de mis datos</Text>
+                                </TouchableOpacity>
                                 <TouchableOpacity
                                     onPress={() => {
                                         props.navigation.navigate("ChangePasswordScreen");
@@ -362,13 +396,19 @@ const MyAccountScreen = (props) => {
                 visible={closeSession}
                 setVisible={() => modalCloseSession()}
             />
+            <ModalDeleteDataRequest 
+                visible={modalDelete}
+                setVisible={() => ViewModalDeleteData(true)}
+                description="¿Desea solicitar la eliminación de sus datos?"
+                doRequest={() => deleteData()}
+            />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     ctnPart1: {
-        height: Platform.OS ==='android'? '33%': '30%',
+        //height: Platform.OS ==='android'? '33%': '30%',
         textAlign: "center",
         alignItems: "center",
         paddingHorizontal: 20,
@@ -408,6 +448,21 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         textAlign: "center",
     },
+    btnDelete:{
+        alignSelf:'center', 
+        paddingHorizontal:15,
+        paddingVertical:10,
+        //backgroundColor:Colors.primary,
+        borderWidth:1,
+        borderColor: Colors.red,
+        borderRadius:5,
+        marginTop:15
+    },
+    lblDetele:{
+        color:Colors.red, 
+        fontFamily: "Cabin-Regular", 
+        fontSize:16
+    }
 });
 
 const mapState = (state) => {

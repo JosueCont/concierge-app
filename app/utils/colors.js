@@ -15,5 +15,6 @@ export const Colors = {
     primary: '#F99543',
     secondary: '#121212',
     texts: "#FFF1E6",
-    back: "#E3E3E3"
+    back: "#E3E3E3",
+    green: '#27AD23'
 }
