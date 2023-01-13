@@ -144,7 +144,7 @@ const PayrollScreen = (props) => {
                     const fileUri = `${FileSystem.documentDirectory}/${name}`;
                     console.log('fileUri', fileUri)
                     await FileSystem.writeAsStringAsync(fileUri, fr.result.split(',')[1], { encoding: FileSystem.EncodingType.Base64 });
-                    Sharing.shareAsync(fileUri);
+                    await Sharing.shareAsync(fileUri);
                 };
                 fr.readAsDataURL(response.data);
 
