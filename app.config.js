@@ -32,7 +32,7 @@ const commonConfig = {
 const ios = {
   bundleIdentifier: "com.hiumanlab.staffconcierge",
   supportsTablet: false,
-  buildNumber: "5",
+  buildNumber: "8",
   infoPlist: {
     NSCameraUsageDescription:
       "Esta aplicación requiere el uso de la camara para escanear el QR.",
@@ -40,7 +40,7 @@ const ios = {
 };
 
 const android = {
-  versionCode: 5,
+  versionCode: 8,
   package: "com.hiumanlab.staffconcierge",
   useNextNotificationsApi: true,
   permissions: ["CAMERA_ROLL", "CAMERA"],
@@ -55,14 +55,14 @@ module.exports = () => {
     return {
       ...commonConfig,
       slug: "staffconcierge",
-      version: "1.0.1",
+      version: "1.0.4",
       ios: ios,
     };
   } else if (process.env.APP_ENV === "android") {
     return {
       ...commonConfig,
       slug: "staffconcierge",
-      version: "1.0.1",
+      version: "1.0.4",
       android: android,
     };
   } else if (process.env.APP_ENV === "expo") {
