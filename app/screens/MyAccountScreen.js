@@ -41,6 +41,7 @@ const MyAccountScreen = (props) => {
     const [modalLoading, setModalLoading] = useState(false);
     const [closeSession, setCloseSession] = useState(false);
     const [modalDelete, setModalDelete] = useState(false);
+    const [deletedPerson, setDelete] = useState('');
 
     useEffect(() => {
         if (props.user && props.user.userProfile) {
@@ -176,30 +177,32 @@ const MyAccountScreen = (props) => {
 
     const deleteData = async() => {
         try {
-            let result = true;
             ViewModalDeleteData();
             setModalLoading(true);
-            setInterval(()=> {
+            const deleted = await ApiApp.deleteUserData({person_id:props.user.userProfile.id});
+            if(deleted?.data?.message == 'success') {
                 setModalLoading(false)
-            },3000);
-            if(modalLoading == false){
-                if(result != false){
-                    console.log(props.user.userProfile.id)
-                    setMessageCustomModal("Hemos recibido tu solicitud para la eliminación de tus datos, en las próximas horas tu cuenta de usuario será eliminada")
-                    setIconSourceCustomModal(1);
-                    viewModalCustom();
-                    
-                }else{
-                    setMessageCustomModal("Ocurrio un error, intente de nuevo.")
-                    setIconSourceCustomModal(2);
-                    viewModalCustom();
-                }
+                setMessageCustomModal("Hemos recibido tu solicitud para la eliminación de tus datos, en las próximas horas tu cuenta de usuario será eliminada")
+                setIconSourceCustomModal(1);
+                viewModalCustom();
+                setDelete(deleted?.data.message);
+            }else{
+                setModalLoading(false)
+                setMessageCustomModal("Ocurrio un error, intente de nuevo.")
+                setIconSourceCustomModal(2);
+                viewModalCustom();
             }
             
         } catch (e) {
             console.log(e)
         }
     }
+
+    const confirmDeleted = () => {
+        viewModalCustom(true);
+        deletedPerson != '' ?  props.logOutAction() : null;
+    }
+
     return (
         <View
             style={{
@@ -389,7 +392,7 @@ const MyAccountScreen = (props) => {
                 visible={modalCustom}
                 text={messageCustomModal}
                 iconSource={iconSourceCustomModal}
-                setVisible={() => viewModalCustom(true)}
+                setVisible={() => confirmDeleted()}
             />
             <LoadingGlobal visible={modalLoading} text={"Cargando"}/>
             <CloseSession

@@ -29,6 +29,10 @@ const USER_PROFILE_SUCCESS = "USER_PROFILE_SUCCESS";
 const TEMPORAL_LOGIN = "TEMPORAL_LOGIN";
 const USER_PROFILE_DENIED = "USER_PROFILE_DENIED";
 
+const {
+  URL_KHONNECT, production,URL_KHONNECT_DEV
+} = Constants.manifest.extra
+
 /***
  *REDUCE
  * ***/
@@ -136,7 +140,7 @@ export let doLoginAction = (credential) => {
     try {
       let clientId = await AsyncStorage.getItem('clientId');
       const response = await axios.post(
-        Constants.manifest.extra.URL_KHONNECT + "/login/",
+        production ? URL_KHONNECT : URL_KHONNECT_DEV + "/login/",
         credential,
         {
           headers: {

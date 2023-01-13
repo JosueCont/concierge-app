@@ -19,6 +19,7 @@ import ModalCustom from "../../components/modal/ModalCustom";
 import axios from "axios";
 import { darkerHex, emailRegEx } from "../../utils/utils";
 import ModalLoadingGlobal from "../../components/modal/LoadingGlobal";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -31,19 +32,24 @@ const RecoverPasswordScreen = (props) => {
   const [messageCustomModal, setMessageCustomModal] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const { 
+    URL_KHONNECT, production,URL_KHONNECT_DEV
+  } = Constants.manifest.extra
+
   const actionReturn = () => {
     props.navigation.navigate("LoginScreen");
   };
 
-  const sendMailRecoveryPassword = (data) => {
+  const sendMailRecoveryPassword = async(data) => {
     setLoading(true);
+    let clientId = await AsyncStorage.getItem('clientId');
     axios
       .post(
-        Constants.manifest.extra.URL_KHONNECT + "/password/reset/token/",
+        production ? URL_KHONNECT : URL_KHONNECT_DEV+ "/password/reset/token/",
         data,
         {
           headers: {
-            "client-id": Constants.manifest.extra.ClientId,
+            "client-id": clientId,
             "Content-Type": "application/json",
           },
         }

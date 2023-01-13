@@ -134,7 +134,8 @@ const LoginScreen = (props) => {
     URL_PEOPLE_DEV, 
     PROTOCOL, 
     production ,
-    TENANT_DEFAULT
+    PRIVACY_NOTICE,
+    URL_TENANT_VALIDATE_DEV
   } = Constants.manifest.extra
 
   const getUrlBaseTenant = async (tenant) => {
@@ -186,7 +187,7 @@ const LoginScreen = (props) => {
     await AsyncStorage.removeItem("tenant");
     await AsyncStorage.removeItem("clientId");
     await AsyncStorage.removeItem("conciergeLogo");
-    APIKit.defaults.baseURL = URL_TENANT_VALIDATE
+    APIKit.defaults.baseURL = production ? URL_TENANT_VALIDATE : URL_TENANT_VALIDATE_DEV
     console.log("Actual url", APIKit.defaults.baseURL);
     setCompany("");
   };
@@ -430,7 +431,7 @@ const LoginScreen = (props) => {
                     }}
                     onPress={() =>
                       Linking.openURL(
-                        "https://www.grupohuman.com/aviso-privacidad"
+                        PRIVACY_NOTICE
                       )
                     }
                   >
@@ -533,7 +534,7 @@ const LoginScreen = (props) => {
                     }}
                     onPress={() =>
                       Linking.openURL(
-                        "https://www.grupohuman.com/aviso-privacidad"
+                        PRIVACY_NOTICE
                       )
                     }
                   >
@@ -621,7 +622,7 @@ const LoginScreen = (props) => {
                     }}
                     onPress={() =>
                       Linking.openURL(
-                        "https://www.grupohuman.com/aviso-privacidad"
+                        PRIVACY_NOTICE
                       )
                     }
                   >
