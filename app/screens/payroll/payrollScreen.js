@@ -11,6 +11,9 @@ import PickerSelect from "../../components/pickerSelect";
 import axios from 'axios'
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
+import Constants from "expo-constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 const PayrollScreen = (props) => {
     const [modalCustom, setModalCustom] = useState(false);
@@ -73,6 +76,14 @@ const PayrollScreen = (props) => {
     const [years, setYears] = useState([]);
     const year = new Date().getFullYear();
     const month = new Date().getMonth();
+
+    const { 
+        URL_PEOPLE,
+        URL_PEOPLE_DEV, 
+        PROTOCOL, 
+        production ,
+        TENANT_DEFAULT,
+    } = Constants.manifest.extra
 
     useEffect(() => {
         setYearVoucher(year);
@@ -172,7 +183,7 @@ const PayrollScreen = (props) => {
             type_file: file,
             id_facturama: item.id_facturama,
         };
-        let url = `https://nominaqa.api.people.hiumanlab.mx/payroll/cfdi_multi_emitter_facturama/cfdi_multi_emitter/`;
+        let url = getUrl();
 
         downLoadFileBlob(
             url,
@@ -181,6 +192,14 @@ const PayrollScreen = (props) => {
             data
         );
     };
+
+    const getUrl = async() => {
+        let tenant = TENANT_DEFAULT;
+        let tenantAysnc = await AsyncStorage.getItem('tenant');
+        if(tenantAysnc) tenant = tenantAysnc;
+
+        return `${PROTOCOL}${tenant}.${production ? URL_PEOPLE : URL_PEOPLE_DEV}/payroll/cfdi_multi_emitter_facturama/cfdi_multi_emitter/`;
+    }
 
     const getPayrollVoucher = async () => {
         //props?.user?.userProfile?.node

@@ -23,9 +23,9 @@ class ApiApp {
   };
 
   static validateTenantCode = (data) => {
-    const {productivo, URL_TENANT_VALIDATE} = Constants.manifest.extra
+    const {production, URL_TENANT_VALIDATE, URL_TENANT_VALIDATE_DEV} = Constants.manifest.extra
     return ApiApp.ApisType(
-      URL_TENANT_VALIDATE,
+      production ? URL_TENANT_VALIDATE : URL_TENANT_VALIDATE_DEV,
       "post",
       data
     );
