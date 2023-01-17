@@ -37,6 +37,7 @@ const pickerSelectStyles = StyleSheet.create({
   },
   inputAndroid: {
     height: 45,
+    width:250,
     fontFamily: "Cabin-Regular",
     backgroundColor: Colors.white,
     fontSize: 16,

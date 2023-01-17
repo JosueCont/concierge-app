@@ -176,6 +176,7 @@ const LoginScreen = (props) => {
       let clientId = await ApiApp.getCLientId({ url });
       if(clientId?.data.client_khonnect_id){
         await AsyncStorage.setItem("clientId", clientId?.data.client_khonnect_id);
+        if(clientId?.data.concierge_logo != null)
         await AsyncStorage.setItem('conciergeLogo', clientId?.data.concierge_logo);
       }
     } catch (e) {
@@ -214,12 +215,10 @@ const LoginScreen = (props) => {
               setIconSourceCustomModal(2);
               setModalCustomVisible(true);
             } else {
-              if (!response.password_changed) {
-                props.navigation.navigate("ChangePasswordFirstTime");
-              } else {
+             
                 console.log("entra HomeUsserScreen");
                 props.navigation.navigate("Home");
-              }
+              
             }
           });
         })

@@ -185,7 +185,14 @@ class ApiApp {
 
   static deleteUserData = (data) => {
     return ApiApp.ApisType(`/person/person/deletion_request/`,"post",data);
-  }
+  };
+
+  static getPeriodsCalendar = (data) => {
+    return ApiApp.ApisType(
+      `/payroll/get-calendar-periods-by-person${data}`,
+      "get",
+    );
+  };
 }
 
 export default ApiApp;

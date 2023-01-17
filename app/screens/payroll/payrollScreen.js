@@ -1,4 +1,4 @@
-import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View, SafeAreaView,FlatList, ScrollView, Linking,} from "react-native";
+import {Image, StatusBar, StyleSheet, Text, TouchableOpacity, View, SafeAreaView,FlatList, ScrollView, Linking, Platform,} from "react-native";
 import ToolbarGeneric from "../../components/ToolbarComponent/ToolbarGeneric";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
@@ -76,6 +76,8 @@ const PayrollScreen = (props) => {
     const [years, setYears] = useState([]);
     const year = new Date().getFullYear();
     const month = new Date().getMonth();
+    const [periods, setPeriod] = useState([]);
+    const [periodSelected, setPeriodSelected] = useState('');
 
     const { 
         URL_PEOPLE,
@@ -91,6 +93,7 @@ const PayrollScreen = (props) => {
         if (props.user && props.user.userProfile) {
             generateYear();
             setVouchers([]);
+            //getPeriods(year);
             //getPayrollVoucher();
         } else {
             props.navigation.goBack(null);
@@ -205,7 +208,7 @@ const PayrollScreen = (props) => {
         //props?.user?.userProfile?.node
         //props?.user?.userProfile?.id
         //Use node and person hardcoded to test
-        let filter = `?node=${props?.user?.userProfile?.node}&person=${props?.user?.userProfile?.id}&page=1`;
+        let filter = `?node=${props?.user?.userProfile?.node}&person=${props?.user?.userProfile?.id}&page=1${periodSelected != '' ? '&period='+periodSelected : ''}`;
         try {
             setModalLoading(true);
             setVouchers([]);
@@ -244,8 +247,32 @@ const PayrollScreen = (props) => {
 
     const setPicker = (type, value) => {
         if (type == 1) setMonthVoucher(value);
-        if (type == 2) setYearVoucher(value);
+        if (type == 2) {
+            setYearVoucher(value);
+            getPeriods(value)
+        }
+        if(type == 3) setPeriodSelected(value)
     };
+
+    const getPeriods = async(year) => {
+        try { 
+            setPeriodSelected('');
+            setPeriod([]);
+            setModalLoading(true)
+            let filters = `?person_id=${props?.user?.userProfile?.id}&node_id=${props?.user?.userProfile?.node}&period=${year}`
+            let calendar =[];
+            const periods = await ApiApp.getPeriodsCalendar(filters);
+            if(periods.data.length >0){
+                periods?.data.forEach(period => {
+                    calendar.push({label: `${period.start_date} - ${period.end_date}`, value: period.id});
+                });
+                setPeriod(calendar);
+                setModalLoading(false)
+            }
+        } catch (e) {
+            setModalLoading(false)
+        }
+    }
 
     const HeaderList = () => {
         return (
@@ -281,14 +308,7 @@ const PayrollScreen = (props) => {
                     {/*        value={monthVoucher}*/}
                     {/*    />*/}
                     {/*</View>*/}
-                    <View
-                        style={{
-                            width: "100%",
-                            borderRadius: 10,
-                            overflow: "hidden",
-                            marginBottom: 20,
-                        }}
-                    >
+                    <View style={styles.contPicker}>
                         <PickerSelect
                             items={years}
                             title={"Año"}
@@ -296,6 +316,16 @@ const PayrollScreen = (props) => {
                             setSelect={setPicker}
                             value={yearVoucher}
                         />
+                    </View>
+                    <View style={styles.contPicker}>
+                        <PickerSelect
+                            title='Selecciona periodo'
+                            items={periods}
+                            type={3}
+                            setSelect={setPicker}
+                            value={periodSelected}
+                        />
+
                     </View>
                     <View style={{alignItems: "center"}}>
                         <TouchableOpacity
@@ -520,8 +550,11 @@ const PayrollScreen = (props) => {
                     >
                         <Image
                             source={require("../../../assets/img/new/icono_nomina.png")}
-                            />
+                        />
+                        <Text style={styles.title}>Comprobantes Nómina</Text>
                     </View>
+
+                    {vouchers.length > 0 ? <Text style={styles.subtitle}>Encontrados: {vouchers.length}</Text> : null}
 
                     {vouchers.length<=0 && <HeaderList/>}
                     <ScrollView style={{marginTop: 20, height: 500, width: '80%'}}>
@@ -543,7 +576,7 @@ const PayrollScreen = (props) => {
                 iconSource={iconSourceCustomModal}
                 setVisible={() => viewModalCustom(true)}
             />
-            <LoadingGlobal visible={modalLoading} text={"Cargando"}/>
+            <LoadingGlobal visible={modalLoading} text={"Obteniendo nóminas"}/>
         </>
     );
 };
@@ -602,6 +635,21 @@ const styles = StyleSheet.create({
       color: Colors.bluetitle,
       marginBottom: 5,
     },
+    contPicker:{
+        width:'100%',
+        borderRadius: 10,
+        overflow: "hidden",
+        marginBottom: 20,
+    },
+    title:{
+        fontSize:18, 
+        marginLeft:15, 
+        fontWeight:'300'
+    },
+    subtitle:{
+        marginTop:10,
+        color:'gray'
+    }
   });
 
 const mapState = (state) => {

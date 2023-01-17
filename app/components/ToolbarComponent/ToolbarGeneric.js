@@ -30,6 +30,7 @@ const ToolbarGeneric = (props) => {
 
   const getImageCompany = async() => {
     let image = await AsyncStorage.getItem('conciergeLogo');
+    console.log('image',image)
     setImageCompany(image);
   }
 
@@ -102,11 +103,20 @@ const ToolbarGeneric = (props) => {
             style={{ flex: 1}}
             onPress={() => props.goHome()}
           >
-            <Image
-              source={{uri: imgCompany}}
+            {imgCompany!=null ? (
+              <Image
+              source={{uri:  imgCompany}}
               resizeMode={"contain"}
               style={{ height: 80, width: 80 }}
             />
+            ) : (
+              <Image
+                source={require('../../../assets/img/new/header.png')}
+                resizeMode={"contain"}
+                style={{ height: 80, width: 80 }}
+              />
+
+            )}
           </TouchableOpacity>
           <TouchableOpacity
             style={{
