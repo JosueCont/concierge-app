@@ -14,6 +14,7 @@ const PickerSelect = (props) => {
         }}
         placeholder={{
           label: props.title,
+          value:'',
           color: Colors.secondary,
         }}
         style={pickerSelectStyles}

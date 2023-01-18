@@ -101,7 +101,6 @@ const PayrollScreen = (props) => {
     }, []);
 
     useEffect(()=>{
-        console.log(vouchers.length);
     }, [vouchers])
 
     const clickAction = () => {
@@ -156,7 +155,6 @@ const PayrollScreen = (props) => {
                 fr.readAsDataURL(blob);
                 fr.onload = async () => {
                     const fileUri = `${FileSystem.documentDirectory}/${name}`;
-                    console.log('fileUri', fileUri)
                     await FileSystem.writeAsStringAsync(fileUri, fr.result.split(',')[1], { encoding: FileSystem.EncodingType.Base64 });
                     await Sharing.shareAsync(fileUri);
                 };
@@ -168,7 +166,6 @@ const PayrollScreen = (props) => {
                 // link.click();
             })
             .catch((e) => {
-                console.log('Error xd', e.response)
                 let errorMessage = e.response?.data?.message || ""
                 if (errorMessage !== ""){
                     message.error(errorMessage)
@@ -235,7 +232,6 @@ const PayrollScreen = (props) => {
                 }
             }
         } catch (error) {
-            console.log(error, 143)
             setMessageCustomModal("Ocurrio un error, intente de nuevo.");
             setIconSourceCustomModal(2);
             setModalCustom(true);
