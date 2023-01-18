@@ -15,13 +15,13 @@ const commonConfig = {
     iosDisplayInForeground: true,
   },
   extra: {
-    production: true,
-    URL_KHONNECT: "https://khonnect.khor2.com/",
-    URL_KHONNECT_DEV: "https://api.khonnect.hiumanlab.com/",
+    production: false,
+    URL_KHONNECT: "https://khonnect.khor2.com",
+    URL_KHONNECT_DEV: "https://khonnect.khor2.com",//"https://api.khonnect.hiumanlab.com",
     URL_TENANT_VALIDATE:
     "https://iu.people-api.khorplus.com/setup/validate-tenant-code/",
     URL_TENANT_VALIDATE_DEV: 
-    "https://demo.api.people.hiumanlab.com/setup/validate-tenant-code/",
+    "https://nominaqa.api.people.hiumanlab.mx/setup/validate-tenant-code/",
     URL_PEOPLE: "people-api.khorplus.com",
     URL_PEOPLE_DEV: "api.people.hiumanlab.mx",
     PROTOCOL: "https://",

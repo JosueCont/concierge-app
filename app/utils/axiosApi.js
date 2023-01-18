@@ -29,15 +29,16 @@ let APIKit = axios.create(config);
 
 APIKit.interceptors.request.use(async function (conf) {
   conf.baseURL = await getUrlBaseTenant();
-
   try {
     let userData = await AsyncStorage.getItem("user");
     if (userData) {
       let token = (await JSON.parse(userData).user_id)
         ? JSON.parse(userData).user_id
         : "";
+
       if (token) conf.headers.Authorization = token;
     }
+    console.log(conf)
   } catch (e) {
     console.log(e);
   }
