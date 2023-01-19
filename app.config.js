@@ -15,7 +15,7 @@ const commonConfig = {
     iosDisplayInForeground: true,
   },
   extra: {
-    production: false,
+    production: true,
     URL_KHONNECT: "https://khonnect.khor2.com",
     URL_KHONNECT_DEV: "https://khonnect.khor2.com",//"https://api.khonnect.hiumanlab.com",
     URL_TENANT_VALIDATE:
@@ -37,7 +37,7 @@ const commonConfig = {
 const ios = {
   bundleIdentifier: "com.hiumanlab.staffconcierge",
   supportsTablet: false,
-  buildNumber: "8",
+  buildNumber: "9",
   infoPlist: {
     NSCameraUsageDescription:
       "Esta aplicación requiere el uso de la camara para escanear el QR.",
@@ -45,7 +45,7 @@ const ios = {
 };
 
 const android = {
-  versionCode: 8,
+  versionCode: 9,
   package: "com.hiumanlab.staffconcierge",
   useNextNotificationsApi: true,
   permissions: ["CAMERA_ROLL", "CAMERA"],
@@ -60,14 +60,14 @@ module.exports = () => {
     return {
       ...commonConfig,
       slug: "staffconcierge",
-      version: "1.0.4",
+      version: "1.0.5",
       ios: ios,
     };
   } else if (process.env.APP_ENV === "android") {
     return {
       ...commonConfig,
       slug: "staffconcierge",
-      version: "1.0.4",
+      version: "1.0.5",
       android: android,
     };
   } else if (process.env.APP_ENV === "expo") {
