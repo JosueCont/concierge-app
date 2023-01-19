@@ -14,7 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ToolbarGeneric = (props) => {
   const [photo, setPhoto] = useState(
-    require("../../../assets/img/profile-default.png")
+    require("../../../assets/img/profile-default.jpg")
   );
   const [ imgCompany, setImageCompany ] = useState('');
 
@@ -25,7 +25,7 @@ const ToolbarGeneric = (props) => {
         ? setPhoto({
             uri: props.user.userProfile.photo,
           })
-        : setPhoto(require("../../../assets/img/profile-default.png"));
+        : setPhoto(require("../../../assets/img/profile-default.jpg"));
   }, [props.user]);
 
   const getImageCompany = async() => {

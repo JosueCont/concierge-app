@@ -49,7 +49,7 @@ const MyAccountScreen = (props) => {
                 ? setPhoto({
                     uri: props.user.userProfile.photo,
                 })
-                : setPhoto(require("../../assets/img/profile-default.png"));
+                : setPhoto(require("../../assets/img/profile-default.jpg"));
             setName(props.user.userProfile.first_name);
             setFLastName(props.user.userProfile.flast_name);
             setMLastName(props.user.userProfile.mlast_name);
