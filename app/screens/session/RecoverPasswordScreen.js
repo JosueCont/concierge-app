@@ -45,7 +45,7 @@ const RecoverPasswordScreen = (props) => {
     let clientId = await AsyncStorage.getItem('clientId');
     axios
       .post(
-        production ? URL_KHONNECT : URL_KHONNECT_DEV+ "/password/reset/token/",
+        production ? URL_KHONNECT + "/password/reset/token/": URL_KHONNECT_DEV+ "/password/reset/token/",
         data,
         {
           headers: {

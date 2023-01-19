@@ -140,7 +140,7 @@ export let doLoginAction = (credential) => {
     try {
       let clientId = await AsyncStorage.getItem('clientId');
       const response = await axios.post(
-        production ? URL_KHONNECT : URL_KHONNECT_DEV + "/login/",
+        production ? URL_KHONNECT + "/login/": URL_KHONNECT_DEV + "/login/" ,
         credential,
         {
           headers: {
@@ -166,7 +166,7 @@ export let doLoginAction = (credential) => {
       return convertResponse;
     } catch (err) {
       dispatch({ type: LOGIN_ERROR_SERVER, payload: err.response });
-      return err.response.data;
+      return {error:err.response.data};
     }
   };
 };

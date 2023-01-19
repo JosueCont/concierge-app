@@ -208,22 +208,31 @@ const LoginScreen = (props) => {
         })
         .then((response) => {
           setLoading(false);
-
           wait(500).then(() => {
-            if (response.message === "incorrect password") {
+            if(typeof response?.error =='string'){
+              setMessageCustomModal("Existe un problema con el servidor, intenta más tarde");
+              setIconSourceCustomModal(2);
+              setModalCustomVisible(true);
+            }else if (response.error.message === "incorrect password") {
               setMessageCustomModal("El usuario y la contraseña no coinciden.");
               setIconSourceCustomModal(2);
               setModalCustomVisible(true);
             } else {
-             
+              if (!response.password_changed) {
+                props.navigation.navigate("ChangePasswordFirstTime");
+              } else {
                 console.log("entra HomeUsserScreen");
                 props.navigation.navigate("Home");
+              }
               
             }
           });
         })
         .catch((error) => {
           console.log(error, 118);
+          setMessageCustomModal("Existe un problema con el servidor, intenta más tarde");
+          setIconSourceCustomModal(2);
+          setModalCustomVisible(true);
         });
     }
   };

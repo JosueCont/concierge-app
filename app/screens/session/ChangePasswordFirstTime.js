@@ -43,7 +43,7 @@ const ChangePasswordFirstTime = (props) => {
     let clientId = await AsyncStorage.getItem('clientId');
     axios
       .post(
-        production ? URL_KHONNECT : URL_KHONNECT_DEV + "/password/change/direct/",
+        production ? URL_KHONNECT + "/password/change/direct/" : URL_KHONNECT_DEV + "/password/change/direct/",
         data,
         {
           headers: {
