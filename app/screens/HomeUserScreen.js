@@ -9,6 +9,8 @@ import LoadingGlobal from "../components/modal/LoadingGlobal";
 import { getProfile, logOutAction } from "../redux/userDuck";
 import { registerForPushNotificationsAsync } from "../utils/functions";
 import ModalNews from "../components/modal/ModalNews";
+import PostList from "../components/ComponentCards/PostList";
+import axios from "axios";
 
 const HomeUserScreen = (props) => {
   const [comunications, setComunications] = useState([]);
@@ -16,6 +18,7 @@ const HomeUserScreen = (props) => {
   const [modalNews, setModalNews] = useState(false);
   const [modalItem, setModalItem] = useState({});
   const [refresh, setRefresh] = useState(false);
+  const [posts, setPosts] = useState([]);
 
   const clickAction = () => {
     props.navigation.toggleDrawer();
@@ -51,8 +54,19 @@ const HomeUserScreen = (props) => {
 
   useEffect(() => {
     getComunication();
+    getPosts();
     setModalLoading(true);
   }, [props.user.userProfile]);
+
+  const getPosts = async() => {
+    try {
+      //cambiar por node de cada persona
+      const postList = await axios.get('https://iu.people-api.khorplus.com/intranet/post/?node=2&group=&status=1');
+      setPosts(postList.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   const getComunication = async (value) => {
     setRefresh(true);
@@ -132,7 +146,7 @@ const HomeUserScreen = (props) => {
   };
 
   return (
-    <View>
+    <View style={{flex:1}}>
       {modalNews && (
         <ModalNews
           visible={modalNews}
@@ -170,6 +184,11 @@ const HomeUserScreen = (props) => {
           modalNews={(value) => openModalNews(value)}
           refreshing={refresh}
         />
+        <PostList 
+          postList={posts} 
+          userId={props.user.userProfile.id}
+          onRefresh={(value) => getPosts(value)}
+          refresh={refresh}/>
       </View>
     </View>
   );

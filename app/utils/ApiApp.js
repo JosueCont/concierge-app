@@ -193,6 +193,13 @@ class ApiApp {
       "get",
     );
   };
+
+  static getPosts = (data) => {
+    return ApiApp.ApisType(
+      `/intranet/post/?node=${data}&group=&status=1`,
+      'get'
+    );
+  }
 }
 
 export default ApiApp;
