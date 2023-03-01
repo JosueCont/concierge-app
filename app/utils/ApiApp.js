@@ -199,6 +199,40 @@ class ApiApp {
       `/intranet/post/?node=${data}&group=&status=1`,
       'get'
     );
+  };
+
+  static getFolling = (id) => {
+    return ApiApp.ApisType(
+      `/intranet/follower/?node=2&khonnect_id=${id}`,
+      'get'
+    );
+  }
+
+  static getComments = (postId) => {
+    return ApiApp.ApisType(
+      `/intranet/comment/?post=${postId}`,
+      'get'
+    );
+  };
+
+  static followAction = (data) => {
+    return ApiApp.ApisType(
+      `/intranet/follower/update_follower/`,
+      'post',
+      data
+    );
+  };
+
+  static updateReaction = (data) => {
+    return ApiApp.ApisType(
+      '/intranet/reaction/add_reaction/',
+      'post',
+      data
+    );
+  };
+
+  static deleteReaction = (data) => {
+    return ApiApp.ApisType(`/intranet/reaction/${data}/`,'delete');
   }
 }
 

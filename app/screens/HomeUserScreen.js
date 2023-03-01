@@ -11,6 +11,7 @@ import { registerForPushNotificationsAsync } from "../utils/functions";
 import ModalNews from "../components/modal/ModalNews";
 import PostList from "../components/ComponentCards/PostList";
 import axios from "axios";
+import {Tab, Tabs} from 'native-base'
 
 const HomeUserScreen = (props) => {
   const [comunications, setComunications] = useState([]);
@@ -19,6 +20,8 @@ const HomeUserScreen = (props) => {
   const [modalItem, setModalItem] = useState({});
   const [refresh, setRefresh] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [updateReaction, setUpdateReaction] = useState(false)
 
   const clickAction = () => {
     props.navigation.toggleDrawer();
@@ -34,6 +37,7 @@ const HomeUserScreen = (props) => {
 
   useEffect(() => {
     props.getProfile(props.user).then(async (response) => {
+      console.log('profile',response)
       const device_id = await registerForPushNotificationsAsync();
       if (response.id) {
         let data = {
@@ -54,15 +58,45 @@ const HomeUserScreen = (props) => {
 
   useEffect(() => {
     getComunication();
-    getPosts();
     setModalLoading(true);
   }, [props.user.userProfile]);
 
+  useEffect(() => {
+    getPosts();
+    getFollowers();
+  }, [props.user.userProfile, updateReaction]);
+
+  const getFollowers = async() => {
+    try {
+      const followers = await ApiApp.getFolling(props.user?.userProfile?.khonnect_id);
+      setFollowing(followers?.data?.following)
+      console.log('followers',followers.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  
+
   const getPosts = async() => {
     try {
-      //cambiar por node de cada persona
-      const postList = await axios.get('https://iu.people-api.khorplus.com/intranet/post/?node=2&group=&status=1');
+      const postList = await ApiApp.getPosts(props.user?.userProfile?.node);
       setPosts(postList.data)
+      console.log('postList',postList.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const changeReaction = async(data) => {
+    try {
+      setUpdateReaction(() =>!updateReaction);
+      if(data?.post_id){
+         const reactionTy = await ApiApp.updateReaction(data);
+      }else{
+        const deleteReaction = await ApiApp.deleteReaction(data);
+        console.log('delete reaction',deleteReaction.data)
+      }
+      
     } catch (e) {
       console.log(e)
     }
@@ -174,21 +208,37 @@ const HomeUserScreen = (props) => {
           goHome={goHome}
         />
 
-        <ComunicationCard
-          cards={comunications}
-          props={props}
-          headerList={headerList}
-          refresh={(value) => {
-            getComunication(value), setRefresh(true);
-          }}
-          modalNews={(value) => openModalNews(value)}
-          refreshing={refresh}
-        />
-        <PostList 
-          postList={posts} 
-          userId={props.user.userProfile.id}
-          onRefresh={(value) => getPosts(value)}
-          refresh={refresh}/>
+        <Tabs  locked>
+          <Tab 
+            heading='Noticias' 
+            tabStyle={{ backgroundColor: Colors.secondary, color:'white' }} 
+            activeTabStyle={{backgroundColor: Colors.secondary}}>
+            <ComunicationCard
+              cards={comunications}
+              props={props}
+              headerList={headerList}
+              refresh={(value) => {
+                getComunication(value), setRefresh(true);
+              }}
+              modalNews={(value) => openModalNews(value)}
+              refreshing={refresh}
+            />
+
+          </Tab>
+          <Tab 
+            heading='Khor connect' 
+            tabStyle={{ backgroundColor: Colors.secondary }} 
+            activeTabStyle={{backgroundColor: Colors.secondary}}>
+            <PostList 
+              postList={posts} 
+              userId={props.user?.userProfile?.khonnect_id}
+              onRefresh={(value) => getPosts(value)}
+              refresh={refresh}
+              following={following}
+              updateReaction={(data) => changeReaction(data)}/>
+          </Tab>
+        </Tabs>
+
       </View>
     </View>
   );

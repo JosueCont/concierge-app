@@ -1,14 +1,36 @@
-import React,{useState,useRef, useEffect} from "react";
-import {View,Text, Image, Modal, FlatList, StyleSheet, TouchableOpacity, Dimensions} from 'react-native';
+import React,{useState, useEffect} from "react";
+import {
+    View,Text, Image, Modal, FlatList, StyleSheet, 
+    TouchableOpacity, Dimensions } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../../utils/colors";
 import HTML from "react-native-render-html";
 import moment from "moment";
+import ApiApp from "../../utils/ApiApp";
+import LoadingGlobal from "./LoadingGlobal";
 
 const {width} = Dimensions.get('screen');
 const {height} = Dimensions.get('screen')
 
-const ModalComments = ({visible,setVisible, comments, reactions}) => {
+const ModalComments = ({visible,setVisible,reactions,postId}) => {
+    const [comments, setComments] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if(visible) getComments();
+    },[postId])
+
+    const getComments = async() => {
+        try {
+            setLoading(true)
+            const comments = await ApiApp.getComments(postId);
+            setLoading(false)
+            setComments(comments.data.comments)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     return(
         <Modal 
             animationType={'slide'}
@@ -27,43 +49,50 @@ const ModalComments = ({visible,setVisible, comments, reactions}) => {
                         <View style={styles.lineModal}/>
                         <Text style={styles.title}>Comentarios</Text>
                         <View  style={styles.separator}/>
-                        {reactions > 0 ? (
-                            <Text style={styles.lblCounter}>Le gustó a {reactions} personas </Text>
-
-                        ):(
-                            <Text style={styles.lblCounter}>Nadie ha reaccionado aun</Text>
-                        )}
-                        <View  style={styles.separator}/>
-                        {comments.length > 0 ? (
-                            <FlatList 
-                                data={comments.reverse()}
-                                contentContainerStyle={{ paddingBottom:50,}}
-                                keyExtractor={(item) => item.comment.id.toString()}
-                                renderItem={({item}) => (
-                                    <View style={styles.row}>
-                                        <View style={styles.contImg}>
-                                            {item.comment.owner.intranet_photo_thumbnail_small != null ? (
-                                                <Image 
-                                                    style={styles.img} 
-                                                    source={{uri:item.comment.owner.intranet_photo_thumbnail_small }}/>
-                                            ):(
-                                                <Image 
-                                                    style={styles.img} 
-                                                    source={require("../../../assets/img/profile-default.jpg")}/> 
-                                            )}
-                                        </View>
-                                        <View style={{flexDirection:'column'}}>
-                                           <Text>{item.comment.owner.first_name} {item.comment.owner.flast_name} {item.comment.owner.mlast_name}</Text>
-                                           <View style={styles.conten}>
-                                              <HTML source={{ html: item.comment.content }}/>  
-                                           </View>
-                                           <Text style={styles.time}>{moment(new Date(item.comment.timestamp)).format("DD MMMM YYYY hh:mm a")}</Text>
-                                        </View>
-                                    </View>
+                        {loading !=true? (
+                            <>
+                                {reactions > 0 ? (
+                                    <Text style={styles.lblCounter}>Le gustó a {reactions} personas </Text>
+                                ):(
+                                    <Text style={styles.lblCounter}>Nadie ha reaccionado aun</Text>
                                 )}
-                            />
-
-                        ): <Text style={styles.banner}>No hay comentarios por mostrar</Text>}
+                                <View  style={styles.separator}/>
+                                {comments.length > 0 ? (
+                                    <FlatList 
+                                        data={comments.reverse()}
+                                        contentContainerStyle={{ paddingBottom:50,}}
+                                        keyExtractor={(item) => item.comment.id.toString()}
+                                        renderItem={({item}) => (
+                                            <View style={styles.row}>
+                                                <View style={styles.contImg}>
+                                                    {item.comment.owner.intranet_photo_thumbnail_small != null ? (
+                                                        <Image 
+                                                            style={styles.img} 
+                                                            source={{uri:item.comment.owner.intranet_photo_thumbnail_small }}/>
+                                                    ):(
+                                                        <Image 
+                                                            style={styles.img} 
+                                                            source={require("../../../assets/img/profile-default.jpg")}/> 
+                                                    )}
+                                                </View>
+                                                <View style={{flexDirection:'column'}}>
+                                                   <Text>{item.comment.owner.first_name} {item.comment.owner.flast_name} {item.comment.owner.mlast_name}</Text>
+                                                   <View style={styles.conten}>
+                                                      <HTML source={{ html: item.comment.content }}/>  
+                                                   </View>
+                                                   <Text style={styles.time}>{moment(new Date(item.comment.timestamp)).format("DD MMMM YYYY hh:mm a")}</Text>
+                                                </View>
+                                            </View>
+                                        )}
+                                    />
+                                                    
+                                ): <Text style={styles.banner}>No hay comentarios por mostrar</Text>}
+                            </>
+                        ): (
+                            <LoadingGlobal visible={loading} text={"Cargando"} />
+                            
+                        )}
+                        
                     </View>
                 </View>
         </Modal>
@@ -148,6 +177,11 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         marginTop:15,
         color:'gray'
+    },
+    loader:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
     }
 })
 

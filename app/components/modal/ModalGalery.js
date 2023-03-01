@@ -10,7 +10,7 @@ const ModalGalery = ({visible, setVisible, galery}) => {
     const [currentIndex,setCurrentIndex]=useState(0);
 
     useEffect(() => {
-        if(!galery || !galery.length) return null;
+        
     },[])
 
     const getIndicators = (item) => {
