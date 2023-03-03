@@ -178,6 +178,8 @@ const LoginScreen = (props) => {
         await AsyncStorage.setItem("clientId", clientId?.data.client_khonnect_id);
         if(clientId?.data.concierge_logo != null)
         await AsyncStorage.setItem('conciergeLogo', clientId?.data.concierge_logo);
+        if(clientId?.data.intranet_enabled != null) 
+          await AsyncStorage.setItem('intranet',clientId?.data.intranet_enabled.toString());
       }
     } catch (e) {
       console.log('error cliente_id', e)

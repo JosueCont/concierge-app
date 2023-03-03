@@ -10,8 +10,8 @@ import { getProfile, logOutAction } from "../redux/userDuck";
 import { registerForPushNotificationsAsync } from "../utils/functions";
 import ModalNews from "../components/modal/ModalNews";
 import PostList from "../components/ComponentCards/PostList";
-import axios from "axios";
 import {Tab, Tabs} from 'native-base'
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeUserScreen = (props) => {
   const [comunications, setComunications] = useState([]);
@@ -21,7 +21,8 @@ const HomeUserScreen = (props) => {
   const [refresh, setRefresh] = useState(false);
   const [posts, setPosts] = useState([]);
   const [following, setFollowing] = useState([]);
-  const [updateReaction, setUpdateReaction] = useState(false)
+  const [updateReaction, setUpdateReaction] = useState(false);
+  const [intranet, setIntranet] = useState(null);
 
   const clickAction = () => {
     props.navigation.toggleDrawer();
@@ -38,6 +39,7 @@ const HomeUserScreen = (props) => {
   useEffect(() => {
     props.getProfile(props.user).then(async (response) => {
       console.log('profile',response)
+      getPermisionIntranet()
       const device_id = await registerForPushNotificationsAsync();
       if (response.id) {
         let data = {
@@ -66,11 +68,15 @@ const HomeUserScreen = (props) => {
     getFollowers();
   }, [props.user.userProfile, updateReaction]);
 
+  const getPermisionIntranet = async() => {
+    const permissionIntranet = await AsyncStorage.getItem('intranet');
+    setIntranet(Boolean(permissionIntranet));
+  }
+
   const getFollowers = async() => {
     try {
       const followers = await ApiApp.getFolling(props.user?.userProfile?.khonnect_id);
       setFollowing(followers?.data?.following)
-      console.log('followers',followers.data)
     } catch (e) {
       console.log(e)
     }
@@ -81,7 +87,6 @@ const HomeUserScreen = (props) => {
     try {
       const postList = await ApiApp.getPosts(props.user?.userProfile?.node);
       setPosts(postList.data)
-      console.log('postList',postList.data)
     } catch (e) {
       console.log(e)
     }
@@ -94,7 +99,6 @@ const HomeUserScreen = (props) => {
          const reactionTy = await ApiApp.updateReaction(data);
       }else{
         const deleteReaction = await ApiApp.deleteReaction(data);
-        console.log('delete reaction',deleteReaction.data)
       }
       
     } catch (e) {
@@ -208,36 +212,50 @@ const HomeUserScreen = (props) => {
           goHome={goHome}
         />
 
-        <Tabs  locked>
-          <Tab 
-            heading='Noticias' 
-            tabStyle={{ backgroundColor: Colors.secondary, color:'white' }} 
-            activeTabStyle={{backgroundColor: Colors.secondary}}>
-            <ComunicationCard
-              cards={comunications}
-              props={props}
-              headerList={headerList}
-              refresh={(value) => {
-                getComunication(value), setRefresh(true);
-              }}
-              modalNews={(value) => openModalNews(value)}
-              refreshing={refresh}
-            />
+        {intranet ? (
+          <Tabs locked>
+            <Tab 
+              heading='Noticias' 
+              tabStyle={{ backgroundColor: Colors.secondary, color:'white' }} 
+              activeTabStyle={{backgroundColor: Colors.secondary}}>
+              <ComunicationCard
+                cards={comunications}
+                props={props}
+                headerList={headerList}
+                refresh={(value) => {
+                  getComunication(value), setRefresh(true);
+                }}
+                modalNews={(value) => openModalNews(value)}
+                refreshing={refresh}
+              />
 
-          </Tab>
-          <Tab 
-            heading='Khor connect' 
-            tabStyle={{ backgroundColor: Colors.secondary }} 
-            activeTabStyle={{backgroundColor: Colors.secondary}}>
-            <PostList 
-              postList={posts} 
-              userId={props.user?.userProfile?.khonnect_id}
-              onRefresh={(value) => getPosts(value)}
-              refresh={refresh}
-              following={following}
-              updateReaction={(data) => changeReaction(data)}/>
-          </Tab>
-        </Tabs>
+            </Tab>
+            <Tab 
+              heading='Khor connect' 
+              tabStyle={{ backgroundColor: Colors.secondary }} 
+              activeTabStyle={{backgroundColor: Colors.secondary}}>
+              <PostList 
+                postList={posts} 
+                userId={props.user?.userProfile?.khonnect_id}
+                onRefresh={(value) => getPosts(value)}
+                refresh={refresh}
+                following={following}
+                updateReaction={(data) => changeReaction(data)}/>
+            </Tab>
+          </Tabs>
+        ):(
+          <ComunicationCard
+            cards={comunications}
+            props={props}
+            headerList={headerList}
+            refresh={(value) => {
+              getComunication(value), setRefresh(true);
+            }}
+            modalNews={(value) => openModalNews(value)}
+            refreshing={refresh}
+          />
+        )}
+
 
       </View>
     </View>

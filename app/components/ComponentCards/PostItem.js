@@ -1,18 +1,16 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { 
-    View, Text, StyleSheet, FlatList, Image, TouchableOpacity, 
+    View, Text, StyleSheet, Image, TouchableOpacity, 
     Dimensions, PanResponder, Animated } from "react-native";
 import { Colors } from "../../utils/colors";
 import HTML from "react-native-render-html";
-import { Ionicons, Entypo } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 //import Video from 'react-native-video';
 import { Video } from "expo-av";
-
-import ModalGalery from "../modal/ModalGalery";
-import ModalComments from "../modal/ModalComments";
+import YoutubeIframe from "react-native-youtube-iframe";
 import moment from "moment"; 
-import axios from "axios";
 import ApiApp from "../../utils/ApiApp";
+import { Button } from "native-base";
 
 const reactions = [
     {
@@ -63,6 +61,7 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
     const zoomIconAnim = new Animated.Value(0);
     const [isFollow, setFollow] = useState(false);
     const [myReaction, setMyReaction] = useState(null);
+    const [playing, setPlaying] = useState(false);
 
     useEffect(() => {
         getFollowers();
@@ -73,13 +72,14 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
         setReactions();
     },[])
 
+    const playerRef = useRef();
+    
     const setReactions = () => {
         let val = item.reactions.filter(reaction =>reaction.owner.khonnect_id === userId);
         setMyReaction(val);
         if(val[0]?.id) {
             setCurrentReaction(val[0]?.reaction_type-1);
         }
-        console.log('myreact',val)
     }
 
     const getFollowers = () => {
@@ -106,14 +106,12 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
           onPanResponderRelease: (e, gestureState) => {
             const currentMovement = Math.floor(gestureState.dx/30);
             if(currentMovement >= 0 && currentMovement < reactions.length){
-                console.log('current',currentMovement)
                setCurrentReaction(currentMovement)
                 if(currentMovement != currentReaction) getAnimations(reactions[currentMovement]);
             }else{
                 setCurrentReaction(null)
             }
             if(currentMovement >= 0 && currentMovement > reactions.length) setCurrentReaction(6)
-            console.log('evento',currentMovement)
             closeDrawer();
             sendReaction(currentMovement);
           },
@@ -139,7 +137,6 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
                 };
                updateReaction(dataSend);
             }else{
-                console.log('delete',currentMovement,myReaction)
                 updateReaction(myReaction[0]?.id)
             }
             
@@ -186,7 +183,6 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
     }
 
     const renderImages = (images,videos) => {
-        //console.log('images',images,videos)
             return (
                 images.length > 0 ? (
                  images.map((image,index) => {
@@ -198,26 +194,58 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
                     )
                 })
             ):(
-                videos.map(video => {
-                    console.log(video)
-                    return(
-                        <View style={{marginBottom:10}}>
+                videos.map((video,index) => {
+                   return video.video != null ? (
+                        
+                        <View style={{marginBottom:10}} key={index}>
                            <Video 
-                            source={require("../../../assets/video/LoginConcierge.mp4")}
+                            source={{uri:video.video}}
                             rate={1.0}
                             volume={1.0}
                             isMuted={true}
-                            resizeMode="cover"
-                            shouldPlay={true}
-                            isLooping={false}
+                            resizeMode="contain"
+                            shouldPlay={false}
+                            isLooping={true}
+                            useNativeControls
                             style={{
-                              width:300,height:250
+                              width:width/1.1,height:250
                             }}/>
                         </View>
+
+                    ):(
+                        <View key={index}>
+                            <YoutubeIframe 
+                                ref={playerRef}
+                                height={250}
+                                width={width/1.1}
+                                videoId={getVideoUrl(video.video_url)}
+                                play={playing}
+                                onChangeState={onchangedState}
+                                volume={70}
+                                allowWebViewZoom={true}
+                            />
+                        </View>
+            
                     )
                 })
             ))
     };
+
+    const getVideoUrl = (video) => {
+        let getId;
+        if(video.includes('shorts')){
+            getId = video.split('/').reverse();
+        }else{
+            getId = video.split('=').reverse();
+        }
+        return getId[0];
+    }
+
+    const onchangedState = useCallback(state => {
+        if(state === 'ended') setPlaying(false)
+        if(state === 'playing') setPlaying(true)
+        if(state === 'paused') setPlaying(false)
+    },[])
 
     const getReactions = (post) => {
         let myReaction = post.reactions.filter(reaction =>reaction.owner.khonnect_id === userId);
@@ -308,7 +336,6 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
                 action
             };
             const update_follow = await ApiApp.followAction(dataSend);
-            console.log('update_',update_follow.data);
             setFollow(!isFollow)
             
         } catch (e) {
@@ -362,7 +389,7 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
             
             <TouchableOpacity 
                 style={{alignItems: 'center', }} 
-                onPress={() => changeInfoModal(item.images)}>
+                onPress={() => item.images.length > 0 ?changeInfoModal(item.images) : console.log('pressed')}>
                 {renderImages(item.images,item.video)}
             </TouchableOpacity>          
             
