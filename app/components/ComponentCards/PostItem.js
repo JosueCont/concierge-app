@@ -202,7 +202,7 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
                             source={{uri:video.video}}
                             rate={1.0}
                             volume={1.0}
-                            isMuted={true}
+                            isMuted={false}
                             resizeMode="contain"
                             shouldPlay={false}
                             isLooping={true}
@@ -406,7 +406,7 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
                             {getIcons()}
                         </Animated.View>
                     </View>
-                    <Text>Desliza el dedo por las reaaciones</Text>
+                    <Text>Desliza el dedo por las reacciones</Text>
                     </>
                 ): (
                     <>
