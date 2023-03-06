@@ -47,7 +47,6 @@ const ios = {
 const android = {
   versionCode: 9,
   package: "com.hiumanlab.staffconcierge",
-  useNextNotificationsApi: true,
   permissions: ["CAMERA_ROLL", "CAMERA"],
   adaptiveIcon: {
     foregroundImage: "./assets/adaptive-icon.png",
