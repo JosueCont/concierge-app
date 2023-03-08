@@ -5,7 +5,6 @@ import {
 import { Colors } from "../../utils/colors";
 import HTML from "react-native-render-html";
 import { Ionicons } from "@expo/vector-icons";
-//import Video from 'react-native-video';
 import { Video } from "expo-av";
 import YoutubeIframe from "react-native-youtube-iframe";
 import moment from "moment"; 
@@ -70,7 +69,7 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
 
     useEffect(() =>{
         setReactions();
-    },[])
+    },[item])
 
     const playerRef = useRef();
     
@@ -185,14 +184,28 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
     const renderImages = (images,videos) => {
             return (
                 images.length > 0 ? (
-                 images.map((image,index) => {
-                    return(
-                        <View key={index}>
-                            <Image source={{uri: image.image}} style={{width:250,height:250, resizeMode:'contain'}}/>
-                        </View>
-                        
+                    images.length >1 ? (
+                        <>
+                            {images.map((image,index) => {
+                            return(
+                                <View key={index}>
+                                    <Image source={{uri: image.image}} style={styles.imgGalery}/>
+                                </View>
+                                
+                            )
+                        }).slice(0,2)}
+                        </>
+
+                    ):(
+                        images.map((image,index) => {
+                            return(
+                                <View key={index} >
+                                    <Image source={{uri: image.image}} style={styles.imgItem}/>
+                                </View>
+                                
+                            )
+                        })                    
                     )
-                })
             ):(
                 videos.map((video,index) => {
                    return video.video != null ? (
@@ -208,7 +221,7 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
                             isLooping={true}
                             useNativeControls
                             style={{
-                              width:width/1.1,height:250
+                              width:width/1.1,height:250,marginLeft:10
                             }}/>
                         </View>
 
@@ -388,10 +401,13 @@ const PostItem = ({item,index, userId, changeInfoModal, showComments,following,u
             </View>
             
             <TouchableOpacity 
-                style={{alignItems: 'center', }} 
+                style={styles.btnImageGalery} 
                 onPress={() => item.images.length > 0 ?changeInfoModal(item.images) : console.log('pressed')}>
-                {renderImages(item.images,item.video)}
+                    <>
+                        {renderImages(item.images,item.video)}
+                    </>
             </TouchableOpacity>          
+            {item.images.length > 2 ? <Text style={styles.bannerImages}>{item.images.length-2} imagenes más por mostrar</Text> : null}
             
             <View  style={styles.separator}/>
             <View style={{marginLeft:17,marginVertical:20, paddingRight:10, }}>
@@ -588,6 +604,26 @@ const styles = StyleSheet.create({
     imgEmoji:{
         width:15, 
         height:15, 
+        resizeMode:'contain',
+    },
+    btnImageGalery:{
+        alignItems: 'center',  
+        flexDirection:'row',
+        marginBottom: 5,
+    },
+    bannerImages:{
+        alignSelf:'center',
+        color:'gray',
+        marginBottom:5
+    },
+    imgGalery:{
+        width:width/2.2,
+        height:200, 
+        resizeMode:'contain',
+    },
+    imgItem:{
+        height:250,
+        width:width, 
         resizeMode:'contain',
     }
 });

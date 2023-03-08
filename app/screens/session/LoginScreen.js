@@ -215,11 +215,11 @@ const LoginScreen = (props) => {
               setMessageCustomModal("Existe un problema con el servidor, intenta más tarde");
               setIconSourceCustomModal(2);
               setModalCustomVisible(true);
-            }else if (response.error.message === "incorrect password") {
+            }else if (response?.error?.message === "incorrect password") {
               setMessageCustomModal("El usuario y la contraseña no coinciden.");
               setIconSourceCustomModal(2);
               setModalCustomVisible(true);
-            } else {
+            } else if(response?.user_id) {
               console.log("entra HomeUsserScreen");
               props.navigation.navigate("Home");
               // if (!response.password_changed) {
