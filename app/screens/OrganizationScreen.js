@@ -23,19 +23,22 @@ const OrganizationScreen = ({navigation, user}) => {
     const [company] = useState(user.userProfile.node_user);
 
     useEffect(() => {
-        APIKit.get(`/business/node-information/?node=${node}`)
-            .then((res) => {
-                let data = res.data
-                setAddress(data.address);
-                setEmail(data.contact_email);
-                setPhone(data.contact_phone);
-                setAboutUs(data.about_us);
-                setPolicies(data.policies);
-                setBusinessRules(data.business_rules);
-            })
-            .catch((err) => {
-            });
+        getInformation();
     }, []);
+
+    const getInformation = async() => {
+        try {
+            const dataInfo = await APIKit.get(`/business/node-information/?node=${node}`);
+            setAddress(dataInfo.data.address);
+            setEmail(dataInfo.data.contact_email);
+            setPhone(dataInfo.data.contact_phone);
+            setAboutUs(dataInfo.data.about_us);
+            setPolicies(dataInfo.data.policies);
+            setBusinessRules(dataInfo.data.business_rules);
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     const clickAction = () => {
         navigation.navigate("Main");

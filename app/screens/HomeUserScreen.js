@@ -12,6 +12,7 @@ import ModalNews from "../components/modal/ModalNews";
 import PostList from "../components/ComponentCards/PostList";
 import {Tab, Tabs} from 'native-base'
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { NavigationEvents,withNavigationFocus } from 'react-navigation';
 
 const HomeUserScreen = (props) => {
   const [comunications, setComunications] = useState([]);
@@ -33,7 +34,7 @@ const HomeUserScreen = (props) => {
   };
 
   const clickProfile = () => {
-    props.navigation.navigate("ProfileScreen");
+    props.navigation.navigate("ProfileScreen",{ returnToRoute: props.navigation.state });
   };
 
   useEffect(() => {
@@ -204,6 +205,12 @@ const HomeUserScreen = (props) => {
         />
       )}
 
+        <NavigationEvents
+          onWillFocus={payload => console.log('will focus',payload)}
+          onDidFocus={payload => console.log(payload,'<- this has your new params')} 
+          onWillBlur={payload => console.log('will blur',payload)}
+          onDidBlur={payload => console.log('did blur',payload)}
+        />
       <View
         style={{
           height: "100%",

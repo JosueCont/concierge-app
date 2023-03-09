@@ -25,6 +25,7 @@ import ApiApp from "../utils/ApiApp";
 import CloseSession from "../components/modal/CloseSession";
 import {Thumbnail} from "native-base";
 import ModalDeleteDataRequest from "../components/modal/DeleteDataRequest";
+import { NavigationActions } from "react-navigation";
 
 const windowHeight = Dimensions.get("window").height;
 const statusHeight = StatusBar.currentHeight;
@@ -67,8 +68,12 @@ const MyAccountScreen = (props) => {
         setModalDelete(!modalDelete) 
     }
 
-    const clickAction = () => {
-        props.navigation.goBack(null);
+    const clickAction = (route) => {
+        const { routeName, key } = props.navigation.getParam('returnToRoute');
+        console.log('oressed',routeName,key)
+        const backAction = NavigationActions.back(key);
+          props.navigation.dispatch(backAction);
+        //props.navigation.goBack(null);
     };
 
     const changeAvatar = async () => {

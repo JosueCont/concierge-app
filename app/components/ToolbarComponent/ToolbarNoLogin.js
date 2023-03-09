@@ -2,6 +2,8 @@ import React from "react";
 import { Image, Platform, Text, TouchableOpacity, View } from "react-native";
 import { Colors } from "../../utils/colors";
 import { Ionicons, Entypo } from "@expo/vector-icons";
+import { withNavigation } from 'react-navigation';
+
 const ToolbarGeneric = (props) => {
   const typeToolbar = (type) => {
     switch (type) {
@@ -122,4 +124,4 @@ const ToolbarGeneric = (props) => {
     </View>
   );
 };
-export default ToolbarGeneric;
+export default withNavigation(ToolbarGeneric);
