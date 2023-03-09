@@ -9,9 +9,6 @@ const {height} = Dimensions.get('screen')
 const ModalGalery = ({visible, setVisible, galery}) => {
     const [currentIndex,setCurrentIndex]=useState(0);
 
-    useEffect(() => {
-        
-    },[])
 
     const getIndicators = (item) => {
         if(!item || typeof item !=='number') return null;

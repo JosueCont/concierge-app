@@ -37,7 +37,22 @@ const HomeUserScreen = (props) => {
   };
 
   useEffect(() => {
-    props.getProfile(props.user).then(async (response) => {
+    getProfileFunction()
+  }, []);
+
+  useEffect(() => {
+    getComunication();
+    setModalLoading(true);
+  }, [props.user.userProfile]);
+
+  useEffect(() => {
+    getPosts();
+    getFollowers();
+  }, [props.user.userProfile, updateReaction]);
+
+  const getProfileFunction = async() =>{
+    let response = await props.getProfile(props.user)
+    try{
       console.log('profile',response)
       getPermisionIntranet()
       const device_id = await registerForPushNotificationsAsync();
@@ -55,18 +70,14 @@ const HomeUserScreen = (props) => {
           props.logOutAction();
         }, 1000);
       }
-    });
-  }, []);
-
-  useEffect(() => {
-    getComunication();
-    setModalLoading(true);
-  }, [props.user.userProfile]);
-
-  useEffect(() => {
-    getPosts();
-    getFollowers();
-  }, [props.user.userProfile, updateReaction]);
+    }catch(e){
+      console.log(e)
+      setTimeout(() => {
+        setModalLoading(false);
+        props.logOutAction();
+      }, 1000);
+    }
+  }
 
   const getPermisionIntranet = async() => {
     const permissionIntranet = await AsyncStorage.getItem('intranet');
